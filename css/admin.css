@@ -25,7 +25,7 @@ a:focus {
 }
 
 #wrapper #content-wrapper {
-  background-color: #fafdfb;
+  background-color: #2e8517;
   width: 100%;
   overflow-x: hidden
 }
@@ -597,7 +597,7 @@ a:focus {
 }
 
 .bg-navbar {
-  background-color: #6777ef
+  background-color: #2e8517
 }
 
 .sidebar {
