@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     title: 'Login Successful!',
                     icon: 'success'
                 }).then(() => {
-                    window.location.href = 'dashboard.php';
+                    window.location.href = 'index.html';
                 });
             </script>";
         } elseif ($_SESSION['message'] == "error") {
