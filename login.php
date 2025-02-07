@@ -1,34 +1,5 @@
-<?php
-session_start(); // Start session to store messages
-
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "hrmoleave";
-
-$check = mysqli_connect($servername, $username, $password, $dbname);
-if (!$check) {
-    die("Connection Failed: " . mysqli_connect_error());
-}
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = mysqli_real_escape_string($check, $_POST['username']);
-    $password = mysqli_real_escape_string($check, $_POST['password']);
-
-    $data = mysqli_query($check, "SELECT * FROM login WHERE username='$username' AND password='$password'");
-
-    if (mysqli_num_rows($data) == 1) {
-        $_SESSION['message'] = "success";
-        $_SESSION['username'] = $username; // Store username in session
-        $_SESSION['auth_key'] = bin2hex(random_bytes(32)); // Generate secure token
-        header("Location: login.php"); // Redirect to prevent form resubmission
-        exit();
-    } else {
-        $_SESSION['message'] = "error";
-        header("Location: login.php");
-        exit();
-    }
-}
+<?php 
+include "db_connect.php"; // Include database connection
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                          <h2>Hello!</h2>
                          <p>Welcome to the Leave Tracking System.</p>
                     </div>
-                    <form action="" method="POST">
+                    <form action="authenticate.php" method="POST">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Username" name="username" required>
                         </div>
@@ -78,31 +49,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       </div>
     </div>
 
+    <!-- SweetAlert Library -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    <?php
-    if (isset($_SESSION['message'])) {
-        if ($_SESSION['message'] == "success") {
-            echo "<script>
-                Swal.fire({
-                    title: 'Login Successful!',
-                    icon: 'success'
-                }).then(() => {
-                    window.location.href = 'index.php';
-                });
-            </script>";
-        } elseif ($_SESSION['message'] == "error") {
-            echo "<script>
-                Swal.fire({
-                    title: 'Wrong Credentials',
-                    icon: 'error',
-                    confirmButtonText: 'Try Again'
-                });
-            </script>";
-        }
+    <!-- SweetAlert Logic -->
+    <?php if (isset($_SESSION['message'])): ?>
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                <?php if ($_SESSION['message'] == "success"): ?>
+                    Swal.fire({
+                        title: 'Login Successful!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = 'index.php'; // Redirect to dashboard
+                    });
+                <?php elseif ($_SESSION['message'] == "error"): ?>
+                    Swal.fire({
+                        title: 'Wrong Credentials',
+                        icon: 'error',
+                        confirmButtonText: 'Try Again'
+                    });
+                <?php endif; ?>
+            });
+        </script>
+    <?php 
         unset($_SESSION['message']); // Clear session message after showing alert
-    }
-    ?>
+    endif; ?>
+
+
 
 </body>
 </html>
