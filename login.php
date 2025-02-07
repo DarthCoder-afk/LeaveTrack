@@ -19,6 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (mysqli_num_rows($data) == 1) {
         $_SESSION['message'] = "success";
+        $_SESSION['username'] = $username; // Store username in session
+        $_SESSION['auth_key'] = bin2hex(random_bytes(32)); // Generate secure token
         header("Location: login.php"); // Redirect to prevent form resubmission
         exit();
     } else {
@@ -86,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     title: 'Login Successful!',
                     icon: 'success'
                 }).then(() => {
-                    window.location.href = 'index.html';
+                    window.location.href = 'index.php';
                 });
             </script>";
         } elseif ($_SESSION['message'] == "error") {

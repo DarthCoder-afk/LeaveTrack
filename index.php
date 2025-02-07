@@ -1,3 +1,10 @@
+<?php
+include 'auth.php'; // Ensure authentication
+
+//echo "Welcome, " . $_SESSION['username'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,13 +49,9 @@
         </a>
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Bootstrap UI</h6>
-            <a class="collapse-item" href="alerts.html">Alerts</a>
-            <a class="collapse-item" href="buttons.html">Buttons</a>
-            <a class="collapse-item" href="dropdowns.html">Dropdowns</a>
-            <a class="collapse-item" href="modals.html">Modals</a>
-            <a class="collapse-item" href="popovers.html">Popovers</a>
-            <a class="collapse-item" href="progress-bar.html">Progress Bars</a>
+            <h6 class="collapse-header">View</h6>
+            <a class="collapse-item" href="#">Applications</a>
+            <a class="collapse-item" href="#">Calendar</a>
           </div>
         </div>
       </li>
@@ -61,59 +64,24 @@
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="form_basics.html">Form Basics</a>
-            <a class="collapse-item" href="form_advanceds.html">Form Advanceds</a>
+            <a class="collapse-item" href="#">Leave Form</a>
+            <a class="collapse-item" href="#">Travel Form</a>
           </div>
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTable" aria-expanded="true"
-          aria-controls="collapseTable">
-          <i class="fas fa-fw fa-table"></i>
-          <span>Tables</span>
+        <a class="nav-link" href="#">
+          <i class="fas fa-cog"></i>
+          <span>Account Settings</span>
         </a>
-        <div id="collapseTable" class="collapse" aria-labelledby="headingTable" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Tables</h6>
-            <a class="collapse-item" href="simple-tables.html">Simple Tables</a>
-            <a class="collapse-item" href="datatables.html">DataTables</a>
-          </div>
-        </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="ui-colors.html">
-          <i class="fas fa-fw fa-palette"></i>
-          <span>UI Colors</span>
+        <a class="nav-link" id="logout-link" href="#">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Log-out</span>
         </a>
       </li>
       <hr class="sidebar-divider">
-      <div class="sidebar-heading">
-        Examples
-      </div>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePage" aria-expanded="true"
-          aria-controls="collapsePage">
-          <i class="fas fa-fw fa-columns"></i>
-          <span>Pages</span>
-        </a>
-        <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Example Pages</h6>
-            <a class="collapse-item" href="login.html">Login</a>
-            <a class="collapse-item" href="register.html">Register</a>
-            <a class="collapse-item" href="404.html">404 Page</a>
-            <a class="collapse-item" href="blank.html">Blank Page</a>
-          </div>
-        </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-          <i class="fas fa-fw fa-chart-area"></i>
-          <span>Charts</span>
-        </a>
-      </li>
-      <hr class="sidebar-divider">
-      <div class="version" id="version-ruangadmin"></div>
     </ul>
     <!-- Sidebar -->
     <div id="content-wrapper" class="d-flex flex-column">
@@ -186,30 +154,11 @@
          
             <div class="topbar-divider d-none d-sm-block"></div>
             <li class="nav-item dropdown no-arrow">
-              <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" href="#" id="#" role="#" data-toggle="#"
+                aria-haspopup="false" aria-expanded="false">
                 <img class="img-profile rounded-circle" src="img/profile.jpg" style="max-width: 60px">
                 <span class="ml-2 d-none d-lg-inline text-white small">Administrator</span>
               </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Profile
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Settings
-                </a>
-                <a class="dropdown-item" href="#">
-                  <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Activity Log
-                </a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="javascript:void(0);" data-toggle="modal" data-target="#logoutModal">
-                  <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                  Logout
-                </a>
-              </div>
             </li>
           </ul>
         </nav>
@@ -512,36 +461,9 @@
               </div>
             </div>
           </div>
-          <!--Row-->
+  
 
-          <div class="row">
-            <div class="col-lg-12 text-center">
-              <p>Do you like this template ? you can download from <a href="https://github.com/indrijunanda/RuangAdmin"
-                  class="btn btn-primary btn-sm" target="_blank"><i class="fab fa-fw fa-github"></i>&nbsp;GitHub</a></p>
-            </div>
-          </div>
-
-          <!-- Modal Logout -->
-          <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelLogout"
-            aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabelLogout">Ohh No!</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <p>Are you sure you want to logout?</p>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Cancel</button>
-                  <a href="login.html" class="btn btn-primary">Logout</a>
-                </div>
-              </div>
-            </div>
-          </div>
+          
 
         </div>
         <!---Container Fluid-->
@@ -563,13 +485,33 @@
   <a class="scroll-to-top rounded" href="#page-top">
     <i class="fas fa-angle-up"></i>
   </a>
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="js/ruang-admin.min.js"></script>
   <script src="vendor/chart.js/Chart.min.js"></script>
   <script src="js/demo/chart-area-demo.js"></script>  
+  <script>
+  document.getElementById("logout-link").addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent immediate redirection
+
+      Swal.fire({
+          title: "Are you sure?",
+          text: "You will be logged out!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, logout!"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.href = "logout.php"; // Redirect if confirmed
+          }
+      });
+  });
+  </script>
+  
 </body>
 
 </html>
