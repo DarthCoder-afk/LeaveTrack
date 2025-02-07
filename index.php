@@ -50,7 +50,7 @@ include 'auth.php'; // Ensure authentication
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">View</h6>
-            <a class="collapse-item" href="#">Applications</a>
+            <a class="collapse-item" href="applications.php">Applications</a>
             <a class="collapse-item" href="#">Calendar</a>
           </div>
         </div>
