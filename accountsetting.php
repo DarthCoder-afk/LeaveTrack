@@ -27,12 +27,12 @@ include 'auth.php'; // Ensure authentication
                         </div>
                         <form>
                             <div class="mb-3">
-                                <label for="name" class="form-label">Name</label>
+                                <label for="name" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="name" placeholder="LGU Talisay Admin" disabled>
                             </div>
                             <div class="d-grid gap-2">
                                 <button type="button" class="btn btn-warning">Change Password</button>
-                                <button type="button" class="btn btn-secondary">Update Profile Picture</button>
+                                <button type="button" class="btn btn-secondary">Update Username</button>
                                 
                             </div>
                         </form>
