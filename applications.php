@@ -52,7 +52,7 @@ include 'auth.php'; // Ensure authentication
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">View</h6>
             <a class="collapse-item" href="#">Applications</a>
-            <a class="collapse-item" href="#">Calendar</a>
+            <a class="collapse-item" href="calendar.php">Calendar</a>
           </div>
         </div>
       </li>
@@ -71,7 +71,7 @@ include 'auth.php'; // Ensure authentication
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="accountsetting.php">
           <i class="fas fa-cog"></i>
           <span>Account Settings</span>
         </a>

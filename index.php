@@ -70,7 +70,7 @@ include 'auth.php'; // Ensure authentication
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">
+        <a class="nav-link" href="accountsetting.php">
           <i class="fas fa-cog"></i>
           <span>Account Settings</span>
         </a>
