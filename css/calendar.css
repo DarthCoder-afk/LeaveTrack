@@ -1,0 +1,27 @@
+body {
+    background-color: #f8f9fa;
+    padding: 20px;
+}
+
+#calendar {
+    max-width: 1000px;
+    margin: auto;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.fc-daygrid-day-number {
+    cursor: pointer;
+    color: blue;
+    text-decoration: underline;
+}
+.fc-daygrid-day-number:hover {
+    color: red;
+}
+
+.fc-daygrid-day {
+    pointer-events: auto !important; /* Allow clicking */
+}
+
