@@ -18,7 +18,7 @@ include 'auth.php'; // Ensure authentication
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
-                    <div class="card-header bg-primary text-white text-center">
+                    <div class="card-header bg-success text-white text-center">
                         <h4>Account Settings</h4>
                     </div>
                     <div class="card-body">
@@ -31,9 +31,8 @@ include 'auth.php'; // Ensure authentication
                                 <input type="text" class="form-control" id="name" placeholder="LGU Talisay Admin" disabled>
                             </div>
                             <div class="d-grid gap-2">
-                                <button type="button" class="btn btn-warning">Change Password</button>
-                                <button type="button" class="btn btn-secondary">Update Username</button>
-                                
+                                <button type="button" class="btn btn-primary">Change Password</button>
+                                <button type="button" class="btn btn-warning">Update Username</button>
                             </div>
                         </form>
                     </div>
