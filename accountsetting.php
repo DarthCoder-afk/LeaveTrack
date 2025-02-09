@@ -4,7 +4,6 @@ include 'auth.php'; // Ensure authentication
 //echo "Welcome, " . $_SESSION['username'];
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,15 +52,15 @@ include 'auth.php'; // Ensure authentication
                     <form id="changePasswordForm">
                         <div class="mb-3">
                             <label class="form-label">Current Password</label>
-                            <input type="password" class="form-control" name="current_password" required>
+                            <input type="password" class="form-control" id="current_password" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">New Password</label>
-                            <input type="password" class="form-control" name="new_password" required>
+                            <input type="password" class="form-control" id="new_password" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" name="confirm_password" required>
+                            <input type="password" class="form-control" id="confirm_password" required>
                         </div>
                         <button type="submit" class="btn btn-success w-100">Update Password</button>
                     </form>
@@ -82,7 +81,7 @@ include 'auth.php'; // Ensure authentication
                     <form id="updateUsernameForm">
                         <div class="mb-3">
                             <label class="form-label">New Username</label>
-                            <input type="text" class="form-control" name="new_username" required>
+                            <input type="text" class="form-control" id="new_username" required>
                         </div>
                         <button type="submit" class="btn btn-warning w-100">Update Username</button>
                     </form>
@@ -91,6 +90,61 @@ include 'auth.php'; // Ensure authentication
         </div>
     </div>
 
+    <!-- Error Modal (Pop-up) -->
+    <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title">Error</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p id="errorText"></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- JavaScript for Form Validation -->
+    <script>
+    document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent form submission
+
+        let newPassword = document.getElementById("new_password").value;
+        let confirmPassword = document.getElementById("confirm_password").value;
+        let errorText = document.getElementById("errorText");
+        let errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
+
+        // Check if passwords match
+        if (newPassword !== confirmPassword) {
+            errorText.innerText = "Passwords do not match!"; // Set error message
+            errorModal.show(); // Show error pop-up
+            return;
+        }
+
+        alert("Password change request submitted!");
+    });
+
+    document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent form submission
+
+        let newUsername = document.getElementById("new_username").value;
+        if (newUsername.trim() === "") {
+            let errorText = document.getElementById("errorText");
+            let errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
+            errorText.innerText = "Username cannot be empty!";
+            errorModal.show();
+            return;
+        }
+
+        alert("Username update request submitted!");
+    });
+    </script>
+
 </body>
 </html>
