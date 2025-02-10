@@ -157,7 +157,7 @@ include 'auth.php'; // Ensure authentication
 
     <!-- Change Password Modal -->
     <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="modal-dialog" style="margin-top: 200px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Change Password</h5>
@@ -186,7 +186,7 @@ include 'auth.php'; // Ensure authentication
 
     <!-- Update Username Modal -->
     <div class="modal fade" id="updateUsernameModal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog">
+      <div class="modal-dialog" style="margin-top: 250px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Update Username</h5>
