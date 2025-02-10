@@ -124,6 +124,7 @@ include 'auth.php'; // Ensure authentication
         </nav>
         <!-- Topbar -->
 
+       
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -133,6 +134,7 @@ include 'auth.php'; // Ensure authentication
               <li class="breadcrumb-item active" aria-current="page">Leave Applications</li>
             </ol>
           </div>
+
 
             <!-- Row -->
             <div class="row">
@@ -159,9 +161,9 @@ include 'auth.php'; // Ensure authentication
                         <td>Sick Leave</td>
                         <td>2025/02/10</td>
                         <td>
-                          <a href=""><button class="btn btn-success"><i class="fas fa-eye"></i></button></a>
-                          <a href=""><button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button></a>
-                          <a href=""><button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button></a>
+                          <button class="btn btn-success"><i class="fas fa-eye"></i></button>
+                          <button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button>
+                          <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
                         </td>
                       </tr> 
                     </tbody>
