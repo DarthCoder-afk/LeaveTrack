@@ -135,6 +135,80 @@ include 'auth.php'; // Ensure authentication
             </ol>
           </div>
 
+          <div class="container-fluid">
+          <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <h1 class="h3 mb-0 text-gray-800"></h1>
+            <button class="btn btn-primary" data-toggle="modal" data-target="#addApplicationModal">+ ADD</button>
+          </div>
+
+          <!-- ADD APPLICATION MODAL -->
+          <div class="modal fade" id="addApplicationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
+                  <div class="modal-content">
+                      <div class="modal-header">
+                          <h5 class="modal-title">Add Leave Application</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                              <span aria-hidden="true">&times;</span>
+                          </button>
+                      </div>
+                      <div class="modal-body">
+                          <form id="addApplicationForm">
+                              <div class="row">
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Last Name</label>
+                                          <input type="text" class="form-control" id="lastName" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>First Name</label>
+                                          <input type="text" class="form-control" id="firstName" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Middle Name <small>(optional)</small></label>
+                                          <input type="text" class="form-control" id="middleName">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Name Extension <small>(e.g., Jr., Sr., III) (optional)</small></label>
+                                          <input type="text" class="form-control" id="nameExtension">
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Position</label>
+                                          <input type="text" class="form-control" id="position" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Office</label>
+                                          <input type="text" class="form-control" id="office" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Type of Leave</label>
+                                          <input type="text" class="form-control" id="typeOfLeave" required>
+                                      </div>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                          <label>Date Applied</label>
+                                          <input type="date" class="form-control" id="dateApplied" required>
+                                      </div>
+                                  </div>
+                              </div>
+                              <button type="submit" class="btn btn-success btn-block">Save</button>
+                          </form>
+                      </div>
+                  </div>
+              </div>
+          </div>
 
             <!-- Row -->
             <div class="row">
