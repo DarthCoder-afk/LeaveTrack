@@ -4,6 +4,7 @@ include 'auth.php'; // Ensure authentication
 //echo "Welcome, " . $_SESSION['username'];
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +46,7 @@ include 'auth.php'; // Ensure authentication
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">View</h6>
             <a class="collapse-item" href="applications.php">Applications</a>
-            <a class="collapse-item" href="calendar.php">Calendar</a>
+            <a class="collapse-item" href="view_calendar.php">Calendar</a>
           </div>
         </div>
       </li>
@@ -247,6 +248,43 @@ include 'auth.php'; // Ensure authentication
 
         alert("Username update request submitted!");
     });
+    </script>
+
+    <!-- Scroll to top -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+    <!-- FullCalendar JS -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+     <!-- Clickable Date JS -->
+    <script src="calendar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/ruang-admin.min.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+    <script src="js/demo/chart-area-demo.js"></script>
+
+
+    <script>
+      document.getElementById("logout-link").addEventListener("click", function(event) {
+        event.preventDefault(); // Prevent immediate redirection
+
+        Swal.fire({
+          title: "Are you sure?",
+          text: "You will be logged out!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#d33",
+          cancelButtonColor: "#3085d6",
+          confirmButtonText: "Yes, logout!"
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "logout.php"; // Redirect if confirmed
+          }
+        });
+      });
     </script>
 
 </body>
