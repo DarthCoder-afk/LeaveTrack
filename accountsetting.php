@@ -130,7 +130,7 @@ include 'auth.php'; // Ensure authentication
 
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header bg-success text-white text-center">
                         <h4>Account Settings</h4>

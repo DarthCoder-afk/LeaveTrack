@@ -180,8 +180,8 @@ include 'auth.php'; // Ensure authentication
         var calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             headerToolbar: {
-                left: 'prev,next today',
-                right: 'title',
+                right: 'prev,next today',
+                left: 'title',
                 // right: 'dayGridMonth,timeGridWeek,timeGridDay'
                 
         
