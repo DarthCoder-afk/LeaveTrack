@@ -128,7 +128,7 @@ include 'auth.php'; // Ensure authentication
           </div>
 
 
-    <div class="container mt-5">
+    <div class="container mt-3">
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
@@ -137,14 +137,14 @@ include 'auth.php'; // Ensure authentication
                     </div>
                     <div class="card-body">
                         <div class="text-center mb-3">
-                            <img src="img/Talisay.png" class="rounded-circle" alt="User Profile">
+                        <img src="img/HR.png" class="rounded-circle" alt="User Profile" style="width: 300px; height: 300px;">
                         </div>
                         <form>
                             <div class="mb-3">
                                 <label for="name" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="name" value="<?php echo $_SESSION['username']; ?>" disabled>
                             </div>
-                            <div class="d-grid gap-2">
+                            <div class="d-flex justify-content-center gap-5">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
                                 <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateUsernameModal">Update Username</button>
                             </div>
