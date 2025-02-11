@@ -140,9 +140,9 @@ include 'auth.php'; // Ensure authentication
                         <img src="img/HR.png" class="rounded-circle" alt="User Profile" style="width: 300px; height: 300px;">
                         </div>
                         <form>
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="name" value="<?php echo $_SESSION['username']; ?>" disabled>
+                            <div class="mb-3 text-center">
+                                <label for="name" class="form-label text-success">Username</label>
+                                <input type="text" class="form-control w-50 mx-auto text-center" id="name" value="<?php echo $_SESSION['username']; ?>" disabled>
                             </div>
                             <div class="d-flex justify-content-center gap-5">
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
