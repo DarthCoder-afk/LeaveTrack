@@ -172,6 +172,8 @@ include 'auth.php'; // Ensure authentication
     <script src="js/ruang-admin.min.js"></script>
     <script src="vendor/chart.js/Chart.min.js"></script>
     <script src="js/demo/chart-area-demo.js"></script>
+
+
     <script>
     document.addEventListener('DOMContentLoaded', function () {
         var calendarEl = document.getElementById('calendar');
@@ -179,15 +181,17 @@ include 'auth.php'; // Ensure authentication
             initialView: 'dayGridMonth',
             headerToolbar: {
                 left: 'prev,next today',
-                center: 'title',
-                right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                right: 'title',
+                // right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                
+        
             },
             events: [
-                { title: 'New', start: '2024-02-05' },
-                { title: 'Divyesh Birthday', start: '2024-02-07' },
-                { title: 'Car Loan EMI', start: '2024-02-10' },
-                { title: 'Independence Day', start: '2024-02-15' },
-                { title: '3 Days Event', start: '2024-02-17', end: '2024-02-19' }
+                { title: 'Example', start: '2025-02-05' },
+                { title: 'mic test', start: '2025-02-07' },
+                { title: 'Emi', start: '2025-02-10' },
+                { title: 'Leave', start: '2025-02-15' },
+                { title: 'Silent', start: '2025-02-17'}
             ]
         });
         calendar.render();
