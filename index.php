@@ -64,7 +64,7 @@ include 'auth.php'; // Ensure authentication
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="#">Leave Form</a>
+            <a class="collapse-item" href="leave_form.php">Leave Form</a>
             <a class="collapse-item" href="#">Travel Form</a>
           </div>
         </div>

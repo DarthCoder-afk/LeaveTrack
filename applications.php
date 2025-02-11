@@ -202,7 +202,13 @@ include 'auth.php'; // Ensure authentication
                                           <input type="date" class="form-control" id="dateApplied" required>
                                       </div>
                                   </div>
-                              </div>
+                                  <div class="col-md-6">
+                                      <div class="form-group">
+                                      <label for="formFile" class="form-label">Upload Scanned Document</label>
+                                      <input type="file" class="form-control" id="formFile">
+                                      </div>
+                                      </div>
+                                 </div>
                               <button type="submit" class="btn btn-success btn-block">Save</button>
                           </form>
                       </div>
@@ -272,6 +278,8 @@ include 'auth.php'; // Ensure authentication
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
+
+
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

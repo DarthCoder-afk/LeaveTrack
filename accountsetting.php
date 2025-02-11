@@ -36,7 +36,7 @@ include 'auth.php'; // Ensure authentication
       <div class="sidebar-heading">
         Features
       </div>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
@@ -59,12 +59,12 @@ include 'auth.php'; // Ensure authentication
         <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="#">Leave Form</a>
+            <a class="collapse-item" href="leave_form.php">Leave Form</a>
             <a class="collapse-item" href="#">Travel Form</a>
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link" href="accountsetting.php">
           <i class="fas fa-cog"></i>
           <span>Account Settings</span>

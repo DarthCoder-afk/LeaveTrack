@@ -43,7 +43,7 @@ include 'auth.php'; // Ensure authentication
       <div class="sidebar-heading">
         Features
       </div>
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap"
           aria-expanded="true" aria-controls="collapseBootstrap">
           <i class="far fa-fw fa-window-maximize"></i>
@@ -57,7 +57,7 @@ include 'auth.php'; // Ensure authentication
           </div>
         </div>
       </li>
-      <li class="nav-item">
+      <li class="nav-item active">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
           aria-controls="collapseForm">
           <i class="fab fa-fw fa-wpforms"></i>
@@ -126,18 +126,22 @@ include 'auth.php'; // Ensure authentication
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
           <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">Calendar</h1>
+            <h1 class="h3 mb-0 text-gray-800">Leave Form</h1>
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="./">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Calendar</li>
+              <li class="breadcrumb-item active" aria-current="page">Leave Form</li>
             </ol>
           </div>
 
-       <div class="container">
-        <h2 class="text-center mb-4">Service Incentive Leave Calendar</h2>
-        <div id="calendar">
-        </div></div>
+          <div class="container">
+            <div class="col-lg-12">
+                <div class="card mb-4">
+                <embed class="pdf" src="forms/leave_form.pdf" width="1050" height="500">
+                </div> 
+            </div>       
+          </div>
 
+      
 
           
           <!---Container Fluid-->
