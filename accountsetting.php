@@ -128,82 +128,80 @@ include 'auth.php'; // Ensure authentication
           </div>
 
 
-    <div class="container mt-3">
-        <div class="row justify-content-center">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header bg-success text-white text-center">
-                        <h4>Account Settings</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="text-center mb-3">
-                        <img src="img/HR.png" class="rounded-circle" alt="User Profile" style="width: 300px; height: 300px;">
+          <div class="container mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card shadow-lg border-0 rounded-lg">
+                        <div class="card-header bg-success text-white text-center py-3">
+                            <h4 class="mb-0">Account Settings</h4>
                         </div>
+                        <div class="card-body text-center">
+                            <img src="img/HR.png" class="rounded-circle mb-3 border border-3" alt="User Profile" style="width: 150px; height: 150px;">
+                            <div class="mb-4">
+                                <label class="form-label text-success fw-bold">Username</label>
+                                <input type="text" class="form-control w-50 mx-auto text-center" value="<?php echo $_SESSION['username']; ?>" disabled>
+                            </div>
+                            <div class="d-flex justify-content-center gap-3">
+                                <button class="btn btn-outline-primary px-4" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
+                                <button class="btn btn-outline-warning px-4" data-bs-toggle="modal" data-bs-target="#updateUsernameModal">Update Username</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modals -->
+        <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-primary text-white">
+                        <h5 class="modal-title">Change Password</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
+
+                    </div>
+                    <div class="modal-body">
                         <form>
-                            <div class="mb-3 text-center">
-                                <label for="name" class="form-label text-success">Username</label>
-                                <input type="text" class="form-control w-50 mx-auto text-center" id="name" value="<?php echo $_SESSION['username']; ?>" disabled>
+                            <div class="mb-3">
+                                <label class="form-label">Current Password</label>
+                                <input type="password" class="form-control" required>
                             </div>
-                            <div class="d-flex justify-content-center gap-5">
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
-                                <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#updateUsernameModal">Update Username</button>
+                            <div class="mb-3">
+                                <label class="form-label">New Password</label>
+                                <input type="password" class="form-control" required>
                             </div>
+                            <div class="mb-3">
+                                <label class="form-label">Confirm New Password</label>
+                                <input type="password" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Update Password</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Change Password Modal -->
-    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog" style="margin-top: 200px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Change Password</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="changePasswordForm">
-                        <div class="mb-3">
-                            <label class="form-label">Current Password</label>
-                            <input type="password" class="form-control" id="current_password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">New Password</label>
-                            <input type="password" class="form-control" id="new_password" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Confirm New Password</label>
-                            <input type="password" class="form-control" id="confirm_password" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Update Password</button>
-                    </form>
+        <div class="modal fade" id="updateUsernameModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header bg-warning text-dark">
+                        <h5 class="modal-title">Update Username</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
+
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label class="form-label">New Username</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <button type="submit" class="btn btn-warning w-100">Update Username</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <!-- Update Username Modal -->
-    <div class="modal fade" id="updateUsernameModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog" style="margin-top: 250px;">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Update Username</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="updateUsernameForm">
-                        <div class="mb-3">
-                            <label class="form-label">New Username</label>
-                            <input type="text" class="form-control" id="new_username" required>
-                        </div>
-                        <button type="submit" class="btn btn-warning w-100">Update Username</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Error Modal (Pop-up) -->
     <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
