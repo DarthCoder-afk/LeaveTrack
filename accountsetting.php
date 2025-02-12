@@ -134,7 +134,7 @@ include 'auth.php'; // Ensure authentication
                 <div class="col-md-8">
                     <div class="card shadow-lg border-0 rounded-lg">
                         <div class="card-header bg-success text-white text-center py-3">
-                            <h4 class="mb-0">Account Settings</h4>
+                            <h4 class="mb-0">Account</h4>
                         </div>
                         <div class="card-body text-center">
                             <img src="img/HR.png" class="rounded-circle mb-3 border border-3" alt="User Profile" style="width: 150px; height: 150px;">
