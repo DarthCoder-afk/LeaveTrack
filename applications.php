@@ -188,7 +188,14 @@ include 'auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <input type="text" class="form-control" id="office" required>
+                            <select class="form-control" id="typeOfOffice">
+                              <option value="" disabled selected>Select Type of Office</option>
+                              <option value="Sangguniang Bayan">Sangguniang Bayan</option>
+                              <option value="HRMO">Human Resource Management Office</option>
+                              <option value="Office of the Treasury">Office of the Treasury</option>
+                              <!-- <option value="Office 4">Office 4</option> -->
+                              <!-- <option value="Office 5">Office 5</option> -->
+                            </select>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -225,6 +232,24 @@ include 'auth.php'; // Ensure authentication
                           <div class="form-group">
                             <label>Date Applied</label>
                             <input type="date" class="form-control" id="dateApplied" required>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" id="startDate" required onchange=calculateNumberofDays()>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" id="endDate" required onchange=calculateNumberofDays()>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Number of Days</label>
+                            <input type="text" class="form-control" id="numberOfDays" disabled>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -303,6 +328,34 @@ include 'auth.php'; // Ensure authentication
       <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
       </a>
+
+      <script>
+        function calculateNumberofDays(){
+          const startDate = document.getElementById("startDate").value;
+          const endDate = document.getElementById("endDate").value;
+
+          if (startDate && endDate) {
+            const start = new Date(startDate);
+            const end = new Date(endDate);
+            const timeDifference = end - start;
+            const daysDifference = timeDifference / (1000 * 3600 * 24) + 1;
+
+            if (daysDifference > 0) {
+              document.getElementById('numberOfDays').value = daysDifference;
+            } else {
+              document.getElementById('startDate').value = 0;
+              document.getElementById('endDate').value = 0;
+              Swal.fire({
+                title: "Invalid Dates",
+                text: "End date should be greater than start date.",
+                icon: "error"
+                
+              });
+            }
+            
+          }
+        }
+      </script>
 
 
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
