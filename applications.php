@@ -192,9 +192,33 @@ include 'auth.php'; // Ensure authentication
                           </div>
                         </div>
                         <div class="col-md-6">
+                          <div class="form-group"> 
+                            <label>Gender</label>
+                            <select class="form-control" id="typeOfGender" required>
+                              <option value="" disabled selected>Select Type of Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
                           <div class="form-group">
-                            <label>Type of Leave</label>
-                            <input type="text" class="form-control" id="typeOfLeave" required>
+                          <label>Type of Leave</label>
+                              <select class="form-control" id="typeOfLeave" required>
+                                <option value="" disabled selected>Select Type of Leave</option>
+                                <option value="Sick Leave">Sick Leave</option>
+                                <option value="Vacation Leave">Vacation Leave</option>
+                                <option value="Maternity Leave">Maternity Leave</option>
+                                <option value="Paternity Leave">Paternity Leave</option>
+                                <option value="Special Privilege Leave">Special Privilege Leave</option>
+                                <option value="Solo Parent Leave">Solo Parent Leave</option>
+                                <option value="Study Leave">Study Leave</option>
+                                <option value="10-Day VAWC Leave">10-Day VAWC Leave</option>
+                                <option value="Rehabilitation Leave">Rehabilitation Leave</option>
+                                <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
+                                <option value="Special Emergency (Calamity) Leave">Others</option>
+                                <option value="Adoption Leave">Adoption Leave</option>
+                              </select>
                           </div>
                         </div>
                         <div class="col-md-6">

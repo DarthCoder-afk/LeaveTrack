@@ -188,11 +188,11 @@ include 'auth.php'; // Ensure authentication
         
             },
             events: [
-                { title: 'Example', start: '2025-02-05' },
-                { title: 'mic test', start: '2025-02-07' },
-                { title: 'Emi', start: '2025-02-10' },
-                { title: 'Leave', start: '2025-02-15' },
-                { title: 'Silent', start: '2025-02-17'}
+                { title: 'Sick Leave', start: '2025-02-05' },
+                { title: 'Travel Order', start: '2025-02-07' },
+                { title: 'Travel Order', start: '2025-02-10' },
+                { title: 'Bereavement Leave', start: '2025-02-15' },
+                { title: 'Travel Order', start: '2025-02-17'}
             ]
         });
         calendar.render();
