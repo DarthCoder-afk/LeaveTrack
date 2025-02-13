@@ -352,7 +352,6 @@ include 'auth.php'; // Ensure authentication
                 
               });
             }
-            
           }
         }
       </script>
