@@ -273,7 +273,7 @@ include 'auth.php'; // Ensure authentication
                           <th>Office</th>
                           <th>Purpose</th>
                           <th>Destination</th>
-                          <th>Date</th>           
+                          <th>Inclusive Dates</th>           
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -284,7 +284,7 @@ include 'auth.php'; // Ensure authentication
                           <td>Treasury Office</td>
                           <td>Scenal Meeting</td>
                           <td>Metro Manila</td>
-                          <td>2025/02/10</td>
+                          <td>2025/02/15 - 2025/02/17</td>
                           <td>
                             <button class="btn btn-success"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button>

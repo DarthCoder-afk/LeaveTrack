@@ -195,9 +195,9 @@ include 'auth.php'; // Ensure authentication
                 </div>
               </div>
             </div>
+
             
-            <!-- Invoice Example -->
-            <div class="col-xl-13 col-lg-12 mb-4">
+            <div class="col-xl-8 col-lg-12 mb-4">
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Recently Applied Leaves</h6>
@@ -229,7 +229,31 @@ include 'auth.php'; // Ensure authentication
                 <div class="card-footer"></div>
               </div>
             </div>
+
+            <div class="col-xl-4 col-lg-5 ">
+              <div class="card">
+                <div class="card-header py-4 bg-primary d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-light">Travel Orders</h6>
+                </div>
+                <div>
+                  <div class="customer-message align-items-center">
+                    <a class="font-weight-bold" href="#">
+                      <div class="text-truncate message-title">Scenal Meeting</div>
+                      <div class="small text-gray-500 message-time font-weight-bold">John Doe · 2025/02/15  </div>
+                    </a>
+                  </div>
+                  <div class="card-footer text-center">
+                    <a class="m-0 small text-primary card-link" href="travel_order.php">View More <i
+                        class="fas fa-chevron-right"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+
+          </div>
+         
+
           <!---Container Fluid-->
         </div>
         <!-- Footer -->
