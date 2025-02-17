@@ -58,19 +58,11 @@ include 'auth.php'; // Ensure authentication
           </div>
         </div>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
-          aria-controls="collapseForm">
-          <i class="fab fa-fw fa-wpforms"></i>
-          <span>Forms</span>
+      <li class="nav-item">
+        <a class="nav-link" href="leave_form.php">
+          <i class="fas fa-print"></i>
+          <span>Leave Form</span>
         </a>
-        <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
-          <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Forms</h6>
-            <a class="collapse-item" href="leave_form.php">Leave Form</a>
-            <a class="collapse-item" href="#">Travel Form</a>
-          </div>
-        </div>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="accountsetting.php">
