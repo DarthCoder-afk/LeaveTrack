@@ -52,10 +52,18 @@ include 'auth.php'; // Ensure authentication
         </div>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="leave_form.php">
-          <i class="fas fa-print"></i>
-          <span>Leave Form</span>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseForm" aria-expanded="true"
+          aria-controls="collapseForm">
+          <i class="fab fa-fw fa-wpforms"></i>
+          <span>Forms</span>
         </a>
+        <div id="collapseForm" class="collapse" aria-labelledby="headingForm" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <h6 class="collapse-header">Forms</h6>
+            <a class="collapse-item" href="leave_form.php">Leave Form</a>
+            <a class="collapse-item" href="#">Travel Form</a>
+          </div>
+        </div>
       </li>
       <li class="nav-item">
       <a class="nav-link" href="employee_list.php">
@@ -140,10 +148,15 @@ include 'auth.php'; // Ensure authentication
                                 <label class="form-label text-success fw-bold">Username</label>
                                 <input type="text" class="form-control w-50 mx-auto text-center" value="<?php echo $_SESSION['username']; ?>" disabled>
                             </div>
-                            <div class="d-flex justify-content-center gap-3">
-                                <button class="btn btn-outline-primary px-4" data-bs-toggle="modal" data-bs-target="#changePasswordModal">Change Password</button>
-                                <button class="btn btn-outline-warning px-4" data-bs-toggle="modal" data-bs-target="#updateUsernameModal">Update Username</button>
+                            <div class="d-flex justify-content-center" style="gap: 10px;">
+                                <button class="btn btn-outline-primary px-2" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                                    Change Password
+                                </button>
+                                <button class="btn btn-outline-warning px-2" data-bs-toggle="modal" data-bs-target="#updateUsernameModal">
+                                    Update Username
+                                </button>
                             </div>
+
                         </div>
                     </div>
                 </div>
