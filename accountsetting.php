@@ -57,6 +57,12 @@ include 'auth.php'; // Ensure authentication
           <span>Leave Form</span>
         </a>
       </li>
+      <li class="nav-item">
+      <a class="nav-link" href="employee_list.php">
+          <i class="fas fa-users"></i>
+          <span>Employee List</span>
+        </a>
+      </li>
       <li class="nav-item active">
         <a class="nav-link" href="accountsetting.php">
           <i class="fas fa-cog"></i>
