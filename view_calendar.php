@@ -135,9 +135,17 @@ include 'auth.php'; // Ensure authentication
           </div>
 
        <div class="container">
-        <h2 class="text-center mb-4">Service Incentive Leave Calendar</h2>
-        <div id="calendar">
-        </div></div>
+        <div class="card">
+          <div class="card-header bg-success text-white">
+            <h2 class="text-center mb-4 mt-3">Service Incentive Leave Calendar</h2>
+          </div>
+        <div class="card-body">
+          <div id="calendar"> </div>
+        </div>
+        
+        
+        </div>
+      </div>
 
 
           
