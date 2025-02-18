@@ -1,6 +1,6 @@
 <?php
 session_start(); // Start session
-include "db_connect.php"; // Include database connection
+include "../database/db_connect.php"; // Include database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = mysqli_real_escape_string($check, $_POST['username']);
@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Redirect back to login.php (SweetAlert will handle the UI feedback)
-    header("Location: login.php");
+    header("Location: ../pages/login.php");
     exit();
 }
 ?>

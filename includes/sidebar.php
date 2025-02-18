@@ -1,0 +1,55 @@
+<ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
+  <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../pages/index.php" style="background-color: #2e8517;">
+    <div class="sidebar-brand-icon">
+      <img src="../img/HR.png" style="border-radius: 50%;">
+    </div>
+    <div class="sidebar-brand-text mx-3">HR Admin</div>
+  </a>
+  <hr class="sidebar-divider my-0">
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/index.php">
+      <i class="fas fa-fw fa-tachometer-alt"></i>
+      <span>Dashboard</span></a>
+  </li>
+  <hr class="sidebar-divider">
+  <div class="sidebar-heading">Features</div>
+  <li class="nav-item">
+    <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseBootstrap" aria-expanded="true" aria-controls="collapseBootstrap">
+      <i class="far fa-fw fa-window-maximize"></i>
+      <span>Applications</span>
+    </a>
+    <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
+      <div class="bg-white py-2 collapse-inner rounded">
+        <h6 class="collapse-header">View</h6>
+        <a class="collapse-item" href="../pages/applications.php">Leave Applications</a>
+        <a class="collapse-item" href="../pages/travel_order.php">Travel Orders</a>
+        <a class="collapse-item" href="../pages/view_calendar.php">Calendar</a>
+      </div>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/leave_form.php">
+      <i class="fas fa-print"></i>
+      <span>Leave Form</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/employee_list.php">
+      <i class="fas fa-users"></i>
+      <span>Employee List</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="../pages/accountsetting.php">
+      <i class="fas fa-cog"></i>
+      <span>Account Settings</span>
+    </a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="logout-link" href="#">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Log-out</span>
+    </a>
+  </li>
+  <hr class="sidebar-divider">
+</ul>

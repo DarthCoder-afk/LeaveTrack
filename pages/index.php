@@ -1,5 +1,5 @@
 <?php
-include 'auth.php'; // Ensure authentication
+include '../auth/auth.php'; // Ensure authentication
 
 //echo "Welcome, " . $_SESSION['username'];
 ?>
@@ -14,26 +14,26 @@ include 'auth.php'; // Ensure authentication
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link href="img/favicon.ico" rel="icon">
+  <link href="../img/favicon.ico" rel="icon">
   <title>HR Admin - Dashboard</title>
-  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="css/admin.min.css" rel="stylesheet">
+  <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+  <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+  <link href="../css/admin.min.css" rel="stylesheet">
 </head>
 
 <body id="page-top">
   <div id="wrapper">
     <!-- Sidebar -->
     <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html" style="background-color: #2e8517;">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../pages/index.php" style="background-color: #2e8517;">
         <div class="sidebar-brand-icon">
-          <img src="img/HR.png" style="border-radius: 50%;">
+          <img src="../img/HR.png" style="border-radius: 50%;">
         </div>
         <div class="sidebar-brand-text mx-3">HR Admin</div>
       </a>
       <hr class="sidebar-divider my-0">
       <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="index.php">
           <i class="fas fa-fw fa-tachometer-alt"></i>
           <span>Dashboard</span></a>
       </li>
@@ -50,26 +50,26 @@ include 'auth.php'; // Ensure authentication
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">View</h6>
-            <a class="collapse-item" href="applications.php">Leave Applications</a>
-            <a class="collapse-item" href="travel_order.php">Travel Orders</a>
-            <a class="collapse-item" href="view_calendar.php">Calendar</a>
+            <a class="collapse-item" href="../pages/applications.php">Leave Applications</a>
+            <a class="collapse-item" href="../pages/travel_order.php">Travel Orders</a>
+            <a class="collapse-item" href="../pages/view_calendar.php">Calendar</a>
           </div>
         </div>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="leave_form.php">
+        <a class="nav-link" href="../pages/leave_form.php">
           <i class="fas fa-print"></i>
           <span>Leave Form</span>
         </a>
       </li>
       <li class="nav-item">
-      <a class="nav-link" href="employee_list.php">
+      <a class="nav-link" href="../pages/employee_list.php">
           <i class="fas fa-users"></i>
           <span>Employee List</span>
         </a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="accountsetting.php">
+        <a class="nav-link" href="../pages/accountsetting.php">
           <i class="fas fa-cog"></i>
           <span>Account Settings</span>
         </a>
@@ -114,7 +114,7 @@ include 'auth.php'; // Ensure authentication
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="#" role="#" data-toggle="#"
                 aria-haspopup="false" aria-expanded="false">
-                <img class="img-profile rounded-circle" src="img/profile.jpg" style="max-width: 60px">
+                <img class="img-profile rounded-circle" src="../img/profile.jpg" style="max-width: 60px">
                 <span class="ml-2 d-none d-lg-inline text-white small">Administrator</span>
               </a>
             </li>
@@ -199,7 +199,7 @@ include 'auth.php'; // Ensure authentication
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-dark">Recently Applied Leaves</h6>
-                  <a class="m-0 float-right btn btn-danger btn-sm" href="applications.php">View More <i
+                  <a class="m-0 float-right btn btn-danger btn-sm" href="../pages/applications.php">View More <i
                       class="fas fa-chevron-right"></i></a>
                 </div>
                 <div class="table-responsive">
@@ -241,7 +241,7 @@ include 'auth.php'; // Ensure authentication
                     </a>
                   </div>
                   <div class="card-footer text-center">
-                    <a class="m-0 small text-success card-link" href="travel_order.php">View More <i
+                    <a class="m-0 small text-success card-link" href="../pages/travel_order.php">View More <i
                         class="fas fa-chevron-right"></i></a>
                   </div>
                 </div>
@@ -274,12 +274,12 @@ include 'auth.php'; // Ensure authentication
       <i class="fas fa-angle-up"></i>
     </a>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/ruang-admin.min.js"></script>
-    <script src="vendor/chart.js/Chart.min.js"></script>
-    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="../vendor/jquery/jquery.min.js"></script>
+    <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="../js/ruang-admin.min.js"></script>
+    <script src="../vendor/chart.js/Chart.min.js"></script>
+    <script src="../js/demo/chart-area-demo.js"></script>
     <script>
       document.getElementById("logout-link").addEventListener("click", function(event) {
         event.preventDefault(); // Prevent immediate redirection
@@ -294,7 +294,7 @@ include 'auth.php'; // Ensure authentication
           confirmButtonText: "Yes, logout!"
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "logout.php"; // Redirect if confirmed
+            window.location.href = "../auth/logout.php"; // Redirect if confirmed
           }
         });
       });
