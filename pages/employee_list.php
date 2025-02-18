@@ -127,7 +127,7 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                         </div>
                       </div>
-                      <button type="submit" class="btn btn-success btn-block">Save</button>
+                      <a type="submit" class="btn btn-success btn-block" href="../employeefunction/create.php">Save</a>
                     </form>
                   </div>
                 </div>
@@ -151,15 +151,19 @@ include '../auth/auth.php'; // Ensure authentication
                         </tr>
                       </thead>
                       <tbody>
+                        <?php 
+                        include '../database/db_connect.php';
+                        
+                        ?>
                         <tr class="text-center">
                           <td>023</td>
                           <td>John Doe</td>
                           <td>Job Order</td>
                           <td>Municipal Accounting Office</td>
                           <td>
-                            <button class="btn btn-success"><i class="fas fa-eye"></i></button>
-                            <button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button>
-                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                            <a class="btn btn-success text-white"><i class="fas fa-eye"></i></a>
+                            <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i></a>
+                            <a class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
                           </td>
                         </tr>
                       </tbody>
@@ -175,18 +179,7 @@ include '../auth/auth.php'; // Ensure authentication
           </div>
 
 
-          <!-- Footer -->
-          <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>copyright &copy; <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                </span>
-              </div>
-            </div>
-          </footer>
-          <!-- Footer -->
+        
         </div>
       </div>
 
