@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 05, 2025 at 02:46 AM
+-- Generation Time: Feb 19, 2025 at 08:56 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,32 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `employee`
+--
+
+CREATE TABLE `employee` (
+  `employee_id` varchar(3) NOT NULL,
+  `fname` varchar(50) NOT NULL,
+  `midname` varchar(50) DEFAULT NULL,
+  `lname` varchar(50) NOT NULL,
+  `extname` varchar(10) DEFAULT NULL,
+  `gender` varchar(10) NOT NULL,
+  `position` varchar(100) NOT NULL,
+  `office` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `employee`
+--
+
+INSERT INTO `employee` (`employee_id`, `fname`, `midname`, `lname`, `extname`, `gender`, `position`, `office`) VALUES
+('001', 'Donovan', 'Abriol', 'Mancenido', '', 'Male', 'Municipal Mayor', 'Office of the Municipal Mayor'),
+('005', 'Ruena', 'Valles', 'Estrella', '', 'Female', 'Administrative Aide VI', 'Office of the Municipal Mayor'),
+('014', 'Maria Cristina', 'Zantua', 'Arevalo', '', 'Female', 'Municipal Vice Mayor', 'Sangguniang Bayan Office');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `login`
 --
 
@@ -38,6 +64,16 @@ CREATE TABLE `login` (
 
 INSERT INTO `login` (`username`, `password`) VALUES
 ('admin', 'admin123');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `employee`
+--
+ALTER TABLE `employee`
+  ADD PRIMARY KEY (`employee_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

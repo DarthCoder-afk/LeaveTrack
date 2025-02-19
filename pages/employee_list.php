@@ -62,13 +62,13 @@ include '../auth/auth.php'; // Ensure authentication
               <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
           </div>
 
+          <!-- Add Modal -->
           <form action="../employeefunction/create.php" method="POST" onsubmit="return validateForm()">
-             <!-- ADD APPLICATION MODAL -->
              <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
                   <div class="modal-header">
-                    <h5 class="modal-title">Add Employee</h5>
+                    <h5 class="modal-title">Add Employee Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -111,19 +111,22 @@ include '../auth/auth.php'; // Ensure authentication
                             <label>Office</label>
                             <select class="form-control" name="office" id="typeOfOffice">
                               <option value="" disabled selected>Select Type of Office</option>
-                              <option value="Mayor's Office">Mayor's Office (MO)</option>
-                              <option value="Human Resource Management Office">Human Resource Management Office (HRMO)</option>
-                              <option value="Municipal Planning & Development Office">Municipal Planning & Development Office (MPDO)</option>
-                              <option value="Municipal Civil Registrar">Municipal Civil Registrar (MCR)</option>
-                              <option value="Municipal Treasurer's Office">Municipal Treasurer's Office (MTO)</option>
-                              <option value="General Service Office">General Service Office (GSO)</option>
-                              <option value="Municipal Accounting Office">Municipal Accounting Office (MAO)</option>
-                              <option value="Municipal Assessor's Office">Municipal Assessor's Office</option>
-                              <option value="Sangguniang Bayan Office">Sangguniang Bayan Office (SBO)</option>
-                              <option value="Mun. Social Welfare Development Office">Mun. Social Welfare Development Office (MSWDO)</option>
-                              <option value="Municipal Agriculture Office">Municipal Agriculture Office (MAO)</option>
-                              <option value="Municipal Engineering Office">Municipal Engineering Office (MEO)</option>
-                              <option value="Municipal Tourism Office">Municipal Tourism Office (MTO)</option>
+                              <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
+                              <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
+                              <option value="Office of the Municipal Treasurer">Office of the Municipal Treasurer</option>
+                              <option value="Office of the Municipal Assessor">Office of the Municipal Assessor</option>
+                              <option value="Office of the Municipal Accountant">Office of the Municipal Accountant</option>
+                              <option value="Office of the Municipal Budget">Office of the Municipal Budget</option>
+                              <option value="Municipal Planning & Development Office">Office of the Municipal Planning & Development Coordinator</option>
+                              <option value="Office of the Local Disaster Risk Reduction Management">Office of the Local Disaster Risk Reduction Management</option>
+                              <option value="Municipal Agriculture Office">Office of the Municipal Agriculture</option>
+                              <option value="Mun. Social Welfare Development Office">Office of the Mun. Social Welfare & Development</option>
+                              <option value="Municipal Engineering Office">Municipal Engineering Office</option>
+                              <option value="Municipal Health Office">Municipal Health Office</option>
+                              <option value="Municipal Civil Registrar">Municipal Civil Registra</option>
+                              <option value="General Service Office">General Service Office</option>
+                              <option value="Human Resource Management Office">Human Resource Management Office</option>
+                              <option value="Municipal Tourism Office">Municipal Tourism Office</option>
                             </select>
                           </div>
                         </div>
@@ -136,7 +139,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group"> 
                             <label>Gender</label>
-                            <select class="form-control" id="typeOfGender" required>
+                            <select class="form-control" name="gender" id="typeOfGender" required>
                               <option value="" disabled selected>Select Type of Gender</option>
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
@@ -145,6 +148,100 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                       </div>
                       <button type="submit" class="btn btn-success btn-block" name="createData">Save</button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </form>
+
+
+          <!-- Update Modal -->
+          <form action="../employeefunction/update.php" method="POST">
+             <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Edit Employee Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="addApplicationForm">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="lname" id="lastName" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="fname" id="firstName" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Middle Name <small>(optional)</small></label>
+                            <input type="text" class="form-control" name="midname" id="middleName">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Name Extension <small>(e.g., Jr., Sr., III) (optional)</small></label>
+                            <input type="text" class="form-control" name="extname" id="nameExtension">
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Position</label>
+                            <input type="text" class="form-control" name="position" id="position" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>Office</label>
+                            <select class="form-control" name="office" id="typeOfOffice">
+                              <option value="" disabled selected>Select Type of Office</option>
+                              <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
+                              <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
+                              <option value="Office of the Municipal Treasurer">Office of the Municipal Treasurer</option>
+                              <option value="Office of the Municipal Assessor">Office of the Municipal Assessor</option>
+                              <option value="Office of the Municipal Accountant">Office of the Municipal Accountant</option>
+                              <option value="Office of the Municipal Budget">Office of the Municipal Budget</option>
+                              <option value="Municipal Planning & Development Office">Office of the Municipal Planning & Development Coordinator</option>
+                              <option value="Office of the Local Disaster Risk Reduction Management">Office of the Local Disaster Risk Reduction Management</option>
+                              <option value="Municipal Agriculture Office">Office of the Municipal Agriculture</option>
+                              <option value="Mun. Social Welfare Development Office">Office of the Mun. Social Welfare & Development</option>
+                              <option value="Municipal Engineering Office">Municipal Engineering Office</option>
+                              <option value="Municipal Health Office">Municipal Health Office</option>
+                              <option value="Municipal Civil Registrar">Municipal Civil Registra</option>
+                              <option value="General Service Office">General Service Office</option>
+                              <option value="Human Resource Management Office">Human Resource Management Office</option>
+                              <option value="Municipal Tourism Office">Municipal Tourism Office</option>
+                            </select>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>ID No.</label>
+                            <input type="text" class="form-control" name="employee_id" id="idnumber" required>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group"> 
+                            <label>Gender</label>
+                            <select class="form-control" name="gender" id="typeOfGender" required>
+                              <option value="" disabled selected>Select Type of Gender</option>
+                              <option value="Male">Male</option>
+                              <option value="Female">Female</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" class="btn btn-success btn-block" name="updateData">Update</button>
                     </form>
                   </div>
                 </div>
@@ -165,6 +262,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <tr>
                           <th>ID No.</th>
                           <th>Name</th>
+                          <th>Gender</th>
                           <th>Position</th>
                           <th>Office</th>
                           <th>Actions</th>
@@ -182,12 +280,23 @@ include '../auth/auth.php'; // Ensure authentication
                          echo "<tr class='text-center'>";
                          echo "<td>{$row['employee_id']}</td>";
                          echo "<td>{$full_name}</td>";
+                         echo "<td>{$row['gender']}</td>";
                          echo "<td>{$row['position']}</td>";
                          echo "<td>{$row['office']}</td>";
                          echo "<td>
-                                 <a class='btn btn-success text-white'><i class='fas fa-eye'></i></a>
-                                 <a class='btn btn-info text-white'><i class='fas fa-pencil-alt'></i></a>
-                                 <a class='btn btn-danger text-white'><i class='fas fa-trash-alt'></i></a>
+                                 <button class='btn btn-success text-white'><i class='fas fa-eye'></i></button>
+                                 <button class='btn btn-info' data-toggle='modal' data-target='#editEmployeeModal'
+                                   data-employee_id='{$row['employee_id']}'
+                                   data-lname='{$row['lname']}'
+                                   data-fname='{$row['fname']}'
+                                   data-midname='{$row['midname']}'
+                                   data-extname='{$row['extname']}'
+                                   data-position='{$row['position']}'
+                                   data-office='{$row['office']}'
+                                   data-gender='{$row['gender']}'>
+                                   <i class='fas fa-pencil-alt'></i>
+                                 </button>
+                                 <button class='btn btn-danger text-white deletebtn' data-employee_id='{$row['employee_id']}'><i class='fas fa-trash-alt'></i></button>
                                </td>";
                          echo "</tr>";
                      }
@@ -267,6 +376,55 @@ include '../auth/auth.php'; // Ensure authentication
        }
        return true;
      }
+   </script>
+
+
+<script>
+     $(document).on('click', '.deletebtn', function(event) {
+       event.preventDefault(); // Prevent immediate redirection
+       var employee_id = $(this).data('employee_id');
+
+       Swal.fire({
+         title: "Are you sure?",
+         text: "You will be deleting this data",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#d33",
+         cancelButtonColor: "#3085d6",
+         confirmButtonText: "Yes, delete!"
+       }).then((result) => {
+         if (result.isConfirmed) {
+           window.location.href = "../employeefunction/delete.php?employee_id=" + employee_id; // Redirect if confirmed
+         }
+       });
+     });
+   </script>
+
+   <script>
+    $('#editEmployeeModal').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);
+      var employee_id = button.data('employee_id');
+      var lname = button.data('lname');
+      var fname = button.data('fname');
+      var midname = button.data('midname');
+      var extname = button.data('extname');
+      var position = button.data('position');
+      var office = button.data('office');
+      var gender = button.data('gender')
+
+      console.log("employee id:", employee_id);
+
+      // Update the modal's content.
+      var modal = $(this);
+       modal.find('#idnumber').val(employee_id);
+       modal.find('#lastName').val(lname);
+       modal.find('#firstName').val(fname);
+       modal.find('#middleName').val(midname);
+       modal.find('#nameExtension').val(extname);
+       modal.find('#position').val(position);
+       modal.find('#typeOfOffice').val(office);
+       modal.find('#typeOfGender').val(gender);
+    });
    </script>
 </body>
 

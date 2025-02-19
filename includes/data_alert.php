@@ -14,6 +14,20 @@
                         icon: 'error',
                         confirmButtonText: 'Try Again'
                     });
+                <?php elseif ($_SESSION['message'] == "update"): ?>
+                    Swal.fire({
+                        title: 'Data Updated!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
+                <?php elseif ($_SESSION['message'] == "delete"): ?>
+                    Swal.fire({
+                        title: 'Data Deleted!',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 <?php endif; ?>
             });
         </script>
