@@ -1,12 +1,15 @@
 <?php
-session_start(); // Start session
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 include "../database/db_connect.php"; // Include database connection
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $username = mysqli_real_escape_string($check, $_POST['username']);
-    $password = mysqli_real_escape_string($check, $_POST['password']);
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
 
-    $data = mysqli_query($check, "SELECT * FROM login WHERE username='$username' AND password='$password'");
+    $data = mysqli_query($conn, "SELECT * FROM login WHERE username='$username' AND password='$password'");
 
     if (mysqli_num_rows($data) == 1) {
         $_SESSION['message'] = "success";

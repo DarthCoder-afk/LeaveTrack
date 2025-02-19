@@ -1,5 +1,7 @@
-<?php 
-include "../database/db_connect.php"; // Include database connection
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 
 <!DOCTYPE html>
@@ -77,8 +79,6 @@ include "../database/db_connect.php"; // Include database connection
     <?php 
         unset($_SESSION['message']); // Clear session message after showing alert
     endif; ?>
-
-
 
 </body>
 </html>

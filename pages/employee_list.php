@@ -1,6 +1,7 @@
 <?php
 include '../auth/auth.php'; // Ensure authentication
 
+
 //echo "Welcome, " . $_SESSION['username'];
 ?>
 
@@ -20,6 +21,21 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
+  <style>
+    .table-responsive {
+      overflow-x: auto;
+    }
+    .table th, .table td {
+      white-space: nowrap;
+    }
+    .table th {
+      text-align: center;
+    }
+    .table td {
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -46,8 +62,9 @@ include '../auth/auth.php'; // Ensure authentication
               <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
           </div>
 
-            <!-- ADD APPLICATION MODAL -->
-            <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <form action="../employeefunction/create.php" method="POST" onsubmit="return validateForm()">
+             <!-- ADD APPLICATION MODAL -->
+             <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
                   <div class="modal-header">
@@ -62,37 +79,37 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Last Name</label>
-                            <input type="text" class="form-control" id="lastName" required>
+                            <input type="text" class="form-control" name="lname" id="lastName" required>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>First Name</label>
-                            <input type="text" class="form-control" id="firstName" required>
+                            <input type="text" class="form-control" name="fname" id="firstName" required>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Middle Name <small>(optional)</small></label>
-                            <input type="text" class="form-control" id="middleName">
+                            <input type="text" class="form-control" name="midname" id="middleName">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Name Extension <small>(e.g., Jr., Sr., III) (optional)</small></label>
-                            <input type="text" class="form-control" id="nameExtension">
+                            <input type="text" class="form-control" name="extname" id="nameExtension">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Position</label>
-                            <input type="text" class="form-control" id="position" required>
+                            <input type="text" class="form-control" name="position" id="position" required>
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <select class="form-control" id="typeOfOffice">
+                            <select class="form-control" name="office" id="typeOfOffice">
                               <option value="" disabled selected>Select Type of Office</option>
                               <option value="Mayor's Office">Mayor's Office (MO)</option>
                               <option value="Human Resource Management Office">Human Resource Management Office (HRMO)</option>
@@ -113,7 +130,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ID No.</label>
-                            <input type="text" class="form-control" id="middleName">
+                            <input type="text" class="form-control" name="employee_id" id="idnumber" min ="3" step="1" required>
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -127,12 +144,15 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                         </div>
                       </div>
-                      <a type="submit" class="btn btn-success btn-block" href="../employeefunction/create.php">Save</a>
+                      <button type="submit" class="btn btn-success btn-block" name="createData">Save</button>
                     </form>
                   </div>
                 </div>
               </div>
             </div>
+          </form>
+
+           
 
             <!-- Row -->
             <div class="row">
@@ -151,21 +171,27 @@ include '../auth/auth.php'; // Ensure authentication
                         </tr>
                       </thead>
                       <tbody>
-                        <?php 
-                        include '../database/db_connect.php';
                         
-                        ?>
-                        <tr class="text-center">
-                          <td>023</td>
-                          <td>John Doe</td>
-                          <td>Job Order</td>
-                          <td>Municipal Accounting Office</td>
-                          <td>
-                            <a class="btn btn-success text-white"><i class="fas fa-eye"></i></a>
-                            <a class="btn btn-info text-white"><i class="fas fa-pencil-alt"></i></a>
-                            <a class="btn btn-danger text-white"><i class="fas fa-trash-alt"></i></a>
-                          </td>
-                        </tr>
+                      <?php 
+                     include '../database/db_connect.php';
+                     $result = $conn->query("SELECT * FROM employee");
+                     while ($row = $result->fetch_assoc()) {
+                         //$formatted_emp_id = sprintf('%03d', $row['employee_id']); // Format employee_id with leading zeros
+                         //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
+                         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
+                         echo "<tr class='text-center'>";
+                         echo "<td>{$row['employee_id']}</td>";
+                         echo "<td>{$full_name}</td>";
+                         echo "<td>{$row['position']}</td>";
+                         echo "<td>{$row['office']}</td>";
+                         echo "<td>
+                                 <a class='btn btn-success text-white'><i class='fas fa-eye'></i></a>
+                                 <a class='btn btn-info text-white'><i class='fas fa-pencil-alt'></i></a>
+                                 <a class='btn btn-danger text-white'><i class='fas fa-trash-alt'></i></a>
+                               </td>";
+                         echo "</tr>";
+                     }
+                     ?>
                       </tbody>
                     </table>
                   </div>
@@ -188,33 +214,8 @@ include '../auth/auth.php'; // Ensure authentication
         <i class="fas fa-angle-up"></i>
       </a>
 
-      <script>
-        function calculateNumberofDays(){
-          const startDate = document.getElementById("startDate").value;
-          const endDate = document.getElementById("endDate").value;
-
-          if (startDate && endDate) {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            const timeDifference = end - start;
-            const daysDifference = timeDifference / (1000 * 3600 * 24) + 1;
-
-            if (daysDifference > 0) {
-              document.getElementById('numberOfDays').value = daysDifference;
-            } else {
-              document.getElementById('startDate').value = 0;
-              document.getElementById('endDate').value = 0;
-              Swal.fire({
-                title: "Invalid Dates",
-                text: "End date should be greater than start date.",
-                icon: "error"
-                
-              });
-            }
-          }
-        }
-      </script>
-
+      <!-- Data Alert -->
+      <?php include '../includes/data_alert.php'; ?>
 
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="../vendor/jquery/jquery.min.js"></script>
@@ -252,6 +253,21 @@ include '../auth/auth.php'; // Ensure authentication
         });
       </script>
 
+  <script>
+     function validateForm() {
+       var idnumber = document.getElementById("idnumber").value;
+       if (!/^\d+$/.test(idnumber) || Number(idnumber) <= 0) {
+         Swal.fire({
+           title: 'Invalid ID Number',
+           text: 'Please enter a valid integer ID number.',
+           icon: 'error',
+           confirmButtonText: 'OK'
+         });
+         return false;
+       }
+       return true;
+     }
+   </script>
 </body>
 
 </html>

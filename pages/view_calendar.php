@@ -25,9 +25,9 @@ include '../auth/auth.php'; // Ensure authentication
 
 <body id="page-top">
   <div id="wrapper">
-         <!-- Sidebar&Topbar -->
-         <?php include '../includes/sidebar.php'; ?>
-         <!-- Sidebar&Topbar -->
+        <!-- Sidebar&Topbar -->
+        <?php include '../includes/sidebar.php'; ?>
+        <!-- Sidebar&Topbar -->
           
         <!-- Container Fluid-->
         <div class="container-fluid" id="container-wrapper">
