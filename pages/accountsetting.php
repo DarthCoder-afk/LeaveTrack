@@ -72,7 +72,7 @@ include '../auth/auth.php'; // Ensure authentication
 
                     </div>
                     <div class="modal-body">
-                    <form id="changePasswordForm" action="../database/change_password.php" method="POST">
+                    <form id="changePasswordForm" action="../auth/change_password.php" method="POST">
                         <div class="mb-3">
                             <label class="form-label">Current Password</label>
                             <input type="password" id="current_password" name="current_password" class="form-control" required>
@@ -102,7 +102,7 @@ include '../auth/auth.php'; // Ensure authentication
 
                     </div>
                     <div class="modal-body">
-                        <form id="updateUsernameForm" action="../database/change_username.php" method="POST">
+                        <form id="updateUsernameForm" action="../auth/change_username.php" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">New Username</label>
                                 <input type="text" id="new_username" name="new_username" class="form-control" required>
