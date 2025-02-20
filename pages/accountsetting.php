@@ -137,8 +137,8 @@ include '../auth/auth.php'; // Ensure authentication
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- JavaScript for Form Validation -->
-    <script src="../accountsetting/change.js"></script>
-    <script src="../accountsetting/updatealert.js"></script>
+    <script src="../js/accountsetting/change.js"></script>
+    <script src="../js/accountsetting/updatealert.js"></script>
 
     <!-- Scroll to top -->
     <a class="scroll-to-top rounded" href="#page-top">
