@@ -72,21 +72,22 @@ include '../auth/auth.php'; // Ensure authentication
 
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label">Current Password</label>
-                                <input type="password" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">New Password</label>
-                                <input type="password" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Confirm New Password</label>
-                                <input type="password" class="form-control" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Update Password</button>
-                        </form>
+                    <form id="changePasswordForm" action="../auth/change_password.php" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Current Password</label>
+                            <input type="password" id="current_password" name="current_password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">New Password</label>
+                            <input type="password" id="new_password" name="new_password" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Confirm New Password</label>
+                            <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Update Password</button>
+                    </form>
+
                     </div>
                 </div>
             </div>
@@ -101,13 +102,14 @@ include '../auth/auth.php'; // Ensure authentication
 
                     </div>
                     <div class="modal-body">
-                        <form>
+                        <form id="updateUsernameForm" action="../auth/change_username.php" method="POST">
                             <div class="mb-3">
                                 <label class="form-label">New Username</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" id="new_username" name="new_username" class="form-control" required>
                             </div>
                             <button type="submit" class="btn btn-warning w-100">Update Username</button>
                         </form>
+
                     </div>
                 </div>
             </div>
@@ -144,14 +146,6 @@ include '../auth/auth.php'; // Ensure authentication
         let errorText = document.getElementById("errorText");
         let errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
 
-        // Check if passwords match
-        if (newPassword !== confirmPassword) {
-            errorText.innerText = "Passwords do not match!"; // Set error message
-            errorModal.show(); // Show error pop-up
-            return;
-        }
-
-        alert("Password change request submitted!");
     });
 
     document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
@@ -165,10 +159,56 @@ include '../auth/auth.php'; // Ensure authentication
             errorModal.show();
             return;
         }
-
-        alert("Username update request submitted!");
     });
     </script>
+
+    <script>
+        document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch(this.action, {  // Use the form's action attribute
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            Swal.fire({
+                title: "Password Update",
+                text: data,
+                icon: "success"
+            }).then(() => location.reload()); // Reload page on success
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+
+    document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        let formData = new FormData(this);
+
+        fetch(this.action, {  // Use the form's action attribute
+            method: "POST",
+            body: formData
+        })
+        .then(response => response.text())
+        .then(data => {
+            Swal.fire({
+                title: "Username Update",
+                text: data,
+                icon: "success"
+            }).then(() => location.reload()); // Reload page on success
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+    });
+
+    </script>
+
 
     <!-- Scroll to top -->
     <a class="scroll-to-top rounded" href="#page-top">
