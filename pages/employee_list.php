@@ -224,7 +224,13 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ID No.</label>
-                            <input type="text" class="form-control" name="employee_id" id="idnumber" required>
+                            <input type="text" class="form-control" name="employee_id" id="idnumber" disabled>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label>New ID No.</label>
+                            <input type="text" class="form-control" name="new_employee_id" id="idnumber2" required>
                           </div>
                         </div>
                         <div class="col-md-6">

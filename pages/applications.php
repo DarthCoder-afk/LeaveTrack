@@ -188,10 +188,8 @@ include '../auth/auth.php'; // Ensure authentication
                           <th>Name</th>
                           <th>Position</th>
                           <th>Office</th>
-                          <th>Type of Leave</th>
+                          <th>Leave Type</th>
                           <th>Date Applied</th>
-                          <th>Inclusive Dates</th>
-                          <th>Day/s</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
@@ -202,8 +200,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <td></td>
                           <td></td>
                           <td></td>
-                          <td></td>
-                          <td></td>
+                          
                           <td>
                             <button class="btn btn-success"><i class="fas fa-eye"></i></button>
                             <button class="btn btn-info"><i class="fas fa-pencil-alt"></i></button>
