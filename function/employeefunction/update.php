@@ -1,5 +1,5 @@
 <?php
-include '../database/db_connect.php';
+include '../../database/db_connect.php';
 
 if(isset($_POST['updateData'])) {
     session_start();
@@ -26,7 +26,7 @@ if(isset($_POST['updateData'])) {
 
     $stmt->close();
     $conn->close();
-    header('Location: ../pages/employee_list.php');
+    header('Location: ../../pages/employee_list.php');
     exit();
 }
 ?>

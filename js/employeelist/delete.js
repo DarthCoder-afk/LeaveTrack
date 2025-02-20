@@ -12,7 +12,7 @@ $(document).on('click', '.deletebtn', function(event) {
       confirmButtonText: "Yes, delete!"
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "../employeefunction/delete.php?employee_id=" + employee_id; // Redirect if confirmed
+        window.location.href = "../function/employeefunction/delete.php?employee_id=" + employee_id; // Redirect if confirmed
       }
     });
   });

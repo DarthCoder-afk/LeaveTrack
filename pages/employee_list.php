@@ -60,7 +60,7 @@ include '../auth/auth.php'; // Ensure authentication
           </div>
 
           <!-- Add Modal -->
-          <form action="../employeefunction/create.php" method="POST" onsubmit="return validateForm()">
+          <form action="../function/employeefunction/create.php" method="POST" onsubmit="return validateForm()">
              <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
@@ -154,7 +154,7 @@ include '../auth/auth.php'; // Ensure authentication
 
 
           <!-- Update Modal -->
-          <form action="../employeefunction/update.php" method="POST">
+          <form action="../function/employeefunction/update.php" method="POST">
              <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
@@ -266,7 +266,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </tr>
                       </thead>
                       <tbody>
-                        <?php include '../employeefunction/fetch.php'?>
+                        <?php include '../function/employeefunction/fetch.php'?>
                       </tbody>
                     </table>
                   </div>

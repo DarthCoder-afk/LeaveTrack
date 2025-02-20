@@ -1,5 +1,5 @@
 <?php
-include '../database/db_connect.php';
+include '../../database/db_connect.php';
 
 if(isset($_GET['employee_id'])) {
     session_start();
@@ -20,7 +20,7 @@ if(isset($_GET['employee_id'])) {
 
     $stmt->close();
     $conn->close();
-    header('Location: ../pages/employee_list.php');
+    header('Location: ../../pages/employee_list.php');
     exit();
 }
 ?>
