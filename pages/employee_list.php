@@ -259,7 +259,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <tr>
                           <th>ID No.</th>
                           <th>Name</th>
-                          <th>Gender</th>
+                          <!-- <th>Gender</th> -->
                           <th>Position</th>
                           <th>Office</th>
                           <th>Actions</th>

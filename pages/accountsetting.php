@@ -1,9 +1,7 @@
 <?php
 include '../auth/auth.php'; // Ensure authentication
-
 //echo "Welcome, " . $_SESSION['username'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
