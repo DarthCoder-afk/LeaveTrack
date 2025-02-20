@@ -206,19 +206,6 @@ include '../auth/auth.php'; // Ensure authentication
             <!---Container Fluid-->
           </div>
 
-
-          <!-- Footer -->
-          <footer class="sticky-footer bg-white">
-            <div class="container my-auto">
-              <div class="copyright text-center my-auto">
-                <span>copyright &copy; <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                </span>
-              </div>
-            </div>
-          </footer>
-          <!-- Footer -->
         </div>
       </div>
 
@@ -227,70 +214,20 @@ include '../auth/auth.php'; // Ensure authentication
         <i class="fas fa-angle-up"></i>
       </a>
 
-      <script>
-        function calculateNumberofDays(){
-          const startDate = document.getElementById("startDate").value;
-          const endDate = document.getElementById("endDate").value;
-
-          if (startDate && endDate) {
-            const start = new Date(startDate);
-            const end = new Date(endDate);
-            const timeDifference = end - start;
-            const daysDifference = timeDifference / (1000 * 3600 * 24) + 1;
-
-            if (daysDifference > 0) {
-              document.getElementById('numberOfDays').value = daysDifference;
-            } else {
-              document.getElementById('startDate').value = 0;
-              document.getElementById('endDate').value = 0;
-              Swal.fire({
-                title: "Invalid Dates",
-                text: "End date should be greater than start date.",
-                icon: "error"
-                
-              });
-            }
-          }
-        }
-      </script>
-
-
+      <script src="../js/datechecker.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="../vendor/jquery/jquery.min.js"></script>
       <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
+
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
       <!-- Page level custom scripts -->
-      <script>
-        $(document).ready(function() {
-          $('#dataTable').DataTable(); // ID From dataTable 
-          $('#dataTableHover').DataTable(); // ID From dataTable with Hover
-        });
-      </script>
-      <script>
-        document.getElementById("logout-link").addEventListener("click", function(event) {
-          event.preventDefault(); // Prevent immediate redirection
-
-          Swal.fire({
-            title: "Are you sure?",
-            text: "You will be logged out!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, logout!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.href = "../auth/logout.php"; // Redirect if confirmed
-            }
-          });
-        });
-      </script>
-
+      <script src="../js/dataTable.js"></script>
+      <script src="../js/logout.js"></script>
 </body>
 
 </html>

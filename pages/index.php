@@ -159,18 +159,6 @@ include '../auth/auth.php'; // Ensure authentication
 
           <!---Container Fluid-->
         </div>
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>copyright &copy; <script>
-                  document.write(new Date().getFullYear());
-                </script>
-              </span>
-            </div>
-          </div>
-        </footer>
-        <!-- Footer -->
       </div>
     </div>
 
@@ -185,25 +173,7 @@ include '../auth/auth.php'; // Ensure authentication
     <script src="../js/ruang-admin.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script>
-    <script>
-      document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent immediate redirection
-
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You will be logged out!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Yes, logout!"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "../auth/logout.php"; // Redirect if confirmed
-          }
-        });
-      });
-    </script>
+    <script src="../js/logout.js"></script>
 
 </body>
 

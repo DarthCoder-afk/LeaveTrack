@@ -1,6 +1,5 @@
 <?php
 include '../auth/auth.php'; // Ensure authentication
-
 //echo "Welcome, " . $_SESSION['username'];
 ?>
 
@@ -15,7 +14,7 @@ include '../auth/auth.php'; // Ensure authentication
   <meta name="description" content="">
   <meta name="author" content="">
   <link href="../img/favicon.ico" rel="icon">
-  <title>HR Admin - Dashboard</title>
+  <title>HR Admin - View Calendar</title>
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
@@ -39,35 +38,21 @@ include '../auth/auth.php'; // Ensure authentication
             </ol>
           </div>
 
-       <div class="container">
-        <div class="card">
-          <div class="card-header bg-success text-white">
-            <h2 class="text-center mb-4 mt-3">Service Incentive Leave Calendar</h2>
-          </div>
-        <div class="card-body">
-          <div id="calendar"> </div>
-        </div>
-        
-        
-        </div>
-      </div>
-
-
-          
-          <!---Container Fluid-->
-        </div>
-        <!-- Footer -->
-        <footer class="sticky-footer bg-white">
-          <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-              <span>copyright &copy; <script>
-                  document.write(new Date().getFullYear());
-                </script>
-              </span>
+          <!-- Calendar -->
+          <div class="container">
+            <div class="card">
+              <div class="card-header bg-success text-white">
+                <h2 class="text-center mb-4 mt-3">Service Incentive Leave Calendar</h2>
+              </div>
+              <div class="card-body">
+                <div id="calendar"> </div>
+              </div>
             </div>
           </div>
-        </footer>
-        <!-- Footer -->
+          <!-- Calendar -->
+  
+          <!---Container Fluid-->
+        </div>
       </div>
     </div>
 

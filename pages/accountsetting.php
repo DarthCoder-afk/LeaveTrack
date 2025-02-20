@@ -137,78 +137,8 @@ include '../auth/auth.php'; // Ensure authentication
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- JavaScript for Form Validation -->
-    <script>
-    document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent form submission
-
-        let newPassword = document.getElementById("new_password").value;
-        let confirmPassword = document.getElementById("confirm_password").value;
-        let errorText = document.getElementById("errorText");
-        let errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
-
-    });
-
-    document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
-        e.preventDefault(); // Prevent form submission
-
-        let newUsername = document.getElementById("new_username").value;
-        if (newUsername.trim() === "") {
-            let errorText = document.getElementById("errorText");
-            let errorModal = new bootstrap.Modal(document.getElementById("errorModal"));
-            errorText.innerText = "Username cannot be empty!";
-            errorModal.show();
-            return;
-        }
-    });
-    </script>
-
-    <script>
-        document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        fetch(this.action, {  // Use the form's action attribute
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            Swal.fire({
-                title: "Password Update",
-                text: data,
-                icon: "success"
-            }).then(() => location.reload()); // Reload page on success
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-
-    document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        let formData = new FormData(this);
-
-        fetch(this.action, {  // Use the form's action attribute
-            method: "POST",
-            body: formData
-        })
-        .then(response => response.text())
-        .then(data => {
-            Swal.fire({
-                title: "Username Update",
-                text: data,
-                icon: "success"
-            }).then(() => location.reload()); // Reload page on success
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-    });
-
-    </script>
-
+    <script src="../accountsetting/change.js"></script>
+    <script src="../accountsetting/updatealert.js"></script>
 
     <!-- Scroll to top -->
     <a class="scroll-to-top rounded" href="#page-top">
@@ -225,27 +155,7 @@ include '../auth/auth.php'; // Ensure authentication
     <script src="../js/ruang-admin.min.js"></script>
     <script src="../vendor/chart.js/Chart.min.js"></script>
     <script src="../js/demo/chart-area-demo.js"></script>
-
-
-    <script>
-      document.getElementById("logout-link").addEventListener("click", function(event) {
-        event.preventDefault(); // Prevent immediate redirection
-
-        Swal.fire({
-          title: "Are you sure?",
-          text: "You will be logged out!",
-          icon: "warning",
-          showCancelButton: true,
-          confirmButtonColor: "#d33",
-          cancelButtonColor: "#3085d6",
-          confirmButtonText: "Yes, logout!"
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "../auth/logout.php"; // Redirect if confirmed
-          }
-        });
-      });
-    </script>
+    <script src="../js/logout.js"></script>
 
 </body>
 </html>
