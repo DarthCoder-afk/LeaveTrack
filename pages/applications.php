@@ -58,7 +58,7 @@ include '../auth/auth.php'; // Ensure authentication
             </div>
 
             <!-- ADD APPLICATION MODAL -->
-            <form action="../function/leavefunctions/addleave.php" method="POST">
+            <form action="../function/leavefunctions/addleave.php" id="addApplicationForm" method="POST">
               <div class="modal fade" id="addApplicationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                   <div class="modal-content">
@@ -160,7 +160,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Number of Days</label>
-                              <input type="text" class="form-control" name="numdays" id="numberOfDays" disabled>
+                              <input type="text" class="form-control" name="numdays" id="numberOfDays" required>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -218,6 +218,8 @@ include '../auth/auth.php'; // Ensure authentication
             </div>
             <!--Row-->
 
+            <!-- Data Alert -->
+            <?php include '../includes/data_alert.php'; ?>
 
             <!---Container Fluid-->
           </div>
@@ -241,6 +243,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
       <!-- Page level custom scripts -->
+      
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
 
