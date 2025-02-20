@@ -326,11 +326,13 @@ include '../auth/auth.php'; // Ensure authentication
       <!-- Data Alert -->
       <?php include '../includes/data_alert.php'; ?>
 
+      
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="../vendor/jquery/jquery.min.js"></script>
       <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
+      <script src="../js/logout.js"></script>
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -342,25 +344,7 @@ include '../auth/auth.php'; // Ensure authentication
           $('#dataTableHover').DataTable(); // ID From dataTable with Hover
         });
       </script>
-      <script>
-        document.getElementById("logout-link").addEventListener("click", function(event) {
-          event.preventDefault(); // Prevent immediate redirection
-
-          Swal.fire({
-            title: "Are you sure?",
-            text: "You will be logged out!",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#d33",
-            cancelButtonColor: "#3085d6",
-            confirmButtonText: "Yes, logout!"
-          }).then((result) => {
-            if (result.isConfirmed) {
-              window.location.href = "../auth/logout.php"; // Redirect if confirmed
-            }
-          });
-        });
-      </script>
+      
 
   <script>
      function validateForm() {
