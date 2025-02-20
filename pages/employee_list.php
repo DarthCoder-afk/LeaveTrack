@@ -1,10 +1,7 @@
 <?php
 include '../auth/auth.php'; // Ensure authentication
-
-
 //echo "Welcome, " . $_SESSION['username'];
 ?>
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -251,7 +248,7 @@ include '../auth/auth.php'; // Ensure authentication
 
            
 
-            <!-- Row -->
+            <!-- Table -->
             <div class="row">
               <!-- DataTable with Hover -->
               <div class="col-lg-12">
@@ -269,45 +266,14 @@ include '../auth/auth.php'; // Ensure authentication
                         </tr>
                       </thead>
                       <tbody>
-                        
-                      <?php 
-                     include '../database/db_connect.php';
-                     $result = $conn->query("SELECT * FROM employee");
-                     while ($row = $result->fetch_assoc()) {
-                         //$formatted_emp_id = sprintf('%03d', $row['employee_id']); // Format employee_id with leading zeros
-                         //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
-                         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
-                         echo "<tr class='text-center'>";
-                         echo "<td>{$row['employee_id']}</td>";
-                         echo "<td>{$full_name}</td>";
-                         echo "<td>{$row['gender']}</td>";
-                         echo "<td>{$row['position']}</td>";
-                         echo "<td>{$row['office']}</td>";
-                         echo "<td>
-                                 <button class='btn btn-success text-white'><i class='fas fa-eye'></i></button>
-                                 <button class='btn btn-info' data-toggle='modal' data-target='#editEmployeeModal'
-                                   data-employee_id='{$row['employee_id']}'
-                                   data-lname='{$row['lname']}'
-                                   data-fname='{$row['fname']}'
-                                   data-midname='{$row['midname']}'
-                                   data-extname='{$row['extname']}'
-                                   data-position='{$row['position']}'
-                                   data-office='{$row['office']}'
-                                   data-gender='{$row['gender']}'>
-                                   <i class='fas fa-pencil-alt'></i>
-                                 </button>
-                                 <button class='btn btn-danger text-white deletebtn' data-employee_id='{$row['employee_id']}'><i class='fas fa-trash-alt'></i></button>
-                               </td>";
-                         echo "</tr>";
-                     }
-                     ?>
+                        <?php include '../employeefunction/fetch.php'?>
                       </tbody>
                     </table>
                   </div>
                 </div>
               </div>
             </div>
-            <!--Row-->
+            <!--Table-->
 
 
             <!---Container Fluid-->
@@ -326,90 +292,23 @@ include '../auth/auth.php'; // Ensure authentication
       <!-- Data Alert -->
       <?php include '../includes/data_alert.php'; ?>
 
-      
+
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="../vendor/jquery/jquery.min.js"></script>
       <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
       <script src="../js/logout.js"></script>
+      <script src="../js/employeelist/delete.js"></script>
+      <script src="../js/employeelist/update.js"></script>
+      <script src="../js/employeelist/validate.js"></script>
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
       <!-- Page level custom scripts -->
-      <script>
-        $(document).ready(function() {
-          $('#dataTable').DataTable(); // ID From dataTable 
-          $('#dataTableHover').DataTable(); // ID From dataTable with Hover
-        });
-      </script>
+      <script src="../js/dataTable.js"></script>
       
-
-  <script>
-     function validateForm() {
-       var idnumber = document.getElementById("idnumber").value;
-       if (!/^\d+$/.test(idnumber) || Number(idnumber) <= 0) {
-         Swal.fire({
-           title: 'Invalid ID Number',
-           text: 'Please enter a valid integer ID number.',
-           icon: 'error',
-           confirmButtonText: 'OK'
-         });
-         return false;
-       }
-       return true;
-     }
-   </script>
-
-
-<script>
-     $(document).on('click', '.deletebtn', function(event) {
-       event.preventDefault(); // Prevent immediate redirection
-       var employee_id = $(this).data('employee_id');
-
-       Swal.fire({
-         title: "Are you sure?",
-         text: "You will be deleting this data",
-         icon: "warning",
-         showCancelButton: true,
-         confirmButtonColor: "#d33",
-         cancelButtonColor: "#3085d6",
-         confirmButtonText: "Yes, delete!"
-       }).then((result) => {
-         if (result.isConfirmed) {
-           window.location.href = "../employeefunction/delete.php?employee_id=" + employee_id; // Redirect if confirmed
-         }
-       });
-     });
-   </script>
-
-   <script>
-    $('#editEmployeeModal').on('show.bs.modal', function (event) {
-      var button = $(event.relatedTarget);
-      var employee_id = button.data('employee_id');
-      var lname = button.data('lname');
-      var fname = button.data('fname');
-      var midname = button.data('midname');
-      var extname = button.data('extname');
-      var position = button.data('position');
-      var office = button.data('office');
-      var gender = button.data('gender')
-
-      console.log("employee id:", employee_id);
-
-      // Update the modal's content.
-      var modal = $(this);
-       modal.find('#idnumber').val(employee_id);
-       modal.find('#lastName').val(lname);
-       modal.find('#firstName').val(fname);
-       modal.find('#middleName').val(midname);
-       modal.find('#nameExtension').val(extname);
-       modal.find('#position').val(position);
-       modal.find('#typeOfOffice').val(office);
-       modal.find('#typeOfGender').val(gender);
-    });
-   </script>
 </body>
 
 </html>
