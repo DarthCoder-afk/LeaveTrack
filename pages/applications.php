@@ -366,6 +366,7 @@ include '../auth/auth.php'; // Ensure authentication
          label.textContent = filename;
         }
        </script> -->
+      <script src="../js/leaveapplication/deleteleave.js"></script>
       <script src="../js/leaveapplication/updateleave.js"></script>
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
