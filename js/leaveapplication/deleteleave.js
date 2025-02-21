@@ -1,7 +1,8 @@
 $(document).on('click', '.deletebtn', function(event) {
     event.preventDefault(); // Prevent immediate redirection
-    var employee_id = $(this).data('employee_id');
+    var index_no = $(this).data('indexno');
 
+    console.log(index_no);
     Swal.fire({
       title: "Are you sure?",
       text: "You will be deleting this data",
@@ -12,7 +13,7 @@ $(document).on('click', '.deletebtn', function(event) {
       confirmButtonText: "Yes, delete!"
     }).then((result) => {
       if (result.isConfirmed) {
-        window.location.href = "../function/leavefunctions/deleteleave.php?employee_id=" + employee_id; // Redirect if confirmed
+        window.location.href = "../function/leavefunctions/deleteleave.php?index_no=" + index_no; // Redirect if confirmed
       }
     });
   });

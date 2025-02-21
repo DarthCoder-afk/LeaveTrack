@@ -1,14 +1,14 @@
 <?php
 include '../../database/db_connect.php';
 
-if(isset($_GET['employee_id'])) {
+if(isset($_GET['index_no'])) {
     session_start();
 
-    $employee_id = $_GET['employee_id'];
+    $index_no = $_GET['index_no'];
 
 
-    $stmt = $conn->prepare("DELETE FROM leaveapplication WHERE employee_id = ?");
-    $stmt->bind_param("s", $employee_id);
+    $stmt = $conn->prepare("DELETE FROM leaveapplication WHERE index_no = ?");
+    $stmt->bind_param("s", $index_no);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "delete";
