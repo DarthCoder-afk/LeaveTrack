@@ -58,7 +58,7 @@ include '../auth/auth.php'; // Ensure authentication
             </div>
 
             <!-- ADD APPLICATION MODAL -->
-            <form action="../function/leavefunctions/addleave.php" id="addApplicationForm" method="POST">
+            <form action="../function/leavefunctions/addleave.php" id="addApplicationForm" method="POST" enctype="multipart/form-data">
               <div class="modal fade" id="addApplicationModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                   <div class="modal-content">

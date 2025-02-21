@@ -10,10 +10,16 @@ if(isset($_POST['AddLeave'])) {
     $sdate = $_POST['startdate'];
     $edate = $_POST['enddate'];
     $numdays = $_POST['numdays'];
-    $form = $_POST['form'];
+  
+
+     // File Upload
+     $file = $_FILES['form']['name'];
+     $file_temp = $_FILES['form']['tmp_name'];
+     $file_destination = "../../uploads/".($file);
+     move_uploaded_file($file_temp, $file_destination);
 
     $stmt = $conn->prepare("INSERT INTO leaveapplication (employee_Id, leavetype, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $emp_id, $ltype, $applieddate, $sdate, $edate, $numdays, $form);
+    $stmt->bind_param("sssssss", $emp_id, $ltype, $applieddate, $sdate, $edate, $numdays, $file);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "success";
