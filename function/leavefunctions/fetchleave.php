@@ -17,7 +17,7 @@
         echo "<td>
                 <button class='btn btn-success text-white'><i class='fas fa-eye'></i></button>
                 <button class='btn btn-info' data-toggle='modal' data-target='#editLeaveModal'
-                data-indexno = '{$row['index_no']}'
+                data-indexno= '{$row['index_no']}'
                 data-employee_id='{$row['employee_id']}'
                 data-lname='{$row['lname']}'
                 data-fname='{$row['fname']}'
