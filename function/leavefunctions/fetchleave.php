@@ -15,7 +15,26 @@
         echo "<td>{$row['leavetype']}</td>";
         echo "<td>{$row['dateapplied']}</td>";
         echo "<td>
-                <button class='btn btn-success text-white'><i class='fas fa-eye'></i></button>
+                <button class='btn btn-success text-white viewLeaveBtn' 
+                    data-indexno = '{$row['index_no']}'
+                    data-employee_id='{$row['employee_id']}'
+                    data-lname='{$row['lname']}'
+                    data-fname='{$row['fname']}'
+                    data-midname='{$row['midname']}'
+                    data-extname='{$row['extname']}'
+                    data-position='{$row['position']}'
+                    data-office='{$row['office']}'
+                    data-gender='{$row['gender']}'
+                    data-leavetype='{$row['leavetype']}'
+                    data-dateapplied='{$row['dateapplied']}'
+                    data-startdate='{$row['startdate']}'
+                    data-enddate='{$row['enddate']}'
+                    data-numdays='{$row['numofdays']}'
+                    data-file='{$row['file']}'
+                    data-toggle='modal' 
+                    data-target='#viewLeaveModal'>
+                    <i class='fas fa-eye'></i>
+                </button>
                 <button class='btn btn-info' data-toggle='modal' data-target='#editLeaveModal'
                 data-indexno= '{$row['index_no']}'
                 data-employee_id='{$row['employee_id']}'
