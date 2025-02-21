@@ -3,7 +3,7 @@ include '../../database/db_connect.php';
 
 if(isset($_POST['UpdateLeave'])) {
     session_start();
-
+    
     $emp_id = $_POST['employee_Id'];
     $leavetype = $_POST['leavetype'];
     $datefiled = $_POST['applieddate'];
