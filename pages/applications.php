@@ -340,6 +340,85 @@ include '../auth/auth.php'; // Ensure authentication
         <i class="fas fa-angle-up"></i>
       </a>
 
+      <!-- VIEW APPLICATION MODAL -->
+      <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Leave Application Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>ID No.</label>
+                    <input type="text" class="form-control" id="viewEmployeeId" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" class="form-control" id="viewName" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Position</label>
+                    <input type="text" class="form-control" id="viewPosition" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Office</label>
+                    <input type="text" class="form-control" id="viewOffice" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Type of Leave</label>
+                    <input type="text" class="form-control" id="viewLeaveType" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Date Applied</label>
+                    <input type="text" class="form-control" id="viewDateApplied" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="text" class="form-control" id="viewStartDate" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>End Date</label>
+                    <input type="text" class="form-control" id="viewEndDate" disabled>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label>Number of Days</label>
+                    <input type="text" class="form-control" id="viewNumDays" disabled>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Uploaded Document</label>
+                    <p id="viewFile"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <!-- <script>
         document.getElementById('editLeaveModal').addeventListener('submit', function (){
           document.getElementById('idnumber').disabled=false;
@@ -370,6 +449,40 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/leaveapplication/updateleave.js"></script>
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
+
+      <script>
+      $(document).ready(function() {
+          $(".viewLeaveBtn").click(function() {
+              var employee_id = $(this).data("employee_id");
+              var name = $(this).data("name");
+              var position = $(this).data("position");
+              var office = $(this).data("office");
+              var leavetype = $(this).data("leavetype");
+              var dateapplied = $(this).data("dateapplied");
+              var startdate = $(this).data("startdate");
+              var enddate = $(this).data("enddate");
+              var numdays = $(this).data("numdays");
+              var filename = $(this).data("filename");
+
+              $("#viewEmployeeId").val(employee_id);
+              $("#viewName").val(name);
+              $("#viewPosition").val(position);
+              $("#viewOffice").val(office);
+              $("#viewLeaveType").val(leavetype);
+              $("#viewDateApplied").val(dateapplied);
+              $("#viewStartDate").val(startdate);
+              $("#viewEndDate").val(enddate);
+              $("#viewNumDays").val(numdays);
+
+              if (filename) {
+                  $("#viewFile").html(`<a href="../uploads/${filename}" target="_blank">${filename}</a>`);
+              } else {
+                  $("#viewFile").text("No document uploaded.");
+              }
+          });
+      });
+      </script>
+
 
 </body>
 
