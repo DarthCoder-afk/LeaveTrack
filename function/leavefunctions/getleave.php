@@ -1,10 +1,10 @@
 <?php
-include '../database/db_connect.php'; // Adjust path as needed
+include '../../database/db_connect.php';
 
-if (isset($_POST['leave_id'])) {
-    $leave_id = $_POST['leave_id'];
+if (isset($_POST['index_no'])) {
+    $leave_id = $_POST['index_no'];
 
-    $query = "SELECT * FROM leave_applications WHERE leave_id = ?";
+    $query = "SELECT * FROM leaveapplication WHERE index_no = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $leave_id);
     $stmt->execute();
