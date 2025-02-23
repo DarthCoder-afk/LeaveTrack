@@ -188,12 +188,16 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                         <div class="modal-body">
                             <!-- Profile Section -->
-                            <!-- Profile Section -->
-                            <div class="d-flex align-items-center mb-3 p-3 bg-light rounded">
-                                <img src="../img/profile_app.jpg" id="profilePic" class="rounded-circle border" alt="Profile" width="80" height="80">
-                                <div class="ml-3">
-                                    <h5 id="fullName" class="mb-0">Anonymous</h5>
-                                    <small class="text-muted">ID No: <span id="profileIdNumber">000</span></small> <!-- Unique ID -->
+                            <div class="d-flex align-items-center mb-3 p-3 bg-light rounded shadow-sm">
+                                <img src="../img/profile_app.jpg" id="profilePic" class="rounded-circle border border-primary" alt="Profile" width="70" height="70">
+                                <div class="ms-3">
+                                    <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
+                                    <small class="text-muted">ID No: 
+                                        <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
+                                              style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                                            000
+                                        </span>
+                                    </small>
                                 </div>
                             </div>
 
