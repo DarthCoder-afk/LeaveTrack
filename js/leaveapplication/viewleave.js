@@ -19,20 +19,21 @@ $(document).on('click', '.viewLeaveBtn', function () {
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
 
-    // Set text for name and ID
-    $('#idnumber').text("ID No: " + employee_id);
+    // Update Profile Section
+    $('#profileIdNumber').text(employee_id);
     $('#fullName').text(fullName);
 
-    // Set values for input fields
-    $('#lastName').val(lname);
-    $('#firstName').val(fname);
-    $('#position').val(position);
-    $('#office').val(office);
-    $('#typeOfLeave').val(leavetype);
-    $('#dateApplied').val(dateapplied);
-    $('#startDate').val(startdate);
-    $('#endDate').val(enddate);
-    $('#numberOfDays').val(numdays);
+
+    // Set values for the view modal (Read-Only)
+    $('#viewLastName').val(lname);
+    $('#viewFirstName').val(fname);
+    $('#viewPosition').val(position);
+    $('#viewOffice').val(office);
+    $('#viewTypeOfLeave').val(leavetype);
+    $('#viewDateApplied').val(dateapplied);
+    $('#viewStartDate').val(startdate);
+    $('#viewEndDate').val(enddate);
+    $('#viewNumberOfDays').val(numdays);
 
     // Handle file link
     if (file && file !== "null") {

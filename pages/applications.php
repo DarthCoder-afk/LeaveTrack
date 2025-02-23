@@ -180,7 +180,7 @@ include '../auth/auth.php'; // Ensure authentication
             <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
-                        <div class="modal-header bg-primary text-white">
+                        <div class="modal-header bg-success text-white">
                             <h5 class="modal-title"><i class="fas fa-user"></i> View Leave Application</h5>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
@@ -188,68 +188,70 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                         <div class="modal-body">
                             <!-- Profile Section -->
+                            <!-- Profile Section -->
                             <div class="d-flex align-items-center mb-3 p-3 bg-light rounded">
                                 <img src="../img/profile_app.jpg" id="profilePic" class="rounded-circle border" alt="Profile" width="80" height="80">
                                 <div class="ml-3">
                                     <h5 id="fullName" class="mb-0">Anonymous</h5>
-                                    <small class="text-muted">ID No: <span id="idnumber">000</span></small>
+                                    <small class="text-muted">ID No: <span id="profileIdNumber">000</span></small> <!-- Unique ID -->
                                 </div>
                             </div>
+
 
                             <!-- Leave Details -->
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" disabled>
+                                        <input type="text" class="form-control" id="viewLastName" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>First Name</label>
-                                        <input type="text" class="form-control" id="firstName" disabled>
+                                        <input type="text" class="form-control" id="viewFirstName" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Position</label>
-                                        <input type="text" class="form-control" id="position" disabled>
+                                        <input type="text" class="form-control" id="viewPosition" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Office</label>
-                                        <input type="text" class="form-control" id="office" disabled>
+                                        <input type="text" class="form-control" id="viewOffice" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Type of Leave</label>
-                                        <input type="text" class="form-control" id="typeOfLeave" disabled>
+                                        <input type="text" class="form-control" id="viewTypeOfLeave" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date Applied</label>
-                                        <input type="date" class="form-control" id="dateApplied" disabled>
+                                        <input type="date" class="form-control" id="viewDateApplied" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Start Date</label>
-                                        <input type="date" class="form-control" id="startDate" disabled>
+                                        <input type="date" class="form-control" id="viewStartDate" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>End Date</label>
-                                        <input type="date" class="form-control" id="endDate" disabled>
+                                        <input type="date" class="form-control" id="viewEndDate" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Number of Days</label>
-                                        <input type="text" class="form-control" id="numberOfDays" disabled>
+                                        <input type="text" class="form-control" id="viewNumberOfDays" disabled>
                                     </div>
                                 </div>
                             </div>
