@@ -176,6 +176,7 @@ include '../auth/auth.php'; // Ensure authentication
                     <table class="table align-items-center table-hover" id="dataTableHover">
                       <thead class="thead-light text-center">
                         <tr>
+                          <th>ID No.</th>
                           <th>Name</th>
                           <th>Position</th>
                           <th>Purpose</th>
@@ -184,8 +185,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </tr>
                       </thead>
                       <tbody>
-                        
-                       
+                        <?php include '../function/travelfunctions/fetchtravel.php'?>
                       </tbody>
                     </table>
                   </div>

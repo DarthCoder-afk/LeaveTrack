@@ -19,7 +19,7 @@ if(isset($_POST['AddTravel'])) {
      $file_destination = "../../uploads/".($file);
      move_uploaded_file($file_temp, $file_destination);
 
-    $stmt = $conn->prepare("INSERT INTO travelorder (idnum, purpose, destination, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $conn->prepare("INSERT INTO travelorder (employee_id, purpose, destination, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("ssssssis", $emp_id, $purpose, $destination, $dateapplied, $startdate, $enddate, $numdays, $file);
 
     if($stmt->execute()) {
