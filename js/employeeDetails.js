@@ -1,10 +1,10 @@
-document.getElementById('idnumber').addEventListener('input', function() {
+document.getElementById('idnumber').addEventListener('change', function() {
     var employeeId = this.value;
 
     if (employeeId) {
         console.log('Employee ID entered:', employeeId);
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', '../function/leavefunctions/employee_details.php', true);
+        xhr.open('POST', '../function/details/employee_details.php', true);
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onreadystatechange = function() {
             if (xhr.readyState == 4) {

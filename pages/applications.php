@@ -454,7 +454,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
       <!-- Page level plugins -->
-      <script src="../js/leaveapplication/employeeDetails.js"></script>
+      <script src="../js/employeeDetails.js"></script>
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
