@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2025 at 06:19 AM
+-- Generation Time: Feb 24, 2025 at 08:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -54,6 +54,7 @@ INSERT INTO `employee` (`employee_id`, `fname`, `midname`, `lname`, `extname`, `
 --
 
 CREATE TABLE `leaveapplication` (
+  `index_no` int(11) NOT NULL,
   `employee_id` varchar(10) NOT NULL,
   `leavetype` varchar(50) NOT NULL,
   `dateapplied` date NOT NULL,
@@ -67,8 +68,10 @@ CREATE TABLE `leaveapplication` (
 -- Dumping data for table `leaveapplication`
 --
 
-INSERT INTO `leaveapplication` (`employee_id`, `leavetype`, `dateapplied`, `startdate`, `enddate`, `numofdays`, `file`) VALUES
-('001', 'Sick Leave', '2025-02-21', '2025-02-24', '2025-02-25', 2, 0x4c656176655f466f726d2e706466);
+INSERT INTO `leaveapplication` (`index_no`, `employee_id`, `leavetype`, `dateapplied`, `startdate`, `enddate`, `numofdays`, `file`) VALUES
+(5, '001', 'Vacation Leave', '2025-02-21', '2025-02-24', '2025-02-28', 5, 0x5365616e202831292e706466),
+(6, '001', 'Sick Leave', '2025-02-22', '2025-02-24', '2025-02-28', 5, ''),
+(7, '015', 'Maternity Leave', '2025-02-24', '2025-03-03', '2025-04-30', 59, '');
 
 -- --------------------------------------------------------
 
@@ -88,6 +91,31 @@ CREATE TABLE `login` (
 INSERT INTO `login` (`username`, `password`) VALUES
 ('admin', 'admin123');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `travelorder`
+--
+
+CREATE TABLE `travelorder` (
+  `index_no` int(11) NOT NULL,
+  `employee_id` varchar(10) NOT NULL,
+  `purpose` varchar(100) NOT NULL,
+  `destination` varchar(100) NOT NULL,
+  `dateapplied` date NOT NULL,
+  `startdate` date NOT NULL,
+  `enddate` date NOT NULL,
+  `numofdays` int(100) NOT NULL,
+  `file` blob DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `travelorder`
+--
+
+INSERT INTO `travelorder` (`index_no`, `employee_id`, `purpose`, `destination`, `dateapplied`, `startdate`, `enddate`, `numofdays`, `file`) VALUES
+(1, '001', 'Meeting', 'Naga, Camarines Sur', '2025-02-24', '2025-02-25', '2025-02-26', 2, '');
+
 --
 -- Indexes for dumped tables
 --
@@ -97,6 +125,34 @@ INSERT INTO `login` (`username`, `password`) VALUES
 --
 ALTER TABLE `employee`
   ADD PRIMARY KEY (`employee_id`);
+
+--
+-- Indexes for table `leaveapplication`
+--
+ALTER TABLE `leaveapplication`
+  ADD PRIMARY KEY (`index_no`);
+
+--
+-- Indexes for table `travelorder`
+--
+ALTER TABLE `travelorder`
+  ADD PRIMARY KEY (`index_no`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `leaveapplication`
+--
+ALTER TABLE `leaveapplication`
+  MODIFY `index_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `travelorder`
+--
+ALTER TABLE `travelorder`
+  MODIFY `index_no` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
