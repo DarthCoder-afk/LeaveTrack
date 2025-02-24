@@ -45,15 +45,14 @@ $(document).on('click', '.viewLeaveBtn', function () {
     $('#viewEndDate').val(enddate);
     $('#viewNumberOfDays').val(numdays);
 
-    // Handle file link
+    // Handle file link button
     if (file && file !== "null") {
-        $('#view_file')
+        $('#view_file_btn')
             .attr('href', '../uploads/' + file)
-            .attr('target', '_blank')
-            .text("📂 View Document")
-            .css({ "color": "#007bff", "font-weight": "bold", "cursor": "pointer" });
+            .removeClass('d-none'); // Show the button
     } else {
-        $('#view_file').text("No file attached").removeAttr('href').css({ "color": "gray" });
+        $('#view_file_btn')
+            .addClass('d-none'); // Hide the button if no file is available
     }
 
     $('#viewLeaveModal').modal('show');

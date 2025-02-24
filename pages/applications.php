@@ -188,19 +188,26 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                         <div class="modal-body">
                             <!-- Profile Section -->
-                            <div class="d-flex align-items-center mb-3 p-3 bg-light rounded shadow-sm">
-                                <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
-                                    alt="Profile" width="70" height="70">
-                                <div class="ms-3">
-                                    <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
-                                    <small class="text-muted">ID No: 
-                                        <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
-                                              style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
-                                                    border-radius: 8px; padding: 4px 10px; display: inline-block;">
-                                            000
-                                        </span>
-                                    </small>
+                            <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
+                                        alt="Profile" width="70" height="70">
+                                    <div class="ms-3">
+                                        <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
+                                        <small class="text-muted">ID No: 
+                                            <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
+                                                  style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
+                                                        border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                                                000
+                                            </span>
+                                        </small>
+                                    </div>
                                 </div>
+
+                                <!-- File Button -->
+                                <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
+                                    <i class="fas fa-file-alt"></i> View Document
+                                </a>
                             </div>
 
 
