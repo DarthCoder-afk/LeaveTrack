@@ -1,4 +1,4 @@
-document.getElementById('idnumber').addEventListener('change', function() {
+document.getElementById('idnumber').addEventListener('input', function() {
     var employeeId = this.value;
 
     if (employeeId) {

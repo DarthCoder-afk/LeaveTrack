@@ -177,7 +177,7 @@ include '../auth/auth.php'; // Ensure authentication
             </form>
 
             <!-- VIEW LEAVE MODAL (Improved) -->
-            <form action="">
+            <form action="" method="POST" enctype="multipart/form-data">
                 <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveLabel" aria-hidden="true">
                     <div class="modal-dialog modal-lg" role="document">
                         <div class="modal-content">
@@ -266,13 +266,15 @@ include '../auth/auth.php'; // Ensure authentication
             
             </form>
             
+
             <!-- EDIT APPLICATION MODAL -->
+            
             <form action="../function/leavefunctions/updateleave.php" method="POST" enctype="multipart/form-data">
               <div class="modal fade" id="editLeaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Edit Leave Application</h5>
+                      <h5 class="modal-title">Add Leave Application</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
@@ -400,7 +402,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <th>ID No.</th>
                           <th>Name</th>
                           <th>Position</th>
-                          <th>Office</th>
+                          <!-- <th>Office</th> -->
                           <th>Leave Type</th>
                           <th>Date Applied</th>
                           <th>Actions</th>
