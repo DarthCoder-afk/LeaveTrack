@@ -177,30 +177,39 @@ include '../auth/auth.php'; // Ensure authentication
             </form>
 
             <!-- VIEW LEAVE MODAL (Improved) -->
-            <form action="" method="POST" enctype="multipart/form-data">
-                <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header bg-success text-white">
-                                <h5 class="modal-title"><i class="fas fa-user"></i> View Leave Application</h5>
-                                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <!-- Profile Section -->
-                                <div class="d-flex align-items-center mb-3 p-3 bg-light rounded shadow-sm">
-                                    <img src="../img/profile_app.jpg" id="profilePic" class="rounded-circle border border-primary" alt="Profile" width="70" height="70">
+            <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header bg-success text-white">
+                            <h5 class="modal-title"><i class="fas fa-user"></i> View Leave Application</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <!-- Profile Section -->
+                            <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                                <div class="d-flex align-items-center">
+                                    <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
+                                        alt="Profile" width="70" height="70">
                                     <div class="ms-3">
                                         <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
                                         <small class="text-muted">ID No: 
                                             <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
-                                                  style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                                                  style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
+                                                        border-radius: 8px; padding: 4px 10px; display: inline-block;">
                                                 000
                                             </span>
                                         </small>
                                     </div>
                                 </div>
+
+                                <!-- File Button -->
+                                <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
+                                    <i class="fas fa-file-alt"></i> View Document
+                                </a>
+                            </div>
+
 
                                 <!-- Leave Details -->
                                 <div class="row">
@@ -266,7 +275,6 @@ include '../auth/auth.php'; // Ensure authentication
             
             </form>
             
-
             <!-- EDIT APPLICATION MODAL -->
             
             <form action="../function/leavefunctions/updateleave.php" method="POST" enctype="multipart/form-data">

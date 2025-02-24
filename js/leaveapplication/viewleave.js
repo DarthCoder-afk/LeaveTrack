@@ -14,8 +14,9 @@ $(document).on('click', '.viewLeaveBtn', function () {
     var enddate = $(this).data('enddate');
     var numdays = $(this).data('numdays');
     var file = $(this).data('file');
+    var gender = $(this).data('gender'); // Get gender
 
-    console.log("Data Retrieved:", {employee_id, lname, fname, position, office, leavetype});
+    console.log("Data Retrieved:", {employee_id, lname, fname, position, office, leavetype, gender});
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
 
@@ -23,6 +24,15 @@ $(document).on('click', '.viewLeaveBtn', function () {
     $('#profileIdNumber').text(employee_id);
     $('#fullName').text(fullName);
 
+    // Change Profile Picture Based on Gender
+    var profilePic = $("#profilePic");
+    if (gender.toLowerCase() === "male") {
+        profilePic.attr("src", "../img/male_profile.png");  // Set Male Profile
+    } else if (gender.toLowerCase() === "female") {
+        profilePic.attr("src", "../img/female_profile.png"); // Set Female Profile
+    } else {
+        profilePic.attr("src", "../img/profile_app.jpg"); // Default Profile
+    }
 
     // Set values for the view modal (Read-Only)
     $('#viewLastName').val(lname);
@@ -35,11 +45,14 @@ $(document).on('click', '.viewLeaveBtn', function () {
     $('#viewEndDate').val(enddate);
     $('#viewNumberOfDays').val(numdays);
 
-    // Handle file link
+    // Handle file link button
     if (file && file !== "null") {
-        $('#view_file').attr('href', '../uploads/' + file).text("View File");
+        $('#view_file_btn')
+            .attr('href', '../uploads/' + file)
+            .removeClass('d-none'); // Show the button
     } else {
-        $('#view_file').text("No file attached").removeAttr('href');
+        $('#view_file_btn')
+            .addClass('d-none'); // Hide the button if no file is available
     }
 
     $('#viewLeaveModal').modal('show');
