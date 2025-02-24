@@ -18,6 +18,7 @@
                 <button class='btn btn-success text-white viewLeaveBtn' 
                     data-indexno='{$row['index_no']}'
                     data-employee_id='{$row['employee_id']}'
+                    data-fullname = '{$full_name}'
                     data-lname='{$row['lname']}'
                     data-fname='{$row['fname']}'
                     data-midname='{$row['midname']}'
