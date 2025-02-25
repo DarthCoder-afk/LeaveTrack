@@ -75,7 +75,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
                         <!-- Modal Header -->
-                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #6a11cb, #2575fc); border-bottom: none;">
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg,rgb(129, 8, 83),rgb(75, 40, 180)); border-bottom: none;">
                             <h5 class="modal-title" id="leaveApplicationModalLabel">📅 Leave Applications This Month</h5>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
                                 <span aria-hidden="true">&times;</span>
