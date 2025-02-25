@@ -80,20 +80,21 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Monetization -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Monetizations</div>
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">10</div>
-                    
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Monetizations</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                    <?php include '../function/dashboard/monetization_counts.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-money-check-alt fa-2x text-success"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-money-check-alt fa-2x text-success"></i>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
 
             <!-- Employee Number -->
