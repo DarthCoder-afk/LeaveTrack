@@ -12,7 +12,7 @@
         echo "<td>{$row['purpose']}</td>";
         echo "<td>{$row['destination']}</td>";
         echo "<td>
-                <button class='btn btn-success text-white viewLeaveBtn' 
+                <button class='btn btn-success text-white viewTravelBtn' 
                     data-indexno='{$row['index_no']}'
                     data-employee_id='{$row['employee_id']}'
                     data-fullname = '{$full_name}'
@@ -31,7 +31,7 @@
                     data-numdays='{$row['numofdays']}'
                     data-file='{$row['file']}'
                     data-toggle='modal' 
-                    data-target='#viewLeaveModal'>
+                    data-target='#ViewTravelModal'>
                     <i class='fas fa-eye'></i>
                 </button>
 
