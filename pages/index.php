@@ -61,19 +61,21 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Travel Order -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Travel Orders this Month</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Travel order this Month</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php include '../function/dashboard/travel_counts.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-shuttle-van fa-2x text-info"></i>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
 
             <!-- Monetization -->
