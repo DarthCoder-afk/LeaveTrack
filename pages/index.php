@@ -53,7 +53,7 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Leave Application (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#leaveApplicationModal" style="cursor: pointer; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border-radius: 15px;">
+                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#leaveApplicationModal" style="cursor: pointer; background: linear-gradient(135deg,rgb(137, 12, 95) 0%,rgb(117, 16, 211) 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
@@ -107,10 +107,6 @@ include '../auth/auth.php'; // Ensure authentication
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- Travel ORder (Clickable Card) -->
             <!-- Travel Order (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                 <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#travelApplicationModal" 
