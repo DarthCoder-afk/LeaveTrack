@@ -8,18 +8,33 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
+        events: eventsData,
         dateClick: function(info) {
-            console.log("Clicked date: " + info.dateStr); // Debugging console log
-            alert("Clicked date: " + info.dateStr); // Test alert
-            window.location.href = "event.php?date=" + info.dateStr; // Redirect to event.php
-        },
-        events: [
-            { title: 'New', start: '2024-02-05' },
-            { title: 'Divyesh Birthday', start: '2024-02-07' },
-            { title: 'Car Loan EMI', start: '2024-02-10' },
-            { title: 'Independence Day', start: '2024-02-15' },
-            { title: '3 Days Event', start: '2024-02-17', end: '2024-02-19' }
-        ]
+            // Fetch event details for the selected date
+            fetch(`fetch_events.php?date=${info.dateStr}`)
+                .then(response => response.json())
+                .then(data => {
+                    let eventList = document.getElementById('eventList');
+                    eventList.innerHTML = ""; // Clear previous data
+
+                    if (data.length > 0) {
+                        data.forEach(evt => {
+                            let listItem = document.createElement("li");
+                            listItem.classList.add("list-group-item");
+                            listItem.innerText = `${evt.type}: ${evt.detail} (Employee ID: ${evt.employee_id})`;
+                            eventList.appendChild(listItem);
+                        });
+
+                        // Show the modal
+                        $('#eventModal').modal('show');
+                    } else {
+                        // Show message if no events exist
+                        eventList.innerHTML = "<li class='list-group-item'>No events on this day.</li>";
+                        $('#eventModal').modal('show');
+                    }
+                })
+                .catch(error => console.error('Error fetching events:', error));
+        }
     });
 
     calendar.render();
