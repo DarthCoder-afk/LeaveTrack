@@ -88,7 +88,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Leave Type</th>
                                             <th>Date Applied</th>
@@ -146,7 +146,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Purpose</th>
                                             <th>Destination</th>
@@ -205,7 +205,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th> 
                                             <th>Leave Type</th>
                                             <th>Date Applied</th>
