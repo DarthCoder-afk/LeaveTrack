@@ -68,7 +68,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </button>
                       </div>
                       <div class="modal-body">
-                        <form id="addApplicationForm">
+                   
                           <div class="row">
                           <div class="col-md-6">
                               <div class="form-group">
@@ -159,13 +159,128 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                           </div>
                           <button type="submit" class="btn btn-success btn-block" name="AddTravel">Save</button>
-                        </form>
+                       
                       </div>
                     </div>
                   </div>
                 </div>
              </form>
-            
+
+              <!-- EDIT APPLICATION MODAL -->
+              <form action="../function/travelfunctions/updatetravel.php" id="addApplicationForm" method="POST" enctype="multipart/form-data">
+                <div class="modal fade" id="EditTravelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                  <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Add Travel Order</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                   
+                          <div class="row">
+                          <div class="col-md-6">
+                              <div class="form-group">
+                                <label>ID No.</label>
+                                <input type="text" class="form-control" name="employee_Id" id="idnumber" required>
+                                <input type="hidden" class="form-control" name="index_no" id="index_no" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" name="lname" id="lastName" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" name="fname" id="firstName" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Middle Name</label>
+                                <input type="text" class="form-control" name="midname" id="middleName" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Extension</small></label>
+                                <input type="text" class="form-control" name="extname" id="nameExtension" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Position</label>
+                                <input type="text" class="form-control" name="position" id="position" disabled>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Office</label>
+                                <input type="text" class="form-control" name="office" id="office" disabled>
+                              </div>
+                            </div>
+                            <!--  -->
+                            <!-- <input type="hidden" name="gender" id="gender"> -->
+                            <!--  -->
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Purpose</label>
+                                <input type="text" class="form-control" name="purpose" id="purpose" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Destination</label>
+                                <input type="text" class="form-control" name="destination" id="destination" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Date Applied</label>
+                                <input type="date" class="form-control" name="datefiled" id="dateApplied" required>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" class="form-control" name="sdate" id="startDate" required onchange=calculateNumberofDays()>
+                              </div>
+                            </div>
+                            <div class="col-md-3">
+                              <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" class="form-control" name="edate" id="endDate" required onchange=calculateNumberofDays()>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Number of Days</label>
+                                <input type="number" class="form-control" name="days" id="numberOfDays" required>
+                              </div>
+                            </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label for="formFile" class="form-label">Upload Scanned Document</label>
+                                <input type="file" class="form-control" name="form" id="formFile">
+                                <label for="formFile">Recent Uploaded File:</label>
+                                <span id="formFilename"></span>
+                              </div>
+                            </div>
+                          </div>
+                          <button type="submit" class="btn btn-success btn-block" name="EditTravel">Save</button>
+                       
+                      </div>
+                    </div>
+                  </div>
+                </div>
+             </form>
+
+              
+             
              
             <!-- Row -->
             <div class="row">
@@ -219,10 +334,10 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
       <!-- Page level custom scripts -->
-      <script src="../js/datechecker.js"></script>
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
       <script src="../js/employeeDetails.js"></script>
+      <script src="../js/travelapplication/updatetravel.js"></script>
 </body>
 
 </html>
