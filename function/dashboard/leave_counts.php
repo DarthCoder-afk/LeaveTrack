@@ -1,17 +1,21 @@
 <?php
-include '../database/db_connect.php'; // Include database connection
+include '../database/db_connect.php'; // Include your database connection
 
-// Get the current year and month
-$currentYear = date('Y');
+// Get the current month and year
 $currentMonth = date('m');
+$currentYear = date('Y');
 
-// Query to count leave applications submitted this month
-$query = "SELECT COUNT(*) AS total FROM leaveapplication WHERE YEAR(dateapplied) = ? AND MONTH(dateapplied) = ?";
+// Query to count leave applications for the current month
+$query = "
+    SELECT COUNT(*) AS leave_count 
+    FROM leaveapplication 
+    WHERE MONTH(dateapplied) = ? AND YEAR(dateapplied) = ?
+";
 $stmt = $conn->prepare($query);
-$stmt->bind_param("ii", $currentYear, $currentMonth);
+$stmt->bind_param("ii", $currentMonth, $currentYear);
 $stmt->execute();
 $result = $stmt->get_result();
 $row = $result->fetch_assoc();
 
-echo $row['total']; // Output the count
+echo $row['leave_count']; // Output the count
 ?>
