@@ -1,22 +1,7 @@
 <?php
 include '../auth/auth.php'; // Ensure authentication
-include '../database/db_connect.php'; // Database connection
 
-// Fetch only the start dates from both leaveapplication and travelorder
-$query = "SELECT startdate FROM leaveapplication UNION SELECT startdate FROM travelorder";
-$result = $conn->query($query);
-
-$events = [];
-while ($row = $result->fetch_assoc()) {
-    $events[] = [
-        'title' => "Events on this day",
-        'start' => $row['startdate'],
-        'color' => '#28a745', // Green color for event indicator
-    ];
-}
-
-// Convert data to JSON for FullCalendar
-$events_json = json_encode($events);
+//echo "Welcome, " . $_SESSION['username'];
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +17,7 @@ $events_json = json_encode($events);
 
 <body id="page-top">
   <div id="wrapper">
+    <?php include '../function/dashboard/calendar/calendar_data.php'; ?>
     <!-- Sidebar & Topbar -->
     <?php include '../includes/sidebar.php'; ?>
     <!-- End of Sidebar & Topbar -->
