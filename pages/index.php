@@ -161,7 +161,7 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
 
-            
+            <!-- Recent Leave -->
             <div class="col-xl-8 col-lg-12 mb-4">
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -188,6 +188,7 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
 
+            <!-- Recent Travel Orders -->
             <div class="col-xl-4 col-lg-5 ">
               <div class="card">
                 <div class="card-header py-4 bg-success d-flex flex-row align-items-center justify-content-between">
@@ -196,8 +197,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div>
                   <div class="customer-message align-items-center">
                     <a class="font-weight-bold" href="#">
-                      <div class="text-truncate message-title text-dark">Scenal Meeting</div>
-                      <div class="small text-gray-500 message-time font-weight-bold">John Doe · 2025/02/15  </div>
+                        <?php include '../function/dashboard/recent_travel.php'?>
                     </a>
                   </div>
                   <div class="card-footer text-center">
@@ -207,9 +207,10 @@ include '../auth/auth.php'; // Ensure authentication
                 </div>
               </div>
             </div>
-          </div>
 
           </div>
+
+    
          
 
           <!---Container Fluid-->
