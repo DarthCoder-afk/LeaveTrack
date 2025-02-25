@@ -41,44 +41,41 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Leave Application -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Leaves this Month</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                      <div class="mt-2 mb-0 text-muted text-xs">
-                        <span class="text-success mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
-                        <span>Since last month</span>
-                      </div>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Leaves this Month</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php include '../function/dashboard/leave_counts.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-primary"></i>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
+
 
             <!-- Travel Order -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Travel Orders this Month</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">5</div>
-                      <div class="mt-2 mb-0 text-muted text-xs">
-                        <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 12%</span>
-                        <span>Since last years</span>
-                      </div>
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Travel order this Month</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php include '../function/dashboard/travel_counts.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-shuttle-van fa-2x text-info"></i>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
 
             <!-- Monetization -->
@@ -89,10 +86,7 @@ include '../auth/auth.php'; // Ensure authentication
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Monetizations</div>
                       <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">10</div>
-                      <div class="mt-2 mb-0 text-muted text-xs">
-                        <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
-                        <span>Since last month</span>
-                      </div>
+                    
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-money-check-alt fa-2x text-success"></i>
@@ -110,11 +104,10 @@ include '../auth/auth.php'; // Ensure authentication
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-uppercase mb-1">No. of Employees</div>
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">10</div>
-                      <div class="mt-2 mb-0 text-muted text-xs">
-                        <span class="text-success mr-2"><i class="fas fa-arrow-up"></i> 20.4%</span>
-                        <span>Since last month</span>
+                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                          <?php include '../function/dashboard/employee_count.php'; ?>
                       </div>
+
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-users fa-2x text-success"></i>
