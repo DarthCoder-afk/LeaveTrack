@@ -51,117 +51,203 @@ include '../auth/auth.php'; // Ensure authentication
 
           <div class="row mb-3">
 
-            <!-- Leave Application -->
+            <!-- Leave Application (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#leaveApplicationModal" style="cursor: pointer; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Leaves this Month</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 font-weight-bold">
                                     <?php include '../function/dashboard/leave_counts.php'; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                                <i class="fas fa-calendar fa-2x text-light"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Leave Application Modal -->
+            <div class="modal fade" id="leaveApplicationModal" tabindex="-1" role="dialog" aria-labelledby="leaveApplicationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                        <!-- Modal Header -->
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #6a11cb, #2575fc); border-bottom: none;">
+                            <h5 class="modal-title" id="leaveApplicationModalLabel">📅 Leave Applications This Month</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div class="modal-body p-4" style="background: #f8f9fa;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Full Name</th>
+                                            <th>Leave Type</th>
+                                            <th>Date Applied</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Number of Days</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include '../function/dashboard/clickableList/leave_list.php'; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+  
+                    </div>
+                </div>
+            </div>
 
-            <!-- Travel Order -->
+
+
+            <!-- Travel ORder (Clickable Card) -->
+            <!-- Travel Order (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100">
+                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#travelApplicationModal" 
+                    style="cursor: pointer; background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-uppercase mb-1">Travel order this Month</div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Travel Order This Month</div>
+                                <div class="h5 mb-0 font-weight-bold">
                                     <?php include '../function/dashboard/travel_counts.php'; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                                <i class="fas fa-plane fa-2x text-light"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+
+            <!-- Travel Order Modal -->
+            <div class="modal fade" id="travelApplicationModal" tabindex="-1" role="dialog" aria-labelledby="travelApplicationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document">
+                    <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                        <!-- Modal Header -->
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #FF416C, #FF4B2B); border-bottom: none;">
+                            <h5 class="modal-title" id="travelApplicationModalLabel">✈ Travel Orders This Month</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <!-- Modal Body -->
+                        <div class="modal-body p-4" style="background: #f8f9fa;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Full Name</th>
+                                            <th>Purpose</th>
+                                            <th>Destination</th>
+                                            <th>Date Applied</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include '../function/dashboard/clickableList/travel_list.php'; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
 
 
             <!-- Monetization (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100" data-toggle="modal" data-target="#monetizationModal" style="cursor: pointer;">
+                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#monetizationModal" 
+                    style="cursor: pointer; background: linear-gradient(135deg, #11998E 0%, #38EF7D 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
-                        <div class="row no-gutters align-items-center">
+                        <div class="row align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Monetizations</div>
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
+                                <div class="h5 mb-0 font-weight-bold">
                                     <?php include '../function/dashboard/monetization_counts.php'; ?>
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-money-check-alt fa-2x text-success"></i>
+                                <i class="fas fa-money-check-alt fa-2x text-light"></i>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+
             <!-- Monetization Modal -->
             <div class="modal fade" id="monetizationModal" tabindex="-1" role="dialog" aria-labelledby="monetizationModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="monetizationModalLabel">Monetization Applications</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
+                        <!-- Modal Header -->
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #28a745, #218838); border-bottom: none;">
+                            <h5 class="modal-title" id="monetizationModalLabel">💰 Monetization Applications</h5>
+                            <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <div class="modal-body">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th>Employee ID</th>
-                                        <th>Full Name</th> 
-                                        <th>leavetype</th>
-                                        <th>Date Applied</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php include '../function/dashboard/clickableList/monetization_list.php'; ?>
-                                </tbody>
-                            </table>
+                        
+                        <!-- Modal Body -->
+                        <div class="modal-body p-4" style="background: #f8f9fa;">
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
+                                    <thead class="thead-dark">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Full Name</th> 
+                                            <th>Leave Type</th>
+                                            <th>Date Applied</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php include '../function/dashboard/clickableList/monetization_list.php'; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employee Number -->
+            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+                <div class="card h-100 shadow-lg border-0"
+                    style="background: linear-gradient(135deg, #F7971E 0%, #FFD200 100%); color: white; border-radius: 15px;">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">No. of Employees</div>
+                                <div class="h5 mb-0 font-weight-bold">
+                                    <?php include '../function/dashboard/employee_count.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-users fa-2x text-light"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
 
-            <!-- Employee Number -->
-
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row no-gutters align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">No. of Employees</div>
-                      <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">
-                          <?php include '../function/dashboard/employee_count.php'; ?>
-                      </div>
-
-                    </div>
-                    <div class="col-auto">
-                      <i class="fas fa-users fa-2x text-success"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Recent Leave -->
+            
             <div class="col-xl-8 col-lg-12 mb-4">
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
