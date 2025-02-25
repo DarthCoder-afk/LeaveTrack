@@ -102,9 +102,9 @@ include '../auth/auth.php'; // Ensure authentication
                 </div>
             </div>
 
-            <!-- Travel Order -->
+            <!-- Travel ORder (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100">
+                <div class="card h-100" data-toggle="modal" data-target="#travelApplicationModal" style="cursor: pointer;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
@@ -114,8 +114,39 @@ include '../auth/auth.php'; // Ensure authentication
                                 </div>
                             </div>
                             <div class="col-auto">
-                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                                <i class="fas fa-plane fa-2x text-warning"></i>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Travel Order Modal -->
+            <div class="modal fade" id="travelApplicationModal" tabindex="-1" role="dialog" aria-labelledby="travelApplicationModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl" role="document"> <!-- Changed modal-lg to modal-xl -->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="travelApplicationModalLabel">Travel Order This Month</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                      <th>Employee ID</th>
+                                      <th>Full Name</th>
+                                      <th>Purpose</th>
+                                      <th>Destination</th>
+                                      <th>Date Applied</th>
+                  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include '../function/dashboard/clickableList/travel_list.php'; ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
