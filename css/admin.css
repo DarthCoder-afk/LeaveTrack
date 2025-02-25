@@ -449,6 +449,8 @@ a:focus {
   box-shadow: 0 .15rem 1.75rem 0 rgba(58, 59, 69, .15) !important
 }
 
+
+
 .topbar #sidebarToggleTop {
   height: 2.5rem;
   width: 2.5rem;
@@ -460,6 +462,10 @@ a:focus {
   background-color: #fafafa
 }
 
+.topbar #sidebarToggleTop:hover .btn-link{
+  background-color: #2e8517
+}
+
 .topbar #sidebarToggleTop:active {
   background-color: #dddfeb
 }
@@ -467,6 +473,7 @@ a:focus {
 .topbar .navbar-search {
   width: 25rem
 }
+
 
 .topbar .navbar-search input {
   font-size: .85rem

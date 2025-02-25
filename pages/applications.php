@@ -133,8 +133,9 @@ include '../auth/auth.php'; // Ensure authentication
                                 <option value="10-Day VAWC Leave">10-Day VAWC Leave</option>
                                 <option value="Rehabilitation Leave">Rehabilitation Leave</option>
                                 <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
-                                <option value="Special Emergency (Calamity) Leave">Others</option>
+                                <option value="Special Emergency (Calamity) Leave">Special Emergency (Calamity) Leave</option>
                                 <option value="Adoption Leave">Adoption Leave</option>
+                                <option value="Monetization">Monetization</option>
                               </select>
                           </div>
                         </div>
@@ -352,9 +353,9 @@ include '../auth/auth.php'; // Ensure authentication
                                     <option value="Study Leave">Study Leave</option>
                                     <option value="10-Day VAWC Leave">10-Day VAWC Leave</option>
                                     <option value="Rehabilitation Leave">Rehabilitation Leave</option>
-                                    <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
-                                    <option value="Special Emergency (Calamity) Leave">Others</option>
+                                    <option value="Special Emergency (Calamity) Leave">Special Emergency (Calamity) Leave</option>
                                     <option value="Adoption Leave">Adoption Leave</option>
+                                    <option value="Monetization">Monetization</option>
                                   </select>
                               </div>
                             </div>
