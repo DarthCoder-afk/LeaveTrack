@@ -3,8 +3,6 @@ include '../auth/auth.php'; // Ensure authentication
 
 //echo "Welcome, " . $_SESSION['username'];
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,6 +17,20 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
+  <style>
+    .table-responsive {
+      overflow-x: auto;
+    }
+    .table th, .table td {
+      white-space: nowrap;
+    }
+    .table th {
+      text-align: center;
+    }
+    .table td {
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body id="page-top">
@@ -191,22 +203,15 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="table-responsive">
                   <table class="table align-items-center table-flush">
                     <thead class="thead-light">
-                      <tr>
-                        <th>No.</th>
+                      <tr class="text-center">
+                        <th>ID No.</th>
                         <th>Name</th>
                         <th>Leave Type</th>
                         <th>Applied Date</th>
-                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>Sick Leave</td>
-                        <td>2025/02/11</td>
-                        <td><a href="#" class="btn btn-sm btn-primary">Detail</a></td>
-                      </tr>
+                      <?php include '../function/dashboard/recent_leave.php'?>
                     </tbody>
                   </table>
                 </div>
