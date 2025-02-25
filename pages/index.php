@@ -41,21 +41,23 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Leave Application -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-              <div class="card h-100">
-                <div class="card-body">
-                  <div class="row align-items-center">
-                    <div class="col mr-2">
-                      <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Leaves this Month</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">10</div>
-                    
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="row align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-uppercase mb-1">Applied Leaves this Month</div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                    <?php include '../function/dashboard/leave_counts.php'; ?>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-primary"></i>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                      <i class="fas fa-calendar fa-2x text-primary"></i>
-                    </div>
-                  </div>
                 </div>
-              </div>
             </div>
+
 
             <!-- Travel Order -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
