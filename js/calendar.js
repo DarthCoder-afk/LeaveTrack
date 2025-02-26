@@ -8,18 +8,45 @@ document.addEventListener('DOMContentLoaded', function () {
             center: 'title',
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
+        events: eventsData,
         dateClick: function(info) {
-            console.log("Clicked date: " + info.dateStr); // Debugging console log
-            alert("Clicked date: " + info.dateStr); // Test alert
-            window.location.href = "event.php?date=" + info.dateStr; // Redirect to event.php
-        },
-        events: [
-            { title: 'New', start: '2024-02-05' },
-            { title: 'Divyesh Birthday', start: '2024-02-07' },
-            { title: 'Car Loan EMI', start: '2024-02-10' },
-            { title: 'Independence Day', start: '2024-02-15' },
-            { title: '3 Days Event', start: '2024-02-17', end: '2024-02-19' }
-        ]
+            // Fetch event details for the selected date
+            fetch(`../function/dashboard/calendar/fetch_events.php?date=${info.dateStr}`)
+            .then(response => response.text())  // Change .json() to .text() to inspect raw output
+            .then(data => {
+                console.log("Server Response:", data);  // Debugging step
+                let eventList = document.getElementById('eventList');
+                eventList.innerHTML = "";
+        
+                let jsonData;
+                try {
+                    jsonData = JSON.parse(data);
+                } catch (error) {
+                    console.error("JSON Parse Error:", error);
+                    eventList.innerHTML = "<li class='list-group-item text-danger'>Error parsing event data.</li>";
+                    $('#eventModal').modal('show');
+                    return;
+                }
+        
+                if (jsonData.length > 0) {
+                    jsonData.forEach(evt => {
+                        let listItem = document.createElement("li");
+                        listItem.classList.add("list-group-item");
+                        listItem.innerHTML = `<strong>${evt.type}</strong>: ${evt.detail} <br> <small>Employee ID: ${evt.employee_id}</small>`;
+                        eventList.appendChild(listItem);
+                    });
+                } else {
+                    eventList.innerHTML = "<li class='list-group-item text-muted'>No events on this day.</li>";
+                }
+        
+                $('#eventModal').modal('show');
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                alert('Failed to fetch events. Please try again.');
+            });
+        
+        }
     });
 
     calendar.render();

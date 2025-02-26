@@ -53,7 +53,7 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Leave Application (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#leaveApplicationModal" style="cursor: pointer; background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); color: white; border-radius: 15px;">
+                <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#leaveApplicationModal" style="cursor: pointer; background: linear-gradient(135deg,rgb(33, 81, 223) 0%,rgb(35, 102, 228) 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
@@ -75,7 +75,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
                         <!-- Modal Header -->
-                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #6a11cb, #2575fc); border-bottom: none;">
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg,rgb(33, 81, 223) 0%,rgb(35, 102, 228) 100%); border-bottom: none;">
                             <h5 class="modal-title" id="leaveApplicationModalLabel">📅 Leave Applications This Month</h5>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
                                 <span aria-hidden="true">&times;</span>
@@ -88,7 +88,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Leave Type</th>
                                             <th>Date Applied</th>
@@ -107,14 +107,10 @@ include '../auth/auth.php'; // Ensure authentication
                     </div>
                 </div>
             </div>
-
-
-
-            <!-- Travel ORder (Clickable Card) -->
             <!-- Travel Order (Clickable Card) -->
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                 <div class="card h-100 shadow-lg border-0" data-toggle="modal" data-target="#travelApplicationModal" 
-                    style="cursor: pointer; background: linear-gradient(135deg, #FF512F 0%, #DD2476 100%); color: white; border-radius: 15px;">
+                    style="cursor: pointer; background: linear-gradient(135deg,rgb(235, 21, 255) 0%,rgb(198, 59, 140) 100%); color: white; border-radius: 15px;">
                     <div class="card-body">
                         <div class="row align-items-center">
                             <div class="col mr-2">
@@ -137,7 +133,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
                         <!-- Modal Header -->
-                        <div class="modal-header text-white" style="background: linear-gradient(135deg, #FF416C, #FF4B2B); border-bottom: none;">
+                        <div class="modal-header text-white" style="background: linear-gradient(135deg,rgb(235, 21, 255) 0%,rgb(198, 59, 140) 100%); border-bottom: none;">
                             <h5 class="modal-title" id="travelApplicationModalLabel">✈ Travel Orders This Month</h5>
                             <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
                                 <span aria-hidden="true">&times;</span>
@@ -150,7 +146,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Purpose</th>
                                             <th>Destination</th>
@@ -209,7 +205,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
-                                            <th>Employee ID</th>
+                                            <th>ID Number</th>
                                             <th>Full Name</th> 
                                             <th>Leave Type</th>
                                             <th>Date Applied</th>
