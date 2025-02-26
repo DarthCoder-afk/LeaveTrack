@@ -755,7 +755,8 @@ a:focus {
 }
 
 .sidebar #sidebarToggle:hover {
-  text-decoration: none
+  text-decoration: none;
+  background-color: #13855c;
 }
 
 .sidebar #sidebarToggle:focus {

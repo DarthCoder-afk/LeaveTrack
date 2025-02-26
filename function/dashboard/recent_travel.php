@@ -5,9 +5,12 @@
 
         $full_name = "{$row['lname']}, {$row['fname']}";
 ?>
-    <div class="text-truncate message-title text-dark"><?php echo $row['purpose']; ?> </div>
-    <div class="small text-gray-500 message-time font-weight-bold"><?php echo $full_name; ?> · <?php echo $row['dateapplied']; ?></div>
-    <hr>
+    <a class="font-weight-bold" href="#">
+        <div class="text-truncate message-title text-dark"><?php echo $row['purpose']; ?> </div>
+        <div class="small text-gray-500 message-time font-weight-bold"><?php echo $full_name; ?> · <?php echo $row['dateapplied']; ?></div>
+        <hr>
+    </a>
+    
 
 <?php
     }

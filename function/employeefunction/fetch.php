@@ -2,13 +2,10 @@
     include '../database/db_connect.php';
     $result = $conn->query("SELECT * FROM employee");
     while ($row = $result->fetch_assoc()) {
-        //$formatted_emp_id = sprintf('%03d', $row['employee_id']); // Format employee_id with leading zeros
-        //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
         echo "<tr class='text-center'>";
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
-        //echo "<td>{$row['gender']}</td>";
         echo "<td>{$row['position']}</td>";
         echo "<td>{$row['office']}</td>";
         echo "<td>

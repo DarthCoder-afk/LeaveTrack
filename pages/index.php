@@ -282,9 +282,7 @@ include '../auth/auth.php'; // Ensure authentication
                 </div>
                 <div>
                   <div class="customer-message align-items-center">
-                    <a class="font-weight-bold" href="#">
-                        <?php include '../function/dashboard/recent_travel.php'?>
-                    </a>
+                    <?php include '../function/dashboard/recent_travel.php'?>
                   </div>
                   <div class="card-footer text-center">
                     <a class="m-0 small text-success card-link" href="../pages/travel_order.php">View More <i
