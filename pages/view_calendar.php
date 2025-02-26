@@ -36,7 +36,7 @@ include '../auth/auth.php'; // Ensure authentication
       <div class="container">
         <div class="card">
           <div class="card-header bg-success text-white">
-            <h2 class="text-center mb-4 mt-3">Service Incentive Leave & Travel Order Calendar</h2>
+            <h2 class="text-center mb-4 mt-3">Leave & Travel Calendar</h2>
           </div>
           <div class="card-body">
             <div id="calendar"></div>
