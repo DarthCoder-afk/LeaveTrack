@@ -11,29 +11,41 @@ document.addEventListener('DOMContentLoaded', function () {
         events: eventsData,
         dateClick: function(info) {
             // Fetch event details for the selected date
-            fetch(`fetch_events.php?date=${info.dateStr}`)
-                .then(response => response.json())
-                .then(data => {
-                    let eventList = document.getElementById('eventList');
-                    eventList.innerHTML = ""; // Clear previous data
-
-                    if (data.length > 0) {
-                        data.forEach(evt => {
-                            let listItem = document.createElement("li");
-                            listItem.classList.add("list-group-item");
-                            listItem.innerText = `${evt.type}: ${evt.detail} (Employee ID: ${evt.employee_id})`;
-                            eventList.appendChild(listItem);
-                        });
-
-                        // Show the modal
-                        $('#eventModal').modal('show');
-                    } else {
-                        // Show message if no events exist
-                        eventList.innerHTML = "<li class='list-group-item'>No events on this day.</li>";
-                        $('#eventModal').modal('show');
-                    }
-                })
-                .catch(error => console.error('Error fetching events:', error));
+            fetch(`../function/dashboard/calendar/fetch_events.php?date=${info.dateStr}`)
+            .then(response => response.text())  // Change .json() to .text() to inspect raw output
+            .then(data => {
+                console.log("Server Response:", data);  // Debugging step
+                let eventList = document.getElementById('eventList');
+                eventList.innerHTML = "";
+        
+                let jsonData;
+                try {
+                    jsonData = JSON.parse(data);
+                } catch (error) {
+                    console.error("JSON Parse Error:", error);
+                    eventList.innerHTML = "<li class='list-group-item text-danger'>Error parsing event data.</li>";
+                    $('#eventModal').modal('show');
+                    return;
+                }
+        
+                if (jsonData.length > 0) {
+                    jsonData.forEach(evt => {
+                        let listItem = document.createElement("li");
+                        listItem.classList.add("list-group-item");
+                        listItem.innerHTML = `<strong>${evt.type}</strong>: ${evt.detail} <br> <small>Employee ID: ${evt.employee_id}</small>`;
+                        eventList.appendChild(listItem);
+                    });
+                } else {
+                    eventList.innerHTML = "<li class='list-group-item text-muted'>No events on this day.</li>";
+                }
+        
+                $('#eventModal').modal('show');
+            })
+            .catch(error => {
+                console.error("Fetch Error:", error);
+                alert('Failed to fetch events. Please try again.');
+            });
+        
         }
     });
 
