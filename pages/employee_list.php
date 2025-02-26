@@ -154,7 +154,7 @@ include '../auth/auth.php'; // Ensure authentication
 
 
           <!-- Update Modal -->
-          <form action="../function/employeefunction/update.php" method="POST">
+          <form action="../function/employeefunction/update.php" id="editEmployeeForm" method="POST">
              <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
@@ -165,7 +165,6 @@ include '../auth/auth.php'; // Ensure authentication
                     </button>
                   </div>
                   <div class="modal-body">
-                    <form id="addApplicationForm">
                       <div class="row">
                         <div class="col-md-6">
                           <div class="form-group">
@@ -224,13 +223,8 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ID No.</label>
-                            <input type="text" class="form-control" name="employee_id" id="idnumber" disabled>
-                          </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label>New ID No.</label>
-                            <input type="text" class="form-control" name="new_employee_id" id="idnumber2" required>
+                            <input type="text" class="form-control" name="employee_id" id="idnumber">
+                            <input type="hidden" name="hidden_employee_id" id="hidden_id">
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -245,7 +239,6 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                       </div>
                       <button type="submit" class="btn btn-success btn-block" name="updateData">Update</button>
-                    </form>
                   </div>
                 </div>
               </div>

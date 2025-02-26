@@ -4,8 +4,8 @@ include '../../database/db_connect.php';
 if(isset($_POST['updateData'])) {
     session_start();
 
-    $emp_id = $_POST['employee_id'];
-    $new_emp_id = $_POST['new_employee_id'];
+    $emp_id = $_POST['hidden_employee_id'];
+    $new_emp_id = $_POST['employee_id'];
     $lname = $_POST['lname'];
     $fname = $_POST['fname'];
     $midname = $_POST['midname'];
