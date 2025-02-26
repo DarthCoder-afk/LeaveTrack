@@ -1,4 +1,14 @@
-document.getElementById('idnumber').addEventListener('change', function() {
+function debounce(func, wait) {
+    let timeout;
+    return function(...args){
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(()=> func.apply(context,args), wait);
+    };
+}
+
+
+document.getElementById('idnumber').addEventListener('input', debounce(function(){
     var employeeId = this.value;
 
     if (employeeId) {
@@ -43,7 +53,7 @@ document.getElementById('idnumber').addEventListener('change', function() {
         };
         xhr.send('employee_id=' + encodeURIComponent(employeeId));
     }
-});
+}, 550));  //delay
 
 function clearFields() {
     document.getElementById('idnumber').value = '';
