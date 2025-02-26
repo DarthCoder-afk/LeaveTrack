@@ -277,9 +277,7 @@ include '../auth/auth.php'; // Ensure authentication
                   <h6 class="m-0 text-light">Travel Orders</h6>
                 </div>
                 <div>
-                  <div class="customer-message align-items-center">
                     <?php include '../function/dashboard/recent_travel.php'?>
-                  </div>
                   <div class="card-footer text-center">
                     <a class="m-0 small text-success card-link" href="../pages/travel_order.php">View More <i
                         class="fas fa-chevron-right"></i></a>
