@@ -87,6 +87,10 @@ include '../auth/auth.php'; // Ensure authentication
                         </small>
                       </div>
                     </div>
+                      <!-- View History -->
+                      <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
+                          <i class="fas fa-file-alt"></i> View History
+                      </a>
                   </div>
                   
                   <!-- Employee Details -->
@@ -145,8 +149,6 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
           </div>
-
-
 
           <!-- Add Modal -->
           <form action="../function/employeefunction/create.php" method="POST" onsubmit="return validateForm()">
