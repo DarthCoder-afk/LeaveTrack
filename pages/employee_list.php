@@ -59,6 +59,37 @@ include '../auth/auth.php'; // Ensure authentication
               <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
           </div>
 
+          <!-- View Employee Modal -->
+          <div class="modal fade" id="viewEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="viewEmployeeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Employee Details</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-6">
+                      <p><strong>Employee ID:</strong> <span id="view_employee_id"></span></p>
+                      <p><strong>Last Name:</strong> <span id="view_lname"></span></p>
+                      <p><strong>First Name:</strong> <span id="view_fname"></span></p>
+                      <p><strong>Middle Name:</strong> <span id="view_midname"></span></p>
+                      <p><strong>Name Extension:</strong> <span id="view_extname"></span></p>
+                    </div>
+                    <div class="col-md-6">
+                      <p><strong>Position:</strong> <span id="view_position"></span></p>
+                      <p><strong>Office:</strong> <span id="view_office"></span></p>
+                      <p><strong>Gender:</strong> <span id="view_gender"></span></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
           <!-- Add Modal -->
           <form action="../function/employeefunction/create.php" method="POST" onsubmit="return validateForm()">
              <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -307,6 +338,8 @@ include '../auth/auth.php'; // Ensure authentication
 
       <!-- Page level custom scripts -->
       <script src="../js/dataTable.js"></script>
+      <script src="../js/employeelist/view.js"></script>
+
       
 </body>
 
