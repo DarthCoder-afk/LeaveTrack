@@ -45,14 +45,16 @@ $(document).on('click', '.viewEmployeeBtn', function () {
         data: { employee_id: employee_id },
         dataType: 'json',
         success: function (response) {
+            console.log("History Fetched:", response);
+
             // Leave History
             var leaveHtml = "";
             if (response.leave.length > 0) {
                 response.leave.forEach(function (leave) {
                     leaveHtml += `<tr>
                         <td>${leave.leavetype}</td>
-                        <td>${leave.start_date}</td>
-                        <td>${leave.end_date}</td>
+                        <td>${leave.startdate}</td>
+                        <td>${leave.enddate}</td>
                         <td>${leave.numofdays}</td>
                     </tr>`;
                 });
@@ -66,10 +68,10 @@ $(document).on('click', '.viewEmployeeBtn', function () {
             if (response.travel.length > 0) {
                 response.travel.forEach(function (travel) {
                     travelHtml += `<tr>
-                        <td>${travel.destination}</td>
-                        <td>${travel.stardate}</td>
-                        <td>${travel.enddate}</td>
                         <td>${travel.purpose}</td>
+                        <td>${travel.destination}</td>
+                        <td>${travel.startdate}</td>
+                        <td>${travel.enddate}</td>
                     </tr>`;
                 });
             } else {
@@ -77,12 +79,11 @@ $(document).on('click', '.viewEmployeeBtn', function () {
             }
             $("#travelHistory").html(travelHtml);
         },
-        error: function () {
-            console.error("Failed to fetch history");
+        error: function (xhr, status, error) {
+            console.error("Failed to fetch history", xhr.responseText);
         }
     });
 
     // Show the modal
     $('#viewEmployeeModal').modal('show');
 });
-

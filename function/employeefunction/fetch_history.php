@@ -1,5 +1,6 @@
 <?php
-include '../database/db_connect.php';
+include '../../database/db_connect.php';
+
 
 $response = ["leave" => [], "travel" => []];
 
@@ -15,9 +16,10 @@ if (isset($_POST['employee_id'])) {
     while ($row = $result->fetch_assoc()) {
         $response['leave'][] = $row;
     }
+    $stmt->close();
 
     // Fetch Travel History
-    $travelQuery = "SELECT destination, startdate, enddate, purpose FROM travelorder WHERE employee_id = ?";
+    $travelQuery = "SELECT purpose, destination, startdate, enddate FROM travelorder WHERE employee_id = ?";
     $stmt = $conn->prepare($travelQuery);
     $stmt->bind_param("s", $employee_id);
     $stmt->execute();
@@ -25,10 +27,10 @@ if (isset($_POST['employee_id'])) {
     while ($row = $result->fetch_assoc()) {
         $response['travel'][] = $row;
     }
-
     $stmt->close();
 }
 
+// Debugging Output
 header('Content-Type: application/json');
 echo json_encode($response);
 ?>

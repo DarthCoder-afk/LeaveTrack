@@ -1,5 +1,5 @@
 <?php
-include '../config/db_connect.php'; // Adjust the path based on your setup
+include '../database/db_connect.php'; // Adjust the path based on your setup
 
 if (isset($_GET['employee_id'])) {
     $employee_id = $_GET['employee_id'];

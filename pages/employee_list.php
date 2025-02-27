@@ -154,7 +154,7 @@ include '../auth/auth.php'; // Ensure authentication
                                       <th>Leave Type</th>
                                       <th>Start Date</th>
                                       <th>End Date</th>
-                                      <th>numofdays</th>
+                                      <th>number of days</th>
                                   </tr>
                               </thead>
                               <tbody id="leaveHistory">
