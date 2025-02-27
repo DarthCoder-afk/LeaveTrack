@@ -63,31 +63,89 @@ include '../auth/auth.php'; // Ensure authentication
           <div class="modal fade" id="viewEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="viewEmployeeLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
               <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">Employee Details</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title"><i class="fas fa-user"></i> Employee Details</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <div class="row">
-                    <div class="col-md-6">
-                      <p><strong>Employee ID:</strong> <span id="view_employee_id"></span></p>
-                      <p><strong>Last Name:</strong> <span id="view_lname"></span></p>
-                      <p><strong>First Name:</strong> <span id="view_fname"></span></p>
-                      <p><strong>Middle Name:</strong> <span id="view_midname"></span></p>
-                      <p><strong>Name Extension:</strong> <span id="view_extname"></span></p>
-                    </div>
-                    <div class="col-md-6">
-                      <p><strong>Position:</strong> <span id="view_position"></span></p>
-                      <p><strong>Office:</strong> <span id="view_office"></span></p>
-                      <p><strong>Gender:</strong> <span id="view_gender"></span></p>
+                  
+                  <!-- Profile Section -->
+                  <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                    <div class="d-flex align-items-center">
+                      <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
+                          alt="Profile Picture" width="70" height="70">
+                      <div class="ms-3">
+                        <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
+                        <small class="text-muted">ID No: 
+                          <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
+                                style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
+                                      border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                            000
+                          </span>
+                        </small>
+                      </div>
                     </div>
                   </div>
+                  
+                  <!-- Employee Details -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Employee ID</label>
+                        <input type="text" class="form-control" id="view_employee_id" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" id="view_lname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" id="view_fname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" id="view_midname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name Extension</label>
+                        <input type="text" class="form-control" id="view_extname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" class="form-control" id="view_position" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Office</label>
+                        <input type="text" class="form-control" id="view_office" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Gender</label>
+                        <input type="text" class="form-control" id="view_gender" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  
                 </div>
               </div>
             </div>
           </div>
+
 
 
           <!-- Add Modal -->
