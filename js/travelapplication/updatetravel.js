@@ -9,6 +9,7 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
     var extname = button.data('extname');
     var position = button.data('position');
     var offices = button.data('office');
+    var gender = button.data('gender');
     var purpose = button.data('purpose');
     var destination = button.data('destination');
     var datefiled = button.data('dateapplied');
@@ -16,11 +17,11 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
     var edate = button.data('enddate');
     var ndays = button.data('numdays');
     var form = button.data('file');
- 
-
-    console.log("employee id:", employee_id);
-    console.log("index no:", indexno);
+    
+    console.log("employee_id:", employee_id );
+    console.log("indexno:", indexno );
     console.log("office:", offices );
+    
 
     // Update the modal's content.
     var modal = $(this);
@@ -39,5 +40,7 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
      modal.find('#endDate').val(edate);
      modal.find('#numberOfDays').val(ndays);
      modal.find('#formFilename').text(form);
+
+     
 
   });

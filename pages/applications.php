@@ -116,26 +116,14 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group"> 
                             <label>Gender</label>
                             <input type="text" class="form-control"name="gender" id="gender" disabled>
+                            <input type="hidden" name="hidden_gender" id="hidden_gender">
                           </div>
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
                           <label>Type of Leave</label>
-                              <select class="form-control" name="leavetype" id="typeOfLeave" required>
+                              <select class="form-control" name="leavetype" id="typeOfLeave" required >
                                 <option value="" disabled selected>Select Type of Leave</option>
-                                <option value="Sick Leave">Sick Leave</option>
-                                <option value="Vacation Leave">Vacation Leave</option>
-                                <option value="Maternity Leave">Maternity Leave</option>
-                                <option value="Paternity Leave">Paternity Leave</option>
-                                <option value="Special Privilege Leave">Special Privilege Leave</option>
-                                <option value="Solo Parent Leave">Solo Parent Leave</option>
-                                <option value="Study Leave">Study Leave</option>
-                                <option value="10-Day VAWC Leave">10-Day VAWC Leave</option>
-                                <option value="Rehabilitation Leave">Rehabilitation Leave</option>
-                                <option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>
-                                <option value="Special Emergency (Calamity) Leave">Special Emergency (Calamity) Leave</option>
-                                <option value="Adoption Leave">Adoption Leave</option>
-                                <option value="Monetization">Monetization</option>
                               </select>
                           </div>
                         </div>
@@ -336,26 +324,15 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group"> 
                                 <label>Gender</label>
-                                <input type="text" class="form-control"name="gender" id="gender" disabled>
+                                <input type="text" class="form-control" name="gender" id="gender" disabled>
+                                <input type="hidden" name="hidden_gender" id="hidden_gender">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                               <label>Type of Leave</label>
-                                  <select class="form-control" name="leavetype" id="typeOfLeave" required>
+                                  <select class="form-control" name="leavetype" id="typeOfLeave" required>>
                                     <option value="" disabled selected>Select Type of Leave</option>
-                                    <option value="Sick Leave">Sick Leave</option>
-                                    <option value="Vacation Leave">Vacation Leave</option>
-                                    <option value="Maternity Leave">Maternity Leave</option>
-                                    <option value="Paternity Leave">Paternity Leave</option>
-                                    <option value="Special Privilege Leave">Special Privilege Leave</option>
-                                    <option value="Solo Parent Leave">Solo Parent Leave</option>
-                                    <option value="Study Leave">Study Leave</option>
-                                    <option value="10-Day VAWC Leave">10-Day VAWC Leave</option>
-                                    <option value="Rehabilitation Leave">Rehabilitation Leave</option>
-                                    <option value="Special Emergency (Calamity) Leave">Special Emergency (Calamity) Leave</option>
-                                    <option value="Adoption Leave">Adoption Leave</option>
-                                    <option value="Monetization">Monetization</option>
                                   </select>
                               </div>
                             </div>
@@ -442,12 +419,6 @@ include '../auth/auth.php'; // Ensure authentication
       </a>
 
 
-      <!-- <script>
-        document.getElementById('editLeaveModal').addeventListener('submit', function (){
-          document.getElementById('idnumber').disabled=false;
-        });
-      </script> -->
-
       <script src="../js/datechecker.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script src="../vendor/jquery/jquery.min.js"></script>
@@ -458,16 +429,6 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/employeeDetails.js"></script>
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-      <!-- Page level custom scripts -->
-       <!-- <script>
-        function changefilename(){
-         const fileInput = document.getElementById('filename');
-         const filename = fileInput.files[0].name;
-         const label = document.querySelector('form-control');
-         label.textContent = filename;
-        }
-       </script> -->
       <script src="../js/leaveapplication/deleteleave.js"></script>
       <script src="../js/leaveapplication/updateleave.js"></script>
       <script src="../js/dataTable.js"></script>
