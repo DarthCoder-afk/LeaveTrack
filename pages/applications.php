@@ -333,7 +333,6 @@ include '../auth/auth.php'; // Ensure authentication
                               <label>Type of Leave</label>
                                   <select class="form-control" name="leavetype" id="typeOfLeave" required>>
                                     <option value="" disabled selected>Select Type of Leave</option>
-                                    <option value="" disabled selected>Select Type of Leave</option>
                                     <option value="Sick Leave">Sick Leave</option>
                                     <option value="Vacation Leave">Vacation Leave</option>
                                     <option value="Maternity Leave">Maternity Leave</option>
