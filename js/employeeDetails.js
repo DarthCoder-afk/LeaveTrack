@@ -1,52 +1,3 @@
-function updateDropdown() {
-    var gender = document.getElementById('hidden_gender').value;
-    console.log('Selected Gender:', gender);  // Debugging log
-
-    var typeOfLeave = document.getElementById('typeOfLeave');
-    typeOfLeave.innerHTML = '';
-
-    var options = {
-        'Male': [
-            { value: '', text: 'Select Type of Leave' },
-            { value: 'Vacation Leave', text: 'Vacation Leave' },
-            { value: 'Mandatory/Forced Leave', text: 'Mandatory/Forced Leave' },
-            { value: 'Sick Leave', text: 'Sick Leave' },
-            { value: 'Paternity Leave', text: 'Paternity Leave' },
-            { value: 'Special Privilege Leave', text: 'Special Privilege Leave' },
-            { value: 'Solo Parent Leave', text: 'Solo Parent Leave' },
-            { value: 'Study Leave', text: 'Study Leave' },
-            { value: 'Rehabilitation Privilege', text: 'Rehabilitation Privilege' },
-            { value: 'Special Emergency (Calamity) Leave', text: 'Special Emergency (Calamity) Leave' },
-            { value: 'Adoption Leave', text: 'Adoption Leave' },
-            { value: 'Monetization', text: 'Monetization' }
-        ],
-        'Female': [
-            { value: '', text: 'Select Type of Leave' },
-            { value: 'Vacation Leave', text: 'Vacation Leave' },
-            { value: 'Mandatory/Forced Leave', text: 'Mandatory/Forced Leave' },
-            { value: 'Sick Leave', text: 'Sick Leave' },
-            { value: 'Maternity Leave', text: 'Maternity Leave' },
-            { value: 'Special Privilege Leave', text: 'Special Privilege Leave' },
-            { value: 'Solo Parent Leave', text: 'Solo Parent Leave' },
-            { value: 'Study Leave', text: 'Study Leave' },
-            { value: '10-Day VAWC Leave', text: '10-Day VAWC Leave' },
-            { value: 'Rehabilitation Privilege', text: 'Rehabilitation Privilege' },
-            { value: 'Special Leave Benefits for Women', text: 'Special Leave Benefits for Women' },
-            { value: 'Special Emergency (Calamity) Leave', text: 'Special Emergency (Calamity) Leave' },
-            { value: 'Adoption Leave', text: 'Adoption Leave' },
-            { value: 'Monetization', text: 'Monetization' }
-        ]
-    };
-
-    // Populate the dropdown
-    options[gender].forEach(function(option) {
-        var newOption = document.createElement('option');
-        newOption.value = option.value;  // This is the value sent to the database
-        newOption.textContent = option.text;
-        typeOfLeave.appendChild(newOption);
-    });
-}
-
 
 
 
@@ -83,7 +34,45 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                         document.getElementById('position').value = response.position || '';
                         document.getElementById('office').value = response.office || '';
 
-                        updateDropdown();
+                        var modal = $('#addApplicationForm');
+                    
+                        modal.find('#hidden_gender').val(response.gender || '');
+                       
+
+                        var leaveTypeDropdown = modal.find('#typeOfLeave');
+                        leaveTypeDropdown.empty(); // Clear existing options
+
+                        if (response.gender === 'Male') {
+                            leaveTypeDropdown.append('<option value="" disabled selected>Select Type of Leave</option>');
+                            leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
+                            leaveTypeDropdown.append('<option value="Mandatory/Forced Leave">Mandatory/Forced Leave</option>');
+                            leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
+                            leaveTypeDropdown.append('<option value="Paternity Leave">Paternity Leave</option>');
+                            leaveTypeDropdown.append('<option value="Special Privilege Leave">Special Privilege Leave</option>');
+                            leaveTypeDropdown.append('<option value="Solo Parent Leave">Solo Parent Leave</option>');
+                            leaveTypeDropdown.append('<option value="Study Leave">Study Leave</option>');
+                            leaveTypeDropdown.append('<option value="Rehabilitation Leave">Rehabilitation Leave</option>');
+                            leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
+                            leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
+                            
+                        } else if (response.gender === 'Female') {
+                            leaveTypeDropdown.append('<option value="" disabled selected>Select Type of Leave</option>');
+                            leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
+                            leaveTypeDropdown.append('<option value="Mandatory/Forced Leave">Mandatory/Forced Leave</option>');
+                            leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
+                            leaveTypeDropdown.append('<option value="Maternity Leave">Maternity Leave</option>');
+                            leaveTypeDropdown.append('<option value="Special Privilege Leave">Special Privilege Leave</option>');
+                            leaveTypeDropdown.append('<option value="Solo Parent Leave">Solo Parent Leave</option>');
+                            leaveTypeDropdown.append('<option value="Study Leave">Study Leave</option>');
+                            leaveTypeDropdown.append('<option value="10-Day VAWC Leave">10-Day VAWC Leave</option>');
+                            leaveTypeDropdown.append('<option value="Rehabilitation Leave">Rehabilitation Leave</option>');
+                            leaveTypeDropdown.append('<option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>');
+                            leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
+                            leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
+                            } else {
+                                leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
+                                leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
+                            }
                     } else {
                         clearFields();
                         Swal.fire({

@@ -73,4 +73,5 @@ $('#editLeaveModal').on('show.bs.modal', function (event) {
         leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
         leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
     }
+    leaveTypeDropdown.val(leavetype);
   });

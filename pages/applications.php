@@ -271,7 +271,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h5 class="modal-title">Add Leave Application</h5>
+                      <h5 class="modal-title">Update Leave Application</h5>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                       </button>
