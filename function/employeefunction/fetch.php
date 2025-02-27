@@ -9,7 +9,18 @@
         echo "<td>{$row['position']}</td>";
         echo "<td>{$row['office']}</td>";
         echo "<td>
-                <button class='btn btn-success text-white'><i class='fas fa-eye'></i></button>
+                <button class='btn btn-success text-white viewEmployeeBtn'
+                        data-employee_id='{$row['employee_id']}'
+                        data-lname='{$row['lname']}'
+                        data-fname='{$row['fname']}'
+                        data-midname='{$row['midname']}'
+                        data-extname='{$row['extname']}'
+                        data-position='{$row['position']}'
+                        data-office='{$row['office']}'
+                        data-gender='{$row['gender']}'>
+                    <i class='fas fa-eye'></i>
+                </button>
+
                 <button class='btn btn-info' data-toggle='modal' data-target='#editEmployeeModal'
                 data-employee_id='{$row['employee_id']}'
                 data-lname='{$row['lname']}'

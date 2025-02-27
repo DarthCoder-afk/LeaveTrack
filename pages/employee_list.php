@@ -59,6 +59,97 @@ include '../auth/auth.php'; // Ensure authentication
               <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
           </div>
 
+          <!-- View Employee Modal -->
+          <div class="modal fade" id="viewEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="viewEmployeeLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+              <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                  <h5 class="modal-title"><i class="fas fa-user"></i> Employee Details</h5>
+                  <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  
+                  <!-- Profile Section -->
+                  <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                    <div class="d-flex align-items-center">
+                      <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
+                          alt="Profile Picture" width="70" height="70">
+                      <div class="ms-3">
+                        <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
+                        <small class="text-muted">ID No: 
+                          <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
+                                style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
+                                      border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                            000
+                          </span>
+                        </small>
+                      </div>
+                    </div>
+                      <!-- View History -->
+                      <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
+                          <i class="fas fa-file-alt"></i> View History
+                      </a>
+                  </div>
+                  
+                  <!-- Employee Details -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Employee ID</label>
+                        <input type="text" class="form-control" id="view_employee_id" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" class="form-control" id="view_lname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" class="form-control" id="view_fname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Middle Name</label>
+                        <input type="text" class="form-control" id="view_midname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name Extension</label>
+                        <input type="text" class="form-control" id="view_extname" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Position</label>
+                        <input type="text" class="form-control" id="view_position" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Office</label>
+                        <input type="text" class="form-control" id="view_office" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Gender</label>
+                        <input type="text" class="form-control" id="view_gender" readonly>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+
           <!-- Add Modal -->
           <form action="../function/employeefunction/create.php" method="POST" onsubmit="return validateForm()">
              <div class="modal fade" id="addEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -307,6 +398,8 @@ include '../auth/auth.php'; // Ensure authentication
 
       <!-- Page level custom scripts -->
       <script src="../js/dataTable.js"></script>
+      <script src="../js/employeelist/view.js"></script>
+
       
 </body>
 
