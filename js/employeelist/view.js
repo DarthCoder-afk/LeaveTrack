@@ -37,12 +37,52 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     $('#view_position').val(position);
     $('#view_office').val(office);
     $('#view_gender').val(gender);
+    
+    // Fetch Leave & Travel History
+    $.ajax({
+        url: '../function/employeefunction/fetch_history.php',
+        type: 'POST',
+        data: { employee_id: employee_id },
+        dataType: 'json',
+        success: function (response) {
+            // Leave History
+            var leaveHtml = "";
+            if (response.leave.length > 0) {
+                response.leave.forEach(function (leave) {
+                    leaveHtml += `<tr>
+                        <td>${leave.leavetype}</td>
+                        <td>${leave.start_date}</td>
+                        <td>${leave.end_date}</td>
+                        <td>${leave.numofdays}</td>
+                    </tr>`;
+                });
+            } else {
+                leaveHtml = `<tr><td colspan="4" class="text-center">No leave history available</td></tr>`;
+            }
+            $("#leaveHistory").html(leaveHtml);
 
-    // Show the "View History" button and update its link
-    var historyLink = "history.php?employee_id=" + employee_id; // Adjust to your actual history page
-    $('#view_file_btn').attr("href", historyLink).removeClass("d-none");
+            // Travel History
+            var travelHtml = "";
+            if (response.travel.length > 0) {
+                response.travel.forEach(function (travel) {
+                    travelHtml += `<tr>
+                        <td>${travel.destination}</td>
+                        <td>${travel.stardate}</td>
+                        <td>${travel.enddate}</td>
+                        <td>${travel.purpose}</td>
+                    </tr>`;
+                });
+            } else {
+                travelHtml = `<tr><td colspan="4" class="text-center">No travel history available</td></tr>`;
+            }
+            $("#travelHistory").html(travelHtml);
+        },
+        error: function () {
+            console.error("Failed to fetch history");
+        }
+    });
 
     // Show the modal
     $('#viewEmployeeModal').modal('show');
 });
- 
+

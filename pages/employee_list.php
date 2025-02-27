@@ -70,7 +70,7 @@ include '../auth/auth.php'; // Ensure authentication
                   </button>
                 </div>
                 <div class="modal-body">
-                  
+                               
                   <!-- Profile Section -->
                   <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
                     <div class="d-flex align-items-center">
@@ -87,10 +87,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </small>
                       </div>
                     </div>
-                      <!-- View History -->
-                      <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
-                          <i class="fas fa-file-alt"></i> View History
-                      </a>
+
                   </div>
                   
                   <!-- Employee Details -->
@@ -144,6 +141,46 @@ include '../auth/auth.php'; // Ensure authentication
                       </div>
                     </div>
                   </div>
+
+                  <!-- Employee Leave & Travel History -->
+                  <div class="mt-4">
+                      <h5 class="text-primary"><i class="fas fa-history"></i> Leave & Travel History</h5>
+                      
+                      <!-- Leave History -->
+                      <div class="table-responsive">
+                          <table class="table table-bordered table-sm">
+                              <thead class="bg-light">
+                                  <tr>
+                                      <th>Leave Type</th>
+                                      <th>Start Date</th>
+                                      <th>End Date</th>
+                                      <th>numofdays</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="leaveHistory">
+                                  <tr><td colspan="4" class="text-center">No leave history available</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+
+                      <!-- Travel History -->
+                      <div class="table-responsive mt-3">
+                          <table class="table table-bordered table-sm">
+                              <thead class="bg-light">
+                                  <tr>
+                                      <th>Destination</th>
+                                      <th>Departure</th>
+                                      <th>Return</th>
+                                      <th>Purpose</th>
+                                  </tr>
+                              </thead>
+                              <tbody id="travelHistory">
+                                  <tr><td colspan="4" class="text-center">No travel history available</td></tr>
+                              </tbody>
+                          </table>
+                      </div>
+                  </div>
+
                   
                 </div>
               </div>
