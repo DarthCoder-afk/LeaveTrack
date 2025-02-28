@@ -8,6 +8,10 @@
         echo "<td>{$full_name}</td>";
         echo "<td>{$row['position']}</td>";
         echo "<td>{$row['office']}</td>";
+        // echo "<td>
+        //     <input type='checkbox' data-toggle='switchbutton' checked data-width='75' data-onstyle='success' 
+        //     data-onlabel='Active' data-offlabel='Inactive' data-size='sm'>
+        // </td>";
         echo "<td>
                 <button class='btn btn-success text-white viewEmployeeBtn'
                         data-employee_id='{$row['employee_id']}'

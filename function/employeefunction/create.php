@@ -12,9 +12,10 @@ if(isset($_POST['createData'])) {
     $extname = $_POST['extname'];
     $position = $_POST['position'];
     $office = $_POST['office'];
+    $status = "Active";
 
-    $stmt = $conn->prepare("INSERT INTO employee (employee_id, lname, fname, midname, extname, gender, position, office) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssss", $emp_id, $lname, $fname, $midname, $extname, $gender, $position, $office);
+    $stmt = $conn->prepare("INSERT INTO employee (employee_id, lname, fname, midname, extname, gender, position, office, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssssssss", $emp_id, $lname, $fname, $midname, $extname, $gender, $position, $office, $status);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "success";
