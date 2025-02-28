@@ -13,12 +13,13 @@ if(isset($_POST['updateData'])) {
     $extname = $_POST['extname'];
     $position = $_POST['position'];
     $office = $_POST['office'];
+    $status = isset($_POST['status']) && $_POST['status'] === 'on' ? 'Active' : 'Inactive'; // Capture the status value
     
     echo '<script> console.log("'.$emp_id.'"); </script>';
     echo '<script> console.log("'.$new_emp_id.'"); </script>';
 
-    $stmt = $conn->prepare("UPDATE employee SET employee_id = ?, lname = ?, fname = ?, midname = ?, gender = ?, extname = ?, position = ?, office = ? WHERE employee_id = ?");
-    $stmt->bind_param("sssssssss", $new_emp_id, $lname, $fname, $midname, $gender, $extname, $position, $office, $emp_id);
+    $stmt = $conn->prepare("UPDATE employee SET employee_id = ?, lname = ?, fname = ?, midname = ?, gender = ?, extname = ?, position = ?, office = ?, status = ? WHERE employee_id = ?");
+    $stmt->bind_param("ssssssssss", $new_emp_id, $lname, $fname, $midname, $gender, $extname, $position, $office, $status, $emp_id);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "update";

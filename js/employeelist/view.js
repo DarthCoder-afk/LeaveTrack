@@ -9,8 +9,9 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     var position = $(this).data('position');
     var office = $(this).data('office');
     var gender = $(this).data('gender');
+    var status = $(this).data('status');
 
-    console.log("Data Retrieved:", { employee_id, lname, fname, office, gender });
+    console.log("Data Retrieved:", { employee_id, lname, fname, office, gender, status });
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
 
@@ -37,6 +38,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     $('#view_position').val(position);
     $('#view_office').val(office);
     $('#view_gender').val(gender);
+    $('#view_status').val(status);
     
     // Fetch Leave & Travel History
     $.ajax({

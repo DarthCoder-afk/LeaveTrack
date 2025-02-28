@@ -8,10 +8,9 @@
         echo "<td>{$full_name}</td>";
         echo "<td>{$row['position']}</td>";
         echo "<td>{$row['office']}</td>";
-        // echo "<td>
-        //     <input type='checkbox' data-toggle='switchbutton' checked data-width='75' data-onstyle='success' 
-        //     data-onlabel='Active' data-offlabel='Inactive' data-size='sm'>
-        // </td>";
+
+          
+
         echo "<td>
                 <button class='btn btn-success text-white viewEmployeeBtn'
                         data-employee_id='{$row['employee_id']}'
@@ -21,6 +20,7 @@
                         data-extname='{$row['extname']}'
                         data-position='{$row['position']}'
                         data-office='{$row['office']}'
+                        data-status='{$row['status']}'
                         data-gender='{$row['gender']}'>
                     <i class='fas fa-eye'></i>
                 </button>
@@ -33,7 +33,8 @@
                 data-extname='{$row['extname']}'
                 data-position='{$row['position']}'
                 data-office='{$row['office']}'
-                data-gender='{$row['gender']}'>
+                data-gender='{$row['gender']}'
+                data-status='{$row['status']}'>
                 <i class='fas fa-pencil-alt'></i>
                 </button>
                 <button class='btn btn-danger text-white deletebtn' data-employee_id='{$row['employee_id']}'><i class='fas fa-trash-alt'></i></button>

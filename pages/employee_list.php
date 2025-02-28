@@ -18,7 +18,8 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/css/bootstrap-switch-button.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css" rel="stylesheet">
+  
 
   <style>
     .table-responsive {
@@ -97,6 +98,12 @@ include '../auth/auth.php'; // Ensure authentication
                       <div class="form-group">
                         <label>Employee ID</label>
                         <input type="text" class="form-control" id="view_employee_id" readonly>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Status</label>
+                        <input type="text" class="form-control" id="view_status" readonly>
                       </div>
                     </div>
                     <div class="col-md-6">
@@ -295,6 +302,14 @@ include '../auth/auth.php'; // Ensure authentication
                   </div>
                   <div class="modal-body">
                       <div class="row">
+                        <div class="col-md-8 ">
+                          <div class="form-group">
+                            <label>Status: </label>
+                            <input class="form-control" type='checkbox' data-toggle='toggle' data-width='100' data-onstyle='success' 
+                            data-offstyle="danger" data-on='Active' data-off='Inactive' data-size='sm' id="status" name="status">
+                            <small><label>(Click to change)</label></small>
+                          </div>
+                        </div>
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Last Name</label>
@@ -366,6 +381,7 @@ include '../auth/auth.php'; // Ensure authentication
                             </select>
                           </div>
                         </div>
+                        
                       </div>
                       <button type="submit" class="btn btn-success btn-block" name="updateData">Update</button>
                   </div>
@@ -433,7 +449,8 @@ include '../auth/auth.php'; // Ensure authentication
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap-switch-button@1.1.0/dist/bootstrap-switch-button.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+      
 
       <!-- Page level custom scripts -->
       <script src="../js/dataTable.js"></script>

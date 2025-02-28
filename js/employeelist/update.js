@@ -9,9 +9,11 @@ $('#editEmployeeModal').on('show.bs.modal', function (event) {
     var position = button.data('position');
     var office = button.data('office');
     var gender = button.data('gender')
+    var status = button.data('status');
 
     console.log("employee id:", employee_id);
     console.log("hidden employee id:", hidden_employee_id);
+    console.log("status:", status);
     // Update the modal's content.
     var modal = $(this);
      modal.find('#idnumber').val(employee_id);
@@ -23,6 +25,23 @@ $('#editEmployeeModal').on('show.bs.modal', function (event) {
      modal.find('#position').val(position);
      modal.find('#typeOfOffice').val(office);
      modal.find('#typeOfGender').val(gender);
+
+    var statusToggle = modal.find('#status');
+    if (statusToggle.length) {
+        statusToggle.bootstrapToggle({
+            on: 'Active',
+            off: 'Inactive',
+            onstyle: 'success',
+            offstyle: 'danger'
+        });
+        if (status === 'Active') {
+            statusToggle.bootstrapToggle('on');
+        } else {
+            statusToggle.bootstrapToggle('off');
+        }
+    } else {
+        console.error("Status toggle button not found");
+    }
      
   });
 
