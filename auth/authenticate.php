@@ -14,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (mysqli_num_rows($data) == 1) {
         $_SESSION['message'] = "success";
         $_SESSION['username'] = $username; // Store username in session
+        $_SESSION['password'] = $password; // Store password in session
         $_SESSION['auth_key'] = bin2hex(random_bytes(32)); // Generate secure token
     } else {
         $_SESSION['message'] = "error";
