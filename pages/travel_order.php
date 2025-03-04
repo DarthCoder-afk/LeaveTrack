@@ -153,8 +153,10 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="formFile" class="form-label">Upload Scanned Document</label>
-                                <input type="file" class="form-control" name="form" id="formFile">
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="form" id="formFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -264,10 +266,10 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label for="formFile" class="form-label">Upload Scanned Document</label>
-                                <input type="file" class="form-control" name="form" id="formFile">
-                                <label for="formFile">Recent Uploaded File:</label>
-                                <span id="formFilename"></span>
+                                <div class="custom-file">
+                                  <input type="file" class="custom-file-input" name="form" id="formFile">
+                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                </div>
                               </div>
                             </div>
                           </div>
