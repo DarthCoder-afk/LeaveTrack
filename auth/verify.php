@@ -6,7 +6,7 @@ if(isset($_POST['password'])) {
     $password = $_POST['password'];
    
 
-    $stored_password = $conn->query("SELECT password FROM login")->fetch_assoc()['password'];
+    $stored_password = $_SESSION['password'];
 
     if($password === $stored_password) {
         echo 'success' ;
