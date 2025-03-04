@@ -13,6 +13,7 @@ if (session_status() == PHP_SESSION_NONE) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="icon" type="image/png" href="../img/favicon.ico">
+    <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <title>Login | HRMO</title>
 </head>
 <body>
@@ -39,7 +40,10 @@ if (session_status() == PHP_SESSION_NONE) {
                             <input type="text" class="form-control form-control-lg bg-light fs-6" placeholder="Username" name="username" required>
                         </div>
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control form-control-lg bg-light fs-6" placeholder="Password" name="password" required>
+                            <input type="password" class="form-control form-control-lg bg-light fs-6" id="verifyPassword" placeholder="Password" name="password" required>
+                            <span class="input-group-text" id="togglePassword">
+                                <i class="fas fa-eye-slash"></i>
+                            </span>
                         </div>
                         <div class="input-group mb-3">
                             <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
@@ -79,6 +83,22 @@ if (session_status() == PHP_SESSION_NONE) {
     <?php 
         unset($_SESSION['message']); // Clear session message after showing alert
     endif; ?>
+
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function (e) {
+        const passwordInput = document.getElementById('verifyPassword');
+        const icon = this.querySelector('i');
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        } else {
+            passwordInput.type = 'password';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        }
+    });
+    </script>
 
 </body>
 </html>
