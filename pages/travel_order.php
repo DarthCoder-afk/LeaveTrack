@@ -161,7 +161,6 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                           </div>
                           <button type="submit" class="btn btn-success btn-block" name="AddTravel">Save</button>
-                       
                       </div>
                     </div>
                   </div>
