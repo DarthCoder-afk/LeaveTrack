@@ -419,6 +419,8 @@ include '../auth/auth.php'; // Ensure authentication
             </div>
             <!--Table-->
 
+            <?php include '../includes/verify_modal.php'?>
+
 
             <!---Container Fluid-->
           </div>
