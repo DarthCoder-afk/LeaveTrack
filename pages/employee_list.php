@@ -420,6 +420,7 @@ include '../auth/auth.php'; // Ensure authentication
             <!--Table-->
 
             <?php include '../includes/verify_modal.php'?>
+            <?php include '../includes/verifymodal2.php'?>
 
 
             <!---Container Fluid-->

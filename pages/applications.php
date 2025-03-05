@@ -409,6 +409,7 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Data Alert -->
             <?php include '../includes/data_alert.php'; ?>
+            <?php include '../includes/verify_modal.php'?>
 
             <!---Container Fluid-->
           </div>
