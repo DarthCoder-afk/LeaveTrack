@@ -116,9 +116,10 @@ include '../auth/auth.php'; // Ensure authentication
                                 <input type="text" class="form-control" name="office" id="office" disabled>
                               </div>
                             </div>
-                            <!--  -->
-                            <input type="hidden" name="gender" id="gender">
-                            <!--  -->
+                        
+                            <input type="hidden" class="form-control"name="gender" id="gender" disabled>
+                            <input type="hidden" name="hidden_gender" id="hidden_gender">
+                          
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Purpose</label>
