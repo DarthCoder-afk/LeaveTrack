@@ -54,7 +54,7 @@
                     data-file='{$row['file']}'>
                     <i class='fas fa-pencil-alt'></i>
                 </button>
-                <button class='btn btn-danger text-white deletebtn' data-indexno ='{$row['index_no']}'><i class='fas fa-trash-alt'></i></button>
+                <button class='btn btn-danger text-white' data-toggle='modal' data-target='#verifyModal' data-indexno ='{$row['index_no']}'><i class='fas fa-trash-alt'></i></button>
             </td>";
         echo "</tr>";
     } 
