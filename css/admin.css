@@ -1928,3 +1928,9 @@ body.sidebar-toggled footer.sticky-footer {
   background-color: #2e8517;
   border-color: #2e8517
 }
+
+/* Inactive Row */
+.inactive-row {
+  background-color: #d3d3d3; /* Light gray color */
+  color: #808080; /* Gray text color */
+}

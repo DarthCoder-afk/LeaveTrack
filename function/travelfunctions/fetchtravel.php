@@ -4,8 +4,9 @@
     while ($row = $result->fetch_assoc()) {
        
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
+        $row_class = ($row['status'] == 'Inactive') ? 'inactive-row' : '';
         
-        echo "<tr class='text-center'>";
+        echo "<tr class='text-center {$row_class}'>";
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
         echo "<td>{$row['position']}</td>";

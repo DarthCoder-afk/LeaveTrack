@@ -30,6 +30,10 @@ include '../auth/auth.php'; // Ensure authentication
     .table th, .table td {
       white-space: nowrap;
     }
+    .inactive-row {
+    background-color: #e9ecef !important; /* Light gray */
+    color: #6c757d !important; /* Dark gray */
+   }
   </style>
 </head>
 
@@ -224,9 +228,9 @@ include '../auth/auth.php'; // Ensure authentication
                                 <input type="text" class="form-control" name="office" id="office" disabled>
                               </div>
                             </div>
-                            <!--  -->
-                            <!-- <input type="hidden" name="gender" id="gender"> -->
-                            <!--  -->
+                            
+                            <input type="hidden" name="gender" id="gender"> 
+                           
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Purpose</label>

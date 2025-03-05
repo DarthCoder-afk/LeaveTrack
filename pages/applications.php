@@ -32,6 +32,10 @@ include '../auth/auth.php'; // Ensure authentication
     .table td {
       text-align: center;
     }
+    .inactive-row {
+    background-color: #e9ecef !important; /* Light gray */
+    color: #6c757d !important; /* Dark gray */
+   }
   </style>
 </head>
 

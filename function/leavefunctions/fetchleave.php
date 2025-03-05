@@ -6,6 +6,7 @@
         //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
         
+        
         echo "<tr class='text-center'>";
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
