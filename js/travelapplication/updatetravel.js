@@ -38,9 +38,13 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
      modal.find('#dateApplied').val(datefiled);
      modal.find('#startDate').val(sdate);
      modal.find('#endDate').val(edate);
-     modal.find('#numberOfDays').val(ndays);
-     modal.find('#formFilename').text(form);
-
      
+     modal.find('#numberOfDays').val(ndays);
+     if (form === '') {
+        modal.find('#updateLabel').text('No file uploaded');
+     } else {
+        modal.find('#updateLabel').text(form)
+     }
+
 
   });

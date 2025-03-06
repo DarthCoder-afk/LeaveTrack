@@ -160,7 +160,7 @@ include '../auth/auth.php'; // Ensure authentication
                               <div class="form-group">
                                 <div class="custom-file">
                                   <input type="file" class="custom-file-input" name="form" id="formFile">
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                  <label class="custom-file-label" for="customFile" id="fileLabel">Choose file</label>
                                 </div>
                               </div>
                             </div>
@@ -271,8 +271,8 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input" name="form" id="formFile">
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                  <input type="file" class="custom-file-input" name="form" id="updateFile">
+                                  <label class="custom-file-label" for="customFile" id="updateLabel">Choose file</label>
                                 </div>
                               </div>
                             </div>
@@ -444,6 +444,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
       <!-- Page level custom scripts -->
+      <script src="../js/filelabel.js"></script>
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
       <script src="../js/employeeDetails.js"></script>
