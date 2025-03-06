@@ -1,17 +1,13 @@
-
-
-
 function debounce(func, wait) {
     let timeout;
-    return function(...args){
+    return function(...args) {
         const context = this;
         clearTimeout(timeout);
-        timeout = setTimeout(()=> func.apply(context,args), wait);
+        timeout = setTimeout(() => func.apply(context, args), wait);
     };
 }
 
-
-document.getElementById('idnumber').addEventListener('input', debounce(function(){
+document.getElementById('idnumber').addEventListener('input', debounce(function() {
     var employeeId = this.value;
 
     if (employeeId) {
@@ -29,21 +25,19 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                         document.getElementById('firstName').value = response.fname || '';
                         document.getElementById('middleName').value = response.midname || '';
                         document.getElementById('gender').value = response.gender || '';
-                        document.getElementById('hidden_gender').value = response.gender|| '';
+                        document.getElementById('hidden_gender').value = response.gender || '';
                         document.getElementById('nameExtension').value = response.extname || '';
                         document.getElementById('position').value = response.position || '';
                         document.getElementById('office').value = response.office || '';
 
                         var modal = $('#addApplicationForm');
-                    
                         modal.find('#hidden_gender').val(response.gender || '');
-                       
 
                         var leaveTypeDropdown = modal.find('#typeOfLeave');
-                        leaveTypeDropdown.empty(); // Clear existing options
+                        leaveTypeDropdown.empty();
 
+                        leaveTypeDropdown.append('<option value="" disabled selected>Select Type of Leave</option>');
                         if (response.gender === 'Male') {
-                            leaveTypeDropdown.append('<option value="" disabled selected>Select Type of Leave</option>');
                             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
                             leaveTypeDropdown.append('<option value="Mandatory/Forced Leave">Mandatory/Forced Leave</option>');
                             leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
@@ -54,9 +48,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                             leaveTypeDropdown.append('<option value="Rehabilitation Leave">Rehabilitation Leave</option>');
                             leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
                             leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
-                            
                         } else if (response.gender === 'Female') {
-                            leaveTypeDropdown.append('<option value="" disabled selected>Select Type of Leave</option>');
                             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
                             leaveTypeDropdown.append('<option value="Mandatory/Forced Leave">Mandatory/Forced Leave</option>');
                             leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
@@ -69,10 +61,11 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                             leaveTypeDropdown.append('<option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>');
                             leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
                             leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
-                            } else {
-                                leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
-                                leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
-                            }
+                        } else {
+                            leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
+                            leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
+                        }
+                        leaveTypeDropdown.append('<option value="Optional">Optional (Specify Below)</option>');
                     } else {
                         clearFields();
                         Swal.fire({
@@ -97,7 +90,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
         };
         xhr.send('employee_id=' + encodeURIComponent(employeeId));
     }
-}, 550));  //delay
+}, 550));
 
 function clearFields() {
     document.getElementById('idnumber').value = '';
@@ -110,3 +103,17 @@ function clearFields() {
     document.getElementById('position').value = '';
     document.getElementById('office').value = '';
 }
+
+document.getElementById('typeOfLeave').addEventListener('change', function() {
+    var optionalLeaveContainer = document.getElementById('optionalLeaveContainer');
+    var optionalLeaveInput = document.getElementById('optionalLeaveInput');
+
+    if (this.value === 'Optional') {
+        optionalLeaveContainer.style.display = 'block';
+        optionalLeaveInput.required = true;
+    } else {
+        optionalLeaveContainer.style.display = 'none';
+        optionalLeaveInput.required = false;
+        optionalLeaveInput.value = '';
+    }
+});
