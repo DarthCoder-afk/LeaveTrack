@@ -16,6 +16,7 @@ $('#editLeaveModal').on('show.bs.modal', function (event) {
     var edate = button.data('enddate');
     var ndays = button.data('numdays');
     var form = button.data('file');
+    
 
     console.log("employee id:", employee_id);
     console.log("index no:", indexno);
@@ -37,7 +38,12 @@ $('#editLeaveModal').on('show.bs.modal', function (event) {
      modal.find('#startDate').val(sdate);
      modal.find('#endDate').val(edate);
      modal.find('#numberOfDays').val(ndays);
-     modal.find('#formFilename').text(form);
+
+     if (form === '') {
+        modal.find('#updateLabel').text('No file uploaded');
+     } else {
+        modal.find('#updateLabel').text(form)
+     }
 
      var leaveTypeDropdown = modal.find('#typeOfLeave');
     leaveTypeDropdown.empty(); // Clear existing options

@@ -159,7 +159,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group">
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" name="form" id="formFile">
-                              <label class="custom-file-label" for="customFile">Choose file</label>
+                              <label class="custom-file-label" for="customFile" id="formLabel">Choose file</label>
                             </div>
                           </div>
                         </div>
@@ -369,8 +369,8 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <div class="custom-file">
-                                  <input type="file" class="custom-file-input" name="form" id="filename">
-                                  <label class="custom-file-label" for="customFile">Choose file</label>
+                                  <input type="file" class="custom-file-input" name="form" id="updateFile">
+                                  <label class="custom-file-label" for="customFile" id="updateLabel">Choose file</label>
                                 </div>
                               </div>
                             </div>
@@ -441,6 +441,21 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
       <script src="../js/leaveapplication/viewleave.js"></script>
+      <script>
+        document.getElementById('formFile').addEventListener('change', function(){
+          var fileName = this.files[0].name;
+          var label = document.getElementById('formLabel');
+          label.textContent = fileName;
+
+        });
+
+        document.getElementById('updateFile').addEventListener('change', function(){
+          var fileName = this.files[0].name;
+          var label = document.getElementById('updateLabel');
+          label.textContent = fileName;
+
+        });
+      </script>
 
 </body>
 
