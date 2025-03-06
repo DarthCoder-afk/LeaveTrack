@@ -157,6 +157,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                         <div class="col-md-6">
                           <div class="form-group">
+                          <label>Upload File <small>(Optional)</small></label>
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" name="form" id="formFile">
                               <label class="custom-file-label" for="customFile" id="formLabel">Choose file</label>
@@ -368,6 +369,7 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
+                                <label>Upload File <small>(Optional)</small></label>
                                 <div class="custom-file">
                                   <input type="file" class="custom-file-input" name="form" id="updateFile">
                                   <label class="custom-file-label" for="customFile" id="updateLabel">Choose file</label>
