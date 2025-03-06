@@ -433,6 +433,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
       <!-- Page level plugins -->
+      <script src="../js/filelabel.js"></script>
       <script src="../js/employeeDetails.js"></script>
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
@@ -441,21 +442,6 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
       <script src="../js/leaveapplication/viewleave.js"></script>
-      <script>
-        document.getElementById('formFile').addEventListener('change', function(){
-          var fileName = this.files[0].name;
-          var label = document.getElementById('formLabel');
-          label.textContent = fileName;
-
-        });
-
-        document.getElementById('updateFile').addEventListener('change', function(){
-          var fileName = this.files[0].name;
-          var label = document.getElementById('updateLabel');
-          label.textContent = fileName;
-
-        });
-      </script>
 
 </body>
 
