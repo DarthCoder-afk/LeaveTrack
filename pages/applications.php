@@ -345,14 +345,24 @@ include '../auth/auth.php'; // Ensure authentication
                                 <input type="hidden" name="hidden_gender" id="hidden_gender">
                               </div>
                             </div>
+
                             <div class="col-md-6">
                               <div class="form-group">
-                              <label>Type of Leave</label>
-                                  <select class="form-control" name="leavetype" id="typeOfLeave" required>>
-                                    <option value="" disabled selected>Select Type of Leave</option>
-                                  </select>
+                                <label>Type of Leave</label>
+                                <select class="form-control" name="leavetype" id="typeOfLeave" required>
+                                  <option value="" disabled selected>Select Type of Leave</option>
+                                  <option value="Optional">Optional (Specify Below)</option>
+                                </select>
                               </div>
                             </div>
+
+                            <div class="col-md-6" id="optionalLeaveDiv" style="display: none;">
+                              <div class="form-group">
+                                <label>Specify Leave Type</label>
+                                <input type="text" class="form-control" name="optionalLeaveType" id="optionalLeaveType">
+                              </div>
+                            </div>
+
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>

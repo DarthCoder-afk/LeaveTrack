@@ -7,10 +7,18 @@ if(isset($_POST['UpdateLeave'])) {
     $index_no = $_POST['index_no'];
     $emp_id = $_POST['employee_Id'];
     $leavetype = $_POST['leavetype'];
+
+    // Check if leave type is optional, then use the user-specified leave type
+    if ($leavetype === "Optional") {
+        $leavetype = $_POST['optionalLeaveType']; // Get value from input
+    }
+    
+    
     $datefiled = $_POST['applieddate'];
     $sdate = $_POST['startdate'];
     $edate = $_POST['enddate'];
     $ndays = $_POST['numdays'];
+
 
     // File Upload
     $file = $_FILES['form']['name'];
