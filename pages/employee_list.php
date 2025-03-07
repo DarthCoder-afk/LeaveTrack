@@ -350,7 +350,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <select class="form-control" name="office" id="typeOfOffice">
+                            <select class="form-control" name="office" id="editTypeOfOffice">
                               <option value="" disabled selected>Select Type of Office</option>
                               <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
                               <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
@@ -368,9 +368,12 @@ include '../auth/auth.php'; // Ensure authentication
                               <option value="General Service Office">General Service Office</option>
                               <option value="Human Resource Management Office">Human Resource Management Office</option>
                               <option value="Municipal Tourism Office">Municipal Tourism Office</option>
+                              <option value="optional">Optional</option>
                             </select>
+                            <input type="text" class="form-control mt-2" name="custom_office" id="editCustomOfficeInput" placeholder="Enter Office Name" style="display: none;">
                           </div>
                         </div>
+
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ID No.</label>

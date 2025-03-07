@@ -13,6 +13,9 @@ if(isset($_POST['updateData'])) {
     $extname = $_POST['extname'];
     $position = $_POST['position'];
     $office = $_POST['office'];
+    if ($office == "optional" && !empty($_POST['custom_office'])) {
+        $office = $_POST['custom_office'];
+    }
     $status = isset($_POST['status']) && $_POST['status'] === 'on' ? 'Active' : 'Inactive'; // Capture the status value
     
     echo '<script> console.log("'.$emp_id.'"); </script>';

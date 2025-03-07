@@ -1,45 +1,68 @@
-$('#editEmployeeModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget);
-    var employee_id = button.data('employee_id');
-    var hidden_employee_id = button.data('employee_id');
-    var lname = button.data('lname');
-    var fname = button.data('fname');
-    var midname = button.data('midname');
-    var extname = button.data('extname');
-    var position = button.data('position');
-    var office = button.data('office');
-    var gender = button.data('gender');
-    var status = button.data('status');
-
-    console.log("employee id:", employee_id);
-    console.log("hidden employee id:", hidden_employee_id);
-    console.log("status:", status);
-    // Update the modal's content.
-    var modal = $(this);
-    modal.find('#idnumber').val(employee_id);
-    modal.find('#hidden_id').val(hidden_employee_id);
-    modal.find('#lastName').val(lname);
-    modal.find('#firstName').val(fname);
-    modal.find('#middleName').val(midname);
-    modal.find('#nameExtension').val(extname);
-    modal.find('#position').val(position);
-    modal.find('#typeOfOffice').val(office);
-    modal.find('#typeOfGender').val(gender);
-
-    var statusToggle = modal.find('#status');
-    if (statusToggle.length) {
-        statusToggle.bootstrapToggle({
-            on: 'Active',
-            off: 'Inactive',
-            onstyle: 'success',
-            offstyle: 'danger'
-        });
-        if (status === 'Active') {
-            statusToggle.bootstrapToggle('on');
+$(document).ready(function () {
+    function toggleEditCustomOffice() {
+        if ($('#editTypeOfOffice').val() === "optional") {
+            $('#editCustomOfficeInput').show();
         } else {
-            statusToggle.bootstrapToggle('off');
+            $('#editCustomOfficeInput').hide();
+            $('#editCustomOfficeInput').val('');
         }
-    } else {
-        console.error("Status toggle button not found");
     }
+
+    // When the edit modal is opened
+    $('#editEmployeeModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget);
+        var modal = $(this);
+
+        var employee_id = button.data('employee_id');
+        var hidden_employee_id = button.data('employee_id');
+        var lname = button.data('lname');
+        var fname = button.data('fname');
+        var midname = button.data('midname');
+        var extname = button.data('extname');
+        var position = button.data('position');
+        var office = button.data('office');
+        var gender = button.data('gender');
+        var status = button.data('status');
+
+        // Populate fields
+        modal.find('#idnumber').val(employee_id);
+        modal.find('#hidden_id').val(hidden_employee_id);
+        modal.find('#lastName').val(lname);
+        modal.find('#firstName').val(fname);
+        modal.find('#middleName').val(midname);
+        modal.find('#nameExtension').val(extname);
+        modal.find('#position').val(position);
+        modal.find('#typeOfGender').val(gender);
+
+        // Handle Office Selection
+        var officeDropdown = modal.find('#editTypeOfOffice');
+        if (officeDropdown.find('option[value="' + office + '"]').length > 0) {
+            officeDropdown.val(office);
+            $('#editCustomOfficeInput').hide();
+            $('#editCustomOfficeInput').val('');
+        } else {
+            officeDropdown.val("optional");
+            $('#editCustomOfficeInput').show();
+            $('#editCustomOfficeInput').val(office);
+        }
+
+        // Handle status toggle
+        var statusToggle = modal.find('#status');
+        if (statusToggle.length) {
+            statusToggle.bootstrapToggle({
+                on: 'Active',
+                off: 'Inactive',
+                onstyle: 'success',
+                offstyle: 'danger'
+            });
+            if (status === 'Active') {
+                statusToggle.bootstrapToggle('on');
+            } else {
+                statusToggle.bootstrapToggle('off');
+            }
+        }
+
+        // Ensure the custom office input updates dynamically
+        $('#editTypeOfOffice').on('change', toggleEditCustomOffice);
+    });
 });
