@@ -12,6 +12,9 @@ if(isset($_POST['createData'])) {
     $extname = $_POST['extname'];
     $position = $_POST['position'];
     $office = $_POST['office'];
+    if ($office == "optional" && !empty($_POST['custom_office'])) {
+        $office = $_POST['custom_office'];
+    }
     $status = "Active";
 
     $stmt = $conn->prepare("INSERT INTO employee (employee_id, lname, fname, midname, extname, gender, position, office, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");

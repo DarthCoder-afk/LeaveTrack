@@ -246,7 +246,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <select class="form-control" name="office" id="typeOfOffice">
+                            <select class="form-control" name="office" id="typeOfOffice" onchange="toggleOfficeInput()">
                               <option value="" disabled selected>Select Type of Office</option>
                               <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
                               <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
@@ -260,13 +260,16 @@ include '../auth/auth.php'; // Ensure authentication
                               <option value="Mun. Social Welfare Development Office">Office of the Mun. Social Welfare & Development</option>
                               <option value="Municipal Engineering Office">Municipal Engineering Office</option>
                               <option value="Municipal Health Office">Municipal Health Office</option>
-                              <option value="Municipal Civil Registrar">Municipal Civil Registra</option>
+                              <option value="Municipal Civil Registrar">Municipal Civil Registrar</option>
                               <option value="General Service Office">General Service Office</option>
                               <option value="Human Resource Management Office">Human Resource Management Office</option>
                               <option value="Municipal Tourism Office">Municipal Tourism Office</option>
+                              <option value="optional">Optional</option>
                             </select>
+                            <input type="text" class="form-control mt-2" name="custom_office" id="customOffice" placeholder="Enter Office Name" style="display: none;">
                           </div>
                         </div>
+
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>ID No.</label>
@@ -361,7 +364,7 @@ include '../auth/auth.php'; // Ensure authentication
                               <option value="Mun. Social Welfare Development Office">Office of the Mun. Social Welfare & Development</option>
                               <option value="Municipal Engineering Office">Municipal Engineering Office</option>
                               <option value="Municipal Health Office">Municipal Health Office</option>
-                              <option value="Municipal Civil Registrar">Municipal Civil Registra</option>
+                              <option value="Municipal Civil Registrar">Municipal Civil Registrar</option>
                               <option value="General Service Office">General Service Office</option>
                               <option value="Human Resource Management Office">Human Resource Management Office</option>
                               <option value="Municipal Tourism Office">Municipal Tourism Office</option>
@@ -434,6 +437,28 @@ include '../auth/auth.php'; // Ensure authentication
         
         </div>
       </div>
+
+      <!-- ADD JAVASCRIPT can't be found -->
+      <script>
+      function toggleOfficeInput() {
+          var officeDropdown = document.getElementById("typeOfOffice");
+          var customOfficeInput = document.getElementById("customOffice");
+
+          if (officeDropdown.value === "optional") {
+              customOfficeInput.style.display = "block";
+              customOfficeInput.setAttribute("name", "office"); // Change the name so it's submitted
+              customOfficeInput.setAttribute("required", "required");
+              officeDropdown.removeAttribute("name"); // Prevents submitting the select field
+          } else {
+              customOfficeInput.style.display = "none";
+              customOfficeInput.removeAttribute("required");
+              customOfficeInput.removeAttribute("name");
+              officeDropdown.setAttribute("name", "office");
+          }
+      }
+      </script>
+
+
 
       <!-- Scroll to top -->
       <a class="scroll-to-top rounded" href="#page-top">
