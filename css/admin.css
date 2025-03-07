@@ -1932,5 +1932,30 @@ body.sidebar-toggled footer.sticky-footer {
 /* Inactive Row */
 .inactive-row {
   background-color: #d3d3d3; /* Light gray color */
-  color: #808080; /* Gray text color */
+  color: #b16666; /* Gray text color */
+}
+
+/* Responsive Leave Form */
+.embed-responsive {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.embed-responsive::before {
+  content: "";
+  display: block;
+  padding-top: 56.25%; /* 16:9 aspect ratio */
+}
+
+.embed-responsive .embed-responsive-item {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
 }

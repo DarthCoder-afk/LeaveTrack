@@ -42,7 +42,9 @@ include '../auth/auth.php'; // Ensure authentication
           <div class="container">
             <div class="col-lg-12">
                 <div class="card mb-4">
-                <embed class="pdf" src="../forms/leave_form.pdf" width="1050" height="500">
+                  <div class="embed-responsive embed-responsive-16by9">
+                   <embed class="embed-resposive-item" src="../forms/leave_form.pdf">
+                  </div>
                 </div> 
             </div>       
           </div>
