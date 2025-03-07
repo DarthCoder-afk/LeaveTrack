@@ -159,12 +159,29 @@ include '../auth/auth.php'; // Ensure authentication
                             <input type="date" class="form-control" name="enddate" id="endDate" required onchange=calculateNumberofDays()>
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        
+                        <div class="col-md-3">
                           <div class="form-group">
                             <label>Number of Days</label>
-                            <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                  <i class="fas fa-minus-circle"></i>
+                                </button>
+                              </div>
+                            </div>
                           </div>
                         </div>
+
+                        <!-- Hidden input for subtracting holidays -->
+                        <div class="col-md-3" id="holidayContainer" style="display: none;">
+                          <div class="form-group">
+                            <label>Minus Holidays</label>
+                            <input type="number" class="form-control" name="holidayDeduction" id="holidayDeduction" min="0" value="0" oninput="calculateNumberofDays()">
+                          </div>
+                        </div>
+
                         <div class="col-md-6">
                           <div class="form-group">
                           <label>Upload File <small>(optional)</small></label>
