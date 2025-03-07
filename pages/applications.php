@@ -129,7 +129,6 @@ include '../auth/auth.php'; // Ensure authentication
                             <label>Type of Leave</label>
                             <select class="form-control" name="leavetype" id="typeOfLeave" required>
                               <option value="" disabled selected>Select Type of Leave</option>
-                              <option value="Optional">Optional (Specify Below)</option> <!-- Add Optional -->
                             </select>
                           </div>
                         </div>
