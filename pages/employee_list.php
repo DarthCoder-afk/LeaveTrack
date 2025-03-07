@@ -180,10 +180,10 @@ include '../auth/auth.php'; // Ensure authentication
                           <table class="table table-bordered table-sm">
                               <thead class="bg-light">
                                   <tr>
-                                      <th>Destination</th>
-                                      <th>Departure</th>
-                                      <th>Return</th>
                                       <th>Purpose</th>
+                                      <th>Destination</th>
+                                      <th>Start Date</th>
+                                      <th>Return</th>
                                   </tr>
                               </thead>
                               <tbody id="travelHistory">
