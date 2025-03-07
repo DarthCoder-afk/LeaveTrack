@@ -12,6 +12,7 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/admin.min.css" rel="stylesheet">
+  <link href="../img/favicon.ico" rel="icon">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 </head>
 
