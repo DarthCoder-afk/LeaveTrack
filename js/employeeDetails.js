@@ -90,7 +90,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
         };
         xhr.send('employee_id=' + encodeURIComponent(employeeId));
     }
-}, 550));
+}, 1000));
 
 function clearFields() {
     document.getElementById('idnumber').value = '';
