@@ -153,7 +153,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Number of Days</label>
-                                <input type="number" class="form-control" name="days" id="numberOfDays" required>
+                                <input type="number" class="form-control" name="days" id="numberOfDays" readonly>
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -266,7 +266,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Number of Days</label>
-                                <input type="number" class="form-control" name="days" id="numberOfDays" required>
+                                <input type="number" class="form-control" name="days" id="numberOfDays" readonly>
                               </div>
                             </div>
                             <div class="col-md-6">
