@@ -10,7 +10,7 @@ if(isset($_POST['AddTravel'])) {
     $dateapplied = $_POST['datefiled'];
     $startdate = $_POST['sdate'];
     $enddate = $_POST['edate'];
-    $numdays = $_POST['days'];
+    $numdays = $_POST['numdays'];
   
 
      // File Upload
