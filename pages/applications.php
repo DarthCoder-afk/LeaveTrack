@@ -389,21 +389,36 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label>Start Date</label>
-                                <input type="date" class="form-control" name="startdate" id="startDate" required onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="startdate" id="startDate2" required onchange=UpdatecalculateNumberofDays()>
                               </div>
                             </div>
                             <div class="col-md-3">
                               <div class="form-group">
                                 <label>End Date</label>
-                                <input type="date" class="form-control" name="enddate" id="endDate" required onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="enddate" id="endDate2" required onchange=UpdatecalculateNumberofDays()>
                               </div>
                             </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Number of Days</label>
-                                <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
+                            <div class="col-md-3">
+                          <div class="form-group">
+                            <label>Number of Days</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="numdays" id="numberOfDays2" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" id="updatetoggleHolidayInput">
+                                  <i class="fas fa-minus-circle"></i>
+                                </button>
                               </div>
                             </div>
+                          </div>
+                        </div>
+
+                          <!-- Hidden input for subtracting holidays -->
+                          <div class="col-md-3" id="updateholidayContainer" style="display: none;">
+                            <div class="form-group">
+                              <label>Minus Holidays</label>
+                              <input type="number" class="form-control" name="holidayDeduction" id="updateholidayDeduction" min="0" value="0" oninput="calculateNumberofDays()">
+                            </div>
+                          </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Upload File <small>(optional)</small></label>

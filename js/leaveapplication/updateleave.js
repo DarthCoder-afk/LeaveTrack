@@ -34,9 +34,9 @@ $(document).ready(function () {
         modal.find('#gender').val(gender);
         modal.find('#hidden_gender').val(hidden_gender);
         modal.find('#dateApplied').val(datefiled);
-        modal.find('#startDate').val(sdate);
-        modal.find('#endDate').val(edate);
-        modal.find('#numberOfDays').val(ndays);
+        modal.find('#startDate2').val(sdate);
+        modal.find('#endDate2').val(edate);
+        modal.find('#numberOfDays2').val(ndays);
 
         if (form === '') {
             modal.find('#updateLabel').text('No file uploaded');

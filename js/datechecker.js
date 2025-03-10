@@ -32,3 +32,38 @@ document.getElementById('toggleHolidayInput').addEventListener('click', function
   var holidayContainer = document.getElementById('holidayContainer');
   holidayContainer.style.display = (holidayContainer.style.display === 'none') ? 'block' : 'none';
 });
+
+function UpdatecalculateNumberofDays() {
+  var startDate = document.getElementById('startDate2').value;
+  var endDate = document.getElementById('endDate2').value;
+  var holidayDeduction = parseInt(document.getElementById('updateholidayDeduction').value) || 0;
+
+  if (startDate && endDate) {
+      var start = new Date(startDate);
+      var end = new Date(endDate);
+      var totalDays = 0;
+
+      // Loop through each day and count only weekdays
+      for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+          var dayOfWeek = d.getDay();
+          if (dayOfWeek !== 6 && dayOfWeek !== 0) { // Exclude Saturday (6) and Sunday (0)
+              totalDays++;
+          }
+      }
+
+      // Ensure holiday deduction does not exceed total days
+      if (holidayDeduction > totalDays) {
+          holidayDeduction = totalDays;
+          document.getElementById('updateholidayDeduction').value = totalDays;
+      }
+
+      var finalDays = totalDays - holidayDeduction;
+      document.getElementById('numberOfDays2').value = finalDays;
+  }
+}
+
+// Toggle holiday input visibility
+document.getElementById('updatetoggleHolidayInput').addEventListener('click', function() {
+  var holidayContainer = document.getElementById('updateholidayContainer');
+  holidayContainer.style.display = (holidayContainer.style.display === 'none') ? 'block' : 'none';
+});

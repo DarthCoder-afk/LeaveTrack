@@ -27,11 +27,6 @@ include '../auth/auth.php'; // Ensure authentication
     }
     .table th, .table td {
       white-space: nowrap;
-    }
-    .table th {
-      text-align: center;
-    }
-    .table td {
       text-align: center;
     }
     .inactive-row {
@@ -246,7 +241,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <select class="form-control" name="office" id="typeOfOffice" onchange="toggleOfficeInput()">
+                            <select class="form-control" name="office" id="typeOfOffice" onchange="toggleOfficeInput()" required>
                               <option value="" disabled selected>Select Type of Office</option>
                               <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
                               <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
@@ -350,7 +345,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Office</label>
-                            <select class="form-control" name="office" id="editTypeOfOffice">
+                            <select class="form-control" name="office" id="editTypeOfOffice" required>
                               <option value="" disabled selected>Select Type of Office</option>
                               <option value="Office of the Municipal Mayor">Office of the Municipal Mayor</option>
                               <option value="Sangguniang Bayan Office">Office of the Sangguniang Bayan</option>
