@@ -17,19 +17,34 @@ if(isset($_POST['createData'])) {
     }
     $status = "Active";
 
-    $stmt = $conn->prepare("INSERT INTO employee (employee_id, lname, fname, midname, extname, gender, position, office, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssssss", $emp_id, $lname, $fname, $midname, $extname, $gender, $position, $office, $status);
+    // Check if employee_id already exists
 
-    if($stmt->execute()) {
-        $_SESSION['message'] = "success";
-        echo '<script> alert("Data Saved"); </script>';
-       
-    } else {
+    $check_stmt = $conn->prepare("SELECT employee_id FROM employee WHERE employee_id = ?");
+    $check_stmt->bind_param("s", $emp_id);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+
+
+    if($check_stmt->num_rows > 0) {
         $_SESSION['message'] = "error";
-        echo '<script> alert("Data Not Saved"); </script>';
-    }
+        echo '<script> console.log("ID already exists")</script>';
+    } else {
+        $stmt = $conn->prepare("INSERT INTO employee (employee_id, lname, fname, midname, extname, gender, position, office, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+        $stmt->bind_param("sssssssss", $emp_id, $lname, $fname, $midname, $extname, $gender, $position, $office, $status);
+    
+            if($stmt->execute()) {
+                $_SESSION['message'] = "success";
+                echo '<script> alert("Data Saved"); </script>';
+            
+            } else {
+                $_SESSION['message'] = "error";
+                echo '<script> alert("Data Not Saved"); </script>';
+            }
+    
+        $stmt->close();
 
-    $stmt->close();
+    }
+    $check_stmt->close();
     $conn->close();
     header('Location: ../../pages/employee_list.php');
 }
