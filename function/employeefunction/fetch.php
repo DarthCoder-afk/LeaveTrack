@@ -28,6 +28,7 @@
 
                 <button class='btn btn-info' data-toggle='modal' data-target='#editEmployeeModal'
                 data-employee_id='{$row['employee_id']}'
+                data-index_no ={$row['indexno']}
                 data-lname='{$row['lname']}'
                 data-fname='{$row['fname']}'
                 data-midname='{$row['midname']}'
@@ -39,7 +40,7 @@
                 <i class='fas fa-pencil-alt'></i>
                 </button>
                 <button class='btn btn-danger text-white' data-toggle='modal' data-target='#verifyModal' 
-                data-employee_id='{$row['employee_id']}'>
+                data-index_no='{$row['indexno']}'>
                 <i class='fas fa-trash-alt'></i></button>
             </td>";
         echo "</tr>";

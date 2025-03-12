@@ -14,6 +14,13 @@
                         icon: 'error',
                         confirmButtonText: 'Try Again'
                     });
+                <?php elseif ($_SESSION['message'] == "error_id"): ?>
+                    Swal.fire({
+                        title: 'Data Not Saved',
+                        text: 'Employee ID already exists and Active.',
+                        icon: 'error',
+                        confirmButtonText: 'Try Again'
+                    });
                 <?php elseif ($_SESSION['message'] == "update"): ?>
                     Swal.fire({
                         title: 'Data Updated!',

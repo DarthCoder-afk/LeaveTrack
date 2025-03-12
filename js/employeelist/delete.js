@@ -2,7 +2,7 @@ $(document).ready(function () {
   
   $('#verifyModal').on('show.bs.modal', function (event) {
       var button = $(event.relatedTarget);
-      var employee_id = button.data('employee_id');
+      var index_no = button.data('index_no');
     
       $('#verifyPassword').val('');
       $('#verifyForm').off('submit').on('submit', function (e) {
@@ -13,7 +13,7 @@ $(document).ready(function () {
               url: '../auth/verify.php',
               type: 'POST',
               data: {
-                  employee_id: employee_id,
+                  index_no: index_no,
                   password: password
               },
               success: function (response) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
 
                   if (jsonResponse.success) {
                       $('#verifyModal').modal('hide');
-                      window.location.href = "../function/employeefunction/delete.php?employee_id=" + employee_id; // Redirect
+                      window.location.href = "../function/employeefunction/delete.php?index_no=" + index_no; // Redirect
                   } else {
                       Swal.fire({
                           icon: 'error',

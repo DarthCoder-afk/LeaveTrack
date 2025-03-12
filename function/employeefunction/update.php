@@ -4,7 +4,7 @@ include '../../database/db_connect.php';
 if(isset($_POST['updateData'])) {
     session_start();
 
-    $emp_id = $_POST['hidden_employee_id'];
+    $index_no = $_POST['index_no'];
     $new_emp_id = $_POST['employee_id'];
     $lname = $_POST['lname'];
     $fname = $_POST['fname'];
@@ -21,19 +21,34 @@ if(isset($_POST['updateData'])) {
     echo '<script> console.log("'.$emp_id.'"); </script>';
     echo '<script> console.log("'.$new_emp_id.'"); </script>';
 
-    $stmt = $conn->prepare("UPDATE employee SET employee_id = ?, lname = ?, fname = ?, midname = ?, gender = ?, extname = ?, position = ?, office = ?, status = ? WHERE employee_id = ?");
-    $stmt->bind_param("ssssssssss", $new_emp_id, $lname, $fname, $midname, $gender, $extname, $position, $office, $status, $emp_id);
+    // Check if employee_id already exists and is inactive
+    $check_stmt = $conn->prepare("SELECT employee_id, status FROM employee WHERE employee_id = ? AND indexno != ?");
+    $check_stmt->bind_param("si", $new_emp_id, $index_no);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+    $check_stmt->bind_result($existing_emp_id, $existing_status);
+    $check_stmt->fetch();
 
-    if($stmt->execute()) {
-        $_SESSION['message'] = "update";
-        echo '<script> console.log("'.$new_emp_id.'"); </script>';
-        echo '<script> alert("Data Saved"); </script>';
+    if ($check_stmt->num_rows > 0 && $existing_status == 'Active') {
+        $_SESSION['message'] = "error_id";
+        echo '<script> console.log("ID already exists and is Active. Only add employee with same ID if one is Inactive")</script>';
     } else {
-        $_SESSION['message'] = "error";
-        echo '<script> alert("Data Not Saved"); </script>';
+        $stmt = $conn->prepare("UPDATE employee SET employee_id = ?, lname = ?, fname = ?, midname = ?, gender = ?, extname = ?, position = ?, office = ?, status = ? WHERE indexno = ?");
+        $stmt->bind_param("sssssssssi", $new_emp_id, $lname, $fname, $midname, $gender, $extname, $position, $office, $status, $index_no);
+
+        if($stmt->execute()) {
+            $_SESSION['message'] = "update";
+            echo '<script> console.log("'.$new_emp_id.'"); </script>';
+            echo '<script> alert("Data Saved"); </script>';
+        } else {
+            $_SESSION['message'] = "error";
+            echo '<script> alert("Data Not Saved"); </script>';
+        }
+
+        $stmt->close();
     }
 
-    $stmt->close();
+    
     $conn->close();
     header('Location: ../../pages/employee_list.php');
     exit();

@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var mname = document.getElementById("middleName");
   var pos = document.getElementById("position");
 
+
   idnumber.addEventListener('input', function() {
       validateField(idnumber, /^\d+$/, "Invalid ID Number");
   });

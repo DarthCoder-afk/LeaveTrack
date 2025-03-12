@@ -13,6 +13,7 @@ $(document).ready(function () {
         var button = $(event.relatedTarget);
         var modal = $(this);
 
+        var index_no = button.data('index_no');
         var employee_id = button.data('employee_id');
         var hidden_employee_id = button.data('employee_id');
         var lname = button.data('lname');
@@ -25,6 +26,8 @@ $(document).ready(function () {
         var status = button.data('status');
 
         // Populate fields
+        
+        modal.find('#index_no').val(index_no);
         modal.find('#idnumber').val(employee_id);
         modal.find('#hidden_id').val(hidden_employee_id);
         modal.find('#lastName').val(lname);

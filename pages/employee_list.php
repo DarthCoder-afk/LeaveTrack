@@ -373,7 +373,8 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group">
                             <label>ID No.</label>
                             <input type="text" class="form-control" name="employee_id" id="idnumber">
-                            <input type="hidden" name="hidden_employee_id" id="hidden_id">
+                            <input type="hidden" name="hidden_employee_id" id="hidden_id"> 
+                            <input type="hidden" name="index_no" id="index_no">
                           </div>
                         </div>
                         <div class="col-md-6">
