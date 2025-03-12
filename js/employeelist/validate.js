@@ -110,6 +110,8 @@ function showValidationError(element, message) {
   var errorSpan = document.createElement("span");
   errorSpan.classList.add("validation-error");
   errorSpan.style.color = "red";
+  errorSpan.style.fontSize = "12px";
+  errorSpan.style.marginLeft= "10px";
   errorSpan.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
   element.parentNode.insertBefore(errorSpan, element.nextSibling);
 }
