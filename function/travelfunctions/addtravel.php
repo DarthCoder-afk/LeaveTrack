@@ -4,6 +4,7 @@ include '../../database/db_connect.php';
 if(isset($_POST['AddTravel'])) {
     session_start();
 
+    $emp_index = $_POST['emp_index'];
     $emp_id = $_POST['employee_Id'];
     $purpose = $_POST['pur'];
     $destination = $_POST['des'];
@@ -12,20 +13,18 @@ if(isset($_POST['AddTravel'])) {
     $enddate = $_POST['edate'];
     $numdays = $_POST['numdays'];
   
+    // File Upload
+    $file = $_FILES['form']['name'];
+    $file_temp = $_FILES['form']['tmp_name'];
+    $file_destination = "../../uploads/".($file);
+    move_uploaded_file($file_temp, $file_destination);
 
-     // File Upload
-     $file = $_FILES['form']['name'];
-     $file_temp = $_FILES['form']['tmp_name'];
-     $file_destination = "../../uploads/".($file);
-     move_uploaded_file($file_temp, $file_destination);
-
-    $stmt = $conn->prepare("INSERT INTO travelorder (employee_id, purpose, destination, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("ssssssis", $emp_id, $purpose, $destination, $dateapplied, $startdate, $enddate, $numdays, $file);
+    $stmt = $conn->prepare("INSERT INTO travelorder (emp_index, employee_id, purpose, destination, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssss",  $emp_index, $emp_id, $purpose, $destination, $dateapplied, $startdate, $enddate, $numdays, $file);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "success";
         echo '<script> alert("Data Saved"); </script>';
-       
     } else {
         $_SESSION['message'] = "error";
         echo '<script> alert("Data Not Saved"); </script>';

@@ -72,12 +72,12 @@ include '../auth/auth.php'; // Ensure authentication
                         </button>
                       </div>
                       <div class="modal-body">
-                   
                           <div class="row">
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label>ID No.</label>
                                 <input type="text" class="form-control" name="employee_Id" id="idnumber" required>
+                                <input type="hidden" name="emp_index"  id="emp_index">
                               </div>
                             </div>
                             <div class="col-md-6">

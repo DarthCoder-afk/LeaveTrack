@@ -1,6 +1,6 @@
 <?php
     include '../database/db_connect.php';
-    $result = $conn->query("SELECT * FROM employee, travelorder WHERE employee.employee_id = travelorder.employee_id");
+    $result = $conn->query("SELECT * FROM employee, travelorder WHERE employee.indexno = travelorder.emp_index");
     while ($row = $result->fetch_assoc()) {
        
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
