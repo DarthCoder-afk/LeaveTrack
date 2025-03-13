@@ -21,6 +21,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                     var response = JSON.parse(xhr.responseText);
                     console.log('Response:', response);
                     if (response && !response.error) {
+                        document.getElementById('emp_index').value = response.indexno || '';
                         document.getElementById('lastName').value = response.lname || '';
                         document.getElementById('firstName').value = response.fname || '';
                         document.getElementById('middleName').value = response.midname || '';
@@ -94,6 +95,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
 
 function clearFields() {
     document.getElementById('idnumber').value = '';
+    document.getElementById('emp_index').value = '';
     document.getElementById('lastName').value = '';
     document.getElementById('firstName').value = '';
     document.getElementById('middleName').value = '';

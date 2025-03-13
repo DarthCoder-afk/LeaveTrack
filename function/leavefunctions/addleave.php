@@ -4,6 +4,7 @@ include '../../database/db_connect.php';
 if(isset($_POST['AddLeave'])) {
     session_start();
 
+    $emp_index = $_POST['emp_index'];
     $emp_id = $_POST['employee_Id'];
     $ltype = $_POST['leavetype'];
 
@@ -23,8 +24,8 @@ if(isset($_POST['AddLeave'])) {
     $file_destination = "../../uploads/".($file);
     move_uploaded_file($file_temp, $file_destination);
 
-    $stmt = $conn->prepare("INSERT INTO leaveapplication (employee_Id, leavetype, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("sssssss", $emp_id, $ltype, $applieddate, $sdate, $edate, $numdays, $file);
+    $stmt = $conn->prepare("INSERT INTO leaveapplication (emp_index, employee_Id, leavetype, dateapplied, startdate, enddate, numofdays, file) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssss", $emp_index, $emp_id, $ltype, $applieddate, $sdate, $edate, $numdays, $file);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "success";

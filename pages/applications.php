@@ -78,6 +78,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group">
                             <label>ID No.</label>
                             <input type="text" class="form-control" name="employee_Id" id="idnumber" required>
+                            <input type="hidden" name="emp_index" id="emp_index">
                           </div>
                         </div>
                         <div class="col-md-6">

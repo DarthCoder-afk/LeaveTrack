@@ -5,6 +5,7 @@ if(isset($_POST['UpdateLeave'])) {
     session_start();
 
     $index_no = $_POST['index_no'];
+    $emp_idex = $_POST[''];
     $emp_id = $_POST['employee_Id'];
     $leavetype = $_POST['leavetype'];
 
