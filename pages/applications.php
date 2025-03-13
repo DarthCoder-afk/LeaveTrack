@@ -144,19 +144,19 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Date Applied</label>
-                            <input type="date" class="form-control" name="applieddate" id="dateApplied" required>
+                            <input type="date" class="form-control" name="applieddate" id="dateApplied" required onchange=calculateNumberofDays()>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
                             <label>Start Date</label>
-                            <input type="date" class="form-control" name="startdate" id="startDate" required onchange=calculateNumberofDays()>
+                            <input type="date" class="form-control" name="startdate" id="startDate" disabled  onchange=calculateNumberofDays()>
                           </div>
                         </div>
                         <div class="col-md-3">
                           <div class="form-group">
                             <label>End Date</label>
-                            <input type="date" class="form-control" name="enddate" id="endDate" required onchange=calculateNumberofDays()>
+                            <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange=calculateNumberofDays()>
                           </div>
                         </div>
                         

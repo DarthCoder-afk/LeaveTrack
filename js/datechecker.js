@@ -1,7 +1,21 @@
 function calculateNumberofDays() {
   var startDate = document.getElementById('startDate').value;
   var endDate = document.getElementById('endDate').value;
+  var appliedDate = document.getElementById('dateApplied').value;
   var holidayDeduction = parseInt(document.getElementById('holidayDeduction').value) || 0;
+
+  
+  var startDateInput = document.getElementById('startDate');
+  var endDateInput = document.getElementById('endDate');
+  
+  if (appliedDate) {
+    // Enable start and end date inputs if applied date if provided
+    startDateInput.disabled = false;
+    endDateInput.disabled = false;
+    // Disable past days, months, and years on start date and date based on applied date
+    startDateInput.min = appliedDate;
+    endDateInput.min = appliedDate;
+  }
 
   if (startDate && endDate) {
       var start = new Date(startDate);
