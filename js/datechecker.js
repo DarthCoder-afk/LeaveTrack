@@ -12,7 +12,7 @@ function calculateNumberofDays() {
     // Enable start and end date inputs if applied date if provided
     startDateInput.disabled = false;
     endDateInput.disabled = false;
-    // Disable past days, months, and years on start date and date based on applied date
+    // Disable past days, months, and years on start date and end date based on applied date
     startDateInput.min = appliedDate;
     endDateInput.min = appliedDate;
   }
