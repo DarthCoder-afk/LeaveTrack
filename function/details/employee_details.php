@@ -7,7 +7,7 @@ if(isset($_POST['employee_id'])) {
     $employee_id = $_POST['employee_id'];
     
 
-    $stmt = $conn->prepare("SELECT lname, fname, midname, gender, extname, position, office FROM employee WHERE employee_id = ?");
+    $stmt = $conn->prepare("SELECT lname, fname, midname, gender, extname, position, office FROM employee WHERE employee_id = ? AND status='Active'");
     $stmt->bind_param("s", $employee_id);
     $stmt->execute();
     $result = $stmt->get_result();
