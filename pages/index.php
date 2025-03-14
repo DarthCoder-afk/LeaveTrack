@@ -243,7 +243,7 @@ include '../auth/auth.php'; // Ensure authentication
             </div>
 
 
-            
+            <!-- Recent Leave  -->
             <div class="col-xl-8 col-lg-12 mb-4">
               <div class="card">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
