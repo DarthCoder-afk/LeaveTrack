@@ -4,7 +4,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "hrmo";
+$dbname = "hrmoleave";
 
 // Establish database connection
 $conn = mysqli_connect($servername, $username, $password, $dbname);
