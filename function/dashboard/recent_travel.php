@@ -1,9 +1,18 @@
 <?php
-    include '../database/db_connect.php';
-    $result = $conn->query("SELECT * FROM employee, travelorder WHERE employee.employee_id = travelorder.employee_id ORDER BY travelorder.dateapplied DESC LIMIT 2");
-    while ($row = $result->fetch_assoc()) {
+include '../database/db_connect.php';
 
-        $full_name = "{$row['lname']}, {$row['fname']}";
+// Updated query to join using indexno instead of employee_id
+$result = $conn->query("
+    SELECT employee.indexno, employee.lname, employee.fname, 
+           travelorder.purpose, travelorder.dateapplied 
+    FROM employee 
+    INNER JOIN travelorder ON employee.indexno = travelorder.emp_index 
+    ORDER BY travelorder.dateapplied DESC 
+    LIMIT 2
+");
+
+while ($row = $result->fetch_assoc()) {
+    $full_name = "{$row['lname']}, {$row['fname']}";
 ?>
     <div class="customer-message align-items-center">
         <a class="font-weight-bold" href="#">
@@ -16,5 +25,5 @@
         </a>
     </div>
 <?php
-    }
-    ?>
+}
+?>
