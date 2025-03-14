@@ -14,6 +14,7 @@
 
         echo "<td>
                 <button class='btn btn-success text-white viewEmployeeBtn'
+                        data-indexno='{$row['indexno']}'
                         data-employee_id='{$row['employee_id']}'
                         data-lname='{$row['lname']}'
                         data-fname='{$row['fname']}'

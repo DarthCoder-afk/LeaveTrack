@@ -1,7 +1,9 @@
 $(document).on('click', '.viewEmployeeBtn', function () {
     console.log("View button clicked!");
 
+    // Get employee details
     var employee_id = $(this).data('employee_id');
+    var indexno = $(this).data('indexno'); // Fetch the index number
     var lname = $(this).data('lname');
     var fname = $(this).data('fname');
     var midname = $(this).data('midname');
@@ -11,7 +13,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     var gender = $(this).data('gender');
     var status = $(this).data('status');
 
-    console.log("Data Retrieved:", { employee_id, lname, fname, office, gender, status });
+    console.log("Data Retrieved:", { employee_id, indexno, lname, fname, office, gender, status });
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
 
@@ -40,15 +42,15 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     $('#view_gender').val(gender);
     $('#view_status').val(status);
     
-    // Fetch Leave & Travel History
+    // Fetch Leave & Travel History with employee_id and indexno
     $.ajax({
         url: '../function/employeefunction/fetch_history.php',
         type: 'POST',
-        data: { employee_id: employee_id },
+        data: { employee_id: employee_id, indexno: indexno },
         dataType: 'json',
         success: function (response) {
-            console.log("History Fetched:", response);
-
+            console.log("History Fetched:", response); // Debugging
+    
             // Leave History
             var leaveHtml = "";
             if (response.leave.length > 0) {
@@ -64,7 +66,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                 leaveHtml = `<tr><td colspan="4" class="text-center">No leave history available</td></tr>`;
             }
             $("#leaveHistory").html(leaveHtml);
-
+    
             // Travel History
             var travelHtml = "";
             if (response.travel.length > 0) {
@@ -85,6 +87,8 @@ $(document).on('click', '.viewEmployeeBtn', function () {
             console.error("Failed to fetch history", xhr.responseText);
         }
     });
+
+    console.log("Sending to fetch_history.php:", { employee_id, indexno });
 
     // Show the modal
     $('#viewEmployeeModal').modal('show');
