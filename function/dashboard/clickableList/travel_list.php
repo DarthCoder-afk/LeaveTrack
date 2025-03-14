@@ -5,14 +5,15 @@ include '../database/db_connect.php'; // Include database connection
 $currentMonth = date('m');
 $currentYear = date('Y');
 
-// Query to fetch leave applications for the current month
+// Query to fetch travel orders for the current month using indexno
 $query = "
-    SELECT e.employee_id, 
-           CONCAT(e.lname, ', ', e.fname, ' ', e.extname, ' ', e.midname) AS full_name, 
+    SELECT e.indexno, e.employee_id, 
+           CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')) AS full_name, 
            l.purpose, l.destination, l.dateapplied
     FROM travelorder l 
-    JOIN employee e ON e.employee_id = l.employee_id 
+    JOIN employee e ON e.indexno = l.emp_index  -- ✅ Use indexno instead of employee_id
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
+    ORDER BY l.dateapplied DESC
 ";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ii", $currentMonth, $currentYear);
@@ -20,9 +21,10 @@ $stmt->execute();
 $result = $stmt->get_result();
 
 while ($row = $result->fetch_assoc()) {
-    echo "<tr>";
-    echo "<td>{$row['employee_id']}</td>";
-    echo "<td>{$row['full_name']}</td>"; // Full name added
+    echo "<tr data-indexno='{$row['indexno']}'>"; // ✅ Store indexno instead of employee_id
+
+    echo "<td>{$row['employee_id']}</td>"; // ✅ Display employee_id (can repeat)
+    echo "<td>{$row['full_name']}</td>";
     echo "<td>{$row['purpose']}</td>";
     echo "<td>{$row['destination']}</td>";
     echo "<td>{$row['dateapplied']}</td>";
