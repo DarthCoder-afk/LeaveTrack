@@ -49,12 +49,14 @@ $pdf->Cell(30, 10, 'End Date', 1, 1, 'C');
 // Fetch data
 $stmt = $conn->prepare("
     SELECT e.employee_id, 
-           CONCAT(e.fname, ' ', e.midname, ' ', e.lname) AS fullname, 
+           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname, 
            l.leavetype, l.startdate, l.enddate
     FROM leaveapplication l
     JOIN employee e ON l.employee_id = e.employee_id
     WHERE l.startdate >= ? AND l.enddate <= ?
+    ORDER BY l.startdate ASC
 ");
+
 
 if (!$stmt) {
     die("SQL Error: " . $conn->error);
@@ -78,7 +80,12 @@ if ($result->num_rows == 0) {
     }
 }
 
-$pdf->Output('D', 'LEAVE_APPLICATIONS.pdf');
+// Format the filename with start and end dates
+$filename = 'LEAVE_APPLICATIONS_' . $start . '_to_' . $end . '.pdf';
+
+// Output the PDF with the dynamic filename
+$pdf->Output('D', $filename);
+
 
 $stmt->close();
 $conn->close();

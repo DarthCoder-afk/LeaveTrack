@@ -16,4 +16,5 @@ document.getElementById("generateReportBtn").addEventListener("click", function 
     } else {
         alert("Please select a date range.");
     }
+    
 });
