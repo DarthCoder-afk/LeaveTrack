@@ -50,15 +50,32 @@ $counter = $count->fetch_assoc();
                         $activity_type_class = 'bg-secondary';
                         break;
                 }
+
+                $activity_type_icon = '';
+                switch($row['activity_type']) {
+                    case 'Employee':
+                        $activity_type_icon = 'fas fa-user';
+                        break;
+                    case 'Leave Application':
+                        $activity_type_icon = 'far fa-sticky-note';
+                        break;
+                    case 'Travel Order':
+                        $activity_type_icon = 'fas fa-plane';
+                        break;
+                    default:
+                        $activity_type_icon = '';
+                        break;
+                }
+
                 $formatted_time = date("H:i A", strtotime($row['activity_time']));
                 echo "<a class='dropdown-item d-flex align-items-center' href='#'>
                         <div class='mr-3'>
                             <div class='icon-circle {$activity_type_class}'>
-                                <i class='fas fa-user text-white'></i>
+                                <i class='{$activity_type_icon} text-white'></i>
                             </div>
                         </div>
                         <div>
-                            You {$row['activity_details']} an {$row['activity_type']}.
+                            {$row['activity_type']} was {$row['activity_details']}.
                             <div class='small text-gray-500'>{$formatted_time}</div>
                         </div>
                     </a>";

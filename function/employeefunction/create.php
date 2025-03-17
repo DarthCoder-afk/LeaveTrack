@@ -37,7 +37,7 @@ if(isset($_POST['createData'])) {
             echo '<script> alert("Data Saved"); </script>';
                // Insert activity log
             date_default_timezone_set('Asia/Manila');
-            $activity_type = 'employee';
+            $activity_type = 'Employee';
             $activity_details = 'added';
             $activity_date = date('Y-m-d');
             $activity_time = date("H:i");

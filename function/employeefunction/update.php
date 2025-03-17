@@ -42,7 +42,7 @@ if(isset($_POST['updateData'])) {
             echo '<script> alert("Data Updated"); </script>';
             // Insert activity log
             date_default_timezone_set('Asia/Manila');
-            $activity_type = 'employee';
+            $activity_type = 'Employee';
             $activity_details = 'updated';
             $activity_date = date('Y-m-d');
             $activity_time = date("H:i");

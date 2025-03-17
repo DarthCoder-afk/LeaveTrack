@@ -38,6 +38,15 @@ if(isset($_POST['UpdateLeave'])) {
         $_SESSION['message'] = "update";
         //echo '<script> console.log("'.$new_emp_id.'"); </script>';
         echo '<script> alert("Data Saved"); </script>';
+        date_default_timezone_set('Asia/Manila');
+        $activity_type = 'Leave Application';
+        $activity_details = 'added';
+        $activity_date = date('Y-m-d');
+        $activity_time = date("H:i");
+        $log_stmt = $conn->prepare("INSERT INTO activity_log (emp_id, activity_type, activity_details, activity_date, activity_time) VALUES (?, ?, ?, ?, ?)");
+        $log_stmt->bind_param("sssss", $emp_id, $activity_type, $activity_details, $activity_date, $activity_time);
+        $log_stmt->execute();
+        $log_stmt->close();
     } else {
         $_SESSION['message'] = "error";
         echo '<script> alert("Data Not Saved"); </script>';
