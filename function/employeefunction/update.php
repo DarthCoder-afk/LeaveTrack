@@ -39,7 +39,17 @@ if(isset($_POST['updateData'])) {
         if($stmt->execute()) {
             $_SESSION['message'] = "update";
             echo '<script> console.log("'.$new_emp_id.'"); </script>';
-            echo '<script> alert("Data Saved"); </script>';
+            echo '<script> alert("Data Updated"); </script>';
+            // Insert activity log
+            date_default_timezone_set('Asia/Manila');
+            $activity_type = 'employee';
+            $activity_details = 'updated';
+            $activity_date = date('Y-m-d');
+            $activity_time = date("H:i");
+            $log_stmt = $conn->prepare("INSERT INTO activity_log (emp_id, activity_type, activity_details, activity_date, activity_time) VALUES (?, ?, ?, ?, ?)");
+            $log_stmt->bind_param("sssss", $new_emp_id, $activity_type, $activity_details, $activity_date, $activity_time);
+            $log_stmt->execute();
+            $log_stmt->close();
         } else {
             $_SESSION['message'] = "error";
             echo '<script> alert("Data Not Saved"); </script>';

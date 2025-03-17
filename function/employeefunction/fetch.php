@@ -41,7 +41,8 @@
                 <i class='fas fa-pencil-alt'></i>
                 </button>
                 <button class='btn btn-danger text-white' data-toggle='modal' data-target='#verifyModal' 
-                data-index_no='{$row['indexno']}'>
+                data-index_no='{$row['indexno']}'
+                data-employee_id='{$row['employee_id']}'>
                 <i class='fas fa-trash-alt'></i></button>
             </td>";
         echo "</tr>";
