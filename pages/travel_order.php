@@ -54,10 +54,19 @@ include '../auth/auth.php'; // Ensure authentication
             </ol>
           </div>
 
-          <div class="container-fluid">
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
-              <h1 class="h3 mb-0 text-gray-800"></h1>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addApplicationModal">+ ADD</button>
+            <div class="container-fluid">
+              <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800"></h1>
+                <div class="ms-auto">
+                  <button class="btn btn-success" data-toggle="modal" data-target="#reportModal">
+                    <i class="fas fa-file-alt"></i> Generate Report
+                  </button>
+
+                  <button class="btn btn-primary" data-toggle="modal" data-target="#addApplicationModal">
+                    <i class="fas fa-plus"></i> ADD
+                  </button>
+                </div>
+              </div>
             </div>
 
             <!-- ADD APPLICATION MODAL -->
@@ -407,6 +416,30 @@ include '../auth/auth.php'; // Ensure authentication
                   </div> 
             </form>
 
+            <!-- Report Modal -->
+            <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Generate Report</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <form id="reportForm">
+                      <label>Select Date Range:</label>
+                      <input type="date" id="reportStartDate" class="form-control" required>
+                      <input type="date" id="reportEndDate" class="form-control mt-2" required>
+
+                    </form>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="generateReportBtn" class="btn btn-success">Generate</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
               
             <!-- Row -->
             <div class="row">
@@ -455,6 +488,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
+      <script src="../js/leaveapplication/generateReportTravel.js"></script>
 
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
