@@ -448,24 +448,44 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Report Modal -->
             <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
-              <div class="modal-dialog" role="document">
+              <div class="modal-dialog modal-lg" role="document"> <!-- Increased width -->
                 <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title">Generate Report</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  
+                  <!-- Modal Header -->
+                  <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title"><i class="fas fa-file-alt"></i> Generate Leave Applications Report</h5>
+                    <button type="button" class="close text-white" data-dismiss="modal">&times;</button>
                   </div>
+
+                  <!-- Modal Body -->
                   <div class="modal-body">
                     <form id="reportForm">
-                      <label>Select Date Range:</label>
-                      <input type="date" id="reportStartDate" class="form-control" required>
-                      <input type="date" id="reportEndDate" class="form-control mt-2" required>
-
+                      <div class="row">
+                        <div class="col-md-6">
+                          <label><i class="fas fa-calendar-alt"></i> Start Date:</label>
+                          <input type="date" id="reportStartDate" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                          <label><i class="fas fa-calendar-alt"></i> End Date:</label>
+                          <input type="date" id="reportEndDate" class="form-control" required>
+                        </div>
+                      </div>
+                      <div class="text-center mt-3">
+                        <small class="text-muted">Select a date range to generate the leave applications report.</small>
+                      </div>
                     </form>
                   </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" id="generateReportBtn" class="btn btn-success">Generate</button>
+
+                  <!-- Modal Footer -->
+                  <div class="modal-footer d-flex justify-content-between">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                      <i class="fas fa-times"></i> Close
+                    </button>
+                    <button type="button" id="generateReportBtn" class="btn btn-success">
+                      <i class="fas fa-file-pdf"></i> Generate Report
+                    </button>
                   </div>
+
                 </div>
               </div>
             </div>
