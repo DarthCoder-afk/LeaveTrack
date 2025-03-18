@@ -1,10 +1,13 @@
 <?php 
 include '../database/db_connect.php';
 
-$result = $conn->query("SELECT * FROM activity_log ORDER BY activity_time DESC LIMIT 5");
+$result = $conn->query("SELECT * FROM activity_log WHERE activity_date = 
+(SELECT MAX(activity_date) FROM activity_log)");
 
-$count = $conn->query("SELECT COUNT(*) AS total FROM activity_log");
+$count = $conn->query("SELECT COUNT(*) AS total FROM activity_log WHERE activity_date = 
+(SELECT MAX(activity_date) FROM activity_log)");
 $counter = $count->fetch_assoc();
+
 
 ?>
 
