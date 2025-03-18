@@ -1,37 +1,50 @@
-document.getElementById("reportStartDate").addEventListener("change", function () {
-    let startDate = this.value;
+document.addEventListener("DOMContentLoaded", function () {
+    let startDatePicker = document.getElementById("reportStartDate");
     let endDatePicker = document.getElementById("reportEndDate");
+    let generateBtn = document.getElementById("generateReportBtn");
 
-    // Set the minimum date for the end date picker
-    endDatePicker.min = startDate;
+    // Initially disable End Date picker
+    endDatePicker.disabled = true;
 
-    // Reset end date if it's before the new start date
-    if (endDatePicker.value < startDate) {
-        endDatePicker.value = startDate;
-    }
-});
+    startDatePicker.addEventListener("change", function () {
+        let startDate = this.value;
 
-document.getElementById("generateReportBtn").addEventListener("click", function () {
-    let startDate = document.getElementById("reportStartDate").value;
-    let endDate = document.getElementById("reportEndDate").value;
+        // Enable End Date picker only when Start Date is selected
+        if (startDate) {
+            endDatePicker.disabled = false;
+            endDatePicker.min = startDate; // Set minimum selectable date
+        } else {
+            endDatePicker.disabled = true;
+            endDatePicker.value = ""; // Reset end date if start date is cleared
+        }
+    });
 
-    console.log("Start Date:", startDate);
-    console.log("End Date:", endDate);
+    generateBtn.addEventListener("click", function () {
+        let startDate = startDatePicker.value;
+        let endDate = endDatePicker.value;
 
-    if (startDate.trim() && endDate.trim()) {
+        if (!startDate.trim()) {
+            alert("Please select a Start Date first.");
+            return;
+        }
+
+        if (!endDate.trim()) {
+            alert("Please select an End Date.");
+            return;
+        }
+
         let reportURL = `../function/leavefunctions/generateReport.php?start=${startDate}&end=${endDate}`;
         console.log("Opening URL:", reportURL);
 
-        // Reset the date pickers after clicking "Generate"
+        // Reset date pickers after clicking "Generate"
         setTimeout(() => {
-            document.getElementById("reportStartDate").value = "";
-            document.getElementById("reportEndDate").value = "";
-            document.getElementById("reportEndDate").min = "";
-        }, 1000); // Delays the reset to allow report generation
+            startDatePicker.value = "";
+            endDatePicker.value = "";
+            endDatePicker.min = "";
+            endDatePicker.disabled = true; // Disable again after generating report
+        }, 1000);
 
         // Open report
         window.location.href = reportURL;
-    } else {
-        alert("Please select a valid date range.");
-    }
+    });
 });
