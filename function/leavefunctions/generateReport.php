@@ -32,11 +32,15 @@ $pdf->Cell(0, 5, '   Province of Camarines Norte', 0, 1, 'L');
 $pdf->SetXY($headerX, 25);
 $pdf->Cell(0, 5, 'MUNICIPALITY OF TALISAY', 0, 1, 'L');
 
-// Leave Report Title
-$pdf->SetFont('Times', 'B', 12);
+
+// Leave Report Title with Date Range
+$pdf->SetFont('Times', 'B', 17);
 $pdf->Ln(5);
-$pdf->Cell(0, 8, '        LEAVE APPLICATIONS REPORT', 0, 1, 'C');
+$pdf->Cell(0, 8, 'LEAVE APPLICATIONS REPORT', 0, 1, 'C'); 
+$pdf->SetFont('Times', '', 12);
+$pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
 $pdf->Ln(8);
+
 
 // Table Headers
 $pdf->SetFont('Arial', 'B', 12);
