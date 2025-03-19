@@ -22,6 +22,17 @@ function calculateNumberofDays() {
       var end = new Date(endDate);
       var totalDays = 0;
 
+      // If end date is less than start date returns error
+      if (end < start) {
+        Swal.fire({
+          title: "Invalid Dates",
+          text: "End date should be greater than start date.",
+          icon: "error"
+        });
+        endDateInput.value = '';
+      }
+      
+
       // Loop through each day and count only weekdays
       for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
           var dayOfWeek = d.getDay();
@@ -56,6 +67,16 @@ function UpdatecalculateNumberofDays() {
       var start = new Date(startDate);
       var end = new Date(endDate);
       var totalDays = 0;
+
+      // If end date is less than start date returns error
+      if (end < start) {
+        Swal.fire({
+          title: "Invalid Dates",
+          text: "End date should be greater than start date.",
+          icon: "error"
+        });
+        endDateInput.value = '';
+      }
 
       // Loop through each day and count only weekdays
       for (var d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
