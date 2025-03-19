@@ -63,6 +63,8 @@ function UpdatecalculateNumberofDays() {
   var endDate = document.getElementById('endDate2').value;
   var holidayDeduction = parseInt(document.getElementById('updateholidayDeduction').value) || 0;
 
+  var endDateInput = document.getElementById('endDate2');
+
   if (startDate && endDate) {
       var start = new Date(startDate);
       var end = new Date(endDate);
