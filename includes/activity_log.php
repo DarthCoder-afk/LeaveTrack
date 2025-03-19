@@ -1,11 +1,11 @@
 <?php 
 include '../database/db_connect.php';
 
-$result = $conn->query("SELECT * FROM activity_log WHERE activity_date = 
-(SELECT MAX(activity_date) FROM activity_log)");
+date_default_timezone_set('Asia/Manila');
 
-$count = $conn->query("SELECT COUNT(*) AS total FROM activity_log WHERE activity_date = 
-(SELECT MAX(activity_date) FROM activity_log)");
+$result = $conn->query("SELECT * FROM activity_log WHERE activity_date = CURDATE()");
+
+$count = $conn->query("SELECT COUNT(*) AS total FROM activity_log WHERE activity_date = CURDATE()");
 $counter = $count->fetch_assoc();
 
 
@@ -33,7 +33,7 @@ $counter = $count->fetch_assoc();
         if($counter['total'] == 0){
            echo "<a class='dropdown-item d-flex align-items-center' href='#'>
                     <div>
-                        No recent activity.
+                        No activity today.
                     </div>
                 </a>";
         } else {
