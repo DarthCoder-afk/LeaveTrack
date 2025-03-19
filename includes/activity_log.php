@@ -31,7 +31,7 @@ $counter = $count->fetch_assoc();
         </h6>
         <?php
         if($counter['total'] == 0){
-           echo "<a class='dropdown-item d-flex align-items-center' href='#'>
+        echo "<a class='dropdown-item d-flex align-items-center' href='#'>
                     <div>
                         No activity today.
                     </div>
@@ -55,15 +55,19 @@ $counter = $count->fetch_assoc();
                 }
 
                 $activity_type_icon = '';
+                $activity_grammar = '';
                 switch($row['activity_type']) {
                     case 'Employee':
                         $activity_type_icon = 'fas fa-user';
+                        $activity_grammar = 'with';
                         break;
                     case 'Leave Application':
                         $activity_type_icon = 'far fa-sticky-note';
+                        $activity_grammar = 'for';
                         break;
                     case 'Travel Order':
                         $activity_type_icon = 'fas fa-plane';
+                        $activity_grammar = 'for';
                         break;
                     default:
                         $activity_type_icon = '';
@@ -78,7 +82,7 @@ $counter = $count->fetch_assoc();
                             </div>
                         </div>
                         <div>
-                            {$row['activity_type']} was {$row['activity_details']}.
+                            {$row['activity_type']} was {$row['activity_details']} {$activity_grammar} ID 00{$row['emp_id']}.
                             <div class='small text-gray-500'>{$formatted_time}</div>
                         </div>
                     </a>";
