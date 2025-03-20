@@ -40,7 +40,7 @@ if(isset($_POST['UpdateLeave'])) {
         echo '<script> alert("Data Saved"); </script>';
         date_default_timezone_set('Asia/Manila');
         $activity_type = 'Leave Application';
-        $activity_details = 'added';
+        $activity_details = 'updated';
         $activity_date = date('Y-m-d');
         $activity_time = date("H:i");
         $log_stmt = $conn->prepare("INSERT INTO activity_log (emp_id, activity_type, activity_details, activity_date, activity_time) VALUES (?, ?, ?, ?, ?)");

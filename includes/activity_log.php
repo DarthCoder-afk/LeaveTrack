@@ -3,7 +3,10 @@ include '../database/db_connect.php';
 
 date_default_timezone_set('Asia/Manila');
 
-$result = $conn->query("SELECT * FROM activity_log WHERE activity_date = CURDATE()");
+$result = $conn->query("SELECT * FROM activity_log WHERE activity_date = CURDATE() ORDER BY activity_time DESC LIMIT 5");
+
+
+
 
 $count = $conn->query("SELECT COUNT(*) AS total FROM activity_log WHERE activity_date = CURDATE()");
 $counter = $count->fetch_assoc();
@@ -73,7 +76,7 @@ $counter = $count->fetch_assoc();
                         $activity_type_icon = '';
                         break;
                 }
-
+                $formatted_emp_id = str_pad($row['emp_id'], 3, "0", STR_PAD_LEFT);
                 $formatted_time = date("H:i A", strtotime($row['activity_time']));
                 echo "<a class='dropdown-item d-flex align-items-center' href='#'>
                         <div class='mr-3'>
@@ -82,7 +85,7 @@ $counter = $count->fetch_assoc();
                             </div>
                         </div>
                         <div>
-                            {$row['activity_type']} was {$row['activity_details']} {$activity_grammar} ID 00{$row['emp_id']}.
+                            {$row['activity_type']} was {$row['activity_details']} {$activity_grammar} ID {$formatted_emp_id}.
                             <div class='small text-gray-500'>{$formatted_time}</div>
                         </div>
                     </a>";
