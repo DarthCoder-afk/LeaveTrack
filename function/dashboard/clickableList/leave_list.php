@@ -13,7 +13,7 @@ $query = "
     FROM leaveapplication l 
     JOIN employee e ON e.indexno = l.emp_index 
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
-    ORDER BY l.dateapplied DESC
+    ORDER BY l.dateapplied ASC
 ";
 $stmt = $conn->prepare($query);
 $stmt->bind_param("ii", $currentMonth, $currentYear);

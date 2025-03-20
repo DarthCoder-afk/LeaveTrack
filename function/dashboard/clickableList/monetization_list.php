@@ -9,7 +9,7 @@ $query = "
     FROM leaveapplication l 
     JOIN employee e ON e.indexno = l.emp_index  -- ✅ Use indexno instead of employee_id
     WHERE l.leavetype = 'Monetization'
-    ORDER BY l.dateapplied DESC
+    ORDER BY l.dateapplied ASC
 ";
 $result = $conn->query($query);
 
