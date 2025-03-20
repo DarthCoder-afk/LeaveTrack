@@ -55,7 +55,7 @@ $stmt = $conn->prepare("
            l.purpose, l.destination, l.startdate, l.enddate
     FROM travelorder l
     JOIN employee e ON l.employee_id = e.employee_id
-    WHERE l.startdate >= ? AND l.enddate <= ?
+    WHERE l.startdate BETWEEN ? AND ?
     ORDER BY l.startdate ASC
 ");
 

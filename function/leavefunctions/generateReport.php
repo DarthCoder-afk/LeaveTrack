@@ -57,7 +57,7 @@ $stmt = $conn->prepare("
            l.leavetype, l.startdate, l.enddate
     FROM leaveapplication l
     JOIN employee e ON l.employee_id = e.employee_id
-    WHERE l.startdate >= ? AND l.enddate <= ?
+    WHERE l.startdate BETWEEN ? AND ?
     ORDER BY l.startdate ASC
 ");
 
@@ -76,12 +76,41 @@ if ($result->num_rows == 0) {
     $pdf->Cell(195, 10, 'No records found for the selected date range.', 1, 1, 'C');
 } else {
     while ($row = $result->fetch_assoc()) {
-        $pdf->Cell(20, 10, $row['employee_id'], 1, 0, 'C');
-        $pdf->Cell(70, 10, $row['fullname'], 1, 0, 'C');
-        $pdf->Cell(45, 10, $row['leavetype'], 1, 0, 'C');
-        $pdf->Cell(30, 10, $row['startdate'], 1, 0, 'C');
-        $pdf->Cell(30, 10, $row['enddate'], 1, 1, 'C');
+        $defaultHeight = 10; // Default row height
+        $leaveTypeWidth = 45; // Width of Leave Type column
+        $lineHeight = 5; // Line height for MultiCell
+    
+        // Get required height for "Leave Type" text
+        $leaveTypeHeight = $pdf->GetStringWidth($row['leavetype']) / ($leaveTypeWidth - 2);
+        $leaveTypeHeight = ceil($leaveTypeHeight) * $lineHeight;
+        $rowHeight = max($defaultHeight, $leaveTypeHeight); // Ensure uniform row height
+    
+        // Store X, Y position before MultiCell
+        $x = $pdf->GetX();
+        $y = $pdf->GetY();
+    
+        // ID Column
+        $pdf->Cell(20, $rowHeight, $row['employee_id'], 1, 0, 'C');
+    
+        // Full Name Column
+        $pdf->Cell(70, $rowHeight, $row['fullname'], 1, 0, 'C');
+    
+        // Leave Type Column (MultiCell to wrap text)
+        $pdf->SetXY($x + 90, $y); 
+        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 1, 'C');
+    
+        // Adjust Y position to align remaining cells properly
+        $yAfterMultiCell = $pdf->GetY();
+        $pdf->SetXY($x + 135, $y); // Reset X for next columns
+    
+        // Start Date & End Date Columns
+        $pdf->Cell(30, $rowHeight, $row['startdate'], 1, 0, 'C');
+        $pdf->Cell(30, $rowHeight, $row['enddate'], 1, 1, 'C'); // End row
+    
+        // Adjust cursor position for the next row
+        $pdf->SetY(max($yAfterMultiCell, $y + $rowHeight));
     }
+    
 }
 
 // Format the filename with start and end dates
