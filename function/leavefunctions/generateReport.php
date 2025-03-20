@@ -77,40 +77,43 @@ if ($result->num_rows == 0) {
 } else {
     while ($row = $result->fetch_assoc()) {
         $defaultHeight = 10; // Default row height
-        $leaveTypeWidth = 45; // Width of Leave Type column
+        $leaveTypeWidth = 45; // Leave Type column width
         $lineHeight = 5; // Line height for MultiCell
     
-        // Get required height for "Leave Type" text
-        $leaveTypeHeight = $pdf->GetStringWidth($row['leavetype']) / ($leaveTypeWidth - 2);
-        $leaveTypeHeight = ceil($leaveTypeHeight) * $lineHeight;
-        $rowHeight = max($defaultHeight, $leaveTypeHeight); // Ensure uniform row height
+        // Calculate text height based on content
+        $leaveTypeLines = ceil($pdf->GetStringWidth($row['leavetype']) / ($leaveTypeWidth - 2));
+        $leaveTypeHeight = max($defaultHeight, $leaveTypeLines * $lineHeight);
     
-        // Store X, Y position before MultiCell
+        // Get current X, Y before writing
         $x = $pdf->GetX();
         $y = $pdf->GetY();
     
         // ID Column
-        $pdf->Cell(20, $rowHeight, $row['employee_id'], 1, 0, 'C');
+        $pdf->Cell(20, $leaveTypeHeight, $row['employee_id'], 1, 0, 'C');
     
         // Full Name Column
-        $pdf->Cell(70, $rowHeight, $row['fullname'], 1, 0, 'C');
+        $pdf->Cell(70, $leaveTypeHeight, $row['fullname'], 1, 0, 'C');
     
-        // Leave Type Column (MultiCell to wrap text)
-        $pdf->SetXY($x + 90, $y); 
-        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 1, 'C');
+        // Leave Type - Centered Text
+        $leaveTypeX = $x + 90;
+        $leaveTypeY = $y + ($leaveTypeHeight - ($leaveTypeLines * $lineHeight)) / 2; // Centering Formula
     
-        // Adjust Y position to align remaining cells properly
-        $yAfterMultiCell = $pdf->GetY();
-        $pdf->SetXY($x + 135, $y); // Reset X for next columns
+        $pdf->SetXY($leaveTypeX, $leaveTypeY); 
+        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 0, 'C'); 
     
-        // Start Date & End Date Columns
-        $pdf->Cell(30, $rowHeight, $row['startdate'], 1, 0, 'C');
-        $pdf->Cell(30, $rowHeight, $row['enddate'], 1, 1, 'C'); // End row
+        // Manually draw Leave Type Border
+        $pdf->Rect($leaveTypeX, $y, $leaveTypeWidth, $leaveTypeHeight);
     
-        // Adjust cursor position for the next row
-        $pdf->SetY(max($yAfterMultiCell, $y + $rowHeight));
-    }
+        // Reset position for remaining columns
+        $pdf->SetXY($x + 135, $y);
     
+        // Start Date & End Date
+        $pdf->Cell(30, $leaveTypeHeight, $row['startdate'], 1, 0, 'C');
+        $pdf->Cell(30, $leaveTypeHeight, $row['enddate'], 1, 1, 'C');
+    
+        // Move Y position down properly
+        $pdf->SetY($y + $leaveTypeHeight);
+    }         
 }
 
 // Format the filename with start and end dates
