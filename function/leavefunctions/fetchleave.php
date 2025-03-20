@@ -1,22 +1,10 @@
 <?php
     include '../database/db_connect.php';
-    $result = $conn->query("SELECT leaveapplication.*, 
-    COALESCE(employee.employee_id, leaveapplication.employee_id) AS employee_id, 
-    COALESCE(employee.lname, leaveapplication.emp_lname) AS lname, 
-    COALESCE(employee.fname, leaveapplication.emp_fname) AS fname, 
-    COALESCE(employee.midname, leaveapplication.emp_midname) AS midname, 
-    COALESCE(employee.extname, leaveapplication.emp_extname) AS extname,
-    COALESCE(employee.position, 'N/A') AS position,
-    COALESCE(employee.office, 'N/A') AS office,
-    COALESCE(employee.gender, 'N/A') AS gender
-    FROM leaveapplication 
-    LEFT JOIN employee ON employee.indexno = leaveapplication.emp_index");
-
+    $result = $conn->query("SELECT * FROM employee, leaveapplication WHERE employee.indexno = leaveapplication.emp_index");
     while ($row = $result->fetch_assoc()) {
         //$formatted_emp_id = sprintf('%03d', $row['employee_id']); // Format employee_id with leading zeros
         //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
-        $full_name = trim($full_name); 
         
         
         echo "<tr class='text-center'>";
