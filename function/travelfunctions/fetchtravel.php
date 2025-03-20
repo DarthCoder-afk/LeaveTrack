@@ -1,9 +1,21 @@
 <?php
     include '../database/db_connect.php';
-    $result = $conn->query("SELECT * FROM employee, travelorder WHERE employee.indexno = travelorder.emp_index");
+
+    $result = $conn->query("SELECT travelorder.*, 
+    COALESCE(employee.employee_id, travelorder.employee_id) AS employee_id, 
+    COALESCE(employee.lname, travelorder.emp_lname) AS lname, 
+    COALESCE(employee.fname, travelorder.emp_fname) AS fname, 
+    COALESCE(employee.midname, travelorder.emp_midname) AS midname, 
+    COALESCE(employee.extname, travelorder.emp_extname) AS extname,
+    COALESCE(employee.position, 'N/A') AS position,
+    COALESCE(employee.office, 'N/A') AS office,
+    COALESCE(employee.gender, 'N/A') AS gender,
+    COALESCE(employee.status, 'N/A') AS status
+    FROM travelorder 
+    LEFT JOIN employee ON employee.indexno = travelorder.emp_index");
     while ($row = $result->fetch_assoc()) {
-       
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
+        $full_name = trim($full_name); 
         $row_class = ($row['status'] == 'Inactive') ? 'inactive-row' : '';
         
         echo "<tr class='text-center {$row_class}'>";
