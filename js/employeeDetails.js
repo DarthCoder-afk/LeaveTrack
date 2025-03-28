@@ -49,6 +49,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                             leaveTypeDropdown.append('<option value="Rehabilitation Leave">Rehabilitation Leave</option>');
                             leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
                             leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
+                            leaveTypeDropdown.append('<option value="Force Leave">Force Leave</option>');
                         } else if (response.gender === 'Female') {
                             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
                             leaveTypeDropdown.append('<option value="Mandatory/Forced Leave">Mandatory/Forced Leave</option>');
@@ -62,6 +63,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                             leaveTypeDropdown.append('<option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>');
                             leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
                             leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
+                            leaveTypeDropdown.append('<option value="Force Leave">Force Leave</option>');
                         } else {
                             leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
                             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
