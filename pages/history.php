@@ -44,110 +44,116 @@ include '../auth/auth.php'; // Ensure authentication
         <!-- Sidebar&Topbar -->
 
         <!-- Container Fluid-->
-    <div class="container-fluid" id="container-wrapper">
-        <div class="d-sm-flex align-items-center justify-content-between mb-4">
-            <h1 class="h3 mb-0 text-gray-800">History Log</h1>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="./">Home</a></li>
-                <li class="breadcrumb-item active" aria-current="page">History Log</li>
-            </ol>
-        </div>
-
-
-
-        <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="emp-tab" data-toggle="tab" data-target="#emp" type="button" role="tab" aria-controls="employee" aria-selected="true">Employee</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="leave-tab" data-toggle="tab" data-target="#leave" type="button" role="tab" aria-controls="leaveapp" aria-selected="false">Leave Application</button>
-        </li>
-        <li class="nav-item" role="presentation">
-            <button class="nav-link" id="travel-tab" data-toggle="tab" data-target="#travel" type="button" role="tab" aria-controls="travelord" aria-selected="false">Travel Order</button>
-        </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="card mt-3">
-                <div class="tab-pane fade show active" id="employee" role="tabpanel" aria-labelledby="emp-tab">
-                    <div class="table-responsive">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
+        <div class="container-fluid" id="container-wrapper">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h3 mb-0 text-gray-800">History Log</h1>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="./">Home</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">History Log</li>
+                </ol>
+            </div>
+          
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">Leave Application</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="travel-tab" data-toggle="tab" href="#travel" role="tab" aria-controls="travel" aria-selected="false">Travel Order</a>
+                </li>
+            </ul>
+            <div class="card shadow mb-4 mt-2">
+                <div class="tab-content" id="myTabContent">
+                    <!-- Employee Tab -->
+                    <div class="tab-pane fade show active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Employee ID</th>
+                                            <th>Name</th>
+                                            <th>Department</th>
+                                            <th>Action Taken</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#">EMP001</a></td>
+                                            <td>John Doe</td>
+                                            <td>HR</td>
+                                            <td><span class="badge badge-success">Added</span></td>
+                                            <td>03/31/2025 08:30</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Leave Application Tab -->
+                    <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>EMP ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Leave Type</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#">EMP001</a></td>
+                                            <td>John Doe</td>
+                                            <td>Sick Leave</td>
+                                            <td><span class="badge badge-success">Added</span></td>
+                                            <td>03/31/2025 08:30</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Travel Order Tab -->
+                    <div class="tab-pane fade" id="travel" role="tabpanel" aria-labelledby="travel-tab">
+                        <div class="card">
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>Travel Order ID</th>
+                                            <th>Employee Name</th>
+                                            <th>Destination</th>
+                                            <th>Duration</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><a href="#">T001</a></td>
+                                            <td>Michael Brown</td>
+                                            <td>New York</td>
+                                            <td>5 Days</td>
+                                            <td><span class="badge badge-success">Approved</span></td>
+                                            <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="leaveapplication" role="tabpanel" aria-labelledby="leave-tab">
-                <div class="table-responsive">
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                <th scope="row">1</th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td>@mdo</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">2</th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td>@fat</td>
-                                </tr>
-                                <tr>
-                                <th scope="row">3</th>
-                                <td>Larry</td>
-                                <td>the Bird</td>
-                                <td>@twitter</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="travelorder" role="tabpanel" aria-labelledby="travel-tab">
-
-                </div>
-            </div>           
+            </div>
         </div>
-
-        
-
-        <!---Container Fluid-->
     </div>
-    </div>
-</div>
+
 
     <!-- Scroll to top -->
     <a class="scroll-to-top rounded" href="#page-top">
