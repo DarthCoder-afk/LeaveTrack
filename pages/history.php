@@ -55,13 +55,7 @@ include '../auth/auth.php'; // Ensure authentication
           
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">Employee</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="leave-tab" data-toggle="tab" href="#leave" role="tab" aria-controls="leave" aria-selected="false">Leave Application</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" id="travel-tab" data-toggle="tab" href="#travel" role="tab" aria-controls="travel" aria-selected="false">Travel Order</a>
+                    <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">History</a>
                 </li>
             </ul>
             <div class="card shadow mb-4 mt-2">
@@ -72,22 +66,15 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="table-responsive">
                                 <table class="table align-items-center table-flush">
                                     <thead class="thead-light">
-                                        <tr>
+                                        <tr class="text-center">
                                             <th>Employee ID</th>
-                                            <th>Name</th>
-                                            <th>Department</th>
+                                            <th>Type</th>
                                             <th>Action Taken</th>
-                                            <th>Time</th>
+                                            <th>Timestamp</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td><a href="#">EMP001</a></td>
-                                            <td>John Doe</td>
-                                            <td>HR</td>
-                                            <td><span class="badge badge-success">Added</span></td>
-                                            <td>03/31/2025 08:30</td>
-                                        </tr>
+                                        <?php include '../function/historyfunction/fetchhistory.php'?>
                                     </tbody>
                                 </table>
                             </div>

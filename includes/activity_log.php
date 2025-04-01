@@ -17,7 +17,7 @@ $counter = $count->fetch_assoc();
 <li class='nav-item dropdown no-arrow mx-1'>
     <a class='nav-link dropdown-toggle' href='#' id='alertsDropdown' role='button' data-toggle='dropdown'
         aria-haspopup='true' aria-expanded='false'>
-        <i class='fas fa-bell fa-fw'></i>
+        <i class='fas fa-history fa-fw'></i>
         <?php
             if ($counter['total']==0){
                 echo "<span class='badge'></span>";
