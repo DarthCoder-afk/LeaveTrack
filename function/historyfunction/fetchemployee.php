@@ -4,7 +4,7 @@
         <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
                       
             <div class="modal-header text-white" style="background: linear-gradient(135deg,rgb(21, 255, 138) 0%,rgb(45, 223, 113) 100%); border-bottom: none;">
-                <h5 class="modal-title" id="travelApplicationModalLabel">✈ Employee List</h5>
+                <h5 class="modal-title" id="travelApplicationModalLabel">👥 Employee List</h5>
                 <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close" style="opacity: 1;">
                     <span aria-hidden="true">&times;</span>
                 </button>

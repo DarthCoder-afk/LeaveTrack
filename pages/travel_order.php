@@ -191,11 +191,15 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                           </div>
                           <button type="submit" class="btn btn-success btn-block" name="AddTravel">Save</button>
+                          <small><a href="" class="mt-3" data-toggle="modal" data-target="#viewEmployeeModal">Having trouble finding an employee?</a></small>
                       </div>
                     </div>
                   </div>
                 </div>
-             </form>
+            </form>
+
+              <!-- Employee List -->
+            <?php include '../function/historyfunction/fetchemployee.php'?>
 
               <!-- EDIT APPLICATION MODAL -->
               <form action="../function/travelfunctions/updatetravel.php" id="addApplicationForm" method="POST" enctype="multipart/form-data">

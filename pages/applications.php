@@ -203,7 +203,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                       </div>
                       <button type="submit" class="btn btn-success btn-block" name="AddLeave">Save</button>
-                      <a href="" class="mt-3" data-toggle="modal" data-target="#viewEmployeeModal">Having trouble finding employee?</a>
+                      <small><a href="" class="mt-3" data-toggle="modal" data-target="#viewEmployeeModal">Having trouble finding an employee?</a></small>
                     </div>
                   </div>
                 </div>
@@ -211,7 +211,7 @@ include '../auth/auth.php'; // Ensure authentication
             </form>
 
             <!-- Employee List -->
-             <?php include '../function/historyfunction/fetchemployee.php'?>
+            <?php include '../function/historyfunction/fetchemployee.php'?>
             
 
             <!-- VIEW LEAVE MODAL (Improved) -->
