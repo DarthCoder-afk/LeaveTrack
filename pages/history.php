@@ -21,20 +21,7 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../css/admin.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet">
 
-<style>
-  .drop-zone {
-    border: 2px dashed #03C04A;
-    border-radius: 10px;
-    padding: 20px;
-    text-align: center;
-    cursor: pointer;
-    background-color: #f8f9fa;
-  }
-  .drop-zone.dragover {
-    background-color: #e3f2fd;
-    border-color: #03C04A;
-  }
-</style>
+
 </head>
 
 <body id="page-top">
@@ -53,89 +40,29 @@ include '../auth/auth.php'; // Ensure authentication
                 </ol>
             </div>
           
-            <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="employee-tab" data-toggle="tab" href="#employee" role="tab" aria-controls="employee" aria-selected="true">History</a>
-                </li>
-            </ul>
             <div class="card shadow mb-4 mt-2">
                 <div class="tab-content" id="myTabContent">
                     <!-- Employee Tab -->
                     <div class="tab-pane fade show active" id="employee" role="tabpanel" aria-labelledby="employee-tab">
                         <div class="card">
                             <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
-                                    <thead class="thead-light">
-                                        <tr class="text-center">
-                                            <th>Employee ID</th>
-                                            <th>Type</th>
-                                            <th>Action Taken</th>
-                                            <th>Timestamp</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php include '../function/historyfunction/fetchhistory.php'?>
-                                    </tbody>
-                                </table>
+                            <table class="table align-items-center table-flush text-center" style="table-layout: fixed; width: 100%;">
+                                <thead class="thead-light">
+                                    <tr>
+                                        <th class="text-wrap" style="width: 10%;">No.</th>
+                                        <th class="text-wrap" style="width: 70%;">Action Taken</th>
+                                        <th class="text-wrap" style="width: 20%;">Timestamp</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php include '../function/historyfunction/fetchhistory.php' ?>
+                                </tbody>
+                            </table>
                             </div>
                         </div>
                     </div>
-                    <!-- Leave Application Tab -->
-                    <div class="tab-pane fade" id="leave" role="tabpanel" aria-labelledby="leave-tab">
-                        <div class="card">
-                            <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>EMP ID</th>
-                                            <th>Employee Name</th>
-                                            <th>Leave Type</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#">EMP001</a></td>
-                                            <td>John Doe</td>
-                                            <td>Sick Leave</td>
-                                            <td><span class="badge badge-success">Added</span></td>
-                                            <td>03/31/2025 08:30</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Travel Order Tab -->
-                    <div class="tab-pane fade" id="travel" role="tabpanel" aria-labelledby="travel-tab">
-                        <div class="card">
-                            <div class="table-responsive">
-                                <table class="table align-items-center table-flush">
-                                    <thead class="thead-light">
-                                        <tr>
-                                            <th>Travel Order ID</th>
-                                            <th>Employee Name</th>
-                                            <th>Destination</th>
-                                            <th>Duration</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><a href="#">T001</a></td>
-                                            <td>Michael Brown</td>
-                                            <td>New York</td>
-                                            <td>5 Days</td>
-                                            <td><span class="badge badge-success">Approved</span></td>
-                                            <td><a href="#" class="btn btn-sm btn-primary">View</a></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                   
+                  
                 </div>
             </div>
         </div>
