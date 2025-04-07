@@ -453,9 +453,9 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Report Modal -->
             <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">
-              <div class="modal-dialog modal-lg" role="document"> <!-- Increased width -->
+              <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                  
+
                   <!-- Modal Header -->
                   <div class="modal-header bg-success text-white">
                     <h5 class="modal-title"><i class="fas fa-file-alt"></i> Generate Leave Applications Report</h5>
@@ -464,8 +464,8 @@ include '../auth/auth.php'; // Ensure authentication
 
                   <!-- Modal Body -->
                   <div class="modal-body">
-                    <form id="reportForm">
-                      <div class="row">
+                    <form id="reportForm" enctype="multipart/form-data">
+                      <div class="row mb-3">
                         <div class="col-md-6">
                           <label><i class="fas fa-calendar-alt"></i> Start Date:</label>
                           <input type="date" id="reportStartDate" class="form-control" required>
@@ -475,8 +475,21 @@ include '../auth/auth.php'; // Ensure authentication
                           <input type="date" id="reportEndDate" class="form-control" required>
                         </div>
                       </div>
-                      <div class="text-center mt-3">
-                        <small class="text-muted">Select a date range to generate the leave applications report.</small>
+
+                      <!-- Editable municipality name and logo -->
+                      <div class="row mb-3">
+                        <div class="col-md-6">
+                          <label><i class="fas fa-city"></i> Municipality Name:</label>
+                          <input type="text" name="municipality_name" id="municipalityName" class="form-control" placeholder="e.g. Municipality of Talisay">
+                        </div>
+                        <div class="col-md-6">
+                          <label><i class="fas fa-image"></i> Logo:</label>
+                          <input type="file" name="logo_file" id="logoFile" accept="image/*" class="form-control">
+                        </div>
+                      </div>
+
+                      <div class="text-center mt-2">
+                        <small class="text-muted">You can also edit the municipality name and logo before generating the report.</small>
                       </div>
                     </form>
                   </div>
@@ -494,6 +507,8 @@ include '../auth/auth.php'; // Ensure authentication
                 </div>
               </div>
             </div>
+
+
 
 
             <!-- Leave Application Table -->

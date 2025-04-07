@@ -12,9 +12,18 @@ $end = $_GET['end'];
 $pdf = new FPDF();
 $pdf->AddPage();
 
+// Fetch dynamic municipality name and logo path
+$settingsQuery = "SELECT municipality_name, logo_path FROM settings LIMIT 1";
+$settingsResult = $conn->query($settingsQuery);
+$settings = $settingsResult->fetch_assoc();
+
+// Set defaults if settings are not available
+$municipalityName = $settings['municipality_name'] ?? 'MUNICIPALITY OF TALISAY';
+$logoPath = $settings['logo_path'] ?? '../../img/tali.png';
+
 // Logo - Adjusted position
 $logoWidth = 30; // Width of the logo
-$pdf->Image('../../img/tali.png', 15, 10, $logoWidth); // X=15, Y=10, Width=30
+$pdf->Image($logoPath, 15, 10, $logoWidth); // X=15, Y=10, Width=30
 
 // Set font for header
 $pdf->SetFont('Times', '', 12);
@@ -30,8 +39,7 @@ $pdf->SetXY($headerX, 20);
 $pdf->Cell(0, 5, '   Province of Camarines Norte', 0, 1, 'L');
 
 $pdf->SetXY($headerX, 25);
-$pdf->Cell(0, 5, 'MUNICIPALITY OF TALISAY', 0, 1, 'L');
-
+$pdf->Cell(0, 5, $municipalityName, 0, 1, 'L'); // Dynamic name
 
 // Leave Report Title with Date Range
 $pdf->SetFont('Times', 'B', 17);
@@ -40,7 +48,6 @@ $pdf->Cell(0, 8, 'LEAVE APPLICATIONS REPORT', 0, 1, 'C');
 $pdf->SetFont('Times', '', 12);
 $pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
 $pdf->Ln(8);
-
 
 // Table Headers
 $pdf->SetFont('Arial', 'B', 12);
@@ -61,7 +68,6 @@ $stmt = $conn->prepare("
     ORDER BY l.startdate ASC
 ");
 
-
 if (!$stmt) {
     die("SQL Error: " . $conn->error);
 }
@@ -76,52 +82,38 @@ if ($result->num_rows == 0) {
     $pdf->Cell(195, 10, 'No records found for the selected date range.', 1, 1, 'C');
 } else {
     while ($row = $result->fetch_assoc()) {
-        $defaultHeight = 10; // Default row height
-        $leaveTypeWidth = 45; // Leave Type column width
-        $lineHeight = 5; // Line height for MultiCell
-    
-        // Calculate text height based on content
+        $defaultHeight = 10;
+        $leaveTypeWidth = 45;
+        $lineHeight = 5;
+
         $leaveTypeLines = ceil($pdf->GetStringWidth($row['leavetype']) / ($leaveTypeWidth - 2));
         $leaveTypeHeight = max($defaultHeight, $leaveTypeLines * $lineHeight);
-    
-        // Get current X, Y before writing
+
         $x = $pdf->GetX();
         $y = $pdf->GetY();
-    
-        // ID Column
+
         $pdf->Cell(20, $leaveTypeHeight, $row['employee_id'], 1, 0, 'C');
-    
-        // Full Name Column
         $pdf->Cell(70, $leaveTypeHeight, $row['fullname'], 1, 0, 'C');
-    
-        // Leave Type - Centered Text
+
         $leaveTypeX = $x + 90;
-        $leaveTypeY = $y + ($leaveTypeHeight - ($leaveTypeLines * $lineHeight)) / 2; // Centering Formula
-    
-        $pdf->SetXY($leaveTypeX, $leaveTypeY); 
-        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 0, 'C'); 
-    
-        // Manually draw Leave Type Border
+        $leaveTypeY = $y + ($leaveTypeHeight - ($leaveTypeLines * $lineHeight)) / 2;
+
+        $pdf->SetXY($leaveTypeX, $leaveTypeY);
+        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 0, 'C');
+
         $pdf->Rect($leaveTypeX, $y, $leaveTypeWidth, $leaveTypeHeight);
-    
-        // Reset position for remaining columns
+
         $pdf->SetXY($x + 135, $y);
-    
-        // Start Date & End Date
         $pdf->Cell(30, $leaveTypeHeight, $row['startdate'], 1, 0, 'C');
         $pdf->Cell(30, $leaveTypeHeight, $row['enddate'], 1, 1, 'C');
-    
-        // Move Y position down properly
+
         $pdf->SetY($y + $leaveTypeHeight);
     }         
 }
 
-// Format the filename with start and end dates
+// Filename formatting
 $filename = 'LEAVE_APPLICATIONS_' . $start . '_to_' . $end . '.pdf';
-
-// Output the PDF with the dynamic filename
 $pdf->Output('D', $filename);
-
 
 $stmt->close();
 $conn->close();
