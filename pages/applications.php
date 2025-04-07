@@ -476,27 +476,37 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                       </div>
 
-                      <!-- Editable municipality name and logo -->
-                      <div class="row mb-3">
-                        <div class="col-md-6">
-                          <label><i class="fas fa-city"></i> Municipality Name:</label>
-                          <input type="text" name="municipality_name" id="municipalityName" class="form-control" placeholder="e.g. Municipality of Talisay">
-                        </div>
+                      
 
-                        <div class="col-md-6">
-                          <label><i class="fas fa-map-marker-alt"></i> Province Name:</label>
-                          <input type="text" name="province_name" id="provinceName" class="form-control" placeholder="e.g. Camarines Norte">
-                        </div>
-                        
-                        <div class="col-md-6">
-                          <label><i class="fas fa-image"></i> Logo:</label>
-                          <input type="file" name="logo_file" id="logoFile" accept="image/*" class="form-control">
+                      <!-- Toggle Button -->
+                      <div class="text-center mb-3">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-toggle="collapse" data-target="#settingsSection" aria-expanded="false" aria-controls="settingsSection">
+                          <i class="fas fa-sliders-h"></i> Edit Municipality / Province / Logo
+                        </button>
+                      </div>
+
+                      <!-- Collapsible Section -->
+                      <div class="collapse" id="settingsSection">
+                        <div class="card card-body border border-secondary">
+                          <div class="row">
+                            <div class="col-md-6 mb-3">
+                              <label><i class="fas fa-city"></i> Municipality Name:</label>
+                              <input type="text" name="municipality_name" id="municipalityName" class="form-control" placeholder="e.g. Talisay">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                              <label><i class="fas fa-map-marker-alt"></i> Province Name:</label>
+                              <input type="text" name="province_name" id="provinceName" class="form-control" placeholder="e.g. Camarines Norte">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                              <label><i class="fas fa-image"></i> Logo:</label>
+                              <input type="file" name="logo_file" id="logoFile" accept="image/*" class="form-control">
+                            </div>
+                          </div>
                         </div>
                       </div>
 
-                      <div class="text-center mt-2">
-                        <small class="text-muted">You can also edit the municipality name and logo before generating the report.</small>
-                      </div>
 
 
                     </form>

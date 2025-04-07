@@ -42,13 +42,13 @@ $pageWidth = $pdf->GetPageWidth();
 $headerX = ($pageWidth / 2) - ($logoWidth / 2) - 10; // Shift to the left slightly
 
 $pdf->SetXY($headerX, 15);
-$pdf->Cell(0, 5, '    Republic of the Philippines', 0, 1, 'L');
+$pdf->Cell(0, 5, 'Republic of the Philippines', 0, 1, 'L');
 
 $pdf->SetXY($headerX, 20);
-$pdf->Cell(0, 5, '  Province of ' . $provinceName, 0, 1, 'L');
+$pdf->Cell(0, 5, 'Province of ' . $provinceName, 0, 1, 'L');
 
 $pdf->SetXY($headerX, 25);
-$pdf->Cell(0, 5, '        Municipality of ' . $municipalityName, 0, 1, 'L');
+$pdf->Cell(0, 5, 'Municipality of ' . $municipalityName, 0, 1, 'L');
 
 // Leave Report Title with Date Range
 $pdf->SetFont('Times', 'B', 17);
