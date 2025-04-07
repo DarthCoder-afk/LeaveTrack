@@ -76,7 +76,7 @@ $(document).ready(function () {
             leaveTypeDropdown.append('<option value="Special Leave Benefits for Women">Special Leave Benefits for Women</option>');
             leaveTypeDropdown.append('<option value="Special (Calamity) Leave">Special (Calamity) Leave</option>');
             leaveTypeDropdown.append('<option value="Monetization">Monetization</option>');
-            leaveTypeDropdown.append('<option value="Optional">Optional</option>');
+            leaveTypeDropdown.append('<option value="Optional">Others</option>');
         } else {
             leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');

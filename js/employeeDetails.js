@@ -68,7 +68,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                             leaveTypeDropdown.append('<option value="Sick Leave">Sick Leave</option>');
                             leaveTypeDropdown.append('<option value="Vacation Leave">Vacation Leave</option>');
                         }
-                        leaveTypeDropdown.append('<option value="Optional">Optional</option>');
+                        leaveTypeDropdown.append('<option value="Optional">Others</option>');
                     } else {
                         clearFields();
                         Swal.fire({
