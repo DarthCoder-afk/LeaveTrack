@@ -482,6 +482,12 @@ include '../auth/auth.php'; // Ensure authentication
                           <label><i class="fas fa-city"></i> Municipality Name:</label>
                           <input type="text" name="municipality_name" id="municipalityName" class="form-control" placeholder="e.g. Municipality of Talisay">
                         </div>
+
+                        <div class="col-md-6">
+                          <label><i class="fas fa-map-marker-alt"></i> Province Name:</label>
+                          <input type="text" name="province_name" id="provinceName" class="form-control" placeholder="e.g. Camarines Norte">
+                        </div>
+                        
                         <div class="col-md-6">
                           <label><i class="fas fa-image"></i> Logo:</label>
                           <input type="file" name="logo_file" id="logoFile" accept="image/*" class="form-control">
@@ -491,6 +497,8 @@ include '../auth/auth.php'; // Ensure authentication
                       <div class="text-center mt-2">
                         <small class="text-muted">You can also edit the municipality name and logo before generating the report.</small>
                       </div>
+
+
                     </form>
                   </div>
 

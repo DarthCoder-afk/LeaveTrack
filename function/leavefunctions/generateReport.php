@@ -13,13 +13,22 @@ $pdf = new FPDF();
 $pdf->AddPage();
 
 // Fetch dynamic municipality name and logo path
-$settingsQuery = "SELECT municipality_name, logo_path FROM settings LIMIT 1";
+$settingsQuery = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
 $settingsResult = $conn->query($settingsQuery);
 $settings = $settingsResult->fetch_assoc();
 
-// Set defaults if settings are not available
-$municipalityName = $settings['municipality_name'] ?? 'MUNICIPALITY OF TALISAY';
-$logoPath = $settings['logo_path'] ?? '../../img/tali.png';
+// Set defaults if settings are not available or empty
+$municipalityName = isset($settings['municipality_name']) && !empty($settings['municipality_name']) 
+    ? $settings['municipality_name'] 
+    : 'MUNICIPALITY OF TALISAY';
+
+$provinceName = isset($settings['province_name']) && !empty($settings['province_name']) 
+    ? $settings['province_name'] 
+    : 'Camarines Norte';
+
+$logoPath = isset($settings['logo_path']) && !empty($settings['logo_path']) 
+    ? $settings['logo_path'] 
+    : '../../img/tali.png';  // Ensure this file exists!
 
 // Logo - Adjusted position
 $logoWidth = 30; // Width of the logo
@@ -36,10 +45,10 @@ $pdf->SetXY($headerX, 15);
 $pdf->Cell(0, 5, '    Republic of the Philippines', 0, 1, 'L');
 
 $pdf->SetXY($headerX, 20);
-$pdf->Cell(0, 5, '   Province of Camarines Norte', 0, 1, 'L');
+$pdf->Cell(0, 5, '  Province of ' . $provinceName, 0, 1, 'L');
 
 $pdf->SetXY($headerX, 25);
-$pdf->Cell(0, 5, $municipalityName, 0, 1, 'L'); // Dynamic name
+$pdf->Cell(0, 5, '        Municipality of ' . $municipalityName, 0, 1, 'L');
 
 // Leave Report Title with Date Range
 $pdf->SetFont('Times', 'B', 17);
