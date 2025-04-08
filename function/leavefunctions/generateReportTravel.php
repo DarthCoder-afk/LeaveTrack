@@ -12,6 +12,25 @@ $end = $_GET['end'];
 $pdf = new FPDF();
 $pdf->AddPage();
 
+// Fetch dynamic municipality name and logo path
+$settingsQuery = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
+$settingsResult = $conn->query($settingsQuery);
+$settings = $settingsResult->fetch_assoc();
+
+// Set defaults if settings are not available or empty
+$municipalityName = isset($settings['municipality_name']) && !empty($settings['municipality_name']) 
+    ? $settings['municipality_name'] 
+    : 'MUNICIPALITY OF TALISAY';
+
+$provinceName = isset($settings['province_name']) && !empty($settings['province_name']) 
+    ? $settings['province_name'] 
+    : 'Camarines Norte';
+
+$logoPath = isset($settings['logo_path']) && !empty($settings['logo_path']) 
+    ? $settings['logo_path'] 
+    : '../../img/tali.png';  // Ensure this file exists!
+
+
 // Logo - Adjusted position
 $logoWidth = 30; 
 $pdf->Image('../../img/tali.png', 15, 10, $logoWidth); 
@@ -22,11 +41,14 @@ $pageWidth = $pdf->GetPageWidth();
 $headerX = ($pageWidth / 2) - ($logoWidth / 2) - 10; 
 
 $pdf->SetXY($headerX, 15);
-$pdf->Cell(0, 5, '    Republic of the Philippines', 0, 1, 'L');
+$pdf->Cell(0, 5, 'Republic of the Philippines', 0, 1, 'L');
+
 $pdf->SetXY($headerX, 20);
-$pdf->Cell(0, 5, '   Province of Camarines Norte', 0, 1, 'L');
+$pdf->Cell(0, 5, 'Province of ' . $provinceName, 0, 1, 'L');
+
 $pdf->SetXY($headerX, 25);
-$pdf->Cell(0, 5, 'MUNICIPALITY OF TALISAY', 0, 1, 'L');
+$pdf->Cell(0, 5, 'Municipality of ' . $municipalityName, 0, 1, 'L');
+
 
 // Travel Order Report Title
 $pdf->SetFont('Times', 'B', 17);

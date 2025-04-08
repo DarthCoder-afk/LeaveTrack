@@ -33,8 +33,31 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        let reportURL = `../function/leavefunctions/generateReportTravel.php?start=${startDate}&end=${endDate}`;
-        console.log("Opening URL:", reportURL);
+        // Update municipality name/logo first
+        const formData = new FormData(document.getElementById("reportForm"));
+
+        fetch('../function/reportSettings/updateSettings.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(res => res.text())
+        .then(response => {
+            if (response.trim() === 'success') {
+                const reportURL = `../function/leavefunctions/generateReportTravel.php?start=${startDate}&end=${endDate}`;
+                window.location.href = reportURL;
+                startDatePicker.value = "";
+                endDatePicker.value = "";
+                endDatePicker.min = "";
+                endDatePicker.disabled = true;
+            } else {
+                alert("Failed to update settings before generating the report.");
+                console.error("Settings update failed:", response);
+            }
+        })
+        .catch(err => {
+            alert("Something went wrong. Try again.");
+            console.error(err);
+        });
 
         // Reset date pickers after clicking "Generate"
         setTimeout(() => {
