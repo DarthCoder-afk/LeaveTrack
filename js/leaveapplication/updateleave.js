@@ -40,7 +40,7 @@ $(document).ready(function () {
         modal.find('#dateApplied2').val(datefiled);
         modal.find('#startDate2').val(sdate);
         modal.find('#endDate2').val(edate);
-        modal.find('#numberOfDays2').val(ndays);
+       
         
 
         if (form === '') {
@@ -66,6 +66,7 @@ $(document).ready(function () {
             // Populate consecutive dates fields
             modal.find('#startDate2').val(sdate);
             modal.find('#endDate2').val(edate);
+            modal.find('#numberOfDays2').val(ndays);
         }
 
         // Event listener for changing date type

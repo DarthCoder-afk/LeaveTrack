@@ -74,9 +74,20 @@ document.getElementById('toggleHolidayInput').addEventListener('click', function
 function UpdatecalculateNumberofDays() {
   var startDate = document.getElementById('startDate2').value;
   var endDate = document.getElementById('endDate2').value;
+  var appliedDate = document.getElementById('dateApplied2').value;
+  var startDateInput = document.getElementById('startDate2');
+  var endDateInput = document.getElementById('endDate2');
   var holidayDeduction = parseInt(document.getElementById('updateholidayDeduction').value) || 0;
 
-  var endDateInput = document.getElementById('endDate2');
+  if (appliedDate) {
+    // Disable past days, months, and years on start date and end date based on applied date
+    startDateInput.min = appliedDate;
+    endDateInput.min = appliedDate;
+  } 
+
+
+
+
 
   if (startDate && endDate) {
       var start = new Date(startDate);

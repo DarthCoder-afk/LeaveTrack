@@ -432,7 +432,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>
-                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required>
+                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required onchange="UpdatecalculateNumberofDays()">
                               </div>
                             </div>
 
@@ -454,11 +454,11 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="row ml-3" id="consecutiveDatesContainer2">
                             <div class="form-group">
                               <label>Start Date</label>
-                              <input type="date" class="form-control" name="startdate" id="startDate2" disabled onchange="calculateNumberofDays()">
+                              <input type="date" class="form-control" name="startdate" id="startDate2" onchange="UpdatecalculateNumberofDays()">
                             </div>
                             <div class="form-group ml-4">
                               <label>End Date</label>
-                              <input type="date" class="form-control" name="enddate" id="endDate2" disabled onchange="calculateNumberofDays()">
+                              <input type="date" class="form-control" name="enddate" id="endDate2" onchange="UpdatecalculateNumberofDays()">
                             </div>
                             <div class="form-group ml-4">
                               <label>Number of Days</label>
@@ -673,9 +673,17 @@ include '../auth/auth.php'; // Ensure authentication
           if (dateType === 'consecutive') {
             consecutiveDates.style.display = 'flex';
             specificDates.style.display = 'none';
+            // Clear specific dates input
+            document.getElementById('specificDates').value = '';
+            document.getElementById('specificnumdays').value = '';
           } else {
             consecutiveDates.style.display = 'none';
             specificDates.style.display = 'flex';
+
+            // Clear consecutive dates input
+            document.getElementById('startDate').value = '';
+            document.getElementById('endDate').value = '';
+            document.getElementById('numberOfDays').value = '';
           }
         }
 
@@ -687,9 +695,18 @@ include '../auth/auth.php'; // Ensure authentication
           if (dateType === 'consecutive') {
             consecutiveDates.style.display = 'flex';
             specificDates.style.display = 'none';
+
+            // Clear specific dates input
+            document.getElementById('specificDates2').value = '';
+            document.getElementById('specificnumdays2').value = '';
           } else {
             consecutiveDates.style.display = 'none';
             specificDates.style.display = 'flex';
+
+             // Clear consecutive dates input
+            document.getElementById('startDate2').value = '';
+            document.getElementById('endDate2').value = '';
+            document.getElementById('numberOfDays2').value = '';
           }
         }
       </script>
