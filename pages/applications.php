@@ -474,14 +474,14 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
 
                           <!-- Specific Dates -->
-                          <div class="col-md-6" id="specificDatesContainer2" style="display: none;">
-                            <div class="form-group">
+                          <div class="row" id="specificDatesContainer2" style="display: none;">
+                            <div class="form-group col-md-6 ml-3">
                               <label>Select Specific Dates</label>
                               <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
                               <small class="form-text text-muted">Click to select multiple dates.</small>
                             </div>
 
-                            <div class="form-group ml-4">
+                            <div class="form-group col-md-4">
                               <label>Number of Days</label>
                               <div class="input-group">
                                 <input type="text" class="form-control" name="specificnumdays" id="specificnumdays2" readonly>
@@ -666,7 +666,7 @@ include '../auth/auth.php'; // Ensure authentication
 
       <script>
         function toggleDateType() {
-          const dateType = document.querySelector('input[name="date_type2"]:checked').value;
+          const dateType = document.querySelector('input[name="date_type"]:checked').value;
           const consecutiveDates = document.getElementById('consecutiveDatesContainer');
           const specificDates = document.getElementById('specificDatesContainer');
 
