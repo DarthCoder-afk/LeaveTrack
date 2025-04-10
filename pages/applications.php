@@ -364,50 +364,50 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>ID No.</label>
-                                <input type="text" class="form-control" name="employee_Id" id="idnumber" required>
+                                <input type="text" class="form-control" name="employee_Id" id="idnumber" readonly>
                                 <input type="hidden" name="index_no" id="index_no">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Last Name</label>
-                                <input type="text" class="form-control" name="lastname" id="lastName" disabled>
+                                <input type="text" class="form-control" name="lastname" id="lastName2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" name="firstname" id="firstName" disabled>
+                                <input type="text" class="form-control" name="firstname" id="firstName2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Middle Name</label>
-                                <input type="text" class="form-control" name="middlename" id="middleName" disabled>
+                                <input type="text" class="form-control" name="middlename" id="middleName2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Extension</small></label>
-                                <input type="text" class="form-control" name="extname" id="nameExtension" disabled>
+                                <input type="text" class="form-control" name="extname" id="nameExtension2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Position</label>
-                                <input type="text" class="form-control" name="position" id="position" disabled>
+                                <input type="text" class="form-control" name="position" id="position2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Office</label>
-                                <input type="text" class="form-control" name="office" id="office" disabled>
+                                <input type="text" class="form-control" name="office" id="office2" disabled>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group"> 
                                 <label>Gender</label>
-                                <input type="text" class="form-control" name="gender" id="gender" disabled>
+                                <input type="text" class="form-control" name="gender" id="gender2" disabled>
                                 <input type="hidden" name="hidden_gender" id="hidden_gender">
                               </div>
                             </div>
@@ -432,34 +432,67 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>
-                                <input type="date" class="form-control" name="applieddate" id="dateApplied" required>
+                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required>
                               </div>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-12">
                               <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="date" class="form-control" name="startdate" id="startDate2" required onchange=UpdatecalculateNumberofDays()>
+                                <label>Leave Date Type</label>
+                                <div>
+                                  <label class="mr-2">
+                                    <input type="radio" name="date_type2" value="consecutive" checked onchange="toggleDateType2()"> Consecutive Dates
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="date_type2" value="specific" onchange="toggleDateType2()"> Specific Dates
+                                  </label>
+                                </div>
                               </div>
                             </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
-                                <label>End Date</label>
-                                <input type="date" class="form-control" name="enddate" id="endDate2" required onchange=UpdatecalculateNumberofDays()>
-                              </div>
+                            
+                           <!-- Consecutive Dates -->
+                          <div class="row ml-3" id="consecutiveDatesContainer2">
+                            <div class="form-group">
+                              <label>Start Date</label>
+                              <input type="date" class="form-control" name="startdate" id="startDate2" disabled onchange="calculateNumberofDays()">
                             </div>
-                            <div class="col-md-3">
-                          <div class="form-group">
-                            <label>Number of Days</label>
-                            <div class="input-group">
-                              <input type="text" class="form-control" name="numdays" id="numberOfDays2" readonly>
-                              <div class="input-group-append">
-                                <button type="button" class="btn btn-outline-secondary" id="updatetoggleHolidayInput">
-                                  <i class="fas fa-minus-circle"></i>
-                                </button>
+                            <div class="form-group ml-4">
+                              <label>End Date</label>
+                              <input type="date" class="form-control" name="enddate" id="endDate2" disabled onchange="calculateNumberofDays()">
+                            </div>
+                            <div class="form-group ml-4">
+                              <label>Number of Days</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" name="numdays" id="numberOfDays2" readonly>
+                                <div class="input-group-append">
+                                  <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                    <i class="fas fa-minus-circle"></i>
+                                  </button>
+                                </div>
                               </div>
                             </div>
                           </div>
-                        </div>
+
+                          <!-- Specific Dates -->
+                          <div class="col-md-6" id="specificDatesContainer2" style="display: none;">
+                            <div class="form-group">
+                              <label>Select Specific Dates</label>
+                              <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
+                              <small class="form-text text-muted">Click to select multiple dates.</small>
+                            </div>
+
+                            <div class="form-group ml-4">
+                              <label>Number of Days</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" name="specificnumdays" id="specificnumdays2" readonly>
+                                <div class="input-group-append">
+                                  <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                    <i class="fas fa-minus-circle"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
 
                           <!-- Hidden input for subtracting holidays -->
                           <div class="col-md-3" id="updateholidayContainer" style="display: none;">
@@ -633,9 +666,23 @@ include '../auth/auth.php'; // Ensure authentication
 
       <script>
         function toggleDateType() {
-          const dateType = document.querySelector('input[name="date_type"]:checked').value;
+          const dateType = document.querySelector('input[name="date_type2"]:checked').value;
           const consecutiveDates = document.getElementById('consecutiveDatesContainer');
           const specificDates = document.getElementById('specificDatesContainer');
+
+          if (dateType === 'consecutive') {
+            consecutiveDates.style.display = 'flex';
+            specificDates.style.display = 'none';
+          } else {
+            consecutiveDates.style.display = 'none';
+            specificDates.style.display = 'flex';
+          }
+        }
+
+        function toggleDateType2() {
+          const dateType = document.querySelector('input[name="date_type2"]:checked').value;
+          const consecutiveDates = document.getElementById('consecutiveDatesContainer2');
+          const specificDates = document.getElementById('specificDatesContainer2');
 
           if (dateType === 'consecutive') {
             consecutiveDates.style.display = 'flex';
@@ -655,6 +702,17 @@ include '../auth/auth.php'; // Ensure authentication
             onChange: function(selectedDates, dateStr, instance) {
               // Optional: Update the number of days based on selected dates
               document.getElementById('specificnumdays').value = selectedDates.length;
+            }
+          });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+          flatpickr("#specificDates2", {
+            mode: "multiple", // Allows multiple date selection
+            dateFormat: "Y-m-d", // Format for the selected dates
+            onChange: function(selectedDates, dateStr, instance) {
+              // Optional: Update the number of days based on selected dates
+              document.getElementById('specificnumdays2').value = selectedDates.length;
             }
           });
         });

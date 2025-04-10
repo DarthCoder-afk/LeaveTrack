@@ -60,9 +60,9 @@ if(isset($_POST['AddLeave'])) {
 
     // Insert Leave Application
     $stmt = $conn->prepare("INSERT INTO leaveapplication 
-    (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, position, leavetype, dateapplied, startdate, enddate, numofdays, specific_dates, file) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $position, $ltype, $applieddate, $sdate, $edate, $numdays, $specific_dates, $file);
+    (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, position, leavetype, dateapplied, date_type, startdate, enddate, numofdays, specific_dates, file) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $position, $ltype, $applieddate, $date_type, $sdate, $edate, $numdays, $specific_dates, $file);
 
     if ($stmt->execute()) {
         $_SESSION['message'] = "success";
