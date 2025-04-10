@@ -7,16 +7,27 @@ if(isset($_POST['AddLeave'])) {
     $emp_index = $_POST['emp_index'];
     $emp_id = $_POST['employee_Id'];
     $ltype = $_POST['leavetype'];
+    $position = $_POST['position2'];
 
     // Check if leave type is optional, then use the user-specified leave type
     if ($ltype === "Optional") {
         $ltype = $_POST['optional_leavetype']; // Get value from hidden input
     }
 
+    
+    $date_type = $_POST['date_type'];
+    $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;
     $applieddate = $_POST['applieddate'];
     $sdate = $_POST['startdate'];
     $edate = $_POST['enddate'];
     $numdays = $_POST['numdays'];
+
+    if ($date_type === 'specific' && $specific_dates) {
+        $dates = explode(',', $specific_dates); // Assuming dates are comma-separated
+        $numdays = count($dates);
+        $sdate = null; // Not applicable for specific dates
+        $edate = null; // Not applicable for specific dates
+    }
 
     // File Upload Handling
     $file = $_FILES['form']['name'];
@@ -49,9 +60,9 @@ if(isset($_POST['AddLeave'])) {
 
     // Insert Leave Application
     $stmt = $conn->prepare("INSERT INTO leaveapplication 
-        (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, leavetype, dateapplied, startdate, enddate, numofdays, file) 
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("isssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $ltype, $applieddate, $sdate, $edate, $numdays, $file);
+    (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, position, leavetype, dateapplied, startdate, enddate, numofdays, specific_dates, file) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("isssssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $position, $ltype, $applieddate, $sdate, $edate, $numdays, $specific_dates, $file);
 
     if ($stmt->execute()) {
         $_SESSION['message'] = "success";

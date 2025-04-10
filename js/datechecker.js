@@ -3,10 +3,12 @@ function calculateNumberofDays() {
   var endDate = document.getElementById('endDate').value;
   var appliedDate = document.getElementById('dateApplied').value;
   var holidayDeduction = parseInt(document.getElementById('holidayDeduction').value) || 0;
-
-  
   var startDateInput = document.getElementById('startDate');
   var endDateInput = document.getElementById('endDate');
+
+  console.log("Start Date:", startDate);
+  console.log("End Date:", endDate);
+  console.log("Applied Date:", appliedDate);
   
   if (appliedDate) {
     // Enable start and end date inputs if applied date if provided
@@ -15,6 +17,17 @@ function calculateNumberofDays() {
     // Disable past days, months, and years on start date and end date based on applied date
     startDateInput.min = appliedDate;
     endDateInput.min = appliedDate;
+  } 
+
+   // Validate end date independently
+   if (endDate && !startDate) {
+    Swal.fire({
+      title: "Invalid Input",
+      text: "Please select a start date before selecting an end date.",
+      icon: "warning"
+    });
+    endDateInput.value = ''; // Clear the invalid end date
+    return;
   }
 
   if (startDate && endDate) {

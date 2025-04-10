@@ -18,6 +18,7 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <style>
     .table-responsive {
@@ -118,6 +119,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group">
                             <label>Position</label>
                             <input type="text" class="form-control" name="position" id="position" disabled>
+                            <input type="hidden" class="form-control" name="position2" id="position2">
                           </div>
                         </div>
                         <div class="col-md-6">
@@ -157,21 +159,31 @@ include '../auth/auth.php'; // Ensure authentication
                             <input type="date" class="form-control" name="applieddate" id="dateApplied" required onchange=calculateNumberofDays()>
                           </div>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-12">
                           <div class="form-group">
-                            <label>Start Date</label>
-                            <input type="date" class="form-control" name="startdate" id="startDate" disabled  onchange=calculateNumberofDays()>
-                          </div>
-                        </div>
-                        <div class="col-md-3">
-                          <div class="form-group">
-                            <label>End Date</label>
-                            <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange=calculateNumberofDays()>
+                            <label>Leave Date Type</label>
+                            <div>
+                              <label class="mr-2">
+                                <input type="radio" name="date_type" value="consecutive" checked onchange="toggleDateType()"> Consecutive Dates
+                              </label>
+                              <label>
+                                <input type="radio" name="date_type" value="specific" onchange="toggleDateType()"> Specific Dates
+                              </label>
+                            </div>
                           </div>
                         </div>
                         
-                        <div class="col-md-3">
+                        <!-- Consecutive Dates -->
+                        <div class="row ml-3" id="consecutiveDatesContainer">
                           <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" name="startdate" id="startDate" disabled onchange="calculateNumberofDays()">
+                          </div>
+                          <div class="form-group ml-4">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange="calculateNumberofDays()">
+                          </div>
+                          <div class="form-group ml-4">
                             <label>Number of Days</label>
                             <div class="input-group">
                               <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
@@ -183,6 +195,28 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                           </div>
                         </div>
+
+                        <!-- Specific Dates -->
+                        <div class="col-md-6" id="specificDatesContainer" style="display: none;">
+                          <div class="form-group">
+                            <label>Select Specific Dates</label>
+                            <input type="text" class="form-control" name="specific_dates" id="specificDates" placeholder="Select dates">
+                            <small class="form-text text-muted">Click to select multiple dates.</small>
+                          </div>
+
+                          <div class="form-group ml-4">
+                            <label>Number of Days</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" name="specificnumdays" id="specificnumdays" readonly>
+                              <div class="input-group-append">
+                                <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                  <i class="fas fa-minus-circle"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        
 
                         <!-- Hidden input for subtracting holidays -->
                         <div class="col-md-3" id="holidayContainer" style="display: none;">
@@ -583,6 +617,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
       <script src="../js/leaveapplication/generateReport.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
       
 
       <!-- Page level plugins -->
@@ -595,6 +630,35 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/dataTable.js"></script>
       <script src="../js/logout.js"></script>
       <script src="../js/leaveapplication/viewleave.js"></script>
+
+      <script>
+        function toggleDateType() {
+          const dateType = document.querySelector('input[name="date_type"]:checked').value;
+          const consecutiveDates = document.getElementById('consecutiveDatesContainer');
+          const specificDates = document.getElementById('specificDatesContainer');
+
+          if (dateType === 'consecutive') {
+            consecutiveDates.style.display = 'flex';
+            specificDates.style.display = 'none';
+          } else {
+            consecutiveDates.style.display = 'none';
+            specificDates.style.display = 'flex';
+          }
+        }
+      </script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+          flatpickr("#specificDates", {
+            mode: "multiple", // Allows multiple date selection
+            dateFormat: "Y-m-d", // Format for the selected dates
+            onChange: function(selectedDates, dateStr, instance) {
+              // Optional: Update the number of days based on selected dates
+              document.getElementById('specificnumdays').value = selectedDates.length;
+            }
+          });
+        });
+      </script>
 
 </body>
 

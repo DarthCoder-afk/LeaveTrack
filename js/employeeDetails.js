@@ -29,6 +29,7 @@ document.getElementById('idnumber').addEventListener('input', debounce(function(
                         document.getElementById('hidden_gender').value = response.gender || '';
                         document.getElementById('nameExtension').value = response.extname || '';
                         document.getElementById('position').value = response.position || '';
+                        document.getElementById('position2').value = response.position || '';
                         document.getElementById('office').value = response.office || '';
 
                         var modal = $('#addApplicationForm');
