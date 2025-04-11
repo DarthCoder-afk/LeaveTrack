@@ -248,7 +248,7 @@ include '../auth/auth.php'; // Ensure authentication
             <?php include '../function/historyfunction/fetchemployee.php'?>
             
 
-            <!-- VIEW LEAVE MODAL (Improved) -->
+            <!-- VIEW LEAVE MODAL (Updated with Date Type Handling) -->
             <div class="modal fade" id="viewLeaveModal" tabindex="-1" role="dialog" aria-labelledby="viewLeaveLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
@@ -282,68 +282,83 @@ include '../auth/auth.php'; // Ensure authentication
                                 </a>
                             </div>
 
+                            <!-- Leave Details -->
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Last Name</label>
+                                        <input type="text" class="form-control" id="viewLastName" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>First Name</label>
+                                        <input type="text" class="form-control" id="viewFirstName" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Position</label>
+                                        <input type="text" class="form-control" id="viewPosition" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Office</label>
+                                        <input type="text" class="form-control" id="viewOffice" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Type of Leave</label>
+                                        <input type="text" class="form-control" id="viewTypeOfLeave" disabled>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Date Applied</label>
+                                        <input type="date" class="form-control" id="viewDateApplied" disabled>
+                                    </div>
+                                </div>
 
-                                <!-- Leave Details -->
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Last Name</label>
-                                            <input type="text" class="form-control" id="viewLastName" disabled>
+                                <!-- Consecutive Date Group -->
+                                <div id="consecutiveDatesGroup" class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Start Date</label>
+                                                <input type="date" class="form-control" id="viewStartDate" disabled>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>End Date</label>
+                                                <input type="date" class="form-control" id="viewEndDate" disabled>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>First Name</label>
-                                            <input type="text" class="form-control" id="viewFirstName" disabled>
-                                        </div>
+                                </div>
+
+                                <!-- Specific Dates Group -->
+                                <div id="specificDatesGroup" class="col-md-12 d-none">
+                                    <div class="form-group">
+                                        <label>Specific Dates (yyyy-mm-dd)</label>
+                                        <textarea class="form-control" id="viewSpecificDates" rows="4" readonly></textarea>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Position</label>
-                                            <input type="text" class="form-control" id="viewPosition" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Office</label>
-                                            <input type="text" class="form-control" id="viewOffice" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Type of Leave</label>
-                                            <input type="text" class="form-control" id="viewTypeOfLeave" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Date Applied</label>
-                                            <input type="date" class="form-control" id="viewDateApplied" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>Start Date</label>
-                                            <input type="date" class="form-control" id="viewStartDate" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="form-group">
-                                            <label>End Date</label>
-                                            <input type="date" class="form-control" id="viewEndDate" disabled>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>Number of Days</label>
-                                            <input type="text" class="form-control" id="viewNumberOfDays" disabled>
-                                        </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Number of Days</label>
+                                        <input type="text" class="form-control" id="viewNumberOfDays" disabled>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
+            </div> 
+
             
             </form>
             

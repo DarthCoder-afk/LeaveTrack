@@ -41,6 +41,8 @@
                     data-gender='{$row['gender']}'
                     data-leavetype='{$row['leavetype']}'
                     data-dateapplied='{$row['dateapplied']}'
+                    data-date_type='{$row['date_type']}'
+                    data-specific_dates='{$row['specific_dates']}'
                     data-startdate='{$row['startdate']}'
                     data-enddate='{$row['enddate']}'
                     data-numdays='{$row['numofdays']}'
@@ -49,6 +51,7 @@
                     data-target='#viewLeaveModal'>
                     <i class='fas fa-eye'></i>
                 </button>
+
 
 
                 <button class='btn btn-info' data-toggle='modal' data-target='#editLeaveModal'

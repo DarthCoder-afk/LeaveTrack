@@ -15,8 +15,14 @@ $(document).on('click', '.viewLeaveBtn', function () {
     var numdays = $(this).data('numdays');
     var file = $(this).data('file');
     var gender = $(this).data('gender'); // Get gender
+    var date_type = $(this).data('date_type'); // 'consecutive' or 'specific'
+    var specific_dates = $(this).data('specific_dates'); // Comma-separated or multi-line
 
-    console.log("Data Retrieved:", {employee_id, lname, fname, position, office, leavetype, gender});
+    console.log("Data Retrieved:", {
+        employee_id, lname, fname, midname, extname, position, office,
+        leavetype, dateapplied, startdate, enddate, numdays, file, gender,
+        date_type, specific_dates
+    });
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
 
@@ -34,16 +40,26 @@ $(document).on('click', '.viewLeaveBtn', function () {
         profilePic.attr("src", "../img/profile_app.jpg"); // Default Profile
     }
 
-    // Set values for the view modal (Read-Only)
+    // Set general information
     $('#viewLastName').val(lname);
     $('#viewFirstName').val(fname);
     $('#viewPosition').val(position);
     $('#viewOffice').val(office);
     $('#viewTypeOfLeave').val(leavetype);
     $('#viewDateApplied').val(dateapplied);
-    $('#viewStartDate').val(startdate);
-    $('#viewEndDate').val(enddate);
     $('#viewNumberOfDays').val(numdays);
+
+    // Handle date types: specific vs consecutive
+    if (date_type === 'specific') {
+        $('#specificDatesGroup').removeClass('d-none');
+        $('#consecutiveDatesGroup').addClass('d-none');
+        $('#viewSpecificDates').val(specific_dates);
+    } else {
+        $('#specificDatesGroup').addClass('d-none');
+        $('#consecutiveDatesGroup').removeClass('d-none');
+        $('#viewStartDate').val(startdate);
+        $('#viewEndDate').val(enddate);
+    }
 
     // Handle file link button
     if (file && file !== "null") {
