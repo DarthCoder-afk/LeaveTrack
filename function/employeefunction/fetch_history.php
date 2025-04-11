@@ -12,9 +12,10 @@ if (isset($_POST['employee_id']) && isset($_POST['indexno'])) {
     $response = ["leave" => [], "travel" => []];
 
     // Fetch Leave History based on indexno
-    $leaveQuery = "SELECT leavetype, startdate, enddate, numofdays 
-                   FROM leaveapplication 
-                   WHERE emp_index = ?";
+    $leaveQuery = "SELECT leavetype, startdate, enddate, numofdays, date_type, specific_dates
+    FROM leaveapplication 
+    WHERE emp_index = ?";
+
     $stmt = $conn->prepare($leaveQuery);
     $stmt->bind_param("s", $indexno);
     $stmt->execute();

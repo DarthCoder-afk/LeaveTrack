@@ -161,6 +161,7 @@ include '../auth/auth.php'; // Ensure authentication
                                       <th>Leave Type</th>
                                       <th>Start Date</th>
                                       <th>End Date</th>
+                                      <th>Specific Dates</th> <!-- New -->
                                       <th>number of days</th>
                                   </tr>
                               </thead>

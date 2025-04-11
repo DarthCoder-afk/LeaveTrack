@@ -50,22 +50,32 @@ $(document).on('click', '.viewEmployeeBtn', function () {
         dataType: 'json',
         success: function (response) {
             console.log("History Fetched:", response); // Debugging
-    
+
             // Leave History
             var leaveHtml = "";
             if (response.leave.length > 0) {
                 response.leave.forEach(function (leave) {
+                    const isSpecific = leave.date_type === 'specific';
+
+                    const startDate = isSpecific ? 'N/A' : (leave.startdate || 'N/A');
+                    const endDate = isSpecific ? 'N/A' : (leave.enddate || 'N/A');
+                    const specificDates = isSpecific && leave.specific_dates
+                        ? leave.specific_dates.split(',').join('<br>')
+                        : 'N/A';
+
                     leaveHtml += `<tr>
                         <td>${leave.leavetype}</td>
-                        <td>${leave.startdate}</td>
-                        <td>${leave.enddate}</td>
+                        <td>${startDate}</td>
+                        <td>${endDate}</td>
+                        <td>${specificDates}</td>
                         <td>${leave.numofdays}</td>
                     </tr>`;
                 });
             } else {
-                leaveHtml = `<tr><td colspan="4" class="text-center">No leave history available</td></tr>`;
+                leaveHtml = `<tr><td colspan="5" class="text-center">No leave history available</td></tr>`;
             }
             $("#leaveHistory").html(leaveHtml);
+
     
             // Travel History
             var travelHtml = "";
