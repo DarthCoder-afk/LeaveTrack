@@ -94,6 +94,7 @@ include '../auth/auth.php'; // Ensure authentication
                                             <th>Date Applied</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
+                                            <th>Specific Dates</th>
                                             <th>Number of Days</th>
                                         </tr>
                                     </thead>
