@@ -1,3 +1,72 @@
+// Multiple Dates Selection
+document.addEventListener('DOMContentLoaded', function () {
+  flatpickr("#specificDates", {
+    mode: "multiple", // Allows multiple date selection
+    dateFormat: "Y-m-d", // Format for the selected dates
+    onChange: function(selectedDates, dateStr, instance) {
+      // Optional: Update the number of days based on selected dates
+      document.getElementById('specificnumdays').value = selectedDates.length;
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  flatpickr("#specificDates2", {
+    mode: "multiple", // Allows multiple date selection
+    dateFormat: "Y-m-d", // Format for the selected dates
+    onChange: function(selectedDates, dateStr, instance) {
+      // Optional: Update the number of days based on selected dates
+      document.getElementById('specificnumdays2').value = selectedDates.length;
+    }
+  });
+});
+
+// Function for date type (Consecutive or Specific)
+function toggleDateType() {
+  const dateType = document.querySelector('input[name="date_type"]:checked').value;
+  const consecutiveDates = document.getElementById('consecutiveDatesContainer');
+  const specificDates = document.getElementById('specificDatesContainer');
+
+  if (dateType === 'consecutive') {
+    consecutiveDates.style.display = 'flex';
+    specificDates.style.display = 'none';
+    // Clear specific dates input
+    document.getElementById('specificDates').value = '';
+    document.getElementById('specificnumdays').value = '';
+  } else {
+    consecutiveDates.style.display = 'none';
+    specificDates.style.display = 'flex';
+
+    // Clear consecutive dates input
+    document.getElementById('startDate').value = '';
+    document.getElementById('endDate').value = '';
+    document.getElementById('numberOfDays').value = '';
+  }
+}
+
+function toggleDateType2() {
+  const dateType = document.querySelector('input[name="date_type2"]:checked').value;
+  const consecutiveDates = document.getElementById('consecutiveDatesContainer2');
+  const specificDates = document.getElementById('specificDatesContainer2');
+
+  if (dateType === 'consecutive') {
+    consecutiveDates.style.display = 'flex';
+    specificDates.style.display = 'none';
+
+    // Clear specific dates input
+    document.getElementById('specificDates2').value = '';
+    document.getElementById('specificnumdays2').value = '';
+  } else {
+    consecutiveDates.style.display = 'none';
+    specificDates.style.display = 'flex';
+
+     // Clear consecutive dates input
+    document.getElementById('startDate2').value = '';
+    document.getElementById('endDate2').value = '';
+    document.getElementById('numberOfDays2').value = '';
+  }
+}
+
 function calculateNumberofDays() {
   var startDate = document.getElementById('startDate').value;
   var endDate = document.getElementById('endDate').value;
