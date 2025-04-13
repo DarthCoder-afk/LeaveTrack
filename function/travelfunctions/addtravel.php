@@ -12,6 +12,15 @@ if(isset($_POST['AddTravel'])) {
     $startdate = $_POST['sdate'];
     $enddate = $_POST['edate'];
     $numdays = $_POST['numdays'];
+    $date_type = $_POST['date_type'];
+    $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;
+
+    if ($date_type === 'specific' && $specific_dates) {
+        $dates = explode(',', $specific_dates); // Assuming dates are comma-separated
+        $numdays = count($dates);
+        $sdate = null; // Not applicable for specific dates
+        $edate = null; // Not applicable for specific dates
+    }
   
     // File Upload Handling
     $file = $_FILES['form']['name'];
@@ -45,9 +54,9 @@ if(isset($_POST['AddTravel'])) {
 
      // Insert Travel Application
     $stmt = $conn->prepare("INSERT INTO travelorder 
-    (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, purpose, destination, dateapplied, startdate, enddate, numofdays, file) 
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-    $stmt->bind_param("issssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $purpose, $destination, $dateapplied, $startdate, $enddate, $numdays, $file);
+    (emp_index, employee_Id, emp_lname, emp_fname, emp_midname, emp_extname, purpose, destination, dateapplied, date_type, specific_dates, startdate, enddate, numofdays, file) 
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    $stmt->bind_param("issssssssssssss", $emp_index, $emp_id, $lname, $fname, $midname, $extname, $purpose, $destination, $dateapplied, $date_type, $specific_dates, $startdate, $enddate, $numdays, $file);
 
 
     if($stmt->execute()) {

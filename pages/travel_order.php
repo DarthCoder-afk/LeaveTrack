@@ -20,6 +20,7 @@ include '../auth/auth.php'; // Ensure authentication
   <link href="../vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
   <link href="../css/admin.min.css" rel="stylesheet">
   <link href="../vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <style>
      .table {
@@ -117,6 +118,7 @@ include '../auth/auth.php'; // Ensure authentication
                               <div class="form-group">
                                 <label>Position</label>
                                 <input type="text" class="form-control" name="position" id="position" disabled>
+                                <input type="hidden" class="form-control" name="position2" id="position2">
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -147,23 +149,56 @@ include '../auth/auth.php'; // Ensure authentication
                                 <input type="date" class="form-control" name="datefiled" id="dateApplied" required onchange=calculateNumberofDays()>
                               </div>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label>Leave Date Type</label>
+                                <div>
+                                  <label class="mr-2">
+                                    <input type="radio" name="date_type" value="consecutive" checked onchange="toggleDateType()"> Consecutive Dates
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="date_type" value="specific" onchange="toggleDateType()"> Specific Dates
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <!-- Consecutive Dates -->
+                            <div class="row ml-3" id="consecutiveDatesContainer">
                               <div class="form-group">
                                 <label>Start Date</label>
-                                <input type="date" class="form-control" name="sdate" id="startDate" disabled onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="startdate" id="startDate" disabled onchange="calculateNumberofDays()">
                               </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
+                              <div class="form-group ml-4">
                                 <label>End Date</label>
-                                <input type="date" class="form-control" name="edate" id="endDate" disabled onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange="calculateNumberofDays()">
                               </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
+                              <div class="form-group ml-4">
                                 <label>Number of Days</label>
                                 <div class="input-group">
                                   <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                      <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
+                            <!-- Specific Dates -->
+                            <div class="col-md-6" id="specificDatesContainer" style="display: none;">
+                              <div class="form-group">
+                                <label>Select Specific Dates</label>
+                                <input type="text" class="form-control" name="specific_dates" id="specificDates" placeholder="Select dates">
+                                <small class="form-text text-muted">Click to select multiple dates.</small>
+                              </div>
+
+                              <div class="form-group ml-4">
+                                <label>Number of Days</label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="specificnumdays" id="specificnumdays" readonly>
                                   <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
                                       <i class="fas fa-minus-circle"></i>
@@ -543,6 +578,7 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../vendor/jquery-easing/jquery.easing.min.js"></script>
       <script src="../js/ruang-admin.min.js"></script>
       <script src="../js/leaveapplication/generateReportTravel.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
