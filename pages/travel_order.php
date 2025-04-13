@@ -308,30 +308,78 @@ include '../auth/auth.php'; // Ensure authentication
                                 <input type="text" class="form-control" name="destination" id="destination" required>
                               </div>
                             </div>
+                            <div class="col-md-6" id="optionalLeaveDiv" style="display: none;">
+                              <div class="form-group">
+                                <label>Specify Leave Type</label>
+                                <input type="text" class="form-control" name="optionalLeaveType" id="optionalLeaveType">
+                              </div>
+                            </div>
+
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>
-                                <input type="date" class="form-control" name="datefiled" id="dateApplied" required>
+                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required onchange="UpdatecalculateNumberofDays()">
                               </div>
                             </div>
-                            <div class="col-md-3">
+
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label>Leave Date Type</label>
+                                <div>
+                                  <label class="mr-2">
+                                    <input type="radio" name="date_type2" value="consecutive" checked onchange="toggleDateType2()"> Consecutive Dates
+                                  </label>
+                                  <label>
+                                    <input type="radio" name="date_type2" value="specific" onchange="toggleDateType2()"> Specific Dates
+                                  </label>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <!-- Consecutive Dates -->
+                            <div class="row ml-3" id="consecutiveDatesContainer2">
                               <div class="form-group">
                                 <label>Start Date</label>
-                                <input type="date" class="form-control" name="sdate" id="startDate" required onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="startdate" id="startDate2" onchange="UpdatecalculateNumberofDays()">
                               </div>
-                            </div>
-                            <div class="col-md-3">
-                              <div class="form-group">
+                              <div class="form-group ml-4">
                                 <label>End Date</label>
-                                <input type="date" class="form-control" name="edate" id="endDate" required onchange=calculateNumberofDays()>
+                                <input type="date" class="form-control" name="enddate" id="endDate2" onchange="UpdatecalculateNumberofDays()">
                               </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
+                              <div class="form-group ml-4">
                                 <label>Number of Days</label>
-                                <input type="number" class="form-control" name="days" id="numberOfDays" readonly>
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="numdays" id="numberOfDays2" readonly>
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                      <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                  </div>
+                                </div>
                               </div>
                             </div>
+
+                            <!-- Specific Dates -->
+                            <div class="row" id="specificDatesContainer2" style="display: none;">
+                              <div class="form-group col-md-6 ml-3">
+                                <label>Select Specific Dates</label>
+                                <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
+                                <small class="form-text text-muted">Click to select multiple dates.</small>
+                              </div>
+
+                              <div class="form-group col-md-4">
+                                <label>Number of Days</label>
+                                <div class="input-group">
+                                  <input type="text" class="form-control" name="specificnumdays" id="specificnumdays2" readonly>
+                                  <div class="input-group-append">
+                                    <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                      <i class="fas fa-minus-circle"></i>
+                                    </button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+
                             <div class="col-md-6">
                               <div class="form-group">
                               <label>Upload File <small>(optional)</small></label>

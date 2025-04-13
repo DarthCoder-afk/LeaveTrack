@@ -12,11 +12,15 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
    var gender = button.data('gender');
    var purpose = button.data('purpose');
    var destination = button.data('destination');
+   
    var datefiled = button.data('dateapplied');
    var sdate = button.data('startdate');
    var edate = button.data('enddate');
    var ndays = button.data('numdays');
+   var sdays = button.data('numdays');
    var form = button.data('file');
+   var dateType = button.data('date_type'); // 'consecutive' or 'specific'
+   var specificDates = button.data('specific_dates'); // Comma-separated specific dates
    
    console.log("employee_id:", employee_id );
    console.log("indexno:", indexno );
@@ -35,9 +39,41 @@ $('#EditTravelModal').on('show.bs.modal', function (event) {
    modal.find('#office').val(offices);
    modal.find('#purpose').val(purpose);
    modal.find('#destination').val(destination);
-   modal.find('#dateApplied').val(datefiled);
+   modal.find('#dateApplied2').val(datefiled);
    modal.find('#startDate').val(sdate);
    modal.find('#endDate').val(edate);
+
+   // Set the radio button for date type
+   if (dateType === 'specific') {
+      modal.find('input[name="date_type2"][value="specific"]').prop('checked', true);
+      modal.find('#specificDatesContainer2').show();
+      modal.find('#consecutiveDatesContainer2').hide();
+
+      // Populate specific dates field
+      modal.find('#specificDates2').val(specificDates);
+      modal.find('#specificnumdays2').val(sdays);
+  } else {
+      modal.find('input[name="date_type2"][value="consecutive"]').prop('checked', true);
+      modal.find('#specificDatesContainer2').hide();
+      modal.find('#consecutiveDatesContainer2').show();
+
+      // Populate consecutive dates fields
+      modal.find('#startDate2').val(sdate);
+      modal.find('#endDate2').val(edate);
+      modal.find('#numberOfDays2').val(ndays);
+  }
+
+  // Event listener for changing date type
+  modal.find('input[name="date_type"]').off('change').on('change', function () {
+      if ($(this).val() === 'specific') {
+          modal.find('#specificDatesContainer2').show();
+          modal.find('#consecutiveDatesContainer2').hide();
+      } else {
+          modal.find('#specificDatesContainer2').hide();
+          modal.find('#consecutiveDatesContainer2').show();
+      }
+  });
+
    
    modal.find('#numberOfDays').val(ndays);
    if (form === '') {

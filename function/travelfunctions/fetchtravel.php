@@ -62,6 +62,8 @@
                     data-destination='{$row['destination']}'
                     data-dateapplied='{$row['dateapplied']}'
                     data-startdate='{$row['startdate']}'
+                    data-date_type='{$row['date_type']}'
+                    data-specific_dates='{$row['specific_dates']}'
                     data-enddate='{$row['enddate']}'
                     data-numdays='{$row['numofdays']}'
                     data-file='{$row['file']}'>
