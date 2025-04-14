@@ -15,8 +15,8 @@ $(document).on('click', '.viewTravelBtn', function () {
     var enddate = $(this).data('enddate');
     var numdays = $(this).data('numdays');
     var file = $(this).data('file');
-    var datetype = $(this).data('datetype');
-    var specificdates = $(this).data('specificdates');
+    var datetype = $(this).data('datetype'); // 'consecutive' or 'specific'
+    var specificdates = $(this).data('specificdates'); // Comma-separated or multi-line
     var gender = $(this).data('gender');
 
     console.log("Data Retrieved:", {
@@ -54,7 +54,7 @@ $(document).on('click', '.viewTravelBtn', function () {
         $('#specificDatesGroup').removeClass('d-none');
         $('#consecutiveDatesGroup').addClass('d-none');
         $('#consecutiveDatesGroupEnd').addClass('d-none');
-        $('#viewSpecificDates').val(specificdates ? specificdates.split(',').join('\n') : 'N/A');
+        $('#viewSpecificDates').val(specificdates);
     } else {
         $('#specificDatesGroup').addClass('d-none');
         $('#consecutiveDatesGroup').removeClass('d-none');
