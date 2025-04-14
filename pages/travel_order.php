@@ -497,11 +497,11 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
 
                           <!-- Specific Dates Group -->
-                          <div class="col-md-12 d-none" id="specificDatesGroup">
-                            <div class="form-group">
-                              <label>Specific Dates</label>
-                              <textarea class="form-control" id="viewSpecificDates" rows="2" disabled></textarea>
-                            </div>
+                          <div id="specificDatesGroup" class="col-md-12 d-none">
+                              <div class="form-group">
+                                  <label>Specific Dates (yyyy-mm-dd)</label>
+                                  <textarea class="form-control" id="viewSpecificDates" rows="4" readonly></textarea>
+                              </div>
                           </div>
                         </div> <!-- End .row -->
                       </div> <!-- End .modal-body -->
