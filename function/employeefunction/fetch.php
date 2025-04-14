@@ -27,7 +27,7 @@
                     <i class='fas fa-eye'></i>
                 </button>
 
-                <button class='btn btn-info' data-toggle='modal' data-target='#editEmployeeModal'
+                <button class='btn btn-info' data-toggle='modal' data-target='#verifyModal2'
                 data-employee_id='{$row['employee_id']}'
                 data-index_no ={$row['indexno']}
                 data-lname='{$row['lname']}'

@@ -390,7 +390,7 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                         
                       </div>
-                      <button type="submit" class="btn btn-success btn-block" name="updateData">Update</button>
+                      <button type="submit" class="btn btn-success btn-block" name="updateData">Save Changes</button>
                   </div>
                 </div>
               </div>
