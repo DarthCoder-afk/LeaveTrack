@@ -193,7 +193,7 @@ include '../auth/auth.php'; // Ensure authentication
 
             <!-- Monetization Modal -->
             <div class="modal fade" id="monetizationModal" tabindex="-1" role="dialog" aria-labelledby="monetizationModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-dialog modal-xl" role="document">
                     <div class="modal-content shadow-lg" style="border-radius: 15px; overflow: hidden;">
                         <!-- Modal Header -->
                         <div class="modal-header text-white" style="background: linear-gradient(135deg, #28a745, #218838); border-bottom: none;">
