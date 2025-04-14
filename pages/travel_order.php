@@ -398,110 +398,120 @@ include '../auth/auth.php'; // Ensure authentication
                 </div>
              </form>
 
-              <!-- VIEW LEAVE MODAL (Improved) -->
-            <form>
-              <div class="modal fade" id="ViewTravelModal" tabindex="-1" role="dialog" aria-labelledby="viewTravelLabel" aria-hidden="true">
+              <!-- VIEW TRAVEL MODAL -->
+              <form>
+                <div class="modal fade" id="ViewTravelModal" tabindex="-1" role="dialog" aria-labelledby="viewTravelLabel" aria-hidden="true">
                   <div class="modal-dialog modal-lg" role="document">
-                      <div class="modal-content">
-                          <div class="modal-header bg-success text-white">
-                              <h5 class="modal-title"><i class="fas fa-user"></i> View Travel Application</h5>
-                              <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                                  <span aria-hidden="true">&times;</span>
-                              </button>
-                          </div>
-                          <div class="modal-body">
-                              <!-- Profile Section -->
-                              <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
-                                  <div class="d-flex align-items-center">
-                                      <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" 
-                                          alt="Profile" width="70" height="70">
-                                      <div class="ms-3">
-                                          <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5> 
-                                          <small class="text-muted">ID No: 
-                                              <span id="profileIdNumber" class="px-2 py-1 fw-bold" 
-                                                    style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); 
-                                                          border-radius: 8px; padding: 4px 10px; display: inline-block;">
-                                                  000
-                                              </span>
-                                          </small>
-                                      </div>
-                                  </div>
-
-                                  <!-- File Button -->
-                                  <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
-                                      <i class="fas fa-file-alt"></i> View Document
-                                  </a>
-                              </div>
-
-
-                                  <!-- Leave Details -->
-                                  <div class="row">
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Last Name</label>
-                                              <input type="text" class="form-control" id="viewLastName" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>First Name</label>
-                                              <input type="text" class="form-control" id="viewFirstName" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Position</label>
-                                              <input type="text" class="form-control" id="viewPosition" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Office</label>
-                                              <input type="text" class="form-control" id="viewOffice" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Purpose</label>
-                                              <input type="text" class="form-control" id="viewPurpose" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Destination </label>
-                                              <input type="text" class="form-control" id="viewDestination" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Date Applied</label>
-                                              <input type="date" class="form-control" id="viewDateApplied" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group">
-                                              <label>Start Date</label>
-                                              <input type="date" class="form-control" id="viewStartDate" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-3">
-                                          <div class="form-group">
-                                              <label>End Date</label>
-                                              <input type="date" class="form-control" id="viewEndDate" disabled>
-                                          </div>
-                                      </div>
-                                      <div class="col-md-6">
-                                          <div class="form-group">
-                                              <label>Number of Days</label>
-                                              <input type="text" class="form-control" id="viewNumberOfDays" disabled>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                    <div class="modal-content">
+                      <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title"><i class="fas fa-user"></i> View Travel Application</h5>
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                       </div>
-                  </div> 
-            </form>
+
+                      <div class="modal-body">
+                        <!-- Profile Section -->
+                        <div class="d-flex align-items-center justify-content-between mb-3 p-3 bg-light rounded shadow-sm">
+                          <div class="d-flex align-items-center">
+                            <img src="../img/default_profile.png" id="profilePic" class="rounded-circle border border-primary" alt="Profile" width="70" height="70">
+                            <div class="ms-3">
+                              <h5 id="fullName" class="mb-0 text-primary fw-bold">Anonymous</h5>
+                              <small class="text-muted">ID No:
+                                <span id="profileIdNumber" class="px-2 py-1 fw-bold" style="color: #fff; background: linear-gradient(45deg, #ff6b6b, #f06595); border-radius: 8px; padding: 4px 10px; display: inline-block;">
+                                  000
+                                </span>
+                              </small>
+                            </div>
+                          </div>
+
+                          <!-- File Button -->
+                          <a id="view_file_btn" href="#" target="_blank" class="btn btn-sm btn-primary d-none">
+                            <i class="fas fa-file-alt"></i> View Document
+                          </a>
+                        </div>
+
+                        <!-- Travel Details -->
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Last Name</label>
+                              <input type="text" class="form-control" id="viewLastName" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>First Name</label>
+                              <input type="text" class="form-control" id="viewFirstName" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Position</label>
+                              <input type="text" class="form-control" id="viewPosition" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Office</label>
+                              <input type="text" class="form-control" id="viewOffice" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Purpose</label>
+                              <input type="text" class="form-control" id="viewPurpose" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Destination</label>
+                              <input type="text" class="form-control" id="viewDestination" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Date Applied</label>
+                              <input type="date" class="form-control" id="viewDateApplied" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="form-group">
+                              <label>Number of Days</label>
+                              <input type="text" class="form-control" id="viewNumberOfDays" disabled>
+                            </div>
+                          </div>
+
+                          <!-- Consecutive Dates Group -->
+                          <div class="col-md-6 d-none" id="consecutiveDatesGroup">
+                            <div class="form-group">
+                              <label>Start Date</label>
+                              <input type="date" class="form-control" id="viewStartDate" disabled>
+                            </div>
+                          </div>
+                          <div class="col-md-6 d-none" id="consecutiveDatesGroupEnd">
+                            <div class="form-group">
+                              <label>End Date</label>
+                              <input type="date" class="form-control" id="viewEndDate" disabled>
+                            </div>
+                          </div>
+
+                          <!-- Specific Dates Group -->
+                          <div class="col-md-12 d-none" id="specificDatesGroup">
+                            <div class="form-group">
+                              <label>Specific Dates</label>
+                              <textarea class="form-control" id="viewSpecificDates" rows="2" disabled></textarea>
+                            </div>
+                          </div>
+                        </div> <!-- End .row -->
+                      </div> <!-- End .modal-body -->
+                    </div> <!-- End .modal-content -->
+                  </div>
+                </div>
+              </form>
+
+
+
 
             <!-- Report Modal -->
             <div class="modal fade" id="reportModal" tabindex="-1" role="dialog">

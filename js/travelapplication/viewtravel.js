@@ -15,27 +15,30 @@ $(document).on('click', '.viewTravelBtn', function () {
     var enddate = $(this).data('enddate');
     var numdays = $(this).data('numdays');
     var file = $(this).data('file');
-    var gender = $(this).data('gender'); // Get gender
+    var datetype = $(this).data('datetype');
+    var specificdates = $(this).data('specificdates');
+    var gender = $(this).data('gender');
 
-    console.log("Data Retrieved:", {employee_id, lname, fname, position, office, purpose, destination, gender});
+    console.log("Data Retrieved:", {
+        employee_id, lname, fname, position, office, purpose, destination,
+        dateapplied, startdate, enddate, numdays, datetype, specificdates
+    });
 
     var fullName = lname + ", " + fname + " " + (extname ? extname + " " : "") + (midname ? midname : "");
-
-    // Update Profile Section
     $('#profileIdNumber').text(employee_id);
     $('#fullName').text(fullName);
 
-    // Change Profile Picture Based on Gender
+    // Profile Picture by Gender
     var profilePic = $("#profilePic");
     if (gender.toLowerCase() === "male") {
-        profilePic.attr("src", "../img/male_profile.png");  // Set Male Profile
+        profilePic.attr("src", "../img/male_profile.png");
     } else if (gender.toLowerCase() === "female") {
-        profilePic.attr("src", "../img/female_profile.png"); // Set Female Profile
+        profilePic.attr("src", "../img/female_profile.png");
     } else {
-        profilePic.attr("src", "../img/profile_app.jpg"); // Default Profile
+        profilePic.attr("src", "../img/profile_app.jpg");
     }
 
-    // Set values for the view modal (Read-Only)
+    // Basic Travel Info
     $('#viewLastName').val(lname);
     $('#viewFirstName').val(fname);
     $('#viewPosition').val(position);
@@ -43,19 +46,32 @@ $(document).on('click', '.viewTravelBtn', function () {
     $('#viewPurpose').val(purpose);
     $('#viewDestination').val(destination);
     $('#viewDateApplied').val(dateapplied);
-    $('#viewStartDate').val(startdate);
-    $('#viewEndDate').val(enddate);
     $('#viewNumberOfDays').val(numdays);
 
-    // Handle file link button
-    if (file && file !== "null") {
-        $('#view_file_btn')
-            .attr('href', '../uploads/' + file)
-            .removeClass('d-none'); // Show the button
+
+    // Handle Date View Logic
+    if (datetype === 'specific') {
+        $('#specificDatesGroup').removeClass('d-none');
+        $('#consecutiveDatesGroup').addClass('d-none');
+        $('#consecutiveDatesGroupEnd').addClass('d-none');
+        $('#viewSpecificDates').val(specificdates ? specificdates.split(',').join('\n') : 'N/A');
     } else {
-        $('#view_file_btn')
-            .addClass('d-none'); // Hide the button if no file is available
+        $('#specificDatesGroup').addClass('d-none');
+        $('#consecutiveDatesGroup').removeClass('d-none');
+        $('#consecutiveDatesGroupEnd').removeClass('d-none');
+        $('#viewStartDate').val(startdate);
+        $('#viewEndDate').val(enddate);
+    }
+    
+    
+
+
+    // Handle Attached File
+    if (file && file !== "null") {
+        $('#view_file_btn').attr('href', '../uploads/' + file).removeClass('d-none');
+    } else {
+        $('#view_file_btn').addClass('d-none');
     }
 
-    $('#viewLeaveModal').modal('show');
+    $('#ViewTravelModal').modal('show');
 });

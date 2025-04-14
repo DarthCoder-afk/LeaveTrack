@@ -39,6 +39,8 @@
                     data-purpose='{$row['purpose']}'
                     data-destination='{$row['destination']}'
                     data-dateapplied='{$row['dateapplied']}'
+                    data-datetype='{$row['date_type']}'
+                    data-specificdates='{$row['specific_dates']}'
                     data-startdate='{$row['startdate']}'
                     data-enddate='{$row['enddate']}'
                     data-numdays='{$row['numofdays']}'
