@@ -363,7 +363,6 @@ include '../auth/auth.php'; // Ensure authentication
             </form>
             
             <!-- EDIT APPLICATION MODAL -->
-            
             <form action="../function/leavefunctions/updateleave.php" method="POST" enctype="multipart/form-data">
               <div class="modal fade" id="editLeaveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
@@ -526,7 +525,7 @@ include '../auth/auth.php'; // Ensure authentication
                               </div>
                             </div>
                           </div>
-                          <button type="submit" class="btn btn-success btn-block" name="UpdateLeave">Save</button>
+                          <button type="submit" class="btn btn-success btn-block" name="UpdateLeave">Save Changes</button>
                       </div>
                   </div>
                 </div>
@@ -643,6 +642,7 @@ include '../auth/auth.php'; // Ensure authentication
             <!-- Data Alert -->
             <?php include '../includes/data_alert.php'; ?>
             <?php include '../includes/verify_modal.php'?>
+            <?php include '../includes/verifymodal2.php'?>
 
             <!-- Test Pull Request -->
 

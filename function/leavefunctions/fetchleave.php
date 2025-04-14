@@ -54,7 +54,7 @@
 
 
 
-                <button class='btn btn-info' data-toggle='modal' data-target='#editLeaveModal'
+                <button class='btn btn-info' data-toggle='modal' data-target='#verifyModal2'
                     data-indexno= '{$row['index_no']}'
                     data-employee_id='{$row['employee_id']}'
                     data-lname='{$row['lname']}'
