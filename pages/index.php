@@ -144,14 +144,17 @@ include '../auth/auth.php'; // Ensure authentication
                         <!-- Modal Body -->
                         <div class="modal-body p-4" style="background: #f8f9fa;">
                             <div class="table-responsive">
-                                <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;">
+                                <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10-px; overflow: hidden;">
                                     <thead class="thead-dark">
                                         <tr>
                                             <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Purpose</th>
                                             <th>Destination</th>
-                                            <th>Date Applied</th>
+                                            <th>Date of File</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th>Specific Dates</th>
                                         </tr>
                                     </thead>
                                     <tbody>
