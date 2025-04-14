@@ -90,8 +90,8 @@ $(document).ready(function () {
         modal.find('#purpose').val(data.purpose);
         modal.find('#destination').val(data.destination);
         modal.find('#dateApplied2').val(data.datefiled);
-        modal.find('#startDate').val(data.sdate);
-        modal.find('#endDate').val(data.edate);
+        modal.find('#startDate2').val(data.sdate);
+        modal.find('#endDate2').val(data.edate);
         modal.find('#numberOfDays2').val(data.ndays);
 
         // Handle uploaded file label

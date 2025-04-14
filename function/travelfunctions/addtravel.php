@@ -9,8 +9,8 @@ if(isset($_POST['AddTravel'])) {
     $purpose = $_POST['pur'];
     $destination = $_POST['des'];
     $dateapplied = $_POST['datefiled'];
-    $startdate = $_POST['sdate'];
-    $enddate = $_POST['edate'];
+    $startdate = $_POST['startdate'];
+    $enddate = $_POST['enddate'];
     $numdays = $_POST['numdays'];
     $date_type = $_POST['date_type'];
     $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;

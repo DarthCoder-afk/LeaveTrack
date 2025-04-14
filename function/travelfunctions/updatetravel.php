@@ -8,10 +8,10 @@ if(isset($_POST['EditTravel'])) {
     $emp_id = $_POST['employee_Id'];
     $purpose = $_POST['purpose'];
     $destination = $_POST['destination'];
-    $datefiled = $_POST['datefiled'];
-    $sdate = $_POST['sdate'];
-    $edate = $_POST['edate'];
-    $ndays = $_POST['days'];
+    $datefiled = $_POST['applieddate'];
+    $sdate = $_POST['startdate'];
+    $edate = $_POST['enddate'];
+    $ndays = $_POST['numdays'];
     $date_type = $_POST['date_type2'];
     $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;
 
