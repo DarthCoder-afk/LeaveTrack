@@ -28,7 +28,7 @@
                                 while ($row = $result->fetch_assoc()) {
                                     $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
                                     echo "<tr class='text-center'>";
-                                    echo "<td>{$row['employee_id']}</td>";
+                                    echo "<td class='text-primary'><b>{$row['employee_id']}</b></td>";
                                     echo "<td>{$full_name}</td>";
                                     echo "<td>{$row['position']}</td>";
                                     echo "<td>{$row['office']}</td>";        
