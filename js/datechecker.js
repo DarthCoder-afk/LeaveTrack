@@ -154,10 +154,6 @@ function UpdatecalculateNumberofDays() {
     endDateInput.min = appliedDate;
   } 
 
-
-
-
-
   if (startDate && endDate) {
       var start = new Date(startDate);
       var end = new Date(endDate);

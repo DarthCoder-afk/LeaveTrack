@@ -380,6 +380,14 @@ include '../auth/auth.php'; // Ensure authentication
                               </div>
                             </div>
 
+                             <!-- Hidden input for subtracting holidays -->
+                          <div class="col-md-3" id="updateholidayContainer" style="display: none;">
+                            <div class="form-group">
+                              <label>Minus Holidays</label>
+                              <input type="number" class="form-control" name="holidayDeduction" id="updateholidayDeduction" min="0" value="0" oninput="calculateNumberofDays()">
+                            </div>
+                          </div>
+
                             <div class="col-md-6">
                               <div class="form-group">
                               <label>Upload File <small>(optional)</small></label>
