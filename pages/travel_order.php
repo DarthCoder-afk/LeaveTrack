@@ -253,7 +253,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="col-md-6">
                               <div class="form-group">
                                 <label>ID No.</label>
-                                <input type="text" class="form-control" name="employee_Id" id="idnumber" required>
+                                <input type="text" class="form-control" name="employee_Id" id="idnumber" readonly>
                                 <input type="hidden" class="form-control" name="index_no" id="index_no" required>
                               </div>
                             </div>
@@ -390,7 +390,7 @@ include '../auth/auth.php'; // Ensure authentication
                               </div>
                             </div>
                           </div>
-                          <button type="submit" class="btn btn-success btn-block" name="EditTravel">Save</button>
+                          <button type="submit" class="btn btn-success btn-block" name="EditTravel">Save Changes</button>
                        
                       </div>
                     </div>
@@ -607,6 +607,7 @@ include '../auth/auth.php'; // Ensure authentication
 
             <?php include '../includes/data_alert.php'; ?>
             <?php include '../includes/verify_modal.php'; ?>
+            <?php include '../includes/verifymodal2.php'; ?>
 
             <!---Container Fluid-->
           </div>
