@@ -76,22 +76,31 @@ $(document).on('click', '.viewEmployeeBtn', function () {
             }
             $("#leaveHistory").html(leaveHtml);
 
-    
+
             // Travel History
             var travelHtml = "";
             if (response.travel.length > 0) {
                 response.travel.forEach(function (travel) {
+                    const specificDates = travel.specific_dates
+                        ? travel.specific_dates.split(/[\n,]+/).map(date => date.trim()).filter(date => date).join('<br>')
+                        : 'N/A';
+
+                    const numOfDays = travel.numofdays ?? 'N/A';
+
                     travelHtml += `<tr>
                         <td>${travel.purpose}</td>
                         <td>${travel.destination}</td>
-                        <td>${travel.startdate}</td>
-                        <td>${travel.enddate}</td>
+                        <td>${travel.startdate || 'N/A'}</td>
+                        <td>${travel.enddate || 'N/A'}</td>
+                        <td>${specificDates}</td>
+                        <td>${numOfDays}</td>
                     </tr>`;
                 });
             } else {
-                travelHtml = `<tr><td colspan="4" class="text-center">No travel history available</td></tr>`;
+                travelHtml = `<tr><td colspan="6" class="text-center">No travel history available</td></tr>`;
             }
             $("#travelHistory").html(travelHtml);
+
         },
         error: function (xhr, status, error) {
             console.error("Failed to fetch history", xhr.responseText);

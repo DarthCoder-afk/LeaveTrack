@@ -26,7 +26,7 @@ if (isset($_POST['employee_id']) && isset($_POST['indexno'])) {
     $stmt->close();
 
     // Fetch Travel History based on indexno
-    $travelQuery = "SELECT purpose, destination, startdate, enddate 
+    $travelQuery = "SELECT purpose, destination, startdate, enddate, specific_dates, numofdays
                     FROM travelorder 
                     WHERE emp_index = ?";
     $stmt = $conn->prepare($travelQuery);

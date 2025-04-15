@@ -180,6 +180,8 @@ include '../auth/auth.php'; // Ensure authentication
                                       <th>Destination</th>
                                       <th>Start Date</th>
                                       <th>Return</th>
+                                      <th>Specific Dates</th> <!-- New -->
+                                      <th>number of days</th>
                                   </tr>
                               </thead>
                               <tbody id="travelHistory">
