@@ -317,7 +317,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date Applied</label>
-                                        <input type="date" class="form-control" id="viewDateApplied" disabled>
+                                        <span id="viewDateApplied" class="form-control bg-light border rounded"></span>
                                     </div>
                                 </div>
 
@@ -327,13 +327,13 @@ include '../auth/auth.php'; // Ensure authentication
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <input type="date" class="form-control" id="viewStartDate" disabled>
+                                                <span id="viewStartDate" class="form-control bg-light border rounded"></span>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <input type="date" class="form-control" id="viewEndDate" disabled>
+                                                <span id="viewEndDate" class="form-control bg-light border rounded"></span>
                                             </div>
                                         </div>
                                     </div>

@@ -42,7 +42,7 @@
                     data-leavetype='{$row['leavetype']}'
                     data-dateapplied='{$row['dateapplied']}'
                     data-date_type='{$row['date_type']}'
-                    data-specific_dates='{$row['specific_dates']}'
+                    data-specific_dates='" . htmlspecialchars($row['specific_dates'], ENT_QUOTES) . "'
                     data-startdate='{$row['startdate']}'
                     data-enddate='{$row['enddate']}'
                     data-numdays='{$row['numofdays']}'
