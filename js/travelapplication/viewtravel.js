@@ -15,8 +15,8 @@ $(document).on('click', '.viewTravelBtn', function () {
     var enddate = $(this).data('enddate');
     var numdays = $(this).data('numdays');
     var file = $(this).data('file');
-    var datetype = $(this).data('datetype'); // 'consecutive' or 'specific'
-    var specificdates = $(this).data('specificdates'); // Comma-separated or multi-line
+    var datetype = $(this).data('datetype');
+    var specificdates = $(this).data('specificdates');
     var gender = $(this).data('gender');
 
     console.log("Data Retrieved:", {
@@ -38,33 +38,51 @@ $(document).on('click', '.viewTravelBtn', function () {
         profilePic.attr("src", "../img/profile_app.jpg");
     }
 
-    // Basic Travel Info
+    // Format Date Helper
+    function formatDate(rawDate) {
+        if (!rawDate) return "";
+        const dateObj = new Date(rawDate);
+        return dateObj.toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+        });
+    }
+
+    // Basic Info
     $('#viewLastName').val(lname);
     $('#viewFirstName').val(fname);
     $('#viewPosition').val(position);
     $('#viewOffice').val(office);
     $('#viewPurpose').val(purpose);
     $('#viewDestination').val(destination);
-    $('#viewDateApplied').val(dateapplied);
+    $('#viewDateApplied').val(formatDate(dateapplied));
     $('#viewNumberOfDays').val(numdays);
-
 
     // Handle Date View Logic
     if (datetype === 'specific') {
         $('#specificDatesGroup').removeClass('d-none');
         $('#consecutiveDatesGroup').addClass('d-none');
         $('#consecutiveDatesGroupEnd').addClass('d-none');
-        $('#viewSpecificDates').val(specificdates);
+
+        if (specificdates) {
+            let formattedDates = specificdates
+                .split(/,|\n/)
+                .map(dateStr => formatDate(dateStr.trim()))
+                .join('\n');
+            $('#viewSpecificDates').val(formattedDates);
+        } else {
+            $('#viewSpecificDates').val('');
+        }
+
     } else {
         $('#specificDatesGroup').addClass('d-none');
         $('#consecutiveDatesGroup').removeClass('d-none');
         $('#consecutiveDatesGroupEnd').removeClass('d-none');
-        $('#viewStartDate').val(startdate);
-        $('#viewEndDate').val(enddate);
-    }
-    
-    
 
+        $('#viewStartDate').val(formatDate(startdate));
+        $('#viewEndDate').val(formatDate(enddate));
+    }
 
     // Handle Attached File
     if (file && file !== "null") {

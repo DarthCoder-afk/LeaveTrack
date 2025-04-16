@@ -480,7 +480,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="col-md-6">
                             <div class="form-group">
                               <label>Date Applied</label>
-                              <input type="date" class="form-control" id="viewDateApplied" disabled>
+                              <input type="text" id="viewDateApplied" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="col-md-6">
@@ -494,13 +494,13 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="col-md-6 d-none" id="consecutiveDatesGroup">
                             <div class="form-group">
                               <label>Start Date</label>
-                              <input type="date" class="form-control" id="viewStartDate" disabled>
+                              <input type="text" id="viewStartDate" class="form-control" disabled>
                             </div>
                           </div>
                           <div class="col-md-6 d-none" id="consecutiveDatesGroupEnd">
                             <div class="form-group">
                               <label>End Date</label>
-                              <input type="date" class="form-control" id="viewEndDate" disabled>
+                              <input type="text" id="viewEndDate" class="form-control" disabled>
                             </div>
                           </div>
 
