@@ -507,7 +507,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <!-- Specific Dates Group -->
                           <div id="specificDatesGroup" class="col-md-12 d-none">
                               <div class="form-group">
-                                  <label>Specific Dates (yyyy-mm-dd)</label>
+                                  <label>Specific Dates</label>
                                   <textarea class="form-control" id="viewSpecificDates" rows="4" readonly></textarea>
                               </div>
                           </div>

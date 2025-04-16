@@ -1,5 +1,22 @@
 <?php
+// Show errors for debugging (remove in production)
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
 include '../database/db_connect.php'; // Include database connection
+
+// Function to safely format dates or return 'N/A'
+function formatDateSafe($date) {
+    if (
+        empty($date) || 
+        $date === '0000-00-00' || 
+        $date === '-0001-11-30' || 
+        $date === 'November 30, -0001'
+    ) {
+        return 'N/A';
+    }
+    return date("F j, Y", strtotime($date));
+}
 
 // Get the current month and year
 $currentMonth = date('m');
@@ -18,34 +35,53 @@ $query = "
 ";
 
 $stmt = $conn->prepare($query);
+
+if (!$stmt) {
+    die("Prepare failed: " . $conn->error);
+}
+
 $stmt->bind_param("ii", $currentMonth, $currentYear);
-$stmt->execute();
+
+if (!$stmt->execute()) {
+    die("Execute failed: " . $stmt->error);
+}
+
 $result = $stmt->get_result();
 
+if (!$result) {
+    die("Result fetch failed: " . $stmt->error);
+}
+
 while ($row = $result->fetch_assoc()) {
-    echo "<tr data-indexno='{$row['indexno']}'>";
-    echo "<td>{$row['employee_id']}</td>";
-    echo "<td>{$row['full_name']}</td>";
-    echo "<td>{$row['purpose']}</td>";
-    echo "<td>{$row['destination']}</td>";
-    echo "<td>" . ($row['dateapplied'] ?? 'N/A') . "</td>";
-    echo "<td>" . ($row['startdate'] ?? 'N/A') . "</td>";
-    echo "<td>" . ($row['enddate'] ?? 'N/A') . "</td>";
+    echo "<tr data-indexno='" . htmlspecialchars($row['indexno']) . "'>";
+    echo "<td>" . htmlspecialchars($row['employee_id']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['full_name']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['purpose']) . "</td>";
+    echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
+
+    // Format and display dates nicely
+    echo "<td>" . formatDateSafe($row['dateapplied']) . "</td>";
+    echo "<td>" . formatDateSafe($row['startdate']) . "</td>";
+    echo "<td>" . formatDateSafe($row['enddate']) . "</td>";
+
+    // Handle specific dates
     if (!empty($row['specific_dates'])) {
-        $dates = preg_split('/[\n,]+/', $row['specific_dates']); // split by comma or newline
+        $dates = preg_split('/[\n,]+/', $row['specific_dates']); // split by newline or comma
         echo "<td>";
         foreach ($dates as $date) {
             $date = trim($date);
             if (!empty($date)) {
-                echo htmlspecialchars($date) . "<br>";
+                echo formatDateSafe($date) . "<br>";
             }
         }
         echo "</td>";
     } else {
         echo "<td>N/A</td>";
     }
-    
-    
+
     echo "</tr>";
 }
+
+$stmt->close();
+$conn->close();
 ?>
