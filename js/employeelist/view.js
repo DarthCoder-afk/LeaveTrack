@@ -1,9 +1,18 @@
+// Helper: Format date to "Month Day, Year"
+function formatDate(dateStr) {
+    if (!dateStr || dateStr === 'N/A' || dateStr === '0000-00-00') return 'N/A';
+    const date = new Date(dateStr);
+    if (isNaN(date)) return 'N/A';
+    return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+}
+
+
 $(document).on('click', '.viewEmployeeBtn', function () {
     console.log("View button clicked!");
 
     // Get employee details
     var employee_id = $(this).data('employee_id');
-    var indexno = $(this).data('indexno'); // Fetch the index number
+    var indexno = $(this).data('indexno');
     var lname = $(this).data('lname');
     var fname = $(this).data('fname');
     var midname = $(this).data('midname');
@@ -41,15 +50,15 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     $('#view_office').val(office);
     $('#view_gender').val(gender);
     $('#view_status').val(status);
-    
-    // Fetch Leave & Travel History with employee_id and indexno
+
+    // Fetch Leave & Travel History
     $.ajax({
         url: '../function/employeefunction/fetch_history.php',
         type: 'POST',
         data: { employee_id: employee_id, indexno: indexno },
         dataType: 'json',
         success: function (response) {
-            console.log("History Fetched:", response); // Debugging
+            console.log("History Fetched:", response);
 
             // Leave History
             var leaveHtml = "";
@@ -57,10 +66,13 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                 response.leave.forEach(function (leave) {
                     const isSpecific = leave.date_type === 'specific';
 
-                    const startDate = isSpecific ? 'N/A' : (leave.startdate || 'N/A');
-                    const endDate = isSpecific ? 'N/A' : (leave.enddate || 'N/A');
+                    const startDate = isSpecific ? 'N/A' : formatDate(leave.startdate);
+                    const endDate = isSpecific ? 'N/A' : formatDate(leave.enddate);
                     const specificDates = isSpecific && leave.specific_dates
-                        ? leave.specific_dates.split(',').join('<br>')
+                        ? leave.specific_dates
+                            .split(',')
+                            .map(date => formatDate(date.trim()))
+                            .join('<br>')
                         : 'N/A';
 
                     leaveHtml += `<tr>
@@ -76,13 +88,16 @@ $(document).on('click', '.viewEmployeeBtn', function () {
             }
             $("#leaveHistory").html(leaveHtml);
 
-
             // Travel History
             var travelHtml = "";
             if (response.travel.length > 0) {
                 response.travel.forEach(function (travel) {
                     const specificDates = travel.specific_dates
-                        ? travel.specific_dates.split(/[\n,]+/).map(date => date.trim()).filter(date => date).join('<br>')
+                        ? travel.specific_dates
+                            .split(/[\n,]+/)
+                            .map(date => formatDate(date.trim()))
+                            .filter(date => date !== 'N/A')
+                            .join('<br>')
                         : 'N/A';
 
                     const numOfDays = travel.numofdays ?? 'N/A';
@@ -90,8 +105,8 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                     travelHtml += `<tr>
                         <td>${travel.purpose}</td>
                         <td>${travel.destination}</td>
-                        <td>${travel.startdate || 'N/A'}</td>
-                        <td>${travel.enddate || 'N/A'}</td>
+                        <td>${formatDate(travel.startdate)}</td>
+                        <td>${formatDate(travel.enddate)}</td>
                         <td>${specificDates}</td>
                         <td>${numOfDays}</td>
                     </tr>`;
@@ -100,7 +115,6 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                 travelHtml = `<tr><td colspan="6" class="text-center">No travel history available</td></tr>`;
             }
             $("#travelHistory").html(travelHtml);
-
         },
         error: function (xhr, status, error) {
             console.error("Failed to fetch history", xhr.responseText);
@@ -109,10 +123,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
 
     console.log("Sending to fetch_history.php:", { employee_id, indexno });
 
-    // Show the modal
-    console.log("Sending to fetch_history.php:", { employee_id, indexno });
-
-    // Reset visibility when modal opens
+    // Reset history visibility
     $('#leaveHistoryWrapper').hide();
     $('#travelHistoryWrapper').hide();
     $('#toggleLeaveBtn').text('Show Leave History');
@@ -120,7 +131,6 @@ $(document).on('click', '.viewEmployeeBtn', function () {
 
     // Show the modal
     $('#viewEmployeeModal').modal('show');
-
 });
 
 $(document).ready(function () {
@@ -136,4 +146,3 @@ $(document).ready(function () {
         $(this).text(text);
     });
 });
-
