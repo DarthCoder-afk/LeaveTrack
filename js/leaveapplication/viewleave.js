@@ -46,7 +46,8 @@ $(document).on('click', '.viewLeaveBtn', function () {
     $('#viewPosition').val(position);
     $('#viewOffice').val(office);
     $('#viewTypeOfLeave').val(leavetype);
-    $('#viewDateApplied').text(formatDate(dateapplied)); // Display nicely formatted date
+    $('#viewDateApplied').val(formatDate(dateapplied));
+
     $('#viewNumberOfDays').val(numdays);
 
     // Handle date types: specific vs consecutive
@@ -64,9 +65,9 @@ $(document).on('click', '.viewLeaveBtn', function () {
         }
     } else {
         $('#specificDatesGroup').addClass('d-none');
-        $('#consecutiveDatesGroup').removeClass('d-none');
-        $('#viewStartDate').text(formatDate(startdate));  // formatted display
-        $('#viewEndDate').text(formatDate(enddate));      // formatted display
+        $('#consecutiveDatesGroup').removeClass('d-none');  
+        $('#viewStartDate').val(formatDate(startdate));  // formatted display
+        $('#viewEndDate').val(formatDate(enddate));      // formatted display
     }
 
     // Handle file link button

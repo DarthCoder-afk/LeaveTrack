@@ -317,7 +317,8 @@ include '../auth/auth.php'; // Ensure authentication
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Date Applied</label>
-                                        <span id="viewDateApplied" class="form-control bg-light border rounded"></span>
+                                        <input type="text" id="viewDateApplied" class="form-control" disabled>
+
                                     </div>
                                 </div>
 
@@ -327,13 +328,13 @@ include '../auth/auth.php'; // Ensure authentication
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Start Date</label>
-                                                <span id="viewStartDate" class="form-control bg-light border rounded"></span>
+                                                <input type="text" id="viewStartDate" class="form-control" disabled>
                                             </div>
                                         </div>
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>End Date</label>
-                                                <span id="viewEndDate" class="form-control bg-light border rounded"></span>
+                                                <input type="text" id="viewEndDate" class="form-control" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -342,7 +343,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <!-- Specific Dates Group -->
                                 <div id="specificDatesGroup" class="col-md-12 d-none">
                                     <div class="form-group">
-                                        <label>Specific Dates (yyyy-mm-dd)</label>
+                                        <label>Specific Dates</label>
                                         <textarea class="form-control" id="viewSpecificDates" rows="4" readonly></textarea>
                                     </div>
                                 </div>
