@@ -151,47 +151,52 @@ include '../auth/auth.php'; // Ensure authentication
 
                   <!-- Employee Leave & Travel History -->
                   <div class="mt-4">
-                      <h5 class="text-primary"><i class="fas fa-history"></i> Leave & Travel History</h5>
-                      
-                      <!-- Leave History -->
-                      <div class="table-responsive">
-                          <table class="table table-bordered table-sm">
-                              <thead class="bg-light">
-                                  <tr>
-                                      <th>Leave Type</th>
-                                      <th>Start Date</th>
-                                      <th>End Date</th>
-                                      <th>Specific Dates</th> <!-- New -->
-                                      <th>number of days</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="leaveHistory">
-                                  <tr><td colspan="4" class="text-center">No leave history available</td></tr>
-                              </tbody>
-                          </table>
-                      </div>
+                    <h5 class="text-primary"><i class="fas fa-history"></i> Leave & Travel History</h5>
 
-                      <!-- Travel History -->
-                      <div class="table-responsive mt-3">
-                          <table class="table table-bordered table-sm">
-                              <thead class="bg-light">
-                                  <tr>
-                                      <th>Purpose</th>
-                                      <th>Destination</th>
-                                      <th>Start Date</th>
-                                      <th>Return</th>
-                                      <th>Specific Dates</th> <!-- New -->
-                                      <th>number of days</th>
-                                  </tr>
-                              </thead>
-                              <tbody id="travelHistory">
-                                  <tr><td colspan="4" class="text-center">No travel history available</td></tr>
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
+                    <!-- Toggle Leave Button -->
+                    <button id="toggleLeaveBtn" class="btn btn-sm btn-outline-primary mb-2">Show Leave History</button>
 
-                  
+                    <!-- Leave History Wrapper -->
+                    <div id="leaveHistoryWrapper" class="table-responsive mb-3" style="display: none;">
+                        <table class="table table-bordered table-sm">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Leave Type</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Specific Dates</th>
+                                    <th>Number of Days</th>
+                                </tr>
+                            </thead>
+                            <tbody id="leaveHistory">
+                                <tr><td colspan="5" class="text-center">No leave history available</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Toggle Travel Button -->
+                    <button id="toggleTravelBtn" class="btn btn-sm btn-outline-success mb-2">Show Travel History</button>
+
+                    <!-- Travel History Wrapper -->
+                    <div id="travelHistoryWrapper" class="table-responsive" style="display: none;">
+                        <table class="table table-bordered table-sm">
+                            <thead class="bg-light">
+                                <tr>
+                                    <th>Purpose</th>
+                                    <th>Destination</th>
+                                    <th>Start Date</th>
+                                    <th>Return</th>
+                                    <th>Specific Dates</th>
+                                    <th>Number of Days</th>
+                                </tr>
+                            </thead>
+                            <tbody id="travelHistory">
+                                <tr><td colspan="6" class="text-center">No travel history available</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+        
                 </div>
               </div>
             </div>
@@ -459,6 +464,7 @@ include '../auth/auth.php'; // Ensure authentication
           }
       }
       </script>
+      
 
 
 

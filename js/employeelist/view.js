@@ -110,5 +110,30 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     console.log("Sending to fetch_history.php:", { employee_id, indexno });
 
     // Show the modal
+    console.log("Sending to fetch_history.php:", { employee_id, indexno });
+
+    // Reset visibility when modal opens
+    $('#leaveHistoryWrapper').hide();
+    $('#travelHistoryWrapper').hide();
+    $('#toggleLeaveBtn').text('Show Leave History');
+    $('#toggleTravelBtn').text('Show Travel History');
+
+    // Show the modal
     $('#viewEmployeeModal').modal('show');
+
 });
+
+$(document).ready(function () {
+    $('#toggleLeaveBtn').on('click', function () {
+        $('#leaveHistoryWrapper').toggle();
+        let text = $('#leaveHistoryWrapper').is(':visible') ? 'Hide Leave History' : 'Show Leave History';
+        $(this).text(text);
+    });
+
+    $('#toggleTravelBtn').on('click', function () {
+        $('#travelHistoryWrapper').toggle();
+        let text = $('#travelHistoryWrapper').is(':visible') ? 'Hide Travel History' : 'Show Travel History';
+        $(this).text(text);
+    });
+});
+
