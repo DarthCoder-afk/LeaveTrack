@@ -80,9 +80,7 @@ function calculateNumberofDays() {
   console.log("Applied Date:", appliedDate);
   
   if (appliedDate) {
-    // Enable start and end date inputs if applied date if provided
-    startDateInput.disabled = false;
-    endDateInput.disabled = false;
+
     // Disable past days, months, and years on start date and end date based on applied date
     startDateInput.min = appliedDate;
     endDateInput.min = appliedDate;

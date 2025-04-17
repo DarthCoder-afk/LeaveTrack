@@ -156,7 +156,7 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Date Applied</label>
-                            <input type="date" class="form-control" name="applieddate" id="dateApplied" required onchange=calculateNumberofDays()>
+                            <input type="date" class="form-control" name="applieddate" id="dateApplied" onchange=calculateNumberofDays()>
                           </div>
                         </div>
                         <div class="col-md-12">
@@ -177,11 +177,11 @@ include '../auth/auth.php'; // Ensure authentication
                         <div class="row ml-3" id="consecutiveDatesContainer">
                           <div class="form-group">
                             <label>Start Date</label>
-                            <input type="date" class="form-control" name="startdate" id="startDate" disabled onchange="calculateNumberofDays()">
+                            <input type="date" class="form-control" name="startdate" id="startDate" onchange="calculateNumberofDays()">
                           </div>
                           <div class="form-group ml-4">
                             <label>End Date</label>
-                            <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange="calculateNumberofDays()">
+                            <input type="date" class="form-control" name="enddate" id="endDate" onchange="calculateNumberofDays()">
                           </div>
                           <div class="form-group ml-4">
                             <label>Number of Days</label>
