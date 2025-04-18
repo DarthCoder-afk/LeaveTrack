@@ -1,12 +1,12 @@
 <?php
     include '../database/db_connect.php';
     $result = $conn->query("SELECT leaveapplication.*, 
-    COALESCE(employee.employee_id, leaveapplication.employee_id) AS employee_id, 
-    COALESCE(employee.lname, leaveapplication.emp_lname) AS lname, 
-    COALESCE(employee.fname, leaveapplication.emp_fname) AS fname, 
-    COALESCE(employee.midname, leaveapplication.emp_midname) AS midname, 
-    COALESCE(employee.extname, leaveapplication.emp_extname) AS extname,
-    COALESCE(employee.position, 'N/A') AS position,
+    COALESCE(leaveapplication.employee_id) AS employee_id, 
+    COALESCE(leaveapplication.emp_lname) AS lname, 
+    COALESCE(leaveapplication.emp_fname) AS fname, 
+    COALESCE(leaveapplication.emp_midname) AS midname, 
+    COALESCE(leaveapplication.emp_extname) AS extname,
+    COALESCE(leaveapplication.position, 'N/A') AS position,
     COALESCE(employee.office, 'N/A') AS office,
     COALESCE(employee.gender, 'N/A') AS gender
     FROM leaveapplication 
