@@ -20,11 +20,11 @@ if(isset($_POST['AddLeave'])) {
     $applieddate = $_POST['applieddate'];
     $sdate = $_POST['startdate'];
     $edate = $_POST['enddate'];
-    $numdays = $_POST['numdays'];
+    $numdays = isset($_POST['numdays']) ? floatval($_POST['numdays']) : 0;
 
     if ($date_type === 'specific' && $specific_dates) {
         $dates = explode(',', $specific_dates); // Assuming dates are comma-separated
-        $numdays = count($dates);
+        $numdays = isset($_POST['specificnumdays']) ? floatval($_POST['specificnumdays']) : 0;
         $sdate = null; // Not applicable for specific dates
         $edate = null; // Not applicable for specific dates
     }

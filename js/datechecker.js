@@ -128,7 +128,7 @@ function calculateNumberofDays() {
       }
 
       var finalDays = totalDays - holidayDeduction;
-      document.getElementById('numberOfDays').value = finalDays;
+      document.getElementById('numberOfDays').value = finalDays.toFixed(1);
   }
 }
 

@@ -187,7 +187,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group ml-4">
                             <label>Number of Days</label>
                             <div class="input-group">
-                              <input type="text" class="form-control" name="numdays" id="numberOfDays" readonly>
+                              <input type="text" class="form-control" name="numdays" id="numberOfDays" step="0.5" min="0">
                               <div class="input-group-append">
                                 <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
                                   <i class="fas fa-minus-circle"></i>
@@ -201,7 +201,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <!-- Specific Dates Input -->
                           <div class="form-group col-md-6">
                             <label>Select Specific Dates</label>
-                            <input type="text" class="form-control" name="specific_dates" id="specificDates" placeholder="Select dates"`>
+                            <input type="text" class="form-control" name="specific_dates" id="specificDates" placeholder="Select dates">
                             <small class="form-text text-muted">Click to select multiple dates.</small>
                           </div>
 
@@ -209,7 +209,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <div class="form-group col-md-6">
                             <label>Number of Days</label>
                             <div class="input-group">
-                              <input type="text" class="form-control" name="specificnumdays" id="specificnumdays" readonly>
+                              <input type="text" class="form-control" name="specificnumdays" id="specificnumdays" step="0.5" min="0">
                               <div class="input-group-append">
                                 <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
                                   <i class="fas fa-minus-circle"></i>
