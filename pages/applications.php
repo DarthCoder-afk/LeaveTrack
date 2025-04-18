@@ -219,8 +219,6 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                         </div>
                        
-                        
-
                         <!-- Hidden input for subtracting holidays -->
                         <div class="col-md-3" id="holidayContainer" style="display: none;">
                           <div class="form-group">
@@ -450,7 +448,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>
-                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required onchange="UpdatecalculateNumberofDays()">
+                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" onchange="UpdatecalculateNumberofDays()">
                               </div>
                             </div>
 
@@ -458,17 +456,39 @@ include '../auth/auth.php'; // Ensure authentication
                               <div class="form-group">
                                 <label>Leave Date Type</label>
                                 <div>
-                                  <label class="mr-2">
-                                    <input type="radio" name="date_type2" value="consecutive" checked onchange="toggleDateType2()"> Consecutive Dates
-                                  </label>
                                   <label>
                                     <input type="radio" name="date_type2" value="specific" onchange="toggleDateType2()"> Specific Dates
                                   </label>
+                                  <label class="mr-2">
+                                    <input type="radio" name="date_type2" value="consecutive" onchange="toggleDateType2()"> Consecutive Dates
+                                  </label>
+                                 
                                 </div>
                               </div>
                             </div>
+
+                             <!-- Specific Dates -->
+                          <div class="row" id="specificDatesContainer2">
+                            <div class="form-group col-md-6 ml-3">
+                              <label>Select Specific Dates</label>
+                              <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
+                              <small class="form-text text-muted">Click to select multiple dates.</small>
+                            </div>
+
+                            <div class="form-group col-md-4">
+                              <label>Number of Days</label>
+                              <div class="input-group">
+                                <input type="text" class="form-control" name="specificnumdays2" id="specificnumdays2" step="0.5" min="0">
+                                <div class="input-group-append">
+                                  <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
+                                    <i class="fas fa-minus-circle"></i>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
                             
-                           <!-- Consecutive Dates -->
+                          <!-- Consecutive Dates -->
                           <div class="row ml-3" id="consecutiveDatesContainer2">
                             <div class="form-group">
                               <label>Start Date</label>
@@ -481,28 +501,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="form-group ml-4">
                               <label>Number of Days</label>
                               <div class="input-group">
-                                <input type="text" class="form-control" name="numdays" id="numberOfDays2" readonly>
-                                <div class="input-group-append">
-                                  <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
-                                    <i class="fas fa-minus-circle"></i>
-                                  </button>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-
-                          <!-- Specific Dates -->
-                          <div class="row" id="specificDatesContainer2" style="display: none;">
-                            <div class="form-group col-md-6 ml-3">
-                              <label>Select Specific Dates</label>
-                              <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
-                              <small class="form-text text-muted">Click to select multiple dates.</small>
-                            </div>
-
-                            <div class="form-group col-md-4">
-                              <label>Number of Days</label>
-                              <div class="input-group">
-                                <input type="text" class="form-control" name="specificnumdays" id="specificnumdays2" readonly>
+                                <input type="text" class="form-control" name="numdays" id="numberOfDays2" step="0.5" min="0">
                                 <div class="input-group-append">
                                   <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
                                     <i class="fas fa-minus-circle"></i>
