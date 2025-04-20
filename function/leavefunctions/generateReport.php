@@ -63,18 +63,17 @@ $pdf->SetFont('Arial', 'B', 12);
 $pdf->Cell(20, 10, 'ID', 1, 0, 'C');
 $pdf->Cell(70, 10, 'Full Name', 1, 0, 'C');
 $pdf->Cell(45, 10, 'Leave Type', 1, 0, 'C');
-$pdf->Cell(30, 10, 'Start Date', 1, 0, 'C');
-$pdf->Cell(30, 10, 'End Date', 1, 1, 'C');
+$pdf->Cell(60, 10, 'Date', 1, 1, 'C'); // Merged "Date" column
 
 // Fetch data
 $stmt = $conn->prepare("
     SELECT e.employee_id, 
            CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname, 
-           l.leavetype, l.startdate, l.enddate
+           l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
     FROM leaveapplication l
     JOIN employee e ON l.employee_id = e.employee_id
-    WHERE l.startdate BETWEEN ? AND ?
-    ORDER BY l.startdate ASC
+    WHERE l.dateapplied BETWEEN ? AND ?
+    ORDER BY l.dateapplied ASC
 ");
 
 if (!$stmt) {
@@ -91,34 +90,70 @@ if ($result->num_rows == 0) {
     $pdf->Cell(195, 10, 'No records found for the selected date range.', 1, 1, 'C');
 } else {
     while ($row = $result->fetch_assoc()) {
-        $defaultHeight = 10;
-        $leaveTypeWidth = 45;
         $lineHeight = 5;
-
-        $leaveTypeLines = ceil($pdf->GetStringWidth($row['leavetype']) / ($leaveTypeWidth - 2));
-        $leaveTypeHeight = max($defaultHeight, $leaveTypeLines * $lineHeight);
-
+        $defaultHeight = 10;
+    
+        $id = $row['employee_id'];
+        $fullname = $row['fullname'];
+        $leavetype = $row['leavetype'];
+    
+        if (!empty($row['startdate']) && !empty($row['enddate'])) {
+            $dateRange = date("F j, Y", strtotime($row['startdate'])) . " to " . date("F j, Y", strtotime($row['enddate']));
+        } elseif (!empty($row['specific_dates'])) {
+            $dates = explode(',', $row['specific_dates']);
+            $formattedDates = array_map(function ($date) {
+                return date("F j, Y", strtotime(trim($date)));
+            }, $dates);
+            $dateRange = implode(", ", $formattedDates);
+        } else {
+            $dateRange = "N/A";
+        }
+    
+        $colWidths = [20, 70, 45, 60];
+        $leaveTypeLines = ceil($pdf->GetStringWidth($leavetype) / ($colWidths[2] - 2));
+        $dateLines = ceil($pdf->GetStringWidth($dateRange) / ($colWidths[3] - 2));
+        $maxLines = max(1, $leaveTypeLines, $dateLines);
+        $rowHeight = $maxLines * $lineHeight;
+    
+        // Check if we need a new page
+        if ($pdf->GetY() + $rowHeight > $pdf->GetPageHeight() - 20) {
+            $pdf->AddPage();
+    
+            // Redraw table headers on new page
+            $pdf->SetFont('Arial', 'B', 12);
+            $pdf->Cell(20, 10, 'ID', 1, 0, 'C');
+            $pdf->Cell(70, 10, 'Full Name', 1, 0, 'C');
+            $pdf->Cell(45, 10, 'Leave Type', 1, 0, 'C');
+            $pdf->Cell(60, 10, 'Date', 1, 1, 'C');
+            $pdf->SetFont('Arial', '', 12);
+        }
+    
         $x = $pdf->GetX();
         $y = $pdf->GetY();
+    
+        // ID
+        $pdf->SetXY($x, $y);
+        $pdf->MultiCell($colWidths[0], $lineHeight, $id, 1, 'C');
+    
+        // Full Name
+        $pdf->SetXY($x + $colWidths[0], $y);
+        $pdf->MultiCell($colWidths[1], $lineHeight, $fullname, 1, 'C');
+    
+        // Leave Type
+        $pdf->SetXY($x + $colWidths[0] + $colWidths[1], $y);
+        $pdf->MultiCell($colWidths[2], $lineHeight, $leavetype, 1, 'C');
+    
+        // Date
+        $pdf->SetXY($x + $colWidths[0] + $colWidths[1] + $colWidths[2], $y);
+        $pdf->MultiCell($colWidths[3], $lineHeight, $dateRange, 1, 'C');
+    
+        // Move to next row
+        $pdf->SetY($y + $rowHeight);
+    }
+    
 
-        $pdf->Cell(20, $leaveTypeHeight, $row['employee_id'], 1, 0, 'C');
-        $pdf->Cell(70, $leaveTypeHeight, $row['fullname'], 1, 0, 'C');
-
-        $leaveTypeX = $x + 90;
-        $leaveTypeY = $y + ($leaveTypeHeight - ($leaveTypeLines * $lineHeight)) / 2;
-
-        $pdf->SetXY($leaveTypeX, $leaveTypeY);
-        $pdf->MultiCell($leaveTypeWidth, $lineHeight, $row['leavetype'], 0, 'C');
-
-        $pdf->Rect($leaveTypeX, $y, $leaveTypeWidth, $leaveTypeHeight);
-
-        $pdf->SetXY($x + 135, $y);
-        $pdf->Cell(30, $leaveTypeHeight, $row['startdate'], 1, 0, 'C');
-        $pdf->Cell(30, $leaveTypeHeight, $row['enddate'], 1, 1, 'C');
-
-        $pdf->SetY($y + $leaveTypeHeight);
-    }         
 }
+
 
 // Filename formatting
 $filename = 'LEAVE_APPLICATIONS_' . $start . '_to_' . $end . '.pdf';
