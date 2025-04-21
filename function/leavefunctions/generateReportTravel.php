@@ -1,152 +1,159 @@
 <?php
-require('../../libraries/fpdf.php'); 
-require('../../database/db_connect.php'); 
+require('../../libraries/fpdf.php');
+require('../../database/db_connect.php');
 
 if (!isset($_GET['start']) || !isset($_GET['end'])) {
     die("Error: Start and end dates are required.");
 }
 
 $start = $_GET['start'];
-$end = $_GET['end'];
+$end   = $_GET['end'];
 
-$pdf = new FPDF();
-$pdf->AddPage();
+// Extend FPDF to add line-count and height helpers
+class PDF extends FPDF {
+    public function NbLines($w, $txt) {
+        $cw = &$this->CurrentFont['cw'];
+        if ($w == 0) $w = $this->w - $this->rMargin - $this->x;
+        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
+        $s = str_replace("\r", '', $txt);
+        $nb = strlen($s);
+        if ($nb > 0 && $s[$nb-1] == "\n") $nb--;
+        $sep = -1; $i = 0; $j = 0; $l = 0; $nl = 1;
+        while ($i < $nb) {
+            $c = $s[$i];
+            if ($c == "\n") { $i++; $sep=-1; $j=$i; $l=0; $nl++; continue; }
+            if ($c == ' ') $sep = $i;
+            $l += $cw[$c];
+            if ($l > $wmax) {
+                if ($sep == -1) { if ($i == $j) $i++; }
+                else $i = $sep+1;
+                $sep = -1; $j = $i; $l = 0; $nl++;
+            } else { $i++; }
+        }
+        return $nl;
+    }
 
-// Fetch dynamic municipality name and logo path
-$settingsQuery = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
-$settingsResult = $conn->query($settingsQuery);
-$settings = $settingsResult->fetch_assoc();
-
-// Set defaults if settings are not available or empty
-$municipalityName = isset($settings['municipality_name']) && !empty($settings['municipality_name']) 
-    ? $settings['municipality_name'] 
-    : 'MUNICIPALITY OF TALISAY';
-
-$provinceName = isset($settings['province_name']) && !empty($settings['province_name']) 
-    ? $settings['province_name'] 
-    : 'Camarines Norte';
-
-$logoPath = isset($settings['logo_path']) && !empty($settings['logo_path']) 
-    ? $settings['logo_path'] 
-    : '../../img/tali.png';  // Ensure this file exists!
-
-
-// Logo - Adjusted position
-$logoWidth = 30; 
-$pdf->Image('../../img/tali.png', 15, 10, $logoWidth); 
-
-// Set font for header
-$pdf->SetFont('Times', '', 12);
-$pageWidth = $pdf->GetPageWidth();
-$headerX = ($pageWidth / 2) - ($logoWidth / 2) - 10; 
-
-$pdf->SetXY($headerX, 15);
-$pdf->Cell(0, 5, 'Republic of the Philippines', 0, 1, 'L');
-
-$pdf->SetXY($headerX, 20);
-$pdf->Cell(0, 5, 'Province of ' . $provinceName, 0, 1, 'L');
-
-$pdf->SetXY($headerX, 25);
-$pdf->Cell(0, 5, 'Municipality of ' . $municipalityName, 0, 1, 'L');
-
-
-// Travel Order Report Title
-$pdf->SetFont('Times', 'B', 17);
-$pdf->Ln(5);
-$pdf->Cell(0, 8, 'TRAVEL ORDER REPORT', 0, 1, 'C'); 
-$pdf->SetFont('Times', '', 12);
-$pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
-$pdf->Ln(8);
-
-// Table Headers
-$pdf->SetFont('Arial', 'B', 12);
-$pdf->Cell(15, 10, 'ID', 1, 0, 'C');
-$pdf->Cell(45, 10, 'Full Name', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Purpose', 1, 0, 'C');
-$pdf->Cell(40, 10, 'Destination', 1, 0, 'C');
-$pdf->Cell(25, 10, 'Start Date', 1, 0, 'C');
-$pdf->Cell(25, 10, 'End Date', 1, 1, 'C');
-
-// Fetch data
-$stmt = $conn->prepare("
-    SELECT e.employee_id, 
-           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname, 
-           l.purpose, l.destination, l.startdate, l.enddate
-    FROM travelorder l
-    JOIN employee e ON l.employee_id = e.employee_id
-    WHERE l.startdate BETWEEN ? AND ?
-    ORDER BY l.startdate ASC
-");
-
-if (!$stmt) {
-    die("SQL Error: " . $conn->error);
+    public function GetMultiCellHeight($w, $lineHeight, $txt) {
+        return $this->NbLines($w, $txt) * $lineHeight;
+    }
 }
 
-$stmt->bind_param("ss", $start, $end);
+$pdf = new PDF();
+$pdf->AddPage();
+
+// Fetch settings
+$settingsQuery  = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
+$settingsResult = $conn->query($settingsQuery);
+$settings       = $settingsResult->fetch_assoc() ?: [];
+
+$municipality = !empty($settings['municipality_name']) ? $settings['municipality_name'] : 'MUNICIPALITY OF TALISAY';
+$province     = !empty($settings['province_name'])     ? $settings['province_name']     : 'Camarines Norte';
+$logoPath     = !empty($settings['logo_path'])         ? $settings['logo_path']         : '../../img/tali.png';
+
+// Header: logo + titles
+$logoWidth = 30;
+$pdf->Image($logoPath, 15, 10, $logoWidth);
+$pdf->SetFont('Times','',12);
+$pageWidth = $pdf->GetPageWidth();
+$headerX   = ($pageWidth/2) - ($logoWidth/2) - 10;
+$pdf->SetXY($headerX,15);
+$pdf->Cell(0,5,'Republic of the Philippines',0,1,'L');
+$pdf->SetXY($headerX,20);
+$pdf->Cell(0,5,'Province of ' . $province,0,1,'L');
+$pdf->SetXY($headerX,25);
+$pdf->Cell(0,5,'Municipality of ' . $municipality,0,1,'L');
+
+// Title
+$pdf->SetFont('Times','B',17);
+$pdf->Ln(5);
+$pdf->Cell(0,8,'TRAVEL ORDER REPORT',0,1,'C');
+$pdf->SetFont('Times','',12);
+$pdf->Cell(0,8,"Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)),0,1,'C');
+$pdf->Ln(8);
+
+// Draw table header function
+function drawTravelHeader($pdf) {
+    $pdf->SetFont('Arial','B',12);
+    $pdf->Cell(15,10,'ID',1,0,'C');
+    $pdf->Cell(45,10,'Full Name',1,0,'C');
+    $pdf->Cell(40,10,'Purpose',1,0,'C');
+    $pdf->Cell(40,10,'Destination',1,0,'C');
+    $pdf->Cell(60,10,'Date',1,1,'C');
+    $pdf->SetFont('Arial','',12);
+}
+
+drawTravelHeader($pdf);
+
+// Fetch data including specific_dates
+$stmt = $conn->prepare("
+    SELECT e.employee_id,
+           CONCAT(e.lname,', ',e.fname,' ',e.midname) AS fullname,
+           t.purpose,
+           t.destination,
+           t.startdate,
+           t.enddate,
+           t.specific_dates
+      FROM travelorder t
+      JOIN employee e ON t.employee_id = e.employee_id
+     WHERE (t.startdate BETWEEN ? AND ?)
+        OR (t.specific_dates IS NOT NULL AND t.specific_dates <> '')
+     ORDER BY COALESCE(t.startdate,
+                       STR_TO_DATE(SUBSTRING_INDEX(t.specific_dates, ',', 1), '%Y-%m-%d')
+                      ) ASC
+");
+
+$stmt->bind_param('ss',$start,$end);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$pdf->SetFont('Arial', '', 12);
+$lineHeight   = 5;
+$bottomMargin = 20;
 
-if ($result->num_rows == 0) {
-    $pdf->Cell(200, 10, 'No records found for the selected date range.', 1, 1, 'C');
-} else {
-    while ($row = $result->fetch_assoc()) {
-        $columnWidth = [15, 45, 40, 40, 25, 25]; // Column widths
-        $lineHeight = 5; // Line height
-    
-        // Calculate line count for Full Name, Purpose, and Destination
-        $fullnameLines = ceil($pdf->GetStringWidth($row['fullname']) / ($columnWidth[1] - 2));
-        $purposeLines = ceil($pdf->GetStringWidth($row['purpose']) / ($columnWidth[2] - 2));
-        $destinationLines = ceil($pdf->GetStringWidth($row['destination']) / ($columnWidth[3] - 2));
-    
-        // Get the maximum lines needed for the row
-        $maxLines = max(1, $fullnameLines, $purposeLines, $destinationLines);
-        $rowHeight = max(10, $maxLines * $lineHeight);
-    
-        // Store current X, Y position
-        $x = $pdf->GetX();
-        $y = $pdf->GetY();
-    
-        // ID Column
-        $pdf->Cell($columnWidth[0], $rowHeight, $row['employee_id'], 1, 0, 'C');
-    
-        // Full Name Column (MultiCell)
-        $pdf->SetXY($x + $columnWidth[0], $y);
-        $pdf->MultiCell($columnWidth[1], $lineHeight, $row['fullname'], 0, 'C');
-        $pdf->Rect($x + $columnWidth[0], $y, $columnWidth[1], $rowHeight);
-    
-        // Purpose Column (MultiCell)
-        $pdf->SetXY($x + $columnWidth[0] + $columnWidth[1], $y);
-        $pdf->MultiCell($columnWidth[2], $lineHeight, $row['purpose'], 0, 'C');
-        $pdf->Rect($x + $columnWidth[0] + $columnWidth[1], $y, $columnWidth[2], $rowHeight);
-    
-        // Destination Column (MultiCell) - Fix applied here
-        $pdf->SetXY($x + $columnWidth[0] + $columnWidth[1] + $columnWidth[2], $y);
-        $pdf->MultiCell($columnWidth[3], $lineHeight, $row['destination'], 0, 'C');
-        $pdf->Rect($x + $columnWidth[0] + $columnWidth[1] + $columnWidth[2], $y, $columnWidth[3], $rowHeight);
-    
-        // Move cursor back to correct position for next columns
-        $pdf->SetXY($x + $columnWidth[0] + $columnWidth[1] + $columnWidth[2] + $columnWidth[3], $y);
-    
-        // Start Date Column
-        $pdf->Cell($columnWidth[4], $rowHeight, $row['startdate'], 1, 0, 'C');
-    
-        // End Date Column
-        $pdf->Cell($columnWidth[5], $rowHeight, $row['enddate'], 1, 1, 'C');
-    
-        // Move to next row
-        $pdf->SetY($y + $rowHeight);
+while ($row = $result->fetch_assoc()) {
+    // Build dateRange from specific or start/end
+    if (!empty($row['specific_dates'])) {
+        $dlist = explode(',', $row['specific_dates']);
+        $fmt   = array_map(fn($d)=>date('F j, Y',strtotime(trim($d))), $dlist);
+        $dateRange = implode(', ', $fmt);
+    } elseif (!empty($row['startdate']) && !empty($row['enddate'])) {
+        $dateRange = date('F j, Y',strtotime($row['startdate']))
+                   . ' to ' . date('F j, Y',strtotime($row['enddate']));
+    } else {
+        $dateRange = 'N/A';
     }
-    
+
+    // Current position
+    $x = $pdf->GetX();
+    $y = $pdf->GetY();
+
+    // Calculate heights
+    $hId    = $pdf->GetMultiCellHeight(15, $lineHeight, $row['employee_id']);
+    $hName  = $pdf->GetMultiCellHeight(45, $lineHeight, $row['fullname']);
+    $hPurp  = $pdf->GetMultiCellHeight(40, $lineHeight, $row['purpose']);
+    $hDest  = $pdf->GetMultiCellHeight(40, $lineHeight, $row['destination']);
+    $hDate  = $pdf->GetMultiCellHeight(60, $lineHeight, $dateRange);
+    $rowH   = max($hId, $hName, $hPurp, $hDest, $hDate);
+
+    // Page break
+    if ($y + $rowH > $pdf->GetPageHeight() - $bottomMargin) {
+        $pdf->AddPage();
+        drawTravelHeader($pdf);
+        $y = $pdf->GetY();
+    }
+
+    // Draw cells
+    $pdf->SetXY($x, $y);  $pdf->MultiCell(15, $lineHeight, $row['employee_id'], 1, 'C');
+    $pdf->SetXY($x+15, $y); $pdf->MultiCell(45, $lineHeight, $row['fullname'],     1, 'C');
+    $pdf->SetXY($x+60, $y); $pdf->MultiCell(40, $lineHeight, $row['purpose'],      1, 'C');
+    $pdf->SetXY($x+100,$y); $pdf->MultiCell(40, $lineHeight, $row['destination'],  1, 'C');
+    $pdf->SetXY($x+140,$y); $pdf->MultiCell(60, $lineHeight, $dateRange,          1, 'C');
+
+    // Advance to next row
+    $pdf->SetY($y + $rowH);
 }
 
-// Generate the file name
-$filename = 'TRAVEL_ORDERS_' . $start . '_to_' . $end . '.pdf';
-
-// Output the PDF
-$pdf->Output('D', $filename);
-
+// Output
+$pdf->Output('D', 'TRAVEL_ORDERS_' . $start . '_to_' . $end . '.pdf');
 $stmt->close();
 $conn->close();
 ?>
