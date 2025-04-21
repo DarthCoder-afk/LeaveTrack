@@ -13,6 +13,7 @@ $result = $conn->query("
 
 while ($row = $result->fetch_assoc()) {
     $full_name = "{$row['lname']}, {$row['fname']}";
+    $dateapplied = ($row['dateapplied'] === '0000-00-00') ? 'No Record' :  htmlspecialchars(date("F d, Y", strtotime($row['dateapplied'])), ENT_QUOTES) ;
 ?>
     <div class="customer-message align-items-center">
         <a class="font-weight-bold" href="#">
@@ -20,7 +21,7 @@ while ($row = $result->fetch_assoc()) {
                 <?php echo $row['purpose']; ?> 
             </div>
             <div class="small text-gray-500 message-time font-weight-bold">
-                <?php echo $full_name; ?> · <?php echo $row['dateapplied']; ?>
+                <?php echo $full_name; ?> · <?php echo $dateapplied; ?>
             </div>
         </a>
     </div>
