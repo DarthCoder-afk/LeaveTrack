@@ -20,10 +20,27 @@ $stmt->bind_param("ii", $currentMonth, $currentYear);
 $stmt->execute();
 $result = $stmt->get_result();
 
+// Format date into "Month Day, Year"
 function formatDate($date) {
     if (!$date || $date === '0000-00-00') return 'N/A';
     return date('F j, Y', strtotime($date));
 }
+
+// Format number of days (e.g., 3.5 -> "3 days and half day")
+function formatNumberOfDays($days) {
+    $num = round(floatval($days), 2); // safely round to 2 decimal places
+    $wholeDays = floor($num);
+    $fraction = $num - $wholeDays;
+
+    if ($num === 0.5) {
+        return 'Half day';
+    } elseif ($fraction == 0.5) {
+        return $wholeDays . ' days and half day';
+    } else {
+        return $wholeDays . ($wholeDays === 1 ? ' day' : ' days');
+    }
+}
+
 
 while ($row = $result->fetch_assoc()) {
     $start = formatDate($row['startdate']);
@@ -39,9 +56,13 @@ while ($row = $result->fetch_assoc()) {
         }
     }
 
-    $numdays = $row['date_type'] === 'specific'
-        ? count($specificDatesArray ?? [])
-        : $row['numofdays'];
+    // Always try to use numofdays if available
+    $rawDays = is_numeric($row['numofdays']) ? floatval($row['numofdays']) : (
+        isset($specificDatesArray) ? count($specificDatesArray) : 0
+    );
+
+
+    $formattedDays = formatNumberOfDays($rawDays);
 
     echo "<tr data-employee-id='{$row['employee_id']}'>";
     echo "<td>{$row['employee_id']}</td>";
@@ -51,7 +72,7 @@ while ($row = $result->fetch_assoc()) {
     echo "<td>{$start}</td>";
     echo "<td>{$end}</td>";
     echo "<td style='white-space: nowrap;'>{$specific}</td>";
-    echo "<td>{$numdays}</td>";
+    echo "<td>{$formattedDays}</td>";
     echo "</tr>";
 }
 ?>
