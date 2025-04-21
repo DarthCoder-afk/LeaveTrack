@@ -6,6 +6,22 @@ function formatDate(dateStr) {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
 }
 
+// Helper: Format number of days (e.g., 3.5 -> "3 days and half day")
+function formatNumberOfDays(days) {
+    var num = parseFloat(days);
+    if (isNaN(num)) return days;
+
+    var wholeDays = Math.floor(num);
+    var hasHalf = num % 1 !== 0;
+
+    if (wholeDays === 0 && hasHalf) {
+        return 'Half day';
+    } else if (hasHalf) {
+        return `${wholeDays} days and half day`;
+    } else {
+        return `${wholeDays} ${wholeDays === 1 ? 'day' : 'days'}`;
+    }
+}
 
 $(document).on('click', '.viewEmployeeBtn', function () {
     console.log("View button clicked!");
@@ -80,7 +96,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                         <td>${startDate}</td>
                         <td>${endDate}</td>
                         <td>${specificDates}</td>
-                        <td>${leave.numofdays}</td>
+                        <td>${formatNumberOfDays(leave.numofdays)}</td>
                     </tr>`;
                 });
             } else {
@@ -100,7 +116,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                             .join('<br>')
                         : 'N/A';
 
-                    const numOfDays = travel.numofdays ?? 'N/A';
+                    const numOfDays = travel.numofdays ? formatNumberOfDays(travel.numofdays) : 'N/A';
 
                     travelHtml += `<tr>
                         <td>${travel.purpose}</td>
