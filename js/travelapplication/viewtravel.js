@@ -40,7 +40,7 @@ $(document).on('click', '.viewTravelBtn', function () {
 
     // Format Date Helper
     function formatDate(rawDate) {
-        if (!rawDate) return "";
+        if (!rawDate || rawDate === "0000-00-00") return "No Record";
         const dateObj = new Date(rawDate);
         return dateObj.toLocaleDateString("en-US", {
             year: "numeric",
@@ -48,6 +48,22 @@ $(document).on('click', '.viewTravelBtn', function () {
             day: "numeric"
         });
     }
+    
+
+    function formatNumberOfDays(numdays) {
+        const num = parseFloat(numdays);
+        const wholeDays = Math.floor(num);
+        const hasHalf = (Math.round((num - wholeDays) * 10) / 10) === 0.5;
+    
+        if (num === 0.5) {
+            return 'Half day';
+        } else if (hasHalf) {
+            return `${wholeDays} days and half day`;
+        } else {
+            return `${wholeDays} ${wholeDays === 1 ? 'day' : 'days'}`;
+        }
+    }
+    
 
     // Basic Info
     $('#viewLastName').val(lname);
@@ -57,7 +73,8 @@ $(document).on('click', '.viewTravelBtn', function () {
     $('#viewPurpose').val(purpose);
     $('#viewDestination').val(destination);
     $('#viewDateApplied').val(formatDate(dateapplied));
-    $('#viewNumberOfDays').val(numdays);
+    $('#viewNumberOfDays').val(formatNumberOfDays(numdays));
+
 
     // Handle Date View Logic
     if (datetype === 'specific') {
