@@ -15,6 +15,7 @@ include '../auth/auth.php'; // Ensure authentication
     <link href="../css/admin.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/admin.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
 
 </head>
 <body id="page-top">
@@ -71,64 +72,119 @@ include '../auth/auth.php'; // Ensure authentication
         <!-- Developers Modal -->
         <div class="modal fade" id="developersModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content">
-                    <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title"><i class="fas fa-code"></i> System Developers</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <div class="modal-content shadow-lg" style="border-radius: 1rem;">
+                    <!-- Header -->
+                    <div class="modal-header bg-success text-white rounded-top">
+                        <h5 class="modal-title">
+                            <i class="fas fa-code me-2"></i> System Developers
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
                     </div>
-                    <div class="modal-body">
-                        <div class="row justify-content-center">
+
+                    <!-- Body -->
+                    <div class="modal-body" style="background-color: #f9f9f9; padding: 2rem;">
+                        <div class="row justify-content-center flex-wrap flex-md-nowrap">
+
                             <!-- Developer 1 -->
-                            <div class="col-md-6 text-center mb-4">
-                                <img src="../img/borje.jpg" alt="Developer 1" class="rounded-circle shadow border border-3 mb-3" style="width: 150px; height: 150px; object-fit: contain;">
-                                <h5 class="fw-bold">Sean Michael A. Borje</h5>
-                                <p class="text-muted">Full Stack Developer</p>
-                                <p>A passionate full stack developer who takes the lead in backend development and system security. His attention to detail and dedication ensure the platform runs reliably and securely for every user.</p>
+                            <div class="col-md-6 text-center mb-4 px-3">
+                                <img src="../img/borje.jpg" alt="Developer 1"
+                                    class="rounded-circle shadow border border-3 mb-3"
+                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                <h5 class="fw-bold mb-0">Sean Michael A. Borje</h5>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
+                                </p>
+                                <p class="fw-semibold text-success">Backend & Security Focus</p>
+                                <p class="text-muted text-start small" style="font-size: 15px;">
+                                    A passionate full stack developer who takes the lead in backend development and system
+                                    security. His attention to detail and dedication ensure the platform runs reliably and
+                                    securely for every user.
+                                </p>
                                 <div>
-                                    <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
+                                    <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank"
+                                        class="btn btn-outline-primary btn-sm mx-1 hover-scale">
                                         <i class="fab fa-linkedin"></i> LinkedIn
                                     </a>
-                                    <a href="https://www.facebook.com/seanmichael.borje.7" target="_blank" class="btn btn-outline-secondary btn-sm mx-1">
+                                    <a href="https://www.facebook.com/seanmichael.borje.7" target="_blank"
+                                        class="btn btn-outline-secondary btn-sm mx-1 hover-scale">
                                         <i class="fab fa-facebook"></i> Facebook
                                     </a>
                                 </div>
                             </div>
+
                             <!-- Developer 2 -->
-                            <div class="col-md-6 text-center mb-4">
-                                <img src="../img/grad.jpg" alt="Developer 2" class="rounded-circle shadow border border-3 mb-3" style="width: 150px; height: 150px; object-fit: contain;">
-                                <h5 class="fw-bold">Brylle Justin L. Heraldo</h5>
-                                <p class="text-muted">Full Stack Developer</p>
-                                <p>A creative full stack developer who focuses on delivering smooth and engaging user experiences. With an eye for design and usability, he brings interfaces to life through responsive and intuitive layouts.</p>
+                            <div class="col-md-6 text-center mb-4 px-3">
+                                <img src="../img/grad.jpg" alt="Developer 2"
+                                    class="rounded-circle shadow border border-3 mb-3"
+                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                <h5 class="fw-bold mb-0">Brylle Justin L. Heraldo</h5>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
+                                </p>
+                                <p class="fw-semibold text-primary">Backend & Frontend Focus</p>
+                                <p class="text-muted text-start small" style="font-size: 15px;">
+                                    A creative full stack developer who focuses on delivering smooth and engaging user
+                                    experiences. With an eye for design and usability, he brings interfaces to life through
+                                    responsive and intuitive layouts.
+                                </p>
                                 <div>
-                                    <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
+                                    <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank"
+                                        class="btn btn-outline-primary btn-sm mx-1 hover-scale">
                                         <i class="fab fa-linkedin"></i> LinkedIn
                                     </a>
-                                    <a href="https://www.facebook.com/BrylleJustin.Chi" target="_blank" class="btn btn-outline-secondary btn-sm mx-1">
+                                    <a href="https://www.facebook.com/BrylleJustin.Chi" target="_blank"
+                                        class="btn btn-outline-secondary btn-sm mx-1 hover-scale">
                                         <i class="fab fa-facebook"></i> Facebook
                                     </a>
                                 </div>
-                                
                             </div>
                         </div>
                     </div>
 
-                    <!-- Client -->
-                    <div class="text-center mt-4">
+                    <!-- Client Footer -->
+                    <hr class="mx-5 mt-0">
+                    <div class="text-center mt-2 px-4">
                         <p class="text-muted small mb-1">
-                            Special thanks to the <strong>Local Government Unit - Talisay</strong> for their trust and collaboration as our valued client.
+                            Special thanks to the <strong>Local Government Unit - Talisay</strong> for their trust and
+                            collaboration as our valued client.
                         </p>
                         <p class="text-muted small">
-                            We would also like to express our heartfelt gratitude to <strong>Ma'am Marie Grace Ibita Poblete</strong> and <strong>Ma'am Edith Claro</strong> for their exceptional guidance and leadership throughout the development of this project.
+                            We would also like to express our heartfelt gratitude to <strong>Mrs. Marie Grace Ibita
+                                Poblete</strong> and <strong>Mrs. Edith Claro</strong> for their exceptional guidance and
+                            leadership throughout the development of this project.
                         </p>
                     </div>
 
-
-                    <div class="modal-footer">
+                    <!-- Close Button -->
+                    <div class="modal-footer border-top-0">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Hover Scale Button Effect -->
+        <style>
+            .hover-scale {
+                transition: transform 0.2s ease-in-out;
+            }
+
+            .hover-scale:hover {
+                transform: scale(1.05);
+            }
+
+            .modal-body {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+            @media (max-width: 768px) {
+                .modal-body {
+                    padding: 1.25rem;
+                }
+            }
+        </style>
+
 
 
         <!-- Modals -->
