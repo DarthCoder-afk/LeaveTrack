@@ -15,7 +15,6 @@ include '../auth/auth.php'; // Ensure authentication
     <link href="../css/admin.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/admin.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    
 
 </head>
 <body id="page-top">
@@ -72,19 +71,13 @@ include '../auth/auth.php'; // Ensure authentication
         <!-- Developers Modal -->
         <div class="modal fade" id="developersModal" tabindex="-1" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
-                <div class="modal-content shadow-lg" style="border-radius: 1rem;">
-                    <!-- Header -->
-                    <div class="modal-header bg-success text-white rounded-top">
-                        <h5 class="modal-title">
-                            <i class="fas fa-code me-2"></i> System Developers
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
+                <div class="modal-content">
+                    <div class="modal-header bg-success text-white">
+                        <h5 class="modal-title"><i class="fas fa-code"></i> System Developers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-
-                    <!-- Body -->
-                    <div class="modal-body" style="background-color: #f9f9f9; padding: 2rem;">
-                        <div class="row justify-content-center flex-wrap flex-md-nowrap">
-
+                    <div class="modal-body">
+                        <div class="row justify-content-center">
                             <!-- Developer 1 -->
                             <div class="col-md-6 text-center mb-4 px-3">
                                 <img src="../img/borje.jpg" alt="Developer 1"
@@ -100,17 +93,14 @@ include '../auth/auth.php'; // Ensure authentication
                                     security.
                                 </p>
                                 <div>
-                                    <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank"
-                                        class="btn btn-outline-primary btn-sm mx-1 hover-scale">
+                                    <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
                                         <i class="fab fa-linkedin"></i> LinkedIn
                                     </a>
-                                    <a href="https://www.facebook.com/seanmichael.borje.7" target="_blank"
-                                        class="btn btn-outline-secondary btn-sm mx-1 hover-scale">
+                                    <a href="https://www.facebook.com/seanmichael.borje.7" target="_blank" class="btn btn-outline-secondary btn-sm mx-1">
                                         <i class="fab fa-facebook"></i> Facebook
                                     </a>
                                 </div>
                             </div>
-
                             <!-- Developer 2 -->
                             <div class="col-md-6 text-center mb-4 px-3">
                                 <img src="../img/grad.jpg" alt="Developer 2"
@@ -126,63 +116,35 @@ include '../auth/auth.php'; // Ensure authentication
                                     experiences.
                                 </p>
                                 <div>
-                                    <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank"
-                                        class="btn btn-outline-primary btn-sm mx-1 hover-scale">
+                                    <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
                                         <i class="fab fa-linkedin"></i> LinkedIn
                                     </a>
-                                    <a href="https://www.facebook.com/BrylleJustin.Chi" target="_blank"
-                                        class="btn btn-outline-secondary btn-sm mx-1 hover-scale">
+                                    <a href="https://www.facebook.com/BrylleJustin.Chi" target="_blank" class="btn btn-outline-secondary btn-sm mx-1">
                                         <i class="fab fa-facebook"></i> Facebook
                                     </a>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
 
-                    <!-- Client Footer -->
-                    <hr class="mx-5 mt-0">
-                    <div class="text-center mt-2 px-4">
+                    <!-- Client -->
+                    <div class="text-center mt-4">
                         <p class="text-muted small mb-1">
-                            Special thanks to the <strong>Local Government Unit - Talisay</strong> for their trust and
-                            collaboration as our valued client.
+                            Special thanks to the <strong>Local Government Unit - Talisay</strong> for their trust and collaboration as our valued client.
                         </p>
                         <p class="text-muted small">
-                            We would also like to express our heartfelt gratitude to <strong>Mrs. Marie Grace Ibita
-                                Poblete</strong> and <strong>Mrs. Edith Claro</strong> for their exceptional guidance and
-                            leadership throughout the development of this project.
+                            We would also like to express our heartfelt gratitude to <strong>Ma'am Marie Grace Ibita Poblete</strong> and <strong>Ma'am Edith Claro</strong> for their exceptional guidance and leadership throughout the development of this project.
                         </p>
                     </div>
 
-                    <!-- Close Button -->
-                    <div class="modal-footer border-top-0">
+
+                    <div class="modal-footer">
                         <button class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Hover Scale Button Effect -->
-        <style>
-            .hover-scale {
-                transition: transform 0.2s ease-in-out;
-            }
-
-            .hover-scale:hover {
-                transform: scale(1.05);
-            }
-
-            .modal-body {
-                max-height: 70vh;
-                overflow-y: auto;
-            }
-
-            @media (max-width: 768px) {
-                .modal-body {
-                    padding: 1.25rem;
-                }
-            }
-        </style>
-
 
 
         <!-- Modals -->

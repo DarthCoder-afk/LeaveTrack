@@ -21,6 +21,31 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// Reinitialize Flatpickr without setting the input's value
+function resetFlatpickrView(inputId, appliedDate) {
+  flatpickr(inputId, {
+    mode: "multiple",
+    dateFormat: "Y-m-d",
+    defaultDate: appliedDate, // shows calendar on this month/year
+    onReady: function (selectedDates, dateStr, instance) {
+      // Clear input value so it's not filled in
+      instance.clear();
+    }
+  });
+}
+
+document.getElementById('dateApplied').addEventListener('change', function () {
+  const appliedDate = this.value;
+  resetFlatpickrView("#specificDates", appliedDate);
+});
+
+document.getElementById('dateApplied2').addEventListener('change', function () {
+  const appliedDate = this.value;
+  resetFlatpickrView("#specificDates2", appliedDate, "specificnumdays2");
+});
+
+
+
 // Function for date type (Consecutive or Specific)
 function toggleDateType() {
   const dateType = document.querySelector('input[name="date_type"]:checked').value;
@@ -191,3 +216,5 @@ document.getElementById('updatetoggleHolidayInput').addEventListener('click', fu
   var holidayContainer = document.getElementById('updateholidayContainer');
   holidayContainer.style.display = (holidayContainer.style.display === 'none') ? 'block' : 'none';
 });
+
+
