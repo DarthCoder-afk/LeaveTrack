@@ -1,4 +1,4 @@
-// Change Password Confirmation + Validation
+// Change Password Handler
 document.getElementById("changePasswordForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -33,13 +33,24 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
             .then(response => response.text())
             .then(data => {
                 let isError = data.toLowerCase().includes("error");
-                Swal.fire({
-                    title: "Password Update",
-                    text: data,
-                    icon: isError ? "error" : "success"
-                }).then(() => {
-                    if (!isError) location.reload();
-                });
+
+                if (!isError && data.toLowerCase().includes("success")) {
+                    Swal.fire({
+                        title: "Password Changed",
+                        text: "Your password has been updated. You will be logged out.",
+                        icon: "success",
+                        timer: 2500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "login.php";
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Password Update",
+                        text: data,
+                        icon: "error"
+                    });
+                }
             })
             .catch(error => {
                 console.error("Error:", error);
@@ -49,7 +60,7 @@ document.getElementById("changePasswordForm").addEventListener("submit", functio
 });
 
 
-// Update Username Confirmation + Validation
+// Update Username Handler
 document.getElementById("updateUsernameForm").addEventListener("submit", function (e) {
     e.preventDefault();
 
@@ -83,13 +94,24 @@ document.getElementById("updateUsernameForm").addEventListener("submit", functio
             .then(response => response.text())
             .then(data => {
                 let isError = data.toLowerCase().includes("error");
-                Swal.fire({
-                    title: "Username Update",
-                    text: data,
-                    icon: isError ? "error" : "success"
-                }).then(() => {
-                    if (!isError) location.reload();
-                });
+
+                if (!isError && data.toLowerCase().includes("success")) {
+                    Swal.fire({
+                        title: "Username Updated",
+                        text: "Your username has been updated. You will be logged out.",
+                        icon: "success",
+                        timer: 2500,
+                        showConfirmButton: false
+                    }).then(() => {
+                        window.location.href = "login.php";
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Username Update",
+                        text: data,
+                        icon: "error"
+                    });
+                }
             })
             .catch(error => {
                 console.error("Error:", error);

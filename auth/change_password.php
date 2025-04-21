@@ -10,45 +10,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error: User not logged in.");
     }
 
-    $current_password = mysqli_real_escape_string($conn, $_POST['current_password']);
-    $new_password = mysqli_real_escape_string($conn, $_POST['new_password']);
-    $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
-    $username = $_SESSION['username']; // Get current logged-in user
+    $current_password = $_POST['current_password'];
+    $new_password = $_POST['new_password'];
+    $confirm_password = $_POST['confirm_password'];
+    $username = $_SESSION['username'];
 
-    // Ensure database connection exists
     if (!$conn) {
         die("Database connection failed: " . mysqli_connect_error());
     }
 
-    // Validate new password
     if ($new_password !== $confirm_password) {
         die("Error: New passwords do not match!");
     }
 
-    // Get current password from database (without hashing)
-    $query = "SELECT password FROM login WHERE username='$username'";
-    $result = mysqli_query($conn, $query);
+    $query = "SELECT password FROM login WHERE username = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-    if (!$result) {
-        die("Error in SELECT query: " . mysqli_error($conn));
+    if (!$result || $result->num_rows === 0) {
+        die("Error: No user found.");
     }
 
-    $row = mysqli_fetch_assoc($result);
-    if (!$row) {
-        die("Error: No user found with this username.");
-    }
+    $row = $result->fetch_assoc();
+    $hashed_password = $row['password'];
 
-    // Check if entered password matches stored password
-    if ($current_password !== $row['password']) {
+    if (!password_verify($current_password, $hashed_password)) {
         die("Error: Current password is incorrect!");
     }
 
-    // Update password in database
-    $update_query = "UPDATE login SET password='$new_password' WHERE username='$username'";
-    if (mysqli_query($conn, $update_query)) {
-        echo "Password successfully updated!";
+    $new_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+    $update_query = "UPDATE login SET password = ? WHERE username = ?";
+    $update_stmt = $conn->prepare($update_query);
+    $update_stmt->bind_param("ss", $new_hashed, $username);
+
+    if ($update_stmt->execute()) {
+        session_unset();
+        session_destroy();
+        echo "success: Password changed. Logging out...";
     } else {
-        die("Error updating password: " . mysqli_error($conn));
+        die("Error updating password: " . $conn->error);
     }
 }
 ?>
