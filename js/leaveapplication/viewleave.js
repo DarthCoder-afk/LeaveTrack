@@ -48,7 +48,8 @@ $(document).on('click', '.viewLeaveBtn', function () {
     $('#viewTypeOfLeave').val(leavetype);
     $('#viewDateApplied').val(formatDate(dateapplied));
 
-    $('#viewNumberOfDays').val(numdays);
+    $('#viewNumberOfDays').val(formatNumberOfDays(numdays));
+
 
     // Handle date types: specific vs consecutive
     if (date_type === 'specific') {
@@ -90,3 +91,20 @@ function formatDate(dateString) {
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
+
+function formatNumberOfDays(days) {
+    var num = parseFloat(days);
+    if (isNaN(num)) return days;
+
+    var wholeDays = Math.floor(num);
+    var hasHalf = num % 1 !== 0;
+
+    if (wholeDays === 0 && hasHalf) {
+        return 'Half day';
+    } else if (hasHalf) {
+        return `${wholeDays} days and half day`;
+    } else {
+        return `${wholeDays} ${wholeDays === 1 ? 'day' : 'days'}`;
+    }
+}
+
