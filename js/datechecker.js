@@ -41,7 +41,7 @@ document.getElementById('dateApplied').addEventListener('change', function () {
 
 document.getElementById('dateApplied2').addEventListener('change', function () {
   const appliedDate = this.value;
-  resetFlatpickrView("#specificDates2", appliedDate);
+  resetFlatpickrView("#specificDates2", appliedDate, "specificnumdays2");
 });
 
 

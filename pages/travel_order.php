@@ -611,7 +611,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <th>Name</th>
                           <th>Position</th>
                           <th>Purpose</th>
-                          <th>Destination</th>        
+                          <th>Date of Filing</th>        
                           <th>Actions</th>
                         </tr>
                       </thead>

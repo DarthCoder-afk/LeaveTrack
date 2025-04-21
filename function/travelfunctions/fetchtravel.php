@@ -17,13 +17,14 @@
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
         $full_name = trim($full_name); 
         $row_class = ($row['status'] == 'Inactive') ? 'inactive-row' : '';
+        $dateapplied = ($row['dateapplied'] === '0000-00-00') ? 'No Record' :  htmlspecialchars(date("F d, Y", strtotime($row['dateapplied'])), ENT_QUOTES) ;
         
         echo "<tr class='text-center {$row_class}'>";
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
         echo "<td>{$row['position']}</td>";
         echo "<td>{$row['purpose']}</td>";
-        echo "<td>{$row['destination']}</td>";
+        echo "<td>{$dateapplied}</td>";
         echo "<td>
                 <button class='btn btn-success text-white viewTravelBtn' 
                     data-indexno='{$row['index_no']}'
