@@ -143,7 +143,7 @@ while ($row = $result->fetch_assoc()) {
 
     // Draw cells
     $pdf->SetXY($x, $y);  $pdf->MultiCell(15, $lineHeight, $row['employee_id'], 1, 'C');
-    $pdf->SetXY($x+15, $y); $pdf->MultiCell(45, $lineHeight, $row['fullname'],     1, 'C');
+    $pdf->SetXY($x+15, $y); $pdf->MultiCell(45, $lineHeight, utf8_decode($row['fullname']), 1, 'C');
     $pdf->SetXY($x+60, $y); $pdf->MultiCell(40, $lineHeight, $row['purpose'],      1, 'C');
     $pdf->SetXY($x+100,$y); $pdf->MultiCell(40, $lineHeight, $row['destination'],  1, 'C');
     $pdf->SetXY($x+140,$y); $pdf->MultiCell(60, $lineHeight, $dateRange,          1, 'C');

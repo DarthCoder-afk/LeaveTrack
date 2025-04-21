@@ -155,7 +155,7 @@ if ($result->num_rows === 0) {
 
         // Draw each cell aligned at Y=$y
         $pdf->SetXY($x,      $y); $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 1, 'C');
-        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(70, $lineHeight, $row['fullname'],        1, 'C');
+        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(70, $lineHeight, utf8_decode($row['fullname']), 1, 'C');
         $pdf->SetXY($x+90,   $y); $pdf->MultiCell(45, $lineHeight, $row['leavetype'],      1, 'C');
         $pdf->SetXY($x+135,  $y); $pdf->MultiCell(60, $lineHeight, $dateRange,            1, 'C');
 
