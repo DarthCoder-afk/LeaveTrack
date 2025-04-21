@@ -169,11 +169,11 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="row ml-3" id="consecutiveDatesContainer" style="display: none;">
                               <div class="form-group">
                                 <label>Start Date</label>
-                                <input type="date" class="form-control" name="startdate" id="startDate" disabled onchange="calculateNumberofDays()">
+                                <input type="date" class="form-control" name="startdate" id="startDate"  onchange="calculateNumberofDays()">
                               </div>
                               <div class="form-group ml-4">
                                 <label>End Date</label>
-                                <input type="date" class="form-control" name="enddate" id="endDate" disabled onchange="calculateNumberofDays()">
+                                <input type="date" class="form-control" name="enddate" id="endDate"  onchange="calculateNumberofDays()">
                               </div>
                               <div class="form-group ml-4">
                                 <label>Number of Days</label>
