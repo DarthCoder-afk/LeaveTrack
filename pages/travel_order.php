@@ -320,7 +320,7 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="col-md-6">
                               <div class="form-group">
                                 <label>Date Applied</label>
-                                <input type="date" class="form-control" name="applieddate" id="dateApplied2" required onchange="UpdatecalculateNumberofDays()">
+                                <input type="date" class="form-control" name="applieddate" id="dateApplied2"  onchange="UpdatecalculateNumberofDays()">
                               </div>
                             </div>
 
@@ -339,7 +339,7 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                             
                             <!-- Consecutive Dates -->
-                            <div class="row ml-3" id="consecutiveDatesContainer2">
+                            <div class="row ml-3" id="consecutiveDatesContainer2" style="display: none;">
                               <div class="form-group">
                                 <label>Start Date</label>
                                 <input type="date" class="form-control" name="startdate" id="startDate2" onchange="UpdatecalculateNumberofDays()">
@@ -362,7 +362,7 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
 
                             <!-- Specific Dates -->
-                            <div class="row" id="specificDatesContainer2" style="display: none;">
+                            <div class="row" id="specificDatesContainer2" >
                               <div class="form-group col-md-6 ml-3">
                                 <label>Select Specific Dates</label>
                                 <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
@@ -372,7 +372,7 @@ include '../auth/auth.php'; // Ensure authentication
                               <div class="form-group col-md-4">
                                 <label>Number of Days</label>
                                 <div class="input-group">
-                                  <input type="text" class="form-control" name="specificnumdays" id="specificnumdays2" readonly>
+                                  <input type="text" class="form-control" name="specificnumdays2" id="specificnumdays2"  step="0.5" min="0">
                                   <div class="input-group-append">
                                     <button type="button" class="btn btn-outline-secondary" id="toggleHolidayInput">
                                       <i class="fas fa-minus-circle"></i>

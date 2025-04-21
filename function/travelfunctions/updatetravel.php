@@ -11,13 +11,13 @@ if(isset($_POST['EditTravel'])) {
     $datefiled = $_POST['applieddate'];
     $sdate = $_POST['startdate'];
     $edate = $_POST['enddate'];
-    $ndays = $_POST['numdays'];
+    $ndays = isset($_POST['numdays']) ? floatval($_POST['numdays']) : 0;
     $date_type = $_POST['date_type2'];
     $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;
 
     if ($date_type === 'specific' && $specific_dates) {
         $dates = explode(',', $specific_dates); // Assuming dates are comma-separated
-        $ndays = count($dates);
+        $ndays = isset($_POST['specificnumdays2']) ? floatval($_POST['specificnumdays2']) : 0;
         $sdate = null; // Not applicable for specific dates
         $edate = null; // Not applicable for specific dates
     }
@@ -33,7 +33,7 @@ if(isset($_POST['EditTravel'])) {
     //echo '<script> console.log("'.$new_emp_id.'"); </script>';
 
     $stmt = $conn->prepare("UPDATE travelorder SET purpose = ?, destination = ?, dateapplied = ?, date_type = ?, specific_dates = ?, startdate = ?, enddate = ?, numofdays = ?, file = ? WHERE index_no = ?");
-    $stmt->bind_param("sssssssisi", $purpose, $destination, $datefiled, $date_type, $specific_dates, $sdate, $edate, $ndays, $file, $index_no);
+    $stmt->bind_param("sssssssssi", $purpose, $destination, $datefiled, $date_type, $specific_dates, $sdate, $edate, $ndays, $file, $index_no);
 
     if($stmt->execute()) {
         $_SESSION['message'] = "update";
