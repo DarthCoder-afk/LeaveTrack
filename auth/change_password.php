@@ -23,6 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         die("Error: New passwords do not match!");
     }
 
+    // Get the current password from the database (plain text)
     $query = "SELECT password FROM login WHERE username = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $username);
@@ -34,16 +35,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $row = $result->fetch_assoc();
-    $hashed_password = $row['password'];
+    $stored_password = $row['password'];
 
-    if (!password_verify($current_password, $hashed_password)) {
+    // Plain text comparison (not secure, only for testing)
+    if ($current_password !== $stored_password) {
         die("Error: Current password is incorrect!");
     }
 
-    $new_hashed = password_hash($new_password, PASSWORD_DEFAULT);
+    // Update with new plain text password (again: not secure)
     $update_query = "UPDATE login SET password = ? WHERE username = ?";
     $update_stmt = $conn->prepare($update_query);
-    $update_stmt->bind_param("ss", $new_hashed, $username);
+    $update_stmt->bind_param("ss", $new_password, $username);
 
     if ($update_stmt->execute()) {
         session_unset();
