@@ -17,8 +17,8 @@
         //$middle_initial = !empty($row['midname']) ? strtoupper($row['midname'][0]) . '.' : '';
         $full_name = "{$row['lname']}, {$row['fname']} {$row['extname']} {$row['midname']}";
         $full_name = trim($full_name); 
-        
-        
+        $dateapplied = ($row['dateapplied'] === '0000-00-00') ? 'No Record' :  htmlspecialchars(date("F d, Y", strtotime($row['dateapplied'])), ENT_QUOTES) ;
+
         echo "<tr class='text-center'>";
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
@@ -26,7 +26,7 @@
         // echo "<td>{$row['position']}</td>";
         // echo "<td>{$row['office']}</td>";
         echo "<td>{$row['leavetype']}</td>";
-        echo "<td>{$row['dateapplied']}</td>";
+        echo "<td>{$dateapplied}</td>";
         echo "<td>
                 <button class='btn btn-success text-white viewLeaveBtn' 
                     data-indexno='{$row['index_no']}'
