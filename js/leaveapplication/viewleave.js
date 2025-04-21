@@ -85,9 +85,11 @@ $(document).on('click', '.viewLeaveBtn', function () {
 
 // Format helper
 function formatDate(dateString) {
-    if (!dateString) return '';
+    if (!dateString || dateString === '0000-00-00') return 'No Record';
+
     var date = new Date(dateString);
     if (isNaN(date)) return dateString;
+
     var options = { year: 'numeric', month: 'long', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
