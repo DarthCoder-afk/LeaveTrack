@@ -91,7 +91,7 @@ include '../auth/auth.php'; // Ensure authentication
                                             <th>ID Number</th>
                                             <th>Full Name</th>
                                             <th>Leave Type</th>
-                                            <th>Date of File</th>
+                                            <th>Date of Filing</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Specific Dates</th>
@@ -151,7 +151,7 @@ include '../auth/auth.php'; // Ensure authentication
                                             <th>Full Name</th>
                                             <th>Purpose</th>
                                             <th>Destination</th>
-                                            <th>Date of File</th>
+                                            <th>Date of Filing</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Specific Dates</th>
@@ -212,7 +212,7 @@ include '../auth/auth.php'; // Ensure authentication
                                             <th>ID Number</th>
                                             <th>Full Name</th> 
                                             <th>Leave Type</th>
-                                            <th>Date of File</th>
+                                            <th>Date of Filing</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Specific Dates</th>

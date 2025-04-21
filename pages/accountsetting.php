@@ -79,11 +79,19 @@ include '../auth/auth.php'; // Ensure authentication
                     <div class="modal-body">
                         <div class="row justify-content-center">
                             <!-- Developer 1 -->
-                            <div class="col-md-6 text-center mb-4">
-                                <img src="../img/borje.jpg" alt="Developer 1" class="rounded-circle shadow border border-3 mb-3" style="width: 150px; height: 150px; object-fit: contain;">
-                                <h5 class="fw-bold">Sean Michael A. Borje</h5>
-                                <p class="text-muted">Full Stack Developer</p>
-                                <p>A passionate full stack developer who takes the lead in backend development and system security. His attention to detail and dedication ensure the platform runs reliably and securely for every user.</p>
+                            <div class="col-md-6 text-center mb-4 px-3">
+                                <img src="../img/borje.jpg" alt="Developer 1"
+                                    class="rounded-circle shadow border border-3 mb-3"
+                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                <h5 class="fw-bold mb-0">Sean Michael A. Borje</h5>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
+                                </p>
+                                <p class="fw-semibold text-success">Backend & Security Focus</p>
+                                <p class="text-muted text-start small" style="font-size: 15px;">
+                                    A passionate full stack developer who takes the lead in backend development and system
+                                    security.
+                                </p>
                                 <div>
                                     <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
                                         <i class="fab fa-linkedin"></i> LinkedIn
@@ -94,11 +102,19 @@ include '../auth/auth.php'; // Ensure authentication
                                 </div>
                             </div>
                             <!-- Developer 2 -->
-                            <div class="col-md-6 text-center mb-4">
-                                <img src="../img/grad.jpg" alt="Developer 2" class="rounded-circle shadow border border-3 mb-3" style="width: 150px; height: 150px; object-fit: contain;">
-                                <h5 class="fw-bold">Brylle Justin L. Heraldo</h5>
-                                <p class="text-muted">Full Stack Developer</p>
-                                <p>A creative full stack developer who focuses on delivering smooth and engaging user experiences. With an eye for design and usability, he brings interfaces to life through responsive and intuitive layouts.</p>
+                            <div class="col-md-6 text-center mb-4 px-3">
+                                <img src="../img/grad.jpg" alt="Developer 2"
+                                    class="rounded-circle shadow border border-3 mb-3"
+                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                <h5 class="fw-bold mb-0">Brylle Justin L. Heraldo</h5>
+                                <p class="text-muted mb-1">
+                                    <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
+                                </p>
+                                <p class="fw-semibold text-primary">Backend & Frontend Focus</p>
+                                <p class="text-muted text-start small" style="font-size: 15px;">
+                                    A creative full stack developer who focuses on delivering smooth and engaging user
+                                    experiences.
+                                </p>
                                 <div>
                                     <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank" class="btn btn-outline-primary btn-sm mx-1">
                                         <i class="fab fa-linkedin"></i> LinkedIn
