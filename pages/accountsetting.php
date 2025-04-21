@@ -97,8 +97,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <p class="fw-semibold text-success">Backend & Security Focus</p>
                                 <p class="text-muted text-start small" style="font-size: 15px;">
                                     A passionate full stack developer who takes the lead in backend development and system
-                                    security. His attention to detail and dedication ensure the platform runs reliably and
-                                    securely for every user.
+                                    security.
                                 </p>
                                 <div>
                                     <a href="https://www.linkedin.com/in/sean-michael-borje-0015781b8/" target="_blank"
@@ -124,8 +123,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <p class="fw-semibold text-primary">Backend & Frontend Focus</p>
                                 <p class="text-muted text-start small" style="font-size: 15px;">
                                     A creative full stack developer who focuses on delivering smooth and engaging user
-                                    experiences. With an eye for design and usability, he brings interfaces to life through
-                                    responsive and intuitive layouts.
+                                    experiences.
                                 </p>
                                 <div>
                                     <a href="https://www.linkedin.com/in/heraldo-brylle-justin-5527802ba/" target="_blank"
