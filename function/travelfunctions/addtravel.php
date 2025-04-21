@@ -11,13 +11,14 @@ if(isset($_POST['AddTravel'])) {
     $dateapplied = $_POST['datefiled'];
     $startdate = $_POST['startdate'];
     $enddate = $_POST['enddate'];
-    $numdays = $_POST['numdays'];
+    $numdays = isset($_POST['numdays']) ? floatval($_POST['numdays']) : 0;
+
     $date_type = $_POST['date_type'];
     $specific_dates = isset($_POST['specific_dates']) ? $_POST['specific_dates'] : null;
 
     if ($date_type === 'specific' && $specific_dates) {
         $dates = explode(',', $specific_dates); // Assuming dates are comma-separated
-        $numdays = count($dates);
+        $numdays = isset($_POST['specificnumdays']) ? floatval($_POST['specificnumdays']) : 0;
         $sdate = null; // Not applicable for specific dates
         $edate = null; // Not applicable for specific dates
     }
