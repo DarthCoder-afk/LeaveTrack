@@ -3,7 +3,7 @@
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
-                        <h5 class="modal-title"><i class="fas fa-code"></i> System Developers</h5>
+                        <h5 class="modal-title"><i class="fas fa-users-cog"></i> System Developers</h5>
                         <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
 
                     </div>
@@ -12,8 +12,8 @@
                             <!-- Developer 1 -->
                             <div class="col-md-6 text-center mb-4 px-3">
                                 <img src="../img/borje.jpg" alt="Developer 1"
-                                    class="rounded-circle shadow border border-3 mb-3"
-                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                    class="square shadow border border-3 mb-3"
+                                    style="width: 100px; height: 150px; object-fit: contain;">
                                 <h5 class="fw-bold mb-0">Sean Michael A. Borje</h5>
                                 <p class="text-muted mb-1">
                                     <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
@@ -35,8 +35,8 @@
                             <!-- Developer 2 -->
                             <div class="col-md-6 text-center mb-4 px-3">
                                 <img src="../img/grad.jpg" alt="Developer 2"
-                                    class="rounded-circle shadow border border-3 mb-3"
-                                    style="width: 150px; height: 150px; object-fit: contain;">
+                                    class="square shadow border border-3 mb-3"
+                                    style="width: 100px; height: 150px; object-fit: contain;">
                                 <h5 class="fw-bold mb-0">Brylle Justin L. Heraldo</h5>
                                 <p class="text-muted mb-1">
                                     <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
