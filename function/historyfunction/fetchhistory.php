@@ -1,11 +1,13 @@
 <?php
     include '../database/db_connect.php';
     date_default_timezone_set('Asia/Manila');
-    $result = $conn->query("SELECT * FROM activity_log");
+    $result = $conn->query("SELECT * FROM activity_log ORDER BY CONCAT(activity_date, ' ', activity_time) DESC");
     $counter = 1; // Initialize the counter for the "No." column
    
     while ($row = $result->fetch_assoc()) {
-        $datetime = "{$row['activity_date']} {$row['activity_time']}";
+        $date =  htmlspecialchars(date("F d, Y", strtotime($row['activity_date'])), ENT_QUOTES) ;
+        $time = htmlspecialchars(date("g:i A", strtotime($row['activity_time'])), ENT_QUOTES);
+        $datetime = "{$date} {$time}";
         $formatted_emp_id = str_pad($row['emp_id'], 3, "0", STR_PAD_LEFT);
 
         $activity_grammar = '';
