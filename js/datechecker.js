@@ -22,21 +22,30 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Reinitialize Flatpickr without setting the input's value
-function resetFlatpickrView(inputId, appliedDate) {
+function resetFlatpickrView(inputId, appliedDate, numDaysId) {
   flatpickr(inputId, {
     mode: "multiple",
     dateFormat: "Y-m-d",
     defaultDate: appliedDate, // shows calendar on this month/year
     onReady: function (selectedDates, dateStr, instance) {
       // Clear input value so it's not filled in
+      
       instance.clear();
+    },
+    onChange: function (selectedDates) {
+      const numDaysInput = document.getElementById(numDaysId);
+      if (selectedDates.length > 0) {
+        numDaysInput.value = selectedDates.length;
+      } else {
+        numDaysInput.value = ''; // clear the field if no dates selected
+      }
     }
   });
 }
 
 document.getElementById('dateApplied').addEventListener('change', function () {
   const appliedDate = this.value;
-  resetFlatpickrView("#specificDates", appliedDate);
+  resetFlatpickrView("#specificDates", appliedDate, "specificnumdays");
 });
 
 document.getElementById('dateApplied2').addEventListener('change', function () {
