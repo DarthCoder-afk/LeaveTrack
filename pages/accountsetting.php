@@ -74,7 +74,7 @@ include '../auth/auth.php'; // Ensure authentication
                 <div class="modal-content">
                     <div class="modal-header bg-success text-white">
                         <h5 class="modal-title"><i class="fas fa-code"></i> System Developers</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
                     </div>
                     <div class="modal-body">
                         <div class="row justify-content-center">
@@ -87,7 +87,7 @@ include '../auth/auth.php'; // Ensure authentication
                                 <p class="text-muted mb-1">
                                     <i class="fas fa-laptop-code me-1"></i> Full Stack Developer
                                 </p>
-                                <p class="fw-semibold text-success">Backend & Security Focus</p>
+                                <p class="fw-semibold text-success">Backend & Database Focus</p>
                                 <p class="text-muted text-start small" style="font-size: 15px;">
                                     A passionate full stack developer who takes the lead in backend development and system
                                     security.
