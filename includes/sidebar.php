@@ -1,3 +1,7 @@
+<?php include '../function/developers/developers_modal.php'; ?>
+
+
+
 <!-- Sidebar -->
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../pages/index.php" style="background-color: #2e8517;">
@@ -55,6 +59,16 @@
           <span>Log-out</span>
         </a>
       </li>
+
+      <!-- Sticky Developers Button at Bottom -->
+      <div class="mt-auto px-3 pb-3">
+        <a class="nav-link" href="#" data-toggle="modal" data-target="#developersModal">
+          <i class="fas fa-users-cog"></i> System Developers
+        </a>
+      </div>
+
+
+
       <hr class="sidebar-divider">
     </ul>
     <!-- Sidebar -->
