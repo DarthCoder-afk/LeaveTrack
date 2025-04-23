@@ -153,6 +153,12 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                         </div>
 
+                        <div class="form-group" id="specify_leave_type_group" style="display: none;">
+                          <label for="specify_leave_type">Specify Leave Type</label>
+                          <input type="text" id="specify_leave_type" name="specify_leave_type" class="form-control" placeholder="Enter leave type">
+                        </div>
+
+
                         <div class="col-md-6">
                           <div class="form-group">
                             <label>Date Applied</label>
@@ -659,7 +665,6 @@ include '../auth/auth.php'; // Ensure authentication
         <i class="fas fa-angle-up"></i>
       </a>
       
-
 
       <script src="../js/datechecker.js"></script>
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

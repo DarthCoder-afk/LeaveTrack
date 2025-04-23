@@ -3,7 +3,7 @@ $(document).ready(function () {
 
     // ========== Verify Modal ==========
     $('#verifyModal2').on('show.bs.modal', function (event) {
-        triggerButton = $(event.relatedTarget); // Store the button for later use
+        triggerButton = $(event.relatedTarget);
         $('#verifyPassword2').val('');
 
         $('#verifyForm2').off('submit').on('submit', function (e) {
@@ -20,13 +20,12 @@ $(document).ready(function () {
                     if (jsonResponse.success) {
                         $('#verifyModal2').modal('hide');
 
-                        // When verifyModal2 is hidden, show editLeaveModal
                         $('#verifyModal2').on('hidden.bs.modal', function () {
                             $('#editLeaveModal')
-                                .data('relatedTarget', triggerButton[0]) // pass the button manually
+                                .data('relatedTarget', triggerButton[0])
                                 .modal('show');
 
-                            $(this).off('hidden.bs.modal'); // prevent stacking
+                            $(this).off('hidden.bs.modal');
                         });
                     } else {
                         Swal.fire({
@@ -52,7 +51,6 @@ $(document).ready(function () {
         const button = $(event.relatedTarget || $(this).data('relatedTarget'));
         const modal = $(this);
 
-        // Data extraction
         const data = {
             employee_id: button.data('employee_id'),
             indexno: button.data('indexno'),
@@ -64,7 +62,7 @@ $(document).ready(function () {
             office: button.data('office'),
             gender: button.data('gender'),
             leavetype: button.data('leavetype'),
-            datefiled: button.data('dateapplied'),
+            dateapplied: button.data('dateapplied'),
             startdate: button.data('startdate'),
             enddate: button.data('enddate'),
             numdays: button.data('numdays'),
@@ -74,7 +72,6 @@ $(document).ready(function () {
             optional_leave_type: button.data('optional_leave_type') || ''
         };
 
-        // Populate fields
         modal.find('#index_no').val(data.indexno);
         modal.find('#idnumber').val(data.employee_id);
         modal.find('#lastName2').val(data.lname);
@@ -85,14 +82,12 @@ $(document).ready(function () {
         modal.find('#office2').val(data.office);
         modal.find('#gender2').val(data.gender);
         modal.find('#hidden_gender').val(data.gender);
-        modal.find('#dateApplied2').val(data.datefiled);
+        modal.find('#dateApplied2').val(data.dateapplied);
         modal.find('#startDate2').val(data.startdate);
         modal.find('#endDate2').val(data.enddate);
 
-        // Handle uploaded file
         modal.find('#updateLabel').text(data.file === '' ? 'No file uploaded' : data.file);
 
-        // Date type radio & visibility
         if (data.dateType === 'specific') {
             modal.find('input[name="date_type2"][value="specific"]').prop('checked', true);
             modal.find('#specificDatesContainer2').show();
@@ -112,12 +107,13 @@ $(document).ready(function () {
             modal.find('#consecutiveDatesContainer2').toggle(val !== 'specific');
         });
 
-        // Leave Type Dropdown Options
         const leaveTypeDropdown = modal.find('#typeOfLeave');
         const optionalLeaveDiv = modal.find('#optionalLeaveDiv');
         const optionalLeaveInput = modal.find('#optionalLeaveType');
 
-        leaveTypeDropdown.empty().append('<option value="" disabled>Select Type of Leave</option>');
+        leaveTypeDropdown.empty().append(`
+            <option value="" disabled>Select Type of Leave</option>
+        `);
 
         const optionsMale = [
             "Vacation Leave", "Mandatory/Forced Leave", "Sick Leave", "Paternity Leave", "Special Privilege Leave",
@@ -130,31 +126,40 @@ $(document).ready(function () {
             "Special Leave Benefits for Women", "Special (Calamity) Leave", "Monetization", "Force Leave", "Optional"
         ];
 
-        const options = data.gender === 'Male' ? optionsMale : data.gender === 'Female' ? optionsFemale : ["Sick Leave", "Vacation Leave"];
+        const options = data.gender === 'Male' ? optionsMale :
+                        data.gender === 'Female' ? optionsFemale :
+                        ["Sick Leave", "Vacation Leave", "Optional"];
 
         options.forEach(type => {
             leaveTypeDropdown.append(`<option value="${type}">${type}</option>`);
         });
 
-        // Set selected leave type
-        leaveTypeDropdown.val(data.leavetype.trim());
-        if (leaveTypeDropdown.val() !== data.leavetype.trim()) {
-            console.warn("Leave type not found in dropdown:", data.leavetype);
-        }
+        const normalizedLeaveType = data.leavetype?.trim().toLowerCase() || '';
+        const matchedLeaveType = options.find(opt => opt.toLowerCase() === normalizedLeaveType);
 
-        // Handle Optional Leave
-        if (data.leavetype === "Optional") {
-            optionalLeaveDiv.show();
-            optionalLeaveInput.val(data.optional_leave_type).prop('required', true);
+        if (matchedLeaveType) {
+            leaveTypeDropdown.val(matchedLeaveType);
+            const isOptional = matchedLeaveType.toLowerCase() === "optional";
+            optionalLeaveDiv.toggle(isOptional);
+            optionalLeaveInput.prop('required', isOptional).val(isOptional ? data.optional_leave_type : '');
         } else {
-            optionalLeaveDiv.hide();
-            optionalLeaveInput.val('').prop('required', false);
+            // If not matched, assume it's a custom optional type
+            leaveTypeDropdown.val("Optional");
+            optionalLeaveDiv.show();
+            optionalLeaveInput.prop('required', true).val(data.leavetype);
         }
 
         leaveTypeDropdown.off('change').on('change', function () {
-            const isOptional = $(this).val() === "Optional";
+            const selected = $(this).val();
+            const isOptional = selected.toLowerCase() === "optional";
             optionalLeaveDiv.toggle(isOptional);
-            optionalLeaveInput.prop('required', isOptional).val(isOptional ? data.optional_leave_type : '');
+            optionalLeaveInput.prop('required', isOptional);
+
+            if (!isOptional) {
+                optionalLeaveInput.val('');
+            } else {
+                optionalLeaveInput.val(data.optional_leave_type || data.leavetype || '');
+            }
         });
     });
 });
