@@ -93,6 +93,6 @@ $counter = $count->fetch_assoc();
         }
     
         ?>
-        <a class='dropdown-item text-center small text-gray-500' href='#'>Show All Activities</a>
+        <a class='dropdown-item text-center small text-gray-500' href='../pages/history.php'>Show All Activities</a>
     </div>
 </li>
