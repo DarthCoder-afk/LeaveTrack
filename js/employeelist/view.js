@@ -86,10 +86,18 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                     const endDate = isSpecific ? 'N/A' : formatDate(leave.enddate);
                     const specificDates = isSpecific && leave.specific_dates
                         ? leave.specific_dates
-                            .split(',')
-                            .map(date => formatDate(date.trim()))
+                            .split(/[\n,;]+/)
+                            .map(date => new Date(date.trim()))
+                            .filter(dateObj => !isNaN(dateObj))
+                            .sort((a, b) => a - b)
+                            .map(dateObj => dateObj.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            }))
                             .join('<br>')
                         : 'N/A';
+                
 
                     leaveHtml += `<tr>
                         <td>${leave.leavetype}</td>
@@ -110,11 +118,18 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                 response.travel.forEach(function (travel) {
                     const specificDates = travel.specific_dates
                         ? travel.specific_dates
-                            .split(/[\n,]+/)
-                            .map(date => formatDate(date.trim()))
-                            .filter(date => date !== 'N/A')
+                            .split(/[\n,;]+/)
+                            .map(date => new Date(date.trim()))
+                            .filter(dateObj => !isNaN(dateObj))
+                            .sort((a, b) => a - b)
+                            .map(dateObj => dateObj.toLocaleDateString("en-US", {
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric"
+                            }))
                             .join('<br>')
                         : 'N/A';
+                
 
                     const numOfDays = travel.numofdays ? formatNumberOfDays(travel.numofdays) : 'N/A';
 
