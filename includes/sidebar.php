@@ -6,7 +6,7 @@
 <ul class="navbar-nav sidebar sidebar-light accordion" id="accordionSidebar">
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="../pages/index.php" style="background-color: #2e8517;">
         <div class="sidebar-brand-icon">
-          <img src="../img/logo.png" style="border-radius: 50%;">
+          <img src="../img/HR.png" style="border-radius: 50%;">
         </div>
         <div class="sidebar-brand-text mx-3">HR Admin</div>
       </a>
