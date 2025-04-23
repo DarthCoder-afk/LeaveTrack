@@ -145,7 +145,7 @@ include '../auth/auth.php'; // Ensure authentication
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Date Applied</label>
+                                <label>Date of Filing</label>
                                 <input type="date" class="form-control" name="datefiled" id="dateApplied" onchange=calculateNumberofDays()>
                               </div>
                             </div>
@@ -319,7 +319,7 @@ include '../auth/auth.php'; // Ensure authentication
 
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Date Applied</label>
+                                <label>Date of Filing</label>
                                 <input type="date" class="form-control" name="applieddate" id="dateApplied2"  onchange="UpdatecalculateNumberofDays()">
                               </div>
                             </div>
@@ -481,7 +481,7 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                           <div class="col-md-6">
                             <div class="form-group">
-                              <label>Date Applied</label>
+                              <label>Date of Filing</label>
                               <input type="text" id="viewDateApplied" class="form-control" disabled>
                             </div>
                           </div>
