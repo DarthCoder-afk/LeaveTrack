@@ -23,7 +23,7 @@
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
         //echo "<td>{$row['gender']}</td>";
-        // echo "<td>{$row['position']}</td>";
+        echo "<td>{$row['position']}</td>";
         // echo "<td>{$row['office']}</td>";
         echo "<td>{$row['leavetype']}</td>";
         echo "<td>{$dateapplied}</td>";

@@ -630,10 +630,10 @@ include '../auth/auth.php'; // Ensure authentication
                         <tr>
                           <th>ID No.</th>
                           <th>Name</th>
-                          <!-- <th>Position</th> -->
+                          <th>Position</th>
                           <!-- <th>Office</th> -->
                           <th>Leave Type</th>
-                          <th>Date Applied</th>
+                          <th>Date of Filing</th>
                           <th>Actions</th>
                         </tr>
                       </thead>
