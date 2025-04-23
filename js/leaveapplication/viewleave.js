@@ -57,10 +57,14 @@ $(document).on('click', '.viewLeaveBtn', function () {
         $('#consecutiveDatesGroup').addClass('d-none');
     
         if (specific_dates) {
-            const datesArray = specific_dates.split(/[\n,]+/).map(function (date) {
-                return formatDate(date.trim());
-            });
-            $('#viewSpecificDates').val(datesArray.join('\n'));
+            const datesArray = specific_dates
+                .split(/[\n,]+/)
+                .map(date => date.trim())
+                .filter(date => date !== '')  // remove empty strings
+                .sort((a, b) => new Date(a) - new Date(b));  // sort dates
+    
+            const formattedDates = datesArray.map(date => formatDate(date));
+            $('#viewSpecificDates').val(formattedDates.join('\n'));
         } else {
             $('#viewSpecificDates').val('');
         }
