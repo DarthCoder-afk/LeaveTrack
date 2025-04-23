@@ -6,7 +6,8 @@
             <!-- Header -->
             <div class="modal-header bg-success text-white">
                 <h5 class="modal-title"><i class="fas fa-users-cog"></i> System Developers</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+                style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
             </div>
 
             <!-- Body with Cards -->
