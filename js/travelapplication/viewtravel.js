@@ -75,7 +75,6 @@ $(document).on('click', '.viewTravelBtn', function () {
     $('#viewDateApplied').val(formatDate(dateapplied));
     $('#viewNumberOfDays').val(formatNumberOfDays(numdays));
 
-
     // Handle Date View Logic
     if (datetype === 'specific') {
         $('#specificDatesGroup').removeClass('d-none');
@@ -84,9 +83,19 @@ $(document).on('click', '.viewTravelBtn', function () {
 
         if (specificdates) {
             let formattedDates = specificdates
-                .split(/,|\n/)
-                .map(dateStr => formatDate(dateStr.trim()))
+                .split(/[\n,;]+/)  // Split on newlines, commas, or semicolons
+                .map(dateStr => dateStr.trim())
+                .filter(dateStr => dateStr.length > 0)
+                .map(dateStr => new Date(dateStr))
+                .filter(dateObj => !isNaN(dateObj)) // Valid dates only
+                .sort((a, b) => a - b)
+                .map(dateObj => dateObj.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric"
+                }))
                 .join('\n');
+
             $('#viewSpecificDates').val(formattedDates);
         } else {
             $('#viewSpecificDates').val('');
@@ -100,6 +109,7 @@ $(document).on('click', '.viewTravelBtn', function () {
         $('#viewStartDate').val(formatDate(startdate));
         $('#viewEndDate').val(formatDate(enddate));
     }
+
 
     // Handle Attached File
     if (file && file !== "null") {
