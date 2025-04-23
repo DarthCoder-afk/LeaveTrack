@@ -112,9 +112,23 @@ $bottomMargin = 20;
 while ($row = $result->fetch_assoc()) {
     // Build dateRange from specific or start/end
     if (!empty($row['specific_dates'])) {
-        $dlist = explode(',', $row['specific_dates']);
-        $fmt   = array_map(fn($d)=>date('F j, Y',strtotime(trim($d))), $dlist);
-        $dateRange = implode(', ', $fmt);
+        $rawDates = preg_split('/[\n,]+/', $row['specific_dates']); // handles both commas and newlines
+        $cleanedDates = [];
+    
+        foreach ($rawDates as $date) {
+            $trimmed = trim($date);
+            $ts = strtotime($trimmed);
+            if ($ts !== false) {
+                $cleanedDates[] = $ts;
+            }
+        }
+    
+        sort($cleanedDates); // sort the timestamps
+    
+        // Format sorted timestamps back to readable dates
+        $formattedDates = array_map(fn($ts) => date('F j, Y', $ts), $cleanedDates);
+        $dateRange = implode(', ', $formattedDates);
+    
     } elseif (!empty($row['startdate']) && !empty($row['enddate'])) {
         $dateRange = date('F j, Y',strtotime($row['startdate']))
                    . ' to ' . date('F j, Y',strtotime($row['enddate']));

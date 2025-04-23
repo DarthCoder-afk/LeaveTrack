@@ -128,9 +128,22 @@ if ($result->num_rows === 0) {
             $dateRange = date("F j, Y", strtotime($row['startdate']))
                        . " to " . date("F j, Y", strtotime($row['enddate']));
         } elseif (!empty($row['specific_dates'])) {
-            $dates = explode(',', $row['specific_dates']);
-            $formatted = array_map(fn($d) => date("F j, Y", strtotime(trim($d))), $dates);
+            $dates = preg_split('/[\n,]+/', $row['specific_dates']); // Split by newline or comma
+            $cleanDates = [];
+            
+            foreach ($dates as $date) {
+                $trimmed = trim($date);
+                $ts = strtotime($trimmed);
+                if ($ts) {
+                    $cleanDates[] = $ts;
+                }
+            }
+            
+            sort($cleanDates); // Sort timestamps ascending
+            
+            $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
             $dateRange = implode(", ", $formatted);
+            
         } else {
             $dateRange = 'N/A';
         }
