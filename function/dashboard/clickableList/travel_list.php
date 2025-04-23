@@ -66,18 +66,35 @@ while ($row = $result->fetch_assoc()) {
 
     // Handle specific dates
     if (!empty($row['specific_dates'])) {
-        $dates = preg_split('/[\n,]+/', $row['specific_dates']); // split by newline or comma
-        echo "<td>";
-        foreach ($dates as $date) {
-            $date = trim($date);
-            if (!empty($date)) {
-                echo formatDateSafe($date) . "<br>";
+        $rawDates = preg_split('/[\n,]+/', $row['specific_dates']);
+        $dateObjects = [];
+    
+        // Convert to DateTime and filter out invalid dates
+        foreach ($rawDates as $dateStr) {
+            $dateStr = trim($dateStr);
+            if (!empty($dateStr)) {
+                $timestamp = strtotime($dateStr);
+                if ($timestamp) {
+                    $dateObjects[] = new DateTime($dateStr);
+                }
             }
+        }
+    
+        // Sort dates
+        usort($dateObjects, function ($a, $b) {
+            return $a <=> $b;
+        });
+    
+        // Output sorted dates
+        echo "<td>";
+        foreach ($dateObjects as $dateObj) {
+            echo $dateObj->format("F j, Y") . "<br>";
         }
         echo "</td>";
     } else {
         echo "<td>N/A</td>";
     }
+    
 
     echo "</tr>";
 }

@@ -50,11 +50,27 @@ while ($row = $result->fetch_assoc()) {
     // Format specific dates individually
     $specific = 'N/A';
     if (!empty($row['specific_dates'])) {
-        $specificDatesArray = array_filter(array_map('trim', explode(',', $row['specific_dates'])));
-        if (count($specificDatesArray)) {
-            $specific = implode("<br>", array_map('formatDate', $specificDatesArray));
+        $specificDatesArray = array_filter(array_map('trim', preg_split('/[\n,;]+/', $row['specific_dates'])));
+    
+        // Convert to DateTime objects, filter out invalid dates
+        $dateObjects = array_filter(array_map(function ($dateStr) {
+            $timestamp = strtotime($dateStr);
+            return $timestamp ? new DateTime($dateStr) : null;
+        }, $specificDatesArray));
+    
+        // Sort chronologically
+        usort($dateObjects, function ($a, $b) {
+            return $a <=> $b;
+        });
+    
+        // Format back to string for display
+        if (count($dateObjects)) {
+            $specific = implode("<br>", array_map(function ($dateObj) {
+                return $dateObj->format('F j, Y');
+            }, $dateObjects));
         }
     }
+    
 
     // Always try to use numofdays if available
     $rawDays = is_numeric($row['numofdays']) ? floatval($row['numofdays']) : (

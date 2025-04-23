@@ -42,18 +42,29 @@ while ($row = $result->fetch_assoc()) {
 
     // Format specific_dates (line by line)
     if (!empty($row['specific_dates'])) {
-        $dates = preg_split('/[\n,]+/', $row['specific_dates']);
-        echo "<td>";
-        foreach ($dates as $date) {
-            $date = trim($date);
-            if (!empty($date)) {
-                echo toTextDate($date) . "<br>";
+        $rawDates = preg_split('/[\n,]+/', $row['specific_dates']);
+        $dateObjects = [];
+    
+        foreach ($rawDates as $dateStr) {
+            $dateStr = trim($dateStr);
+            $timestamp = strtotime($dateStr);
+            if ($timestamp) {
+                $dateObjects[] = $timestamp;
             }
+        }
+    
+        // Sort timestamps
+        sort($dateObjects);
+    
+        echo "<td>";
+        foreach ($dateObjects as $ts) {
+            echo date("F j, Y", $ts) . "<br>";
         }
         echo "</td>";
     } else {
         echo "<td>N/A</td>";
     }
+    
 
     echo "</tr>";
 }
