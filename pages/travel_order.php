@@ -191,9 +191,9 @@ include '../auth/auth.php'; // Ensure authentication
                             <div class="row ml-1" id="specificDatesContainer">
                               <!-- Specific Dates Input -->
                               <div class="form-group col-md-6">
-                                <label>Select Specific Dates</label>
+                                <label>Inclusive Date/s</label>
                                 <input type="text" class="form-control" name="specific_dates" id="specificDates" placeholder="Select dates">
-                                <small class="form-text text-muted">Click to select multiple dates.</small>
+                                <small class="form-text text-muted">Click to select multiple dates or one.</small>
                               </div>
 
                               <!-- Number of Days Input -->
@@ -364,9 +364,9 @@ include '../auth/auth.php'; // Ensure authentication
                             <!-- Specific Dates -->
                             <div class="row" id="specificDatesContainer2" >
                               <div class="form-group col-md-6 ml-3">
-                                <label>Select Specific Dates</label>
+                                <label>Inclusive Date/s</label>
                                 <input type="text" class="form-control" name="specific_dates" id="specificDates2" placeholder="Select dates">
-                                <small class="form-text text-muted">Click to select multiple dates.</small>
+                                <small class="form-text text-muted">Click to select multiple dates or one.</small>
                               </div>
 
                               <div class="form-group col-md-4">
