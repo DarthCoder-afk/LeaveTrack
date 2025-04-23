@@ -31,11 +31,12 @@ if(isset($_POST['UpdateLeave'])) {
     }
 
     // File Upload
-    $file = $_FILES['form']['name'];
+    $file = time() . '_' . $_FILES['form']['name'];
     $file_temp = $_FILES['form']['tmp_name'];
-    $unique_file_name = time() . '_' . $file; // Append a timestamp to the file name
-    $file_destination = "../../uploads/".($unique_file_name);
+    $file_destination = "../../uploads/" . $file;
+    
     move_uploaded_file($file_temp, $file_destination);
+    
     
     echo '<script> console.log("'.$index_no.'"); </script>';
     //echo '<script> console.log("'.$new_emp_id.'"); </script>';
