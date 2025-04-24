@@ -2,12 +2,13 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-if (!isset($_GET['start']) || !isset($_GET['end'])) {
-    die("Error: Start and end dates are required.");
+if (!isset($_GET['start']) || !isset($_GET['end']) || !isset($_GET['employee_id'])) {
+    die("Error: Missing required parameters.");
 }
 
 $start = $_GET['start'];
 $end = $_GET['end'];
+$employee_id = $_GET['employee_id'];
 
 class PDF extends FPDF {
     public function Header() {
@@ -39,15 +40,39 @@ class PDF extends FPDF {
         $this->Cell(0, 10, 'Page ' . $this->PageNo(), 0, 0, 'C');
     }
 
-    public function NbLines($w, $txt) {
+    public function drawMultiRow($data, $widths, $lineHeight) {
+        $nb = 0;
+        foreach ($data as $i => $txt) {
+            $nb = max($nb, $this->NbLines($widths[$i], $txt));
+        }
+        $h = $lineHeight * $nb;
+
+        if ($this->GetY() + $h > $this->PageBreakTrigger) {
+            $this->AddPage();
+        }
+
+        $x = $this->GetX();
+        $y = $this->GetY();
+
+        for ($i = 0; $i < count($data); $i++) {
+            $w = $widths[$i];
+            $this->Rect($x, $y, $w, $h);
+            $this->MultiCell($w, $lineHeight, $data[$i], 0, 'L');
+            $x += $w;
+            $this->SetXY($x, $y);
+        }
+
+        $this->Ln($h);
+    }
+
+    function NbLines($w, $txt) {
         $cw = &$this->CurrentFont['cw'];
         if ($w == 0) $w = $this->w - $this->rMargin - $this->x;
         $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
         $s = str_replace("\r", '', $txt);
         $nb = strlen($s);
         if ($nb > 0 && $s[$nb - 1] == "\n") $nb--;
-        $sep = -1;
-        $i = 0; $j = 0; $l = 0; $nl = 1;
+        $sep = -1; $i = 0; $j = 0; $l = 0; $nl = 1;
         while ($i < $nb) {
             $c = $s[$i];
             if ($c == "\n") { $i++; $sep = -1; $j = $i; $l = 0; $nl++; continue; }
@@ -62,10 +87,6 @@ class PDF extends FPDF {
         }
         return $nl;
     }
-
-    public function GetMultiCellHeight($w, $lineHeight, $txt) {
-        return $this->NbLines($w, $txt) * $lineHeight;
-    }
 }
 
 // Fetch settings
@@ -74,21 +95,15 @@ $settingsResult = $conn->query($settingsQuery);
 $settings = $settingsResult->fetch_assoc() ?: [];
 
 $municipality = $settings['municipality_name'] ?? 'MUNICIPALITY OF TALISAY';
-$province     = $settings['province_name']     ?? 'Camarines Norte';
-$logoPath     = $settings['logo_path']         ?? '../../img/tali.png';
+$province     = $settings['province_name'] ?? 'Camarines Norte';
+$logoPath     = $settings['logo_path']     ?? '../../img/tali.png';
 
 $pdf = new PDF();
 $pdf->AddPage();
 $pdf->SetFont('Arial', '', 11);
 $lineHeight = 6;
-$bottomMargin = 20;
 
-if (!isset($_GET['employee_id'])) {
-    die("Error: Employee ID is required.");
-}
-
-$employee_id = $_GET['employee_id'];
-
+// Query leave applications
 $stmt = $conn->prepare("
     SELECT e.employee_id,
            CONCAT(e.lname, ', ', e.fname, ' ', e.midname) AS fullname,
@@ -99,22 +114,19 @@ $stmt = $conn->prepare("
     WHERE l.dateapplied BETWEEN ? AND ? AND l.employee_id = ?
     ORDER BY l.dateapplied ASC
 ");
-$stmt->bind_param("sss", $start, $end, $employee_id);
 
+$stmt->bind_param("sss", $start, $end, $employee_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $fullnameForFilename = 'EMPLOYEE';
 
 if ($result->num_rows === 0) {
-    $pdf->Cell(190, 10, 'No records found for the selected date range.', 1, 1, 'C');
+    $pdf->Cell(190, 10, 'No leave records found for the selected date range.', 1, 1, 'C');
 } else {
     $firstRow = $result->fetch_assoc();
-
-    // Generate safe filename part
     $fullnameForFilename = preg_replace('/[^a-zA-Z0-9]/', '_', $firstRow['lname'] . '_' . $firstRow['fname']);
-
-    $result->data_seek(0); // Reset result pointer
+    $result->data_seek(0); // Reset
 
     while ($row = $result->fetch_assoc()) {
         $dateRange = 'N/A';
@@ -126,8 +138,7 @@ if ($result->num_rows === 0) {
             $cleanDates = [];
 
             foreach ($dates as $date) {
-                $trimmed = trim($date);
-                $ts = strtotime($trimmed);
+                $ts = strtotime(trim($date));
                 if ($ts) $cleanDates[] = $ts;
             }
 
@@ -136,30 +147,20 @@ if ($result->num_rows === 0) {
             $dateRange = implode(", ", $formatted);
         }
 
-        $h1 = $pdf->GetMultiCellHeight(20, $lineHeight, $row['employee_id']);
-        $h2 = $pdf->GetMultiCellHeight(70, $lineHeight, $row['fullname']);
-        $h3 = $pdf->GetMultiCellHeight(45, $lineHeight, $row['leavetype']);
-        $h4 = $pdf->GetMultiCellHeight(55, $lineHeight, $dateRange);
-        $rowHeight = max($h1, $h2, $h3, $h4);
+        $data = [
+            $row['employee_id'],
+            utf8_decode($row['fullname']),
+            $row['leavetype'],
+            $dateRange
+        ];
+        $widths = [20, 70, 45, 55];
 
-        if ($pdf->GetY() + $rowHeight > $pdf->GetPageHeight() - $bottomMargin) {
-            $pdf->AddPage();
-        }
-
-        $x = $pdf->GetX();
-        $y = $pdf->GetY();
-
-        $pdf->SetXY($x, $y);       $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 1, 'C');
-        $pdf->SetXY($x + 20, $y);  $pdf->MultiCell(70, $lineHeight, utf8_decode($row['fullname']), 1, 'L');
-        $pdf->SetXY($x + 90, $y);  $pdf->MultiCell(45, $lineHeight, $row['leavetype'], 1, 'C');
-        $pdf->SetXY($x + 135, $y); $pdf->MultiCell(55, $lineHeight, $dateRange, 1, 'C');
-        $pdf->SetY($y + $rowHeight);
+        $pdf->drawMultiRow($data, $widths, $lineHeight);
     }
 }
 
 $filename = 'LEAVE_APPLICATIONS_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
 $pdf->Output('D', $filename);
-
 $stmt->close();
 $conn->close();
 ?>
