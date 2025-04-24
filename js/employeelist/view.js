@@ -230,4 +230,17 @@ $(document).ready(function () {
     });
 });
 
+// Prevent selecting an end date earlier than the start date
+document.getElementById("empReportStart").addEventListener("change", function () {
+    const startDate = this.value;
+    const endInput = document.getElementById("empReportEnd");
+
+    // Set the minimum end date to selected start date
+    endInput.min = startDate;
+
+    // If current end date is less than start, clear it
+    if (endInput.value && endInput.value < startDate) {
+        endInput.value = "";
+    }
+});
 
