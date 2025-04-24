@@ -180,6 +180,24 @@ $(document).ready(function () {
         let text = $('#travelHistoryWrapper').is(':visible') ? 'Hide Travel History' : 'Show Travel History';
         $(this).text(text);
     });
+
+    // Reset Generate Report Section when modal is closed
+    $('#viewEmployeeModal').on('hidden.bs.modal', function () {
+        // Hide the report section
+        $('#reportOptionsWrapper').hide();
+
+        // Reset the toggle button text
+        $('#toggleReportOptions').html('<i class="fas fa-file-alt me-1"></i> Generate Report Section');
+
+        // Clear the inputs
+        $('#empReportStart').val('');
+        $('#empReportEnd').val('');
+        $('#reportType').val('leave');
+
+        // Also clear min restriction on end date
+        $('#empReportEnd').removeAttr('min');
+    });
+
 });
 
 document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function () {
