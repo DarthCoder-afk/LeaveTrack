@@ -149,6 +149,33 @@ include '../auth/auth.php'; // Ensure authentication
                     </div>
                   </div>
 
+                  <!-- Hidden Inputs -->
+                  <input type="hidden" id="employeeIdHidden">
+                  <input type="hidden" id="indexNoHidden">
+
+                  <!-- Date Range + Report Type -->
+                  <div class="row mb-3">
+                    <div class="col">
+                      <label for="empReportStart">Start Date</label>
+                      <input type="date" id="empReportStart" class="form-control">
+                    </div>
+                    <div class="col">
+                      <label for="empReportEnd">End Date</label>
+                      <input type="date" id="empReportEnd" class="form-control">
+                    </div>
+                    <div class="col">
+                      <label for="reportType">Report Type</label>
+                      <select id="reportType" class="form-control">
+                        <option value="leave">Leave</option>
+                        <option value="travel">Travel</option>
+                      </select>
+                    </div>
+                    <div class="col d-flex align-items-end">
+                      <button class="btn btn-primary" id="generateEmpLeaveReportBtn">Generate Report</button>
+                    </div>
+                  </div>
+
+
                   <!-- Employee Leave & Travel History -->
                   <div class="mt-4">
                     <h5 class="text-primary"><i class="fas fa-history"></i> Leave & Travel History</h5>
@@ -475,6 +502,7 @@ include '../auth/auth.php'; // Ensure authentication
 
       <!-- Data Alert -->
       <?php include '../includes/data_alert.php'; ?>
+      <script src="../../employeefunction/generateEmpReport.php"></script>
 
 
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

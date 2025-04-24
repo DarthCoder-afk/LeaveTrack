@@ -37,6 +37,7 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     var office = $(this).data('office');
     var gender = $(this).data('gender');
     var status = $(this).data('status');
+    
 
     console.log("Data Retrieved:", { employee_id, indexno, lname, fname, office, gender, status });
 
@@ -66,6 +67,9 @@ $(document).on('click', '.viewEmployeeBtn', function () {
     $('#view_office').val(office);
     $('#view_gender').val(gender);
     $('#view_status').val(status);
+    $('#employeeIdHidden').val(employee_id);
+    $('#indexNoHidden').val(indexno);
+
 
     // Fetch Leave & Travel History
     $.ajax({
@@ -177,3 +181,26 @@ $(document).ready(function () {
         $(this).text(text);
     });
 });
+
+document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function () {
+    const empId = document.getElementById("employeeIdHidden").value;
+    const start = document.getElementById("empReportStart").value;
+    const end = document.getElementById("empReportEnd").value;
+    const reportType = document.getElementById("reportType").value;
+
+    if (!empId || !start || !end) {
+        alert("Please fill out all required fields.");
+        return;
+    }
+
+    let url = "";
+
+    if (reportType === "leave") {
+        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
+    } else if (reportType === "travel") {
+        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
+    }
+
+    window.open(url, '_blank');
+});
+
