@@ -202,5 +202,32 @@ document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", f
     }
 
     window.open(url, '_blank');
+
+    // Reset date inputs after generating the report
+    document.getElementById("empReportStart").value = "";
+    document.getElementById("empReportEnd").value = "";
+    document.getElementById("reportType").value = "leave";
 });
+
+$(document).ready(function () {
+    $('#toggleReportOptions').on('click', function () {
+        const wrapper = $('#reportOptionsWrapper');
+        wrapper.toggle();
+
+        const isVisible = wrapper.is(':visible');
+
+        $(this).html(isVisible
+            ? '<i class="fas fa-times me-1"></i> Hide Report Section'
+            : '<i class="fas fa-file-alt me-1"></i> Generate Report Section'
+        );
+
+        // Reset fields if hidden
+        if (!isVisible) {
+            $('#empReportStart').val('');
+            $('#empReportEnd').val('');
+            $('#reportType').val('leave');
+        }
+    });
+});
+
 

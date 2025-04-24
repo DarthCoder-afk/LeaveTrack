@@ -10,6 +10,12 @@ $start = $_GET['start'];
 $end = $_GET['end'];
 $employee_id = $_GET['employee_id'];
 
+// Helper function to validate dates
+function validateDate($date, $format = 'Y-m-d') {
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) === $date;
+}
+
 class PDF extends FPDF {
     public function Header() {
         global $municipality, $province, $logoPath;
@@ -26,13 +32,13 @@ class PDF extends FPDF {
         $this->Cell(0, 8, 'Date Range: ' . date("F d, Y", strtotime($_GET['start'])) . ' to ' . date("F d, Y", strtotime($_GET['end'])), 0, 1, 'C');
         $this->Ln(5);
 
-        // Table Header
         $this->SetFont('Arial', 'B', 12);
         $this->SetFillColor(220, 220, 220);
         $this->Cell(20, 10, 'ID', 1, 0, 'C', true);
-        $this->Cell(60, 10, 'Full Name', 1, 0, 'C', true);
-        $this->Cell(45, 10, 'Purpose', 1, 0, 'C', true);
-        $this->Cell(65, 10, 'Date Range / Specific Dates', 1, 1, 'C', true);
+        $this->Cell(50, 10, 'Full Name', 1, 0, 'C', true);
+        $this->Cell(35, 10, 'Purpose', 1, 0, 'C', true);
+        $this->Cell(40, 10, 'Destination', 1, 0, 'C', true);
+        $this->Cell(45, 10, 'Dates', 1, 1, 'C', true);
     }
 
     public function Footer() {
@@ -48,7 +54,6 @@ class PDF extends FPDF {
         }
         $h = $lineHeight * $nb;
 
-        // Page break if needed
         if ($this->GetY() + $h > $this->PageBreakTrigger) {
             $this->AddPage();
         }
@@ -109,12 +114,13 @@ $lineHeight = 6;
 $stmt = $conn->prepare("
     SELECT e.employee_id,
            CONCAT(e.lname, ', ', e.fname, ' ', e.midname) AS fullname,
-           t.purpose, t.startdate, t.enddate, t.specific_dates, t.dateapplied
+           t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
     FROM travelorder t
     JOIN employee e ON t.employee_id = e.employee_id
     WHERE t.dateapplied BETWEEN ? AND ? AND t.employee_id = ?
     ORDER BY t.dateapplied ASC
 ");
+
 $stmt->bind_param("sss", $start, $end, $employee_id);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -125,29 +131,34 @@ if ($result->num_rows === 0) {
     while ($row = $result->fetch_assoc()) {
         $dateRange = 'N/A';
 
-        if (!empty($row['startdate']) && !empty($row['enddate'])) {
+        if (validateDate($row['startdate']) && validateDate($row['enddate'])) {
             $dateRange = date("F j, Y", strtotime($row['startdate'])) . " to " . date("F j, Y", strtotime($row['enddate']));
         } elseif (!empty($row['specific_dates'])) {
             $dates = preg_split('/[\n,]+/', $row['specific_dates']);
             $cleanDates = [];
 
             foreach ($dates as $date) {
-                $ts = strtotime(trim($date));
-                if ($ts) $cleanDates[] = $ts;
+                $date = trim($date);
+                if (validateDate($date)) {
+                    $cleanDates[] = strtotime($date);
+                }
             }
 
             sort($cleanDates);
             $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
-            $dateRange = implode(", ", $formatted);
+            if (!empty($formatted)) {
+                $dateRange = implode(", ", $formatted);
+            }
         }
 
         $data = [
             $row['employee_id'],
             utf8_decode($row['fullname']),
             $row['purpose'],
+            $row['destination'],
             $dateRange
         ];
-        $widths = [20, 60, 45, 65];
+        $widths = [20, 50, 35, 40, 45];
 
         $pdf->drawMultiRow($data, $widths, $lineHeight);
     }

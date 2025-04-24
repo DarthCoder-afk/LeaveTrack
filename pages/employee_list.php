@@ -153,27 +153,36 @@ include '../auth/auth.php'; // Ensure authentication
                   <input type="hidden" id="employeeIdHidden">
                   <input type="hidden" id="indexNoHidden">
 
-                  <!-- Date Range + Report Type -->
-                  <div class="row mb-3">
-                    <div class="col">
-                      <label for="empReportStart">Start Date</label>
-                      <input type="date" id="empReportStart" class="form-control">
-                    </div>
-                    <div class="col">
-                      <label for="empReportEnd">End Date</label>
-                      <input type="date" id="empReportEnd" class="form-control">
-                    </div>
-                    <div class="col">
-                      <label for="reportType">Report Type</label>
-                      <select id="reportType" class="form-control">
-                        <option value="leave">Leave</option>
-                        <option value="travel">Travel</option>
-                      </select>
-                    </div>
-                    <div class="col d-flex align-items-end">
-                      <button class="btn btn-primary" id="generateEmpLeaveReportBtn">Generate Report</button>
+                  <!-- Toggle Button -->
+                  <button class="btn btn-sm btn-outline-info mb-2" id="toggleReportOptions">
+                    <i class="fas fa-file-alt me-1"></i> Generate Report Section
+                  </button>
+
+
+                  <!-- Report Fields (initially hidden) -->
+                  <div id="reportOptionsWrapper" style="display: none;">
+                    <div class="row mb-3">
+                      <div class="col">
+                        <label for="empReportStart">Start Date</label>
+                        <input type="date" id="empReportStart" class="form-control">
+                      </div>
+                      <div class="col">
+                        <label for="empReportEnd">End Date</label>
+                        <input type="date" id="empReportEnd" class="form-control">
+                      </div>
+                      <div class="col">
+                        <label for="reportType">Report Type</label>
+                        <select id="reportType" class="form-control">
+                          <option value="leave">Leave</option>
+                          <option value="travel">Travel</option>
+                        </select>
+                      </div>
+                      <div class="col d-flex align-items-end">
+                        <button class="btn btn-primary" id="generateEmpLeaveReportBtn">Generate Report</button>
+                      </div>
                     </div>
                   </div>
+
 
 
                   <!-- Employee Leave & Travel History -->
