@@ -34,11 +34,11 @@ class PDF extends FPDF {
 
         $this->SetFont('Arial', 'B', 12);
         $this->SetFillColor(220, 220, 220);
-        $this->Cell(20, 10, 'ID', 1, 0, 'C', true);
+        $this->Cell(10, 10, 'ID', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Full Name', 1, 0, 'C', true);
         $this->Cell(35, 10, 'Purpose', 1, 0, 'C', true);
         $this->Cell(40, 10, 'Destination', 1, 0, 'C', true);
-        $this->Cell(45, 10, 'Dates', 1, 1, 'C', true);
+        $this->Cell(55, 10, 'Dates', 1, 1, 'C', true);
     }
 
     public function Footer() {
@@ -158,7 +158,7 @@ if ($result->num_rows === 0) {
             $row['destination'],
             $dateRange
         ];
-        $widths = [20, 50, 35, 40, 45];
+        $widths = [10, 50, 35, 40, 55];
 
         $pdf->drawMultiRow($data, $widths, $lineHeight);
     }
