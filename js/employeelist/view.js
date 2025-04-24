@@ -138,13 +138,14 @@ $(document).on('click', '.viewEmployeeBtn', function () {
                     const numOfDays = travel.numofdays ? formatNumberOfDays(travel.numofdays) : 'N/A';
 
                     travelHtml += `<tr>
-                        <td>${travel.purpose}</td>
-                        <td>${travel.destination}</td>
+                        <td style="white-space: normal; word-wrap: break-word; max-width: 250px;">${travel.purpose}</td>
+                        <td style="white-space: normal; word-wrap: break-word; max-width: 250px;">${travel.destination}</td>
                         <td>${formatDate(travel.startdate)}</td>
                         <td>${formatDate(travel.enddate)}</td>
                         <td>${specificDates}</td>
                         <td>${numOfDays}</td>
                     </tr>`;
+                
                 });
             } else {
                 travelHtml = `<tr><td colspan="6" class="text-center">No travel history available</td></tr>`;
