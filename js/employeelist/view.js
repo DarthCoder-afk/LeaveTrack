@@ -170,66 +170,11 @@ $(document).on('click', '.viewEmployeeBtn', function () {
 });
 
 $(document).ready(function () {
-    $('#toggleLeaveBtn').on('click', function () {
-        $('#leaveHistoryWrapper').toggle();
-        let text = $('#leaveHistoryWrapper').is(':visible') ? 'Hide Leave History' : 'Show Leave History';
-        $(this).text(text);
-    });
-
-    $('#toggleTravelBtn').on('click', function () {
-        $('#travelHistoryWrapper').toggle();
-        let text = $('#travelHistoryWrapper').is(':visible') ? 'Hide Travel History' : 'Show Travel History';
-        $(this).text(text);
-    });
-
-    // Reset Generate Report Section when modal is closed
-    $('#viewEmployeeModal').on('hidden.bs.modal', function () {
-        // Hide the report section
-        $('#reportOptionsWrapper').hide();
-
-        // Reset the toggle button text
-        $('#toggleReportOptions').html('<i class="fas fa-file-alt me-1"></i> Generate Report Section');
-
-        // Clear the inputs
-        $('#empReportStart').val('');
-        $('#empReportEnd').val('');
-        $('#reportType').val('leave');
-
-        // Also clear min restriction on end date
-        $('#empReportEnd').removeAttr('min');
-    });
-
-});
-
-document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function () {
-    const empId = document.getElementById("employeeIdHidden").value;
-    const start = document.getElementById("empReportStart").value;
-    const end = document.getElementById("empReportEnd").value;
-    const reportType = document.getElementById("reportType").value;
-
-    if (!empId || !start || !end) {
-        alert("Please fill out all required fields.");
-        return;
-    }
-
-    let url = "";
-
-    if (reportType === "leave") {
-        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
-    } else if (reportType === "travel") {
-        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
-    }
-
-    window.open(url, '_blank');
-
-    // Reset date inputs after generating the report
-    document.getElementById("empReportStart").value = "";
-    document.getElementById("empReportEnd").value = "";
-    document.getElementById("reportType").value = "leave";
-});
-
-$(document).ready(function () {
-    $('#toggleReportOptions').on('click', function () {
+    // Initialize end date as disabled on page load
+    $('#empReportEnd').prop('disabled', true);
+    
+    // Toggle report options section
+    $('#toggleReportOptions').on('click', function() {
         const wrapper = $('#reportOptionsWrapper');
         wrapper.toggle();
 
@@ -243,23 +188,137 @@ $(document).ready(function () {
         // Reset fields if hidden
         if (!isVisible) {
             $('#empReportStart').val('');
-            $('#empReportEnd').val('');
+            $('#empReportEnd').val('').prop('disabled', true);
             $('#reportType').val('leave');
         }
     });
+    
+    // Reset Generate Report Section when modal is closed
+    $('#viewEmployeeModal').on('hidden.bs.modal', function() {
+        // Hide the report section
+        $('#reportOptionsWrapper').hide();
+
+        // Reset the toggle button text
+        $('#toggleReportOptions').html('<i class="fas fa-file-alt me-1"></i> Generate Report Section');
+
+        // Clear the inputs
+        $('#empReportStart').val('');
+        $('#empReportEnd').val('').prop('disabled', true);
+        $('#reportType').val('leave');
+    });
+    
+    // Toggle buttons - IMPORTANT: This is the consolidated event handler section
+    $('#toggleLeaveBtn').on('click', function() {
+        $('#leaveHistoryWrapper').toggle();
+        let text = $('#leaveHistoryWrapper').is(':visible') ? 'Hide Leave History' : 'Show Leave History';
+        $(this).text(text);
+    });
+
+    $('#toggleTravelBtn').on('click', function() {
+        $('#travelHistoryWrapper').toggle();
+        let text = $('#travelHistoryWrapper').is(':visible') ? 'Hide Travel History' : 'Show Travel History';
+        $(this).text(text);
+    });
 });
 
-// Prevent selecting an end date earlier than the start date
-document.getElementById("empReportStart").addEventListener("change", function () {
+// Handle start date selection
+document.getElementById("empReportStart").addEventListener("change", function() {
     const startDate = this.value;
     const endInput = document.getElementById("empReportEnd");
-
-    // Set the minimum end date to selected start date
-    endInput.min = startDate;
-
-    // If current end date is less than start, clear it
-    if (endInput.value && endInput.value < startDate) {
+    
+    if (startDate) {
+        // Enable the end date input when start date is selected
+        endInput.disabled = false;
+        
+        // Set the minimum end date to selected start date
+        endInput.min = startDate;
+        
+        // If current end date is less than start, clear it
+        if (endInput.value && endInput.value < startDate) {
+            endInput.value = "";
+        }
+    } else {
+        // If start date is cleared, disable and clear end date
+        endInput.disabled = true;
         endInput.value = "";
     }
 });
 
+// Generate report by date range
+document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function() {
+    const empId = document.getElementById("employeeIdHidden").value;
+    const start = document.getElementById("empReportStart").value;
+    const end = document.getElementById("empReportEnd").value;
+    const reportType = document.getElementById("reportType").value;
+
+    // Improved validation with custom modal
+    if (!empId || !start || !end) {
+        // Create and show a Bootstrap modal for the error
+        $('#missingFieldsModal').modal('show');
+        return;
+    }
+
+    let url = "";
+
+    if (reportType === "leave") {
+        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
+    } else if (reportType === "travel") {
+        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
+    }
+    
+    window.open(url, '_blank');
+});
+
+// Generate all records report
+document.getElementById("generateAllReportsBtn").addEventListener("click", function() {
+    const empId = document.getElementById("employeeIdHidden").value;
+    const reportType = document.getElementById("reportType").value;
+    
+    if (!empId) {
+        alert("Employee ID not found.");
+        return;
+    }
+    
+    // Display confirmation modal instead of immediately generating report
+    $('#confirmAllReportsModal').modal('show');
+    
+    // Store the parameters to be used when the user confirms
+    $('#confirmAllReportsBtn').data('empId', empId);
+    $('#confirmAllReportsBtn').data('reportType', reportType);
+});
+
+// Add a new handler for the confirm button in the modal
+$(document).on('click', '#confirmAllReportsBtn', function() {
+    const empId = $(this).data('empId');
+    const reportType = $(this).data('reportType');
+    
+    let url = "";
+    
+    if (reportType === "leave") {
+        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&all=true`;
+    } else if (reportType === "travel") {
+        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&all=true`;
+    }
+    
+    // Hide modal and generate report
+    $('#confirmAllReportsModal').modal('hide');
+    window.open(url, '_blank');
+});
+
+// Function to toggle office input field
+function toggleOfficeInput() {
+    var officeDropdown = document.getElementById("typeOfOffice");
+    var customOfficeInput = document.getElementById("customOffice");
+
+    if (officeDropdown.value === "optional") {
+        customOfficeInput.style.display = "block";
+        customOfficeInput.setAttribute("name", "office"); // Change the name so it's submitted
+        customOfficeInput.setAttribute("required", "required");
+        officeDropdown.removeAttribute("name"); // Prevents submitting the select field
+    } else {
+        customOfficeInput.style.display = "none";
+        customOfficeInput.removeAttribute("required");
+        customOfficeInput.removeAttribute("name");
+        officeDropdown.setAttribute("name", "office");
+    }
+}

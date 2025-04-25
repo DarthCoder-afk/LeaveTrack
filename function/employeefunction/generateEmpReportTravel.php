@@ -2,13 +2,25 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-if (!isset($_GET['start']) || !isset($_GET['end']) || !isset($_GET['employee_id'])) {
-    die("Error: Missing required parameters.");
-}
+// Check if it's an "all records" request or specific date range
+$employee_id = $_GET['employee_id'] ?? die("Error: Missing employee ID.");
+$all = isset($_GET['all']) && $_GET['all'] === 'true';
 
-$start = $_GET['start'];
-$end = $_GET['end'];
-$employee_id = $_GET['employee_id'];
+// Initialize date range text variable
+$dateRangeText = '';
+
+// If it's not "all", then validate start and end dates
+if (!$all) {
+    if (!isset($_GET['start']) || !isset($_GET['end'])) {
+        die("Error: Missing required date parameters.");
+    }
+    $start = $_GET['start'];
+    $end = $_GET['end'];
+    $dateRangeText = 'Date Range: ' . date("F d, Y", strtotime($start)) . ' to ' . date("F d, Y", strtotime($end));
+} else {
+    // For "all" reports, we don't need specific start/end dates
+    $dateRangeText = 'All Records';
+}
 
 // Helper function to validate dates
 function validateDate($date, $format = 'Y-m-d') {
@@ -18,7 +30,7 @@ function validateDate($date, $format = 'Y-m-d') {
 
 class PDF extends FPDF {
     public function Header() {
-        global $municipality, $province, $logoPath;
+        global $municipality, $province, $logoPath, $dateRangeText;
 
         $this->Image($logoPath, 15, 10, 25);
         $this->SetFont('Times', '', 12);
@@ -29,7 +41,7 @@ class PDF extends FPDF {
         $this->SetFont('Times', 'B', 15);
         $this->Cell(0, 8, 'TRAVEL ORDER REPORT', 0, 1, 'C');
         $this->SetFont('Times', '', 12);
-        $this->Cell(0, 8, 'Date Range: ' . date("F d, Y", strtotime($_GET['start'])) . ' to ' . date("F d, Y", strtotime($_GET['end'])), 0, 1, 'C');
+        $this->Cell(0, 8, $dateRangeText, 0, 1, 'C');
         $this->Ln(5);
 
         $this->SetFont('Arial', 'B', 12);
@@ -110,24 +122,49 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 11);
 $lineHeight = 6;
 
-// Query travel orders
-$stmt = $conn->prepare("
-    SELECT e.employee_id,
-           CONCAT(e.lname, ', ', e.fname, ' ', e.midname) AS fullname,
-           t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
-    FROM travelorder t
-    JOIN employee e ON t.employee_id = e.employee_id
-    WHERE t.dateapplied BETWEEN ? AND ? AND t.employee_id = ?
-    ORDER BY t.dateapplied ASC
-");
+// Modify the query based on whether it's "all" or specific dates
+if ($all) {
+    $stmt = $conn->prepare("
+        SELECT e.employee_id,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+               e.lname, e.fname,
+               t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
+        FROM travelorder t
+        JOIN employee e ON t.employee_id = e.employee_id
+        WHERE t.employee_id = ?
+        ORDER BY t.dateapplied ASC
+    ");
+    $stmt->bind_param("s", $employee_id);
+} else {
+    $stmt = $conn->prepare("
+        SELECT e.employee_id,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+               e.lname, e.fname,
+               t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
+        FROM travelorder t
+        JOIN employee e ON t.employee_id = e.employee_id
+        WHERE t.dateapplied BETWEEN ? AND ? AND t.employee_id = ?
+        ORDER BY t.dateapplied ASC
+    ");
+    $stmt->bind_param("sss", $start, $end, $employee_id);
+}
 
-$stmt->bind_param("sss", $start, $end, $employee_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
+$fullnameForFilename = 'EMPLOYEE';
+
 if ($result->num_rows === 0) {
-    $pdf->Cell(190, 10, 'No travel records found for the selected date range.', 1, 1, 'C');
+    if ($all) {
+        $pdf->Cell(190, 10, 'No travel records found for this employee.', 1, 1, 'C');
+    } else {
+        $pdf->Cell(190, 10, 'No travel records found for the selected date range.', 1, 1, 'C');
+    }
 } else {
+    $firstRow = $result->fetch_assoc();
+    $fullnameForFilename = preg_replace('/[^a-zA-Z0-9]/', '_', $firstRow['lname'] . '_' . $firstRow['fname']);
+    $result->data_seek(0); // Reset
+
     while ($row = $result->fetch_assoc()) {
         $dateRange = 'N/A';
 
@@ -164,7 +201,13 @@ if ($result->num_rows === 0) {
     }
 }
 
-$filename = 'TRAVEL_ORDER_' . $start . '_to_' . $end . '.pdf';
+// Create filename based on whether it's "all" or date range
+if ($all) {
+    $filename = 'TRAVEL_ORDER_' . $fullnameForFilename . '_ALL_RECORDS.pdf';
+} else {
+    $filename = 'TRAVEL_ORDER_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
+}
+
 $pdf->Output('D', $filename);
 $stmt->close();
 $conn->close();

@@ -2,17 +2,29 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-if (!isset($_GET['start']) || !isset($_GET['end']) || !isset($_GET['employee_id'])) {
-    die("Error: Missing required parameters.");
-}
+// Check if it's an "all records" request or specific date range
+$employee_id = $_GET['employee_id'] ?? die("Error: Missing employee ID.");
+$all = isset($_GET['all']) && $_GET['all'] === 'true';
 
-$start = $_GET['start'];
-$end = $_GET['end'];
-$employee_id = $_GET['employee_id'];
+// Initialize date range text variable
+$dateRangeText = '';
+
+// If it's not "all", then validate start and end dates
+if (!$all) {
+    if (!isset($_GET['start']) || !isset($_GET['end'])) {
+        die("Error: Missing required date parameters.");
+    }
+    $start = $_GET['start'];
+    $end = $_GET['end'];
+    $dateRangeText = 'Date Range: ' . date("F d, Y", strtotime($start)) . ' to ' . date("F d, Y", strtotime($end));
+} else {
+    // For "all" reports, we don't need specific start/end dates
+    $dateRangeText = 'All Records';
+}
 
 class PDF extends FPDF {
     public function Header() {
-        global $municipality, $province, $logoPath;
+        global $municipality, $province, $logoPath, $dateRangeText;
 
         $this->Image($logoPath, 15, 10, 25);
         $this->SetFont('Times', '', 12);
@@ -23,7 +35,7 @@ class PDF extends FPDF {
         $this->SetFont('Times', 'B', 15);
         $this->Cell(0, 8, 'LEAVE APPLICATIONS REPORT', 0, 1, 'C');
         $this->SetFont('Times', '', 12);
-        $this->Cell(0, 8, 'Date Range: ' . date("F d, Y", strtotime($_GET['start'])) . ' to ' . date("F d, Y", strtotime($_GET['end'])), 0, 1, 'C');
+        $this->Cell(0, 8, $dateRangeText, 0, 1, 'C');
         $this->Ln(5);
 
         $this->SetFont('Arial', 'B', 12);
@@ -104,35 +116,65 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 11);
 $lineHeight = 6;
 
-// Query leave applications
-$stmt = $conn->prepare("
-    SELECT e.employee_id,
-           CONCAT(e.lname, ', ', e.fname, ' ', e.midname) AS fullname,
-           e.lname, e.fname,
-           l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
-    FROM leaveapplication l
-    JOIN employee e ON l.employee_id = e.employee_id
-    WHERE l.dateapplied BETWEEN ? AND ? AND l.employee_id = ?
-    ORDER BY l.dateapplied ASC
-");
+// Modify the query based on whether it's "all" or specific dates
+if ($all) {
+    $stmt = $conn->prepare("
+        SELECT e.employee_id,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+               e.lname, e.fname,
+               l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
+        FROM leaveapplication l
+        JOIN employee e ON l.employee_id = e.employee_id
+        WHERE l.employee_id = ?
+        ORDER BY l.dateapplied ASC
+    ");
+    $stmt->bind_param("s", $employee_id);
+} else {
+    $stmt = $conn->prepare("
+        SELECT e.employee_id,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+               e.lname, e.fname,
+               l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
+        FROM leaveapplication l
+        JOIN employee e ON l.employee_id = e.employee_id
+        WHERE l.dateapplied BETWEEN ? AND ? AND l.employee_id = ?
+        ORDER BY l.dateapplied ASC
+    ");
+    $stmt->bind_param("sss", $start, $end, $employee_id);
+}
 
-$stmt->bind_param("sss", $start, $end, $employee_id);
 $stmt->execute();
 $result = $stmt->get_result();
 
 $fullnameForFilename = 'EMPLOYEE';
 
 if ($result->num_rows === 0) {
-    $pdf->Cell(190, 10, 'No leave records found for the selected date range.', 1, 1, 'C');
+    if ($all) {
+        $pdf->Cell(190, 10, 'No leave records found for this employee.', 1, 1, 'C');
+    } else {
+        $pdf->Cell(190, 10, 'No leave records found for the selected date range.', 1, 1, 'C');
+    }
 } else {
     $firstRow = $result->fetch_assoc();
     $fullnameForFilename = preg_replace('/[^a-zA-Z0-9]/', '_', $firstRow['lname'] . '_' . $firstRow['fname']);
     $result->data_seek(0); // Reset
 
+    // Update the date handling in generateEmpReport.php
     while ($row = $result->fetch_assoc()) {
         $dateRange = 'N/A';
+        $dateApplied = 'No Record';
 
-        if (!empty($row['startdate']) && !empty($row['enddate'])) {
+        // Format date of filing, handling edge cases
+        if (!empty($row['dateapplied']) && 
+            $row['dateapplied'] != '0000-00-00' && 
+            $row['dateapplied'] != 'NULL' &&  
+            strtotime($row['dateapplied']) > 0) {
+            $dateApplied = date("F j, Y", strtotime($row['dateapplied']));
+        }
+
+        if (!empty($row['startdate']) && !empty($row['enddate']) && 
+            $row['startdate'] != '0000-00-00' && $row['enddate'] != '0000-00-00' &&
+            strtotime($row['startdate']) > 0 && strtotime($row['enddate']) > 0) {
             $dateRange = date("F j, Y", strtotime($row['startdate'])) . " to " . date("F j, Y", strtotime($row['enddate']));
         } elseif (!empty($row['specific_dates'])) {
             $dates = preg_split('/[\n,]+/', $row['specific_dates']);
@@ -140,19 +182,21 @@ if ($result->num_rows === 0) {
 
             foreach ($dates as $date) {
                 $ts = strtotime(trim($date));
-                if ($ts) $cleanDates[] = $ts;
+                if ($ts && $ts > 0) $cleanDates[] = $ts;
             }
 
-            sort($cleanDates);
-            $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
-            $dateRange = implode(", ", $formatted);
+            if (!empty($cleanDates)) {
+                sort($cleanDates);
+                $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
+                $dateRange = implode(", ", $formatted);
+            }
         }
 
         $data = [
             $row['employee_id'],
             utf8_decode($row['fullname']),
             $row['leavetype'],
-            date("F j, Y", strtotime($row['dateapplied'])),
+            $dateApplied,  // Use the new formatted date
             $dateRange
         ];
         $widths = [10, 60, 30, 35, 55];
@@ -161,7 +205,13 @@ if ($result->num_rows === 0) {
     }
 }
 
-$filename = 'LEAVE_APPLICATIONS_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
+// Create filename based on whether it's "all" or date range
+if ($all) {
+    $filename = 'LEAVE_APPLICATIONS_' . $fullnameForFilename . '_ALL_RECORDS.pdf';
+} else {
+    $filename = 'LEAVE_APPLICATIONS_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
+}
+
 $pdf->Output('D', $filename);
 $stmt->close();
 $conn->close();
