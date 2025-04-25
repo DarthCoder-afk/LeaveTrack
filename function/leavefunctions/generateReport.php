@@ -166,11 +166,16 @@ if ($result->num_rows === 0) {
             $y = $pdf->GetY();
         }
 
-        // Draw each cell aligned at Y=$y
-        $pdf->SetXY($x,      $y); $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 1, 'C');
-        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(70, $lineHeight, utf8_decode($row['fullname']), 1, 'C');
-        $pdf->SetXY($x+90,   $y); $pdf->MultiCell(45, $lineHeight, $row['leavetype'],      1, 'C');
-        $pdf->SetXY($x+135,  $y); $pdf->MultiCell(60, $lineHeight, $dateRange,            1, 'C');
+        // Draw cell borders manually, then use MultiCell for text
+        $pdf->Rect($x,      $y, 20, $rowH);
+        $pdf->Rect($x+20,   $y, 70, $rowH);
+        $pdf->Rect($x+90,   $y, 45, $rowH);
+        $pdf->Rect($x+135,  $y, 60, $rowH);
+
+        $pdf->SetXY($x,      $y); $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 0, 'C');
+        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(70, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
+        $pdf->SetXY($x+90,   $y); $pdf->MultiCell(45, $lineHeight, $row['leavetype'], 0, 'C');
+        $pdf->SetXY($x+135,  $y); $pdf->MultiCell(60, $lineHeight, $dateRange, 0, 'C');
 
         // Move to next row
         $pdf->SetY($y + $rowH);
