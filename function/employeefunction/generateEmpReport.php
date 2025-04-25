@@ -30,8 +30,9 @@ class PDF extends FPDF {
         $this->SetFillColor(220, 220, 220);
         $this->Cell(10, 10, 'ID', 1, 0, 'C', true);
         $this->Cell(60, 10, 'Full Name', 1, 0, 'C', true);
-        $this->Cell(45, 10, 'Leave Type', 1, 0, 'C', true);
-        $this->Cell(75, 10, 'Date', 1, 1, 'C', true);
+        $this->Cell(30, 10, 'Leave Type', 1, 0, 'C', true);
+        $this->Cell(35, 10, 'Date of Filing', 1, 0, 'C', true);
+        $this->Cell(55, 10, 'Date', 1, 1, 'C', true);
     }
 
     public function Footer() {
@@ -151,9 +152,10 @@ if ($result->num_rows === 0) {
             $row['employee_id'],
             utf8_decode($row['fullname']),
             $row['leavetype'],
+            date("F j, Y", strtotime($row['dateapplied'])),
             $dateRange
         ];
-        $widths = [10, 60, 45, 75];
+        $widths = [10, 60, 30, 35, 55];
 
         $pdf->drawMultiRow($data, $widths, $lineHeight);
     }
