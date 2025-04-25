@@ -109,11 +109,14 @@ $pdf->Ln(5);
 function drawTableHeader($pdf) {
     $pdf->SetFont('Arial','B',12);
     $pdf->Cell(20,10,'ID',1,0,'C');
-    $pdf->Cell(70,10,'Full Name',1,0,'C');
-    $pdf->Cell(45,10,'Leave Type',1,0,'C');
-    $pdf->Cell(60,10,'Date',1,1,'C');
-    $pdf->SetFont('Arial','',12);
+    $pdf->Cell(60,10,'Full Name',1,0,'C');
+    $pdf->Cell(30,10,'Leave Type',1,0,'C');
+    $pdf->Cell(35,10,'Date of Filing',1,0,'C'); // Moved up
+    $pdf->Cell(50,10,'Date',1,1,'C');
+    $pdf->SetFont('Arial','',11);
 }
+
+
 
 drawTableHeader($pdf);
 
@@ -124,7 +127,7 @@ $stmt->bind_param("ss", $start, $end);
 $stmt->execute();
 $result = $stmt->get_result();
 
-$pdf->SetFont('Arial','',12);
+$pdf->SetFont('Arial','',11);
 $lineHeight = 5;
 $bottomMargin = 20;
 
@@ -162,11 +165,12 @@ if ($result->num_rows === 0) {
         $y = $pdf->GetY();
 
         // Compute each cell's height
-        $hId   = $pdf->GetMultiCellHeight(20, $lineHeight, $row['employee_id']);
-        $hName = $pdf->GetMultiCellHeight(70, $lineHeight, $row['fullname']);
-        $hType = $pdf->GetMultiCellHeight(45, $lineHeight, $row['leavetype']);
-        $hDate = $pdf->GetMultiCellHeight(60, $lineHeight, $dateRange);
-        $rowH  = max($hId, $hName, $hType, $hDate);
+        $hId     = $pdf->GetMultiCellHeight(20, $lineHeight, $row['employee_id']);
+        $hName   = $pdf->GetMultiCellHeight(60, $lineHeight, $row['fullname']);
+        $hType   = $pdf->GetMultiCellHeight(30, $lineHeight, $row['leavetype']);
+        $hApp    = $pdf->GetMultiCellHeight(35, $lineHeight, date("F j, Y", strtotime($row['dateapplied'])));
+        $hDate   = $pdf->GetMultiCellHeight(50, $lineHeight, $dateRange);
+        $rowH    = max($hId, $hName, $hType, $hApp, $hDate);
 
         // Page break check
         if ($y + $rowH > $pdf->GetPageHeight() - $bottomMargin) {
@@ -175,19 +179,24 @@ if ($result->num_rows === 0) {
             $y = $pdf->GetY();
         }
 
-        // Draw cell borders manually, then use MultiCell for text
-        $pdf->Rect($x,      $y, 20, $rowH);
-        $pdf->Rect($x+20,   $y, 70, $rowH);
-        $pdf->Rect($x+90,   $y, 45, $rowH);
-        $pdf->Rect($x+135,  $y, 60, $rowH);
+        // Draw borders
+        $pdf->Rect($x,      $y, 20, $rowH);  // ID
+        $pdf->Rect($x+20,   $y, 60, $rowH);  // Full Name
+        $pdf->Rect($x+80,   $y, 30, $rowH);  // Leave Type
+        $pdf->Rect($x+110,  $y, 35, $rowH);  // Date of Filing
+        $pdf->Rect($x+145,  $y, 50, $rowH);  // Date
+        
 
+        // Draw content
         $pdf->SetXY($x,      $y); $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 0, 'C');
-        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(70, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
-        $pdf->SetXY($x+90,   $y); $pdf->MultiCell(45, $lineHeight, $row['leavetype'], 0, 'C');
-        $pdf->SetXY($x+135,  $y); $pdf->MultiCell(60, $lineHeight, $dateRange, 0, 'C');
+        $pdf->SetXY($x+20,   $y); $pdf->MultiCell(60, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
+        $pdf->SetXY($x+80,   $y); $pdf->MultiCell(30, $lineHeight, $row['leavetype'], 0, 'C');
+        $pdf->SetXY($x+110,  $y); $pdf->MultiCell(35, $lineHeight, date("F j, Y", strtotime($row['dateapplied'])), 0, 'C');
+        $pdf->SetXY($x+145,  $y); $pdf->MultiCell(50, $lineHeight, $dateRange, 0, 'C');
 
         // Move to next row
         $pdf->SetY($y + $rowH);
+
     }
 }
 
