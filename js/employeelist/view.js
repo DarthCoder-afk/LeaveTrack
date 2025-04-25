@@ -267,9 +267,14 @@ document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", f
     }
     
     window.open(url, '_blank');
+    
+    // Reset date fields after generating report
+    $('#empReportStart').val('');
+    $('#empReportEnd').val('').prop('disabled', true);
 });
 
-// Generate all records report
+
+// Generate all records report - improved version
 document.getElementById("generateAllReportsBtn").addEventListener("click", function() {
     const empId = document.getElementById("employeeIdHidden").value;
     const reportType = document.getElementById("reportType").value;
@@ -279,12 +284,17 @@ document.getElementById("generateAllReportsBtn").addEventListener("click", funct
         return;
     }
     
-    // Display confirmation modal instead of immediately generating report
+    // Display confirmation modal
     $('#confirmAllReportsModal').modal('show');
     
-    // Store the parameters to be used when the user confirms
+    // Store the parameters for when user confirms
     $('#confirmAllReportsBtn').data('empId', empId);
     $('#confirmAllReportsBtn').data('reportType', reportType);
+    
+    // Ensure that the modal's content is scrollable if needed
+    setTimeout(function() {
+        $('#confirmAllReportsModal .modal-body').css('overflow-y', 'auto');
+    }, 300);
 });
 
 // Add a new handler for the confirm button in the modal
