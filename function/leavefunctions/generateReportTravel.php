@@ -36,9 +36,18 @@ class PDF extends FPDF {
     public function GetMultiCellHeight($w, $lineHeight, $txt) {
         return $this->NbLines($w, $txt) * $lineHeight;
     }
+
+    // Add footer with page number
+    function Footer() {
+        // Set position 15 mm from bottom
+        $this->SetY(-15);
+        $this->SetFont('Arial', 'I', 10);
+        $this->Cell(0, 10, 'Page ' . $this->PageNo() . ' of {nb}', 0, 0, 'C');
+    }
 }
 
 $pdf = new PDF();
+$pdf->AliasNbPages(); // <- Important for total page count
 $pdf->AddPage();
 
 // Fetch settings
