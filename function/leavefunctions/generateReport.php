@@ -74,27 +74,27 @@ $municipality = !empty($settings['municipality_name']) ? $settings['municipality
 $province     = !empty($settings['province_name'])     ? $settings['province_name']     : 'Camarines Norte';
 $logoPath     = !empty($settings['logo_path'])         ? $settings['logo_path']         : '../../img/tali.png';
 
-// Header: logo + titles
-$logoWidth = 30;
-$pdf->Image($logoPath, 15, 10, $logoWidth);
-$pdf->SetFont('Times','',12);
-$pageWidth = $pdf->GetPageWidth();
-$headerX   = ($pageWidth/2) - ($logoWidth/2) - 10;
+// Header: logo on left, titles centered
+$logoWidth = 25;
+$logoX = 15;
+$logoY = 10;
+$pdf->Image($logoPath, $logoX, $logoY, $logoWidth);
 
-$pdf->SetXY($headerX,15);
-$pdf->Cell(0,5,'Republic of the Philippines',0,1,'L');
-$pdf->SetXY($headerX,20);
-$pdf->Cell(0,5,'Province of ' . $province,0,1,'L');
-$pdf->SetXY($headerX,25);
-$pdf->Cell(0,5,'Municipality of ' . $municipality,0,1,'L');
+// Set font
+$pdf->SetFont('Times', '', 12);
+$pdf->SetXY(0, 12); // move to top
+$pdf->Cell(0, 5, '         Republic of the Philippines', 0, 1, 'C');
+$pdf->Cell(0, 5, 'Province of ' . $province, 0, 1, 'C');
+$pdf->Cell(0, 5, 'Municipality of ' . $municipality, 0, 1, 'C');
 
 // Title
-$pdf->SetFont('Times','B',17);
 $pdf->Ln(5);
-$pdf->Cell(0,8,'LEAVE APPLICATIONS REPORT',0,1,'C');
-$pdf->SetFont('Times','',12);
-$pdf->Cell(0,8,"Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)),0,1,'C');
-$pdf->Ln(8);
+$pdf->SetFont('Times', 'B', 17);
+$pdf->Cell(0, 8, 'LEAVE APPLICATIONS REPORT', 0, 1, 'C');
+$pdf->SetFont('Times', '', 12);
+$pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
+$pdf->Ln(5);
+
 
 // Function to draw table headers
 function drawTableHeader($pdf) {
