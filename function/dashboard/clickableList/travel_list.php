@@ -56,8 +56,8 @@ while ($row = $result->fetch_assoc()) {
     echo "<tr data-indexno='" . htmlspecialchars($row['indexno']) . "'>";
     echo "<td>" . htmlspecialchars($row['employee_id']) . "</td>";
     echo "<td>" . htmlspecialchars($row['full_name']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['purpose']) . "</td>";
-    echo "<td>" . htmlspecialchars($row['destination']) . "</td>";
+    echo "<td style='white-space: normal; word-wrap: break-word; word-break: break-word;'>" . htmlspecialchars($row['purpose']) . "</td>";
+    echo "<td style='white-space: normal; word-wrap: break-word; word-break: break-word;'>" . htmlspecialchars($row['destination']) . "</td>";
 
     // Format and display dates nicely
     echo "<td>" . formatDateSafe($row['dateapplied']) . "</td>";

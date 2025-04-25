@@ -23,7 +23,7 @@
         echo "<td>{$row['employee_id']}</td>";
         echo "<td>{$full_name}</td>";
         echo "<td>{$row['position']}</td>";
-        echo "<td>{$row['purpose']}</td>";
+        echo "<td style='white-space: normal; word-wrap: break-word;'>{$row['purpose']}</td>";
         echo "<td>{$dateapplied}</td>";
         echo "<td>
                 <button class='btn btn-success text-white viewTravelBtn' 
