@@ -322,3 +322,23 @@ function toggleOfficeInput() {
         officeDropdown.setAttribute("name", "office");
     }
 }
+
+$(document).ready(function() {
+    // Fix for close buttons in modals
+    $('.modal .btn-close, .modal .close').on('click', function() {
+        // Find the closest modal and hide it
+        $(this).closest('.modal').modal('hide');
+    });
+    
+    // Fix for "Close" and "No" buttons in modal footers
+    $('.modal .btn-secondary').on('click', function() {
+        // Find the closest modal and hide it
+        $(this).closest('.modal').modal('hide');
+    });
+    
+    // Make sure the close buttons don't redirect to main page
+    $('.modal .btn-close, .modal .close, .modal .btn-secondary').on('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    });
+});

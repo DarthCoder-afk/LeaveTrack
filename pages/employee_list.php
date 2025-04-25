@@ -197,7 +197,8 @@ include '../auth/auth.php'; // Ensure authentication
                       <div class="modal-content">
                         <div class="modal-header bg-warning">
                           <h5 class="modal-title" id="missingFieldsModalLabel"><i class="fas fa-exclamation-triangle me-2"></i>Missing Information</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
+                          style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
                         </div>
                         <div class="modal-body">
                           <p>Please fill out all required fields before generating a report.</p>
