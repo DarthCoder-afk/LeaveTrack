@@ -42,9 +42,7 @@ class PDF extends FPDF {
         return $this->NbLines($w, $txt) * $lineHeight;
     }
 
-    // Add footer with page number
     function Footer() {
-        // Set position 15 mm from bottom
         $this->SetY(-15);
         $this->SetFont('Arial', 'I', 10);
         $this->Cell(0, 10, 'Page ' . $this->PageNo() . ' of {nb}', 0, 0, 'C');
@@ -52,27 +50,26 @@ class PDF extends FPDF {
 }
 
 $pdf = new PDF();
-$pdf->AliasNbPages(); // <- Important for total page count
+$pdf->AliasNbPages();
 $pdf->AddPage();
 
 // Fetch settings
-$settingsQuery  = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
+$settingsQuery = "SELECT municipality_name, province_name, logo_path FROM settings LIMIT 1";
 $settingsResult = $conn->query($settingsQuery);
-$settings       = $settingsResult->fetch_assoc() ?: [];
+$settings = $settingsResult->fetch_assoc() ?: [];
 
 $municipality = !empty($settings['municipality_name']) ? $settings['municipality_name'] : 'MUNICIPALITY OF TALISAY';
-$province     = !empty($settings['province_name'])     ? $settings['province_name']     : 'Camarines Norte';
-$logoPath     = !empty($settings['logo_path'])         ? $settings['logo_path']         : '../../img/tali.png';
+$province = !empty($settings['province_name']) ? $settings['province_name'] : 'Camarines Norte';
+$logoPath = !empty($settings['logo_path']) ? $settings['logo_path'] : '../../img/tali.png';
 
-// Header: logo on left, titles centered
+// Header
 $logoWidth = 25;
 $logoX = 15;
 $logoY = 10;
 $pdf->Image($logoPath, $logoX, $logoY, $logoWidth);
 
-// Set font
 $pdf->SetFont('Times', '', 12);
-$pdf->SetXY(0, 12); // Move to top, center
+$pdf->SetXY(0, 12);
 $pdf->Cell(0, 5, '         Republic of the Philippines', 0, 1, 'C');
 $pdf->Cell(0, 5, 'Province of ' . $province, 0, 1, 'C');
 $pdf->Cell(0, 5, 'Municipality of ' . $municipality, 0, 1, 'C');
@@ -83,7 +80,6 @@ $pdf->SetFont('Times', 'B', 17);
 $pdf->Cell(0, 8, 'TRAVEL ORDER REPORT', 0, 1, 'C');
 $pdf->SetFont('Times', '', 12);
 
-// Show date range in title only if not fetching all reports
 if (!$fetchAll) {
     $pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
 } else {
@@ -91,22 +87,21 @@ if (!$fetchAll) {
 }
 $pdf->Ln(8);
 
-// Draw table header function
+// Draw table header
 function drawTravelHeader($pdf) {
     $pdf->SetFont('Arial','B',12);
     $pdf->Cell(15,10,'ID',1,0,'C');
     $pdf->Cell(45,10,'Full Name',1,0,'C');
     $pdf->Cell(40,10,'Purpose',1,0,'C');
     $pdf->Cell(40,10,'Destination',1,0,'C');
-    $pdf->Cell(60,10,'Date',1,1,'C');
+    $pdf->Cell(50,10,'Date',1,1,'C'); // <- Date column changed from 60 to 50
     $pdf->SetFont('Arial','',12);
 }
 
 drawTravelHeader($pdf);
 
-// Prepare SQL statement based on fetch mode
+// Prepare SQL
 if ($fetchAll) {
-    // Fetch all travel orders
     $query = "
         SELECT e.employee_id,
                CONCAT(e.lname,', ',e.fname,' ',e.midname) AS fullname,
@@ -124,7 +119,6 @@ if ($fetchAll) {
     $stmt = $conn->prepare($query);
     $stmt->execute();
 } else {
-    // Fetch travel orders within date range
     $query = "
         SELECT e.employee_id,
                CONCAT(e.lname,', ',e.fname,' ',e.midname) AS fullname,
@@ -150,34 +144,28 @@ if ($fetchAll) {
 
 $result = $stmt->get_result();
 
-$lineHeight   = 5;
+$lineHeight = 5;
 $bottomMargin = 20;
 
 while ($row = $result->fetch_assoc()) {
-    // Build dateRange from specific or start/end
     if (!empty($row['specific_dates']) && $row['specific_dates'] != '0000-00-00') {
-        $rawDates = preg_split('/[\n,]+/', $row['specific_dates']); // handles both commas and newlines
+        $rawDates = preg_split('/[\n,]+/', $row['specific_dates']);
         $cleanedDates = [];
-    
         foreach ($rawDates as $date) {
             $trimmed = trim($date);
             $ts = strtotime($trimmed);
-            if ($ts !== false && $ts > 0) { // Prevent negative timestamps
+            if ($ts !== false && $ts > 0) {
                 $cleanedDates[] = $ts;
             }
         }
-    
         if (count($cleanedDates) > 0) {
-            sort($cleanedDates); // sort the timestamps
-            
-            // Format sorted timestamps back to readable dates
+            sort($cleanedDates);
             $formattedDates = array_map(fn($ts) => date('F j, Y', $ts), $cleanedDates);
             $dateRange = implode(', ', $formattedDates);
         } else {
             $dateRange = 'No Record';
         }
-    
-    } elseif (!empty($row['startdate']) && !empty($row['enddate']) && 
+    } elseif (!empty($row['startdate']) && !empty($row['enddate']) &&
               $row['startdate'] != '0000-00-00' && $row['enddate'] != '0000-00-00' &&
               strtotime($row['startdate']) > 0 && strtotime($row['enddate']) > 0) {
         $dateRange = date('F j, Y', strtotime($row['startdate']))
@@ -186,57 +174,48 @@ while ($row = $result->fetch_assoc()) {
         $dateRange = 'No Record';
     }
 
-    // Current position
     $x = $pdf->GetX();
     $y = $pdf->GetY();
 
-    // Calculate heights
-    $hId    = $pdf->GetMultiCellHeight(15, $lineHeight, $row['employee_id']);
-    $hName  = $pdf->GetMultiCellHeight(45, $lineHeight, $row['fullname']);
-    $hPurp  = $pdf->GetMultiCellHeight(40, $lineHeight, $row['purpose']);
-    $hDest  = $pdf->GetMultiCellHeight(40, $lineHeight, $row['destination']);
-    $hDate  = $pdf->GetMultiCellHeight(60, $lineHeight, $dateRange);
-    $rowH   = max($hId, $hName, $hPurp, $hDest, $hDate);
+    $hId   = $pdf->GetMultiCellHeight(15, $lineHeight, $row['employee_id']);
+    $hName = $pdf->GetMultiCellHeight(45, $lineHeight, $row['fullname']);
+    $hPurp = $pdf->GetMultiCellHeight(40, $lineHeight, $row['purpose']);
+    $hDest = $pdf->GetMultiCellHeight(40, $lineHeight, $row['destination']);
+    $hDate = $pdf->GetMultiCellHeight(50, $lineHeight, $dateRange); // <- updated width here too
+    $rowH  = max($hId, $hName, $hPurp, $hDest, $hDate);
 
-    // Page break
     if ($y + $rowH > $pdf->GetPageHeight() - $bottomMargin) {
         $pdf->AddPage();
         drawTravelHeader($pdf);
         $y = $pdf->GetY();
     }
 
-    // Draw cell borders first
-    $pdf->Rect($x,      $y, 15, $rowH);
-    $pdf->Rect($x+15,   $y, 45, $rowH);
-    $pdf->Rect($x+60,   $y, 40, $rowH);
-    $pdf->Rect($x+100,  $y, 40, $rowH);
-    $pdf->Rect($x+140,  $y, 60, $rowH);
+    $pdf->Rect($x,     $y, 15, $rowH);
+    $pdf->Rect($x+15,  $y, 45, $rowH);
+    $pdf->Rect($x+60,  $y, 40, $rowH);
+    $pdf->Rect($x+100, $y, 40, $rowH);
+    $pdf->Rect($x+140, $y, 50, $rowH);
 
-    // Write text using MultiCell without border (0)
-    $pdf->SetXY($x,      $y); $pdf->MultiCell(15,  $lineHeight, $row['employee_id'], 0, 'C');
-    $pdf->SetXY($x+15,   $y); $pdf->MultiCell(45,  $lineHeight, utf8_decode($row['fullname']), 0, 'C');
-    $pdf->SetXY($x+60,   $y); $pdf->MultiCell(40,  $lineHeight, $row['purpose'] ?: 'No Record',     0, 'C');
-    $pdf->SetXY($x+100,  $y); $pdf->MultiCell(40,  $lineHeight, $row['destination'] ?: 'No Record', 0, 'C');
-    $pdf->SetXY($x+140,  $y); $pdf->MultiCell(60,  $lineHeight, $dateRange,          0, 'C');
+    $pdf->SetXY($x,     $y); $pdf->MultiCell(15, $lineHeight, $row['employee_id'], 0, 'C');
+    $pdf->SetXY($x+15,  $y); $pdf->MultiCell(45, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
+    $pdf->SetXY($x+60,  $y); $pdf->MultiCell(40, $lineHeight, $row['purpose'] ?: 'No Record', 0, 'C');
+    $pdf->SetXY($x+100, $y); $pdf->MultiCell(40, $lineHeight, $row['destination'] ?: 'No Record', 0, 'C');
+    $pdf->SetXY($x+140, $y); $pdf->MultiCell(50, $lineHeight, $dateRange, 0, 'C');
 
-    // Advance to next row
     $pdf->SetY($y + $rowH);
 }
 
-// Display "No Records Found" if the result is empty
 if ($result->num_rows == 0) {
     $pdf->SetFont('Arial', 'B', 14);
     $pdf->Cell(0, 20, 'No Travel Orders Found', 0, 1, 'C');
 }
 
-// Set filename based on fetch mode
 if ($fetchAll) {
     $filename = 'ALL_TRAVEL_ORDERS.pdf';
 } else {
     $filename = 'TRAVEL_ORDERS_' . $start . '_to_' . $end . '.pdf';
 }
 
-// Output
 $pdf->Output('D', $filename);
 $stmt->close();
 $conn->close();
