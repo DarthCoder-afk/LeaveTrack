@@ -520,15 +520,12 @@ include '../auth/auth.php'; // Ensure authentication
 
 
             <!---Container Fluid-->
-          </div>
-
-
-        
+          </div>       
         </div>
 
         <!-- Inactive Employees Modal -->
         <div class="modal fade" id="inactiveEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="inactiveEmployeesModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-dialog modal-lg" role="document" style="max-width: 90%; width: 1200px;">
             <div class="modal-content">
               <div class="modal-header bg-warning text-white">
                 <h5 class="modal-title"><i class="fas fa-user-slash"></i> Inactive Employees</h5>
