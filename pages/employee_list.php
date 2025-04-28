@@ -57,8 +57,15 @@ include '../auth/auth.php'; // Ensure authentication
           <div class="container-fluid">
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
               <h1 class="h3 mb-0 text-gray-800"></h1>
-              <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
+              <div>
+                <button class="btn btn-warning mr-2" data-toggle="modal" data-target="#inactiveEmployeesModal">
+                  <i class="fas fa-user-slash"></i> View Inactive
+                </button>
+                <button class="btn btn-primary" data-toggle="modal" data-target="#addEmployeeModal">+ ADD</button>
+              </div>
+            </div>
           </div>
+
 
           <!-- View Employee Modal -->
           <div class="modal fade" id="viewEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="viewEmployeeLabel" aria-hidden="true">
@@ -518,6 +525,44 @@ include '../auth/auth.php'; // Ensure authentication
 
         
         </div>
+
+        <!-- Inactive Employees Modal -->
+        <div class="modal fade" id="inactiveEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="inactiveEmployeesModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title"><i class="fas fa-user-slash"></i> Inactive Employees</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="inactiveEmployeesTable">
+                    <thead class="thead-light text-center">
+                      <tr>
+                        <th>ID No.</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="inactiveEmployeesList">
+                      <!-- Inactive employees will be loaded here via JavaScript -->
+                      <tr>
+                        <td colspan="5" class="text-center">Loading inactive employees...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- ADD JAVASCRIPT can't be found -->
@@ -561,11 +606,13 @@ include '../auth/auth.php'; // Ensure authentication
       <script src="../js/logout.js"></script>
       <script src="../js/employeelist/delete.js"></script>
       <script src="../js/employeelist/update.js"></script>
+      <script src="../js/employeelist/inactive_employees.js"></script>
       <script src="../js/employeelist/validate.js"></script>
       <!-- Page level plugins -->
       <script src="../vendor/datatables/jquery.dataTables.min.js"></script>
       <script src="../vendor/datatables/dataTables.bootstrap4.min.js"></script>
       <script src="https://cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/js/bootstrap4-toggle.min.js"></script>
+      
       
 
       <!-- Page level custom scripts -->
