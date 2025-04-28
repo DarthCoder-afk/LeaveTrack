@@ -158,8 +158,6 @@ include '../auth/auth.php'; // Ensure authentication
                     <i class="fas fa-file-alt me-1"></i> Generate Report Section
                   </button>
 
-
-
                   <!-- Option 1: Better alignment with separate rows for buttons -->
                   <div id="reportOptionsWrapper" style="display: none;">
                     <div class="row mb-3">
@@ -179,62 +177,53 @@ include '../auth/auth.php'; // Ensure authentication
                         </select>
                       </div>
                     </div>
+                    
+                    <!-- Add the "All Reports" checkbox -->
+                    <div class="row mb-3">
+                      <div class="col-md-12">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="generateAllReports">
+                          <label class="form-check-label" for="generateAllReports">
+                            <i class="fas fa-file-alt"></i> Generate All Reports (ignores date range)
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                    
                     <div class="row">
-                      <div class="col-12 d-flex justify-content-between">
-                        <button class="btn btn-primary" id="generateEmpLeaveReportBtn">
+                      <div class="col-12">
+                        <button class="btn btn-primary w-100" id="generateEmpLeaveReportBtn">
                           <i class="fas fa-file-export me-1"></i> Generate Report
-                        </button>
-                        <button class="btn btn-info" id="generateAllReportsBtn">
-                          <i class="fas fa-file-alt me-1"></i> Generate All Records
                         </button>
                       </div>
                     </div>
                   </div>
 
-                  <!-- Missing Fields Modal -->
+                  <!-- Missing Fields Modal with enhanced close functionality -->
                   <div class="modal fade" id="missingFieldsModal" tabindex="-1" aria-labelledby="missingFieldsModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                       <div class="modal-content">
                         <div class="modal-header bg-warning">
                           <h5 class="modal-title" id="missingFieldsModalLabel"><i class="fas fa-exclamation-triangle me-2"></i>Missing Information</h5>
+                          <!-- Enhanced close button with both data attributes and inline styling -->
                           <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
                           style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
                         </div>
                         <div class="modal-body">
                           <p>Please fill out all required fields before generating a report.</p>
-                          <ul>
+                          <ul id="missingFieldsList">
                             <li>Start Date is required</li>
                             <li>End Date is required</li>
                           </ul>
                         </div>
                         <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <!-- Enhanced close button with class for identification -->
+                          <button type="button" class="btn btn-secondary close-modal" data-bs-dismiss="modal" data-dismiss="modal">Close</button>
                         </div>
                       </div>
                     </div>
                   </div>
-
-                  <!-- Confirm All Reports Modal -->
-                  <div class="modal fade" id="confirmAllReportsModal" tabindex="-1" aria-labelledby="confirmAllReportsModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                      <div class="modal-content">
-                        <div class="modal-header bg-info text-white">
-                          <h5 class="modal-title" id="confirmAllReportsModalLabel"><i class="fas fa-question-circle me-2"></i>Confirm Action</h5>
-                          <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"
-                          style="color: red; font-size: 20px; font-weight: bold; background: none; border: none;">X</button>
-                        </div>
-                        <div class="modal-body">
-                          <p>Are you sure you want to generate a report with all records for this employee?</p>
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-                          <button type="button" class="btn btn-primary" id="confirmAllReportsBtn">Yes, Generate Report</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-
+                  
                   <!-- Employee Leave & Travel History -->
                   <div class="mt-4">
                     <h5 class="text-primary"><i class="fas fa-history"></i> Leave & Travel History</h5>

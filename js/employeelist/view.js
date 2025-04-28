@@ -244,39 +244,28 @@ document.getElementById("empReportStart").addEventListener("change", function() 
     }
 });
 
-// Generate report by date range
-document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function() {
-    const empId = document.getElementById("employeeIdHidden").value;
-    const start = document.getElementById("empReportStart").value;
-    const end = document.getElementById("empReportEnd").value;
-    const reportType = document.getElementById("reportType").value;
 
-    // Improved validation with custom modal
-    if (!empId || !start || !end) {
-        // Create and show a Bootstrap modal for the error
-        $('#missingFieldsModal').modal('show');
-        return;
-    }
-
-    let url = "";
-
-    if (reportType === "leave") {
-        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
-    } else if (reportType === "travel") {
-        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
-    }
+// Handle the checkbox to enable/disable date fields
+document.getElementById("generateAllReports").addEventListener("change", function() {
+    const startInput = document.getElementById("empReportStart");
+    const endInput = document.getElementById("empReportEnd");
     
-    window.open(url, '_blank');
-    
-    // Reset date fields after generating report
-    $('#empReportStart').val('');
-    $('#empReportEnd').val('').prop('disabled', true);
+    if (this.checked) {
+        // Disable date fields when "Generate All Reports" is checked
+        startInput.disabled = true;
+        endInput.disabled = true;
+    } else {
+        // Re-enable start date field when unchecked
+        startInput.disabled = false;
+        // End date depends on whether start date has a value
+        endInput.disabled = !startInput.value;
+    }
 });
 
-
-// Generate all records report - improved version
-document.getElementById("generateAllReportsBtn").addEventListener("click", function() {
+// Generate report with proper validation and fixed modal behavior
+document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function() {
     const empId = document.getElementById("employeeIdHidden").value;
+    const isAllReports = document.getElementById("generateAllReports").checked;
     const reportType = document.getElementById("reportType").value;
     
     if (!empId) {
@@ -284,71 +273,76 @@ document.getElementById("generateAllReportsBtn").addEventListener("click", funct
         return;
     }
     
-    // Display confirmation modal
-    $('#confirmAllReportsModal').modal('show');
-    
-    // Store the parameters for when user confirms
-    $('#confirmAllReportsBtn').data('empId', empId);
-    $('#confirmAllReportsBtn').data('reportType', reportType);
-    
-    // Ensure that the modal's content is scrollable if needed
-    setTimeout(function() {
-        $('#confirmAllReportsModal .modal-body').css('overflow-y', 'auto');
-    }, 300);
-});
-
-// Add a new handler for the confirm button in the modal
-$(document).on('click', '#confirmAllReportsBtn', function() {
-    const empId = $(this).data('empId');
-    const reportType = $(this).data('reportType');
-    
-    let url = "";
-    
-    if (reportType === "leave") {
-        url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&all=true`;
-    } else if (reportType === "travel") {
-        url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&all=true`;
-    }
-    
-    // Hide modal and generate report
-    $('#confirmAllReportsModal').modal('hide');
-    window.open(url, '_blank');
-});
-
-// Function to toggle office input field
-function toggleOfficeInput() {
-    var officeDropdown = document.getElementById("typeOfOffice");
-    var customOfficeInput = document.getElementById("customOffice");
-
-    if (officeDropdown.value === "optional") {
-        customOfficeInput.style.display = "block";
-        customOfficeInput.setAttribute("name", "office"); // Change the name so it's submitted
-        customOfficeInput.setAttribute("required", "required");
-        officeDropdown.removeAttribute("name"); // Prevents submitting the select field
+    // Skip date validation if "Generate All Reports" is checked
+    if (!isAllReports) {
+        const start = document.getElementById("empReportStart").value;
+        const end = document.getElementById("empReportEnd").value;
+        
+        if (!start || !end) {
+            // Show missing fields modal
+            $('#missingFieldsModal').modal('show');
+            return; // Important: Return early to prevent further execution
+        }
+        
+        // Generate report with date range
+        let url = "";
+        if (reportType === "leave") {
+            url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
+        } else if (reportType === "travel") {
+            url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
+        }
+        
+        window.open(url, '_blank');
     } else {
-        customOfficeInput.style.display = "none";
-        customOfficeInput.removeAttribute("required");
-        customOfficeInput.removeAttribute("name");
-        officeDropdown.setAttribute("name", "office");
+        // Generate report with all records
+        let url = "";
+        if (reportType === "leave") {
+            url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&all=true`;
+        } else if (reportType === "travel") {
+            url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&all=true`;
+        }
+        
+        window.open(url, '_blank');
     }
-}
+    
+    // Reset the form properly - ONLY RUNS AFTER SUCCESSFUL GENERATION
+    $('#empReportStart').val('').prop('disabled', false);  // Re-enable start date
+    $('#empReportEnd').val('').prop('disabled', true);     // Keep end date disabled until start date is selected
+    document.getElementById("generateAllReports").checked = false;
+});
 
 $(document).ready(function() {
-    // Fix for close buttons in modals
-    $('.modal .btn-close, .modal .close').on('click', function() {
-        // Find the closest modal and hide it
-        $(this).closest('.modal').modal('hide');
-    });
-    
-    // Fix for "Close" and "No" buttons in modal footers
-    $('.modal .btn-secondary').on('click', function() {
-        // Find the closest modal and hide it
-        $(this).closest('.modal').modal('hide');
-    });
-    
-    // Make sure the close buttons don't redirect to main page
-    $('.modal .btn-close, .modal .close, .modal .btn-secondary').on('click', function(e) {
+    // Only handle missing fields modal
+    $('#missingFieldsModal .btn-close, #missingFieldsModal .btn-secondary').on('click', function(e) {
         e.preventDefault();
-        e.stopPropagation();
+        
+        var modal = $('#missingFieldsModal'); // Always only the Missing Fields Modal
+        if (typeof bootstrap !== 'undefined') {
+            var bsModal = bootstrap.Modal.getInstance(modal[0]);
+            if (bsModal) {
+                bsModal.hide();
+            }
+        }
+        modal.modal('hide');
+        
+        console.log("Closed Missing Fields Modal properly");
     });
+});
+
+
+// Handle the checkbox to enable/disable date fields
+document.getElementById("generateAllReports").addEventListener("change", function() {
+    const startInput = document.getElementById("empReportStart");
+    const endInput = document.getElementById("empReportEnd");
+    
+    if (this.checked) {
+        // Disable date fields when "Generate All Reports" is checked
+        startInput.disabled = true;
+        endInput.disabled = true;
+    } else {
+        // Re-enable start date field when unchecked
+        startInput.disabled = false;
+        // End date depends on whether start date has a value
+        endInput.disabled = !startInput.value;
+    }
 });
