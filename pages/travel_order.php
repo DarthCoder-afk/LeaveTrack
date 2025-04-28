@@ -547,9 +547,16 @@ include '../auth/auth.php'; // Ensure authentication
                           <input type="date" id="reportEndDate" class="form-control" required>
                         </div>
                       </div>
-
-                      <div class="text-center mt-3">
-                        <small class="text-muted">Select a date range to generate the travel report.</small>
+                      <!-- Add the "All Reports" checkbox -->
+                      <div class="row mb-3">
+                        <div class="col-md-12">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="generateAllReports">
+                            <label class="form-check-label" for="generateAllReports">
+                              <i class="fas fa-file-alt"></i> Generate All Reports (ignores date range)
+                            </label>
+                          </div>
+                        </div>
                       </div>
                     </form>
                   </div>
