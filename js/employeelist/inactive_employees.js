@@ -2,7 +2,7 @@ $(document).ready(function() {
     // Function to load inactive employees
     function loadInactiveEmployees() {
         $.ajax({
-            url: '.../function/employeefunction/fetch_inactive.php',
+            url: '../function/employeefunction/fetch_inactive.php',
             type: 'GET',
             success: function(data) {
                 $('#inactiveEmployeesList').html(data);
@@ -46,7 +46,7 @@ $(document).ready(function() {
         const office = button.data('office');
         const gender = button.data('gender');
         const status = button.data('status');
-        const index_no = button.data('index_no');
+        const indexno = button.data('indexno');
         
         // Close the inactive employees modal first
         $('#inactiveEmployeesModal').modal('hide');
@@ -70,7 +70,7 @@ $(document).ready(function() {
             
             // Store for report generation
             $('#employeeIdHidden').val(employee_id);
-            $('#indexNoHidden').val(index_no);
+            $('#indexNoHidden').val(indexno);
             
             // Open the view modal
             $('#viewEmployeeModal').modal('show');

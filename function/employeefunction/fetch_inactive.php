@@ -1,8 +1,8 @@
 <?php
-include '../../database/db_connect.php';
+include 'C:\xampp\htdocs\LeaveTrack\database\db_connect.php';
 
-$query = "SELECT * FROM tbl_employee WHERE status = 'Inactive' ORDER BY employee_id ASC";
-$result = mysqli_query($connect, $query);
+$query = "SELECT * FROM employee WHERE status = 'Inactive' ORDER BY employee_id ASC";
+$result = mysqli_query($conn, $query);
 
 $output = '';
 
@@ -26,7 +26,7 @@ if (mysqli_num_rows($result) > 0) {
                 <button class="btn btn-info btn-sm" 
                     data-toggle="modal" 
                     data-target="#viewEmployeeModal" 
-                    data-index_no="' . $row['index_no'] . '"
+                    data-index_no="' . $row['indexno'] . '"
                     data-employee_id="' . $row['employee_id'] . '"
                     data-fname="' . $row['fname'] . '"
                     data-lname="' . $row['lname'] . '"
@@ -42,7 +42,7 @@ if (mysqli_num_rows($result) > 0) {
                 <button class="btn btn-warning btn-sm" 
                     data-toggle="modal" 
                     data-target="#verifyModal2" 
-                    data-index_no="' . $row['index_no'] . '"
+                    data-index_no="' . $row['indexno'] . '"
                     data-employee_id="' . $row['employee_id'] . '"
                     data-fname="' . $row['fname'] . '"
                     data-lname="' . $row['lname'] . '"
