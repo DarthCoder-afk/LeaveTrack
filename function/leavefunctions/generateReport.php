@@ -2,12 +2,18 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-if (!isset($_GET['start']) || !isset($_GET['end'])) {
-    die("Error: Start and end dates are required.");
+// Check if generating all reports or date-specific reports
+$generateAll = isset($_GET['all']) && $_GET['all'] === 'true';
+
+if (!$generateAll && (!isset($_GET['start']) || !isset($_GET['end']))) {
+    die("Error: Start and end dates are required unless generating all reports.");
 }
 
-$start = $_GET['start'];
-$end   = $_GET['end'];
+// Set dates if not generating all reports
+if (!$generateAll) {
+    $start = $_GET['start'];
+    $end = $_GET['end'];
+}
 
 // Extend FPDF to add line-count and height helpers
 class PDF extends FPDF {
@@ -101,9 +107,15 @@ $pdf->Ln(5);
 $pdf->SetFont('Times', 'B', 17);
 $pdf->Cell(0, 8, 'LEAVE APPLICATIONS REPORT', 0, 1, 'C');
 $pdf->SetFont('Times', '', 12);
-$pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
-$pdf->Ln(5);
 
+// Display appropriate subtitle based on report type
+if ($generateAll) {
+    $pdf->Cell(0, 8, "All Leave Applications", 0, 1, 'C');
+} else {
+    $pdf->Cell(0, 8, "Date Range: " . date("F d, Y", strtotime($start)) . " to " . date("F d, Y", strtotime($end)), 0, 1, 'C');
+}
+
+$pdf->Ln(5);
 
 // Function to draw table headers
 function drawTableHeader($pdf) {
@@ -116,23 +128,43 @@ function drawTableHeader($pdf) {
     $pdf->SetFont('Arial','',11);
 }
 
-
-
 drawTableHeader($pdf);
 
-// Prepare query filtering by dateapplied
-$stmt = $conn->prepare("\n    SELECT e.employee_id,\n           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname,\n           l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied\n    FROM leaveapplication l\n    JOIN employee e ON l.employee_id = e.employee_id\n    WHERE l.dateapplied BETWEEN ? AND ?\n    ORDER BY l.dateapplied ASC\n");
-if (!$stmt) die("SQL Error: " . $conn->error);
-$stmt->bind_param("ss", $start, $end);
-$stmt->execute();
-$result = $stmt->get_result();
+// Prepare query based on report type
+if ($generateAll) {
+    // Query for all leave applications
+    $sql = "SELECT e.employee_id,
+           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname,
+           l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
+    FROM leaveapplication l
+    JOIN employee e ON l.employee_id = e.employee_id
+    ORDER BY l.dateapplied ASC";
+    
+    $result = $conn->query($sql);
+} else {
+    // Filtered query for specific date range
+    $stmt = $conn->prepare("
+    SELECT e.employee_id,
+           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname,
+           l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
+    FROM leaveapplication l
+    JOIN employee e ON l.employee_id = e.employee_id
+    WHERE l.dateapplied BETWEEN ? AND ?
+    ORDER BY l.dateapplied ASC
+    ");
+    
+    if (!$stmt) die("SQL Error: " . $conn->error);
+    $stmt->bind_param("ss", $start, $end);
+    $stmt->execute();
+    $result = $stmt->get_result();
+}
 
 $pdf->SetFont('Arial','',11);
 $lineHeight = 5;
 $bottomMargin = 20;
 
 if ($result->num_rows === 0) {
-    $pdf->Cell(195,10,'No records found for the selected date range.',1,1,'C');
+    $pdf->Cell(195,10,'No records found.',1,1,'C');
 } else {
     while ($row = $result->fetch_assoc()) {
         // Build human-readable dateRange
@@ -157,8 +189,12 @@ if ($result->num_rows === 0) {
             $dateRange = implode(", ", $formatted);
             
         } else {
-            $dateRange = 'N/A';
+            $dateRange = 'No Record';
         }
+
+        // Handle the date of filing - FIX for empty date values
+        $dateOfFiling = !empty($row['dateapplied']) && $row['dateapplied'] != '0000-00-00' ? 
+            date("F j, Y", strtotime($row['dateapplied'])) : 'No Record';
 
         // Current position
         $x = $pdf->GetX();
@@ -168,7 +204,7 @@ if ($result->num_rows === 0) {
         $hId     = $pdf->GetMultiCellHeight(20, $lineHeight, $row['employee_id']);
         $hName   = $pdf->GetMultiCellHeight(60, $lineHeight, $row['fullname']);
         $hType   = $pdf->GetMultiCellHeight(30, $lineHeight, $row['leavetype']);
-        $hApp    = $pdf->GetMultiCellHeight(35, $lineHeight, date("F j, Y", strtotime($row['dateapplied'])));
+        $hApp    = $pdf->GetMultiCellHeight(35, $lineHeight, $dateOfFiling);
         $hDate   = $pdf->GetMultiCellHeight(50, $lineHeight, $dateRange);
         $rowH    = max($hId, $hName, $hType, $hApp, $hDate);
 
@@ -186,23 +222,28 @@ if ($result->num_rows === 0) {
         $pdf->Rect($x+110,  $y, 35, $rowH);  // Date of Filing
         $pdf->Rect($x+145,  $y, 50, $rowH);  // Date
         
-
         // Draw content
         $pdf->SetXY($x,      $y); $pdf->MultiCell(20, $lineHeight, $row['employee_id'], 0, 'C');
         $pdf->SetXY($x+20,   $y); $pdf->MultiCell(60, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
         $pdf->SetXY($x+80,   $y); $pdf->MultiCell(30, $lineHeight, $row['leavetype'], 0, 'C');
-        $pdf->SetXY($x+110,  $y); $pdf->MultiCell(35, $lineHeight, date("F j, Y", strtotime($row['dateapplied'])), 0, 'C');
+        $pdf->SetXY($x+110,  $y); $pdf->MultiCell(35, $lineHeight, $dateOfFiling, 0, 'C');
         $pdf->SetXY($x+145,  $y); $pdf->MultiCell(50, $lineHeight, $dateRange, 0, 'C');
 
         // Move to next row
         $pdf->SetY($y + $rowH);
-
     }
 }
 
 // Output file
-$filename = 'LEAVE_APPLICATIONS_' . $start . '_to_' . $end . '.pdf';
+if ($generateAll) {
+    $filename = 'ALL_LEAVE_APPLICATIONS_REPORT.pdf';
+} else {
+    $filename = 'LEAVE_APPLICATIONS_' . $start . '_to_' . $end . '.pdf';
+}
+
 $pdf->Output('D', $filename);
-$stmt->close();
+
+// Close database connection
+if (isset($stmt)) $stmt->close();
 $conn->close();
 ?>

@@ -547,6 +547,7 @@ include '../auth/auth.php'; // Ensure authentication
                           <input type="date" id="reportEndDate" class="form-control" required>
                         </div>
                       </div>
+
                       <div class="text-center mt-3">
                         <small class="text-muted">Select a date range to generate the travel report.</small>
                       </div>

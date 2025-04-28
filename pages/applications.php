@@ -566,6 +566,18 @@ include '../auth/auth.php'; // Ensure authentication
                         </div>
                       </div>
 
+                      <!-- Add the "All Reports" checkbox -->
+                      <div class="row mb-3">
+                        <div class="col-md-12">
+                          <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="generateAllReports">
+                            <label class="form-check-label" for="generateAllReports">
+                              <i class="fas fa-file-alt"></i> Generate All Reports (ignores date range)
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+
                       
 
                       <!-- Toggle Button -->
@@ -596,8 +608,6 @@ include '../auth/auth.php'; // Ensure authentication
                           </div>
                         </div>
                       </div>
-
-
 
                     </form>
                   </div>
