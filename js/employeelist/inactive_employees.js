@@ -107,6 +107,12 @@ $(document).ready(function() {
             $('#leaveHistory').html('<tr><td colspan="5" class="text-center">Loading leave history...</td></tr>');
             $('#travelHistory').html('<tr><td colspan="6" class="text-center">Loading travel history...</td></tr>');
             
+            // Reset history visibility
+            $('#leaveHistoryWrapper').hide();
+            $('#travelHistoryWrapper').hide();
+            $('#toggleLeaveBtn').text('Show Leave History');
+            $('#toggleTravelBtn').text('Show Travel History');
+            
             // Set profile information
             $('#fullName').text(lname + ', ' + fname + (midname ? ' ' + midname[0] + '.' : '') + (extname ? ' ' + extname : ''));
             $('#profileIdNumber').text(employee_id);
@@ -126,6 +132,16 @@ $(document).ready(function() {
             $('#employeeIdHidden').val(employee_id);
             $('#indexNoHidden').val(index_no);
             
+            // Change Profile Picture Based on Gender
+            var profilePic = $("#profilePic");
+            if (gender.toLowerCase() === "male") {
+                profilePic.attr("src", "../img/male_profile.png");
+            } else if (gender.toLowerCase() === "female") {
+                profilePic.attr("src", "../img/female_profile.png");
+            } else {
+                profilePic.attr("src", "../img/default_profile.png");
+            }
+            
             // Fetch leave and travel history
             $.ajax({
                 url: '../function/employeefunction/fetch_history.php',
@@ -144,16 +160,16 @@ $(document).ready(function() {
                             let specificDates = 'N/A';
                             if (item.specific_dates && item.specific_dates !== 'N/A') {
                                 // Split by commas and format each date
-                                const dates = item.specific_dates.split(',').map(date => date.trim());
+                                const dates = item.specific_dates.split(/[\n,;]+/).map(date => date.trim());
                                 const formattedDates = dates.map(date => formatDate(date));
-                                specificDates = formattedDates.join(', ');
+                                specificDates = formattedDates.join('<br>');
                             }
                             
                             leaveHtml += `<tr>
                                 <td>${item.leavetype}</td>
                                 <td>${formatDate(item.startdate)}</td>
                                 <td>${formatDate(item.enddate)}</td>
-                                <td>${specificDates}</td>
+                                <td style="white-space: normal; word-wrap: break-word; max-width: 200px;">${specificDates}</td>
                                 <td>${formatDays(item.numofdays)}</td>
                             </tr>`;
                         });
@@ -170,17 +186,17 @@ $(document).ready(function() {
                             let specificDates = 'N/A';
                             if (item.specific_dates && item.specific_dates !== 'N/A') {
                                 // Split by commas and format each date
-                                const dates = item.specific_dates.split(',').map(date => date.trim());
+                                const dates = item.specific_dates.split(/[\n,;]+/).map(date => date.trim());
                                 const formattedDates = dates.map(date => formatDate(date));
-                                specificDates = formattedDates.join(', ');
+                                specificDates = formattedDates.join('<br>');
                             }
                             
                             travelHtml += `<tr>
-                                <td>${item.purpose}</td>
-                                <td>${item.destination}</td>
+                                <td style="white-space: normal; word-wrap: break-word; max-width: 200px;">${item.purpose}</td>
+                                <td style="white-space: normal; word-wrap: break-word; max-width: 200px;">${item.destination}</td>
                                 <td>${formatDate(item.startdate)}</td>
                                 <td>${formatDate(item.enddate)}</td>
-                                <td>${specificDates}</td>
+                                <td style="white-space: normal; word-wrap: break-word; max-width: 200px;">${specificDates}</td>
                                 <td>${formatDays(item.numofdays)}</td>
                             </tr>`;
                         });
@@ -199,4 +215,21 @@ $(document).ready(function() {
             $('#viewEmployeeModal').modal('show');
         }, 500);
     };
+
+    // Reset history visibility when view modal is closed
+    $('#viewEmployeeModal').on('hidden.bs.modal', function() {
+        // Reset history visibility
+        $('#leaveHistoryWrapper').hide();
+        $('#travelHistoryWrapper').hide();
+        $('#toggleLeaveBtn').text('Show Leave History');
+        $('#toggleTravelBtn').text('Show Travel History');
+        
+        // Also reset report options if they were visible
+        $('#reportOptionsWrapper').hide();
+        $('#toggleReportOptions').html('<i class="fas fa-file-alt me-1"></i> Generate Report Section');
+        $('#empReportStart').val('');
+        $('#empReportEnd').val('').prop('disabled', true);
+        $('#reportType').val('leave');
+        $('#generateAllReports').prop('checked', false);
+    });
 });
