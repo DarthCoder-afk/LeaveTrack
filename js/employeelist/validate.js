@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
   var idnumber = document.getElementById("idnumber");
   var lname = document.getElementById("lastName");
   var fname = document.getElementById("firstName");
-  var mname = document.getElementById("middleName");
   var pos = document.getElementById("position");
 
 
@@ -16,10 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
   fname.addEventListener('input', function() {
       validateField(fname, /^[a-zA-Z\s\-]+$/, "Please input proper first name");
-  });
-
-  mname.addEventListener('input', function() {
-      validateField(mname, /^[a-zA-Z\s\-]+$/, "Please input proper middle name");
   });
 
   pos.addEventListener('input', function() {
@@ -61,15 +56,6 @@ function validateForm() {
   }
 
   if (!/^[a-zA-Z\s\-]+$/.test(fname.value)) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Error!',
-      text: 'Please input valid data. Try again'
-  });
-      isValid = false;
-  }
-
-  if (!/^[a-zA-Z\s\-]+$/.test(mname.value)) {
     Swal.fire({
       icon: 'error',
       title: 'Error!',
