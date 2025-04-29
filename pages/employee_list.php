@@ -381,8 +381,89 @@ include '../auth/auth.php'; // Ensure authentication
           </form>
 
 
-          <!-- Update Modal -->
-          <form action="../function/employeefunction/update.php" id="editEmployeeForm" method="POST">
+         
+
+           
+
+            <!-- Table -->
+            <div class="row">
+              <!-- DataTable with Hover -->
+              <div class="col-lg-12">
+                <div class="card mb-4">
+                  <div class="table-responsive p-4">
+                    <table class="table align-items-center table-hover" id="dataTableHover">
+                      <thead class="thead-light text-center">
+                        <tr>
+                          <th>ID No.</th>
+                          <th>Name</th>
+                          <!-- <th>Gender</th> -->
+                          <th>Position</th>
+                          <th>Office</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php include '../function/employeefunction/fetch.php'?>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--Table-->
+
+            <?php include '../includes/verify_modal.php'?>
+            
+
+
+            <!---Container Fluid-->
+          </div>       
+        </div>
+
+        <!-- Inactive Employees Modal -->
+        <div class="modal fade" id="inactiveEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="inactiveEmployeesModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg" role="document" style="max-width: 90%; width: 1200px;">
+            <div class="modal-content">
+              <div class="modal-header bg-warning text-white">
+                <h5 class="modal-title"><i class="fas fa-user-slash"></i> Inactive Employees</h5>
+                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <div class="table-responsive">
+                  <table class="table table-bordered table-hover" id="inactiveEmployeesTable">
+                    <thead class="thead-light text-center">
+                      <tr>
+                        <th>ID No.</th>
+                        <th>Name</th>
+                        <th>Position</th>
+                        <th>Office</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody id="inactiveEmployeesList">
+                      <!-- Inactive employees will be loaded here via JavaScript -->
+                      <tr>
+                        <td colspan="5" class="text-center">Loading inactive employees...</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <?php include '../includes/verifymodal2.php'?>
+
+
+       <!-- Update Modal -->
+       <form action="../function/employeefunction/update.php" id="editEmployeeForm" method="POST">
              <div class="modal fade" id="editEmployeeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-lg" role="document"> <!-- Increased modal width -->
                 <div class="modal-content">
@@ -485,82 +566,6 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
           </form>
-
-           
-
-            <!-- Table -->
-            <div class="row">
-              <!-- DataTable with Hover -->
-              <div class="col-lg-12">
-                <div class="card mb-4">
-                  <div class="table-responsive p-4">
-                    <table class="table align-items-center table-hover" id="dataTableHover">
-                      <thead class="thead-light text-center">
-                        <tr>
-                          <th>ID No.</th>
-                          <th>Name</th>
-                          <!-- <th>Gender</th> -->
-                          <th>Position</th>
-                          <th>Office</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <?php include '../function/employeefunction/fetch.php'?>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!--Table-->
-
-            <?php include '../includes/verify_modal.php'?>
-            <?php include '../includes/verifymodal2.php'?>
-
-
-            <!---Container Fluid-->
-          </div>       
-        </div>
-
-        <!-- Inactive Employees Modal -->
-        <div class="modal fade" id="inactiveEmployeesModal" tabindex="-1" role="dialog" aria-labelledby="inactiveEmployeesModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-lg" role="document" style="max-width: 90%; width: 1200px;">
-            <div class="modal-content">
-              <div class="modal-header bg-warning text-white">
-                <h5 class="modal-title"><i class="fas fa-user-slash"></i> Inactive Employees</h5>
-                <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <div class="table-responsive">
-                  <table class="table table-bordered table-hover" id="inactiveEmployeesTable">
-                    <thead class="thead-light text-center">
-                      <tr>
-                        <th>ID No.</th>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody id="inactiveEmployeesList">
-                      <!-- Inactive employees will be loaded here via JavaScript -->
-                      <tr>
-                        <td colspan="5" class="text-center">Loading inactive employees...</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
 
       <!-- ADD JAVASCRIPT can't be found -->
       <script>
