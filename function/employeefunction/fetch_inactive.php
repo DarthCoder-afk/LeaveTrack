@@ -1,5 +1,5 @@
 <?php
-include 'C:\xampp\htdocs\LeaveTrack\database\db_connect.php';
+include 'C:/xampp/htdocs/LeaveTrack/database/db_connect.php';
 
 $query = "SELECT * FROM employee WHERE status = 'Inactive' ORDER BY employee_id ASC";
 $result = mysqli_query($conn, $query);
@@ -24,8 +24,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>' . $row['office'] . '</td>
             <td class="text-center">
                 <button class="btn btn-info btn-sm" 
-                    data-toggle="modal" 
-                    data-target="#viewEmployeeModal" 
+                    onclick="viewEmployee(this)"
                     data-index_no="' . $row['indexno'] . '"
                     data-employee_id="' . $row['employee_id'] . '"
                     data-fname="' . $row['fname'] . '"
@@ -35,8 +34,7 @@ if (mysqli_num_rows($result) > 0) {
                     data-position="' . $row['position'] . '"
                     data-office="' . $row['office'] . '"
                     data-gender="' . $row['gender'] . '"
-                    data-status="' . $row['status'] . '"
-                    onclick="viewEmployee(this)">
+                    data-status="' . $row['status'] . '">
                     <i class="fas fa-eye"></i>
                 </button>
                 <button class="btn btn-warning btn-sm" 
