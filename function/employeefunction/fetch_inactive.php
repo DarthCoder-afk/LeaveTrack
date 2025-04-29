@@ -23,7 +23,7 @@ if (mysqli_num_rows($result) > 0) {
             <td>' . $row['position'] . '</td>
             <td>' . $row['office'] . '</td>
             <td class="text-center">
-                <button class="btn btn-info btn-sm" 
+                <button class="btn btn-success btn-sm" 
                     onclick="viewEmployee(this)"
                     data-index_no="' . $row['indexno'] . '"
                     data-employee_id="' . $row['employee_id'] . '"
@@ -37,7 +37,7 @@ if (mysqli_num_rows($result) > 0) {
                     data-status="' . $row['status'] . '">
                     <i class="fas fa-eye"></i>
                 </button>
-                <button class="btn btn-warning btn-sm" 
+                <button class="btn btn-info btn-sm" 
                     data-toggle="modal" 
                     data-target="#verifyModal2" 
                     data-index_no="' . $row['indexno'] . '"
@@ -51,6 +51,13 @@ if (mysqli_num_rows($result) > 0) {
                     data-gender="' . $row['gender'] . '"
                     data-status="' . $row['status'] . '">
                     <i class="fas fa-edit"></i>
+                </button>
+                <button class="btn btn-danger btn-sm text-white" 
+                    data-toggle="modal" 
+                    data-target="#verifyModal" 
+                    data-index_no="' . $row['indexno'] . '"
+                    data-employee_id="' . $row['employee_id'] . '">
+                    <i class="fas fa-trash-alt"></i>
                 </button>
             </td>
         </tr>';

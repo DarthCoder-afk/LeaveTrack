@@ -379,12 +379,6 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
           </form>
-
-
-         
-
-           
-
             <!-- Table -->
             <div class="row">
               <!-- DataTable with Hover -->
@@ -411,11 +405,6 @@ include '../auth/auth.php'; // Ensure authentication
               </div>
             </div>
             <!--Table-->
-
-            <?php include '../includes/verify_modal.php'?>
-            
-
-
             <!---Container Fluid-->
           </div>       
         </div>
@@ -458,7 +447,7 @@ include '../auth/auth.php'; // Ensure authentication
           </div>
         </div>
       </div>
-
+      <?php include '../includes/verify_modal.php'?>
       <?php include '../includes/verifymodal2.php'?>
 
 
