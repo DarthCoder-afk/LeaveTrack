@@ -132,23 +132,23 @@ drawTableHeader($pdf);
 
 // Prepare query based on report type
 if ($generateAll) {
-    // Query for all leave applications
+    // UPDATED: Query for all leave applications using emp_index and indexno
     $sql = "SELECT e.employee_id,
-           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname,
+           CONCAT(e.lname, ',', ' ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
            l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
     FROM leaveapplication l
-    JOIN employee e ON l.employee_id = e.employee_id
+    JOIN employee e ON l.emp_index = e.indexno
     ORDER BY l.dateapplied ASC";
     
     $result = $conn->query($sql);
 } else {
-    // Filtered query for specific date range
+    // UPDATED: Filtered query for specific date range using emp_index and indexno
     $stmt = $conn->prepare("
     SELECT e.employee_id,
-           CONCAT(e.lname, ',', ' ', e.fname, ' ', e.midname) AS fullname,
+           CONCAT(e.lname, ',', ' ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
            l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
     FROM leaveapplication l
-    JOIN employee e ON l.employee_id = e.employee_id
+    JOIN employee e ON l.emp_index = e.indexno
     WHERE l.dateapplied BETWEEN ? AND ?
     ORDER BY l.dateapplied ASC
     ");
@@ -168,7 +168,9 @@ if ($result->num_rows === 0) {
 } else {
     while ($row = $result->fetch_assoc()) {
         // Build human-readable dateRange
-        if (!empty($row['startdate']) && !empty($row['enddate'])) {
+        if (!empty($row['startdate']) && !empty($row['enddate']) && 
+            $row['startdate'] != '0000-00-00' && $row['enddate'] != '0000-00-00' &&
+            strtotime($row['startdate']) > 0 && strtotime($row['enddate']) > 0) {
             $dateRange = date("F j, Y", strtotime($row['startdate']))
                        . " to " . date("F j, Y", strtotime($row['enddate']));
         } elseif (!empty($row['specific_dates'])) {
@@ -193,7 +195,7 @@ if ($result->num_rows === 0) {
         }
 
         // Handle the date of filing - FIX for empty date values
-        $dateOfFiling = !empty($row['dateapplied']) && $row['dateapplied'] != '0000-00-00' ? 
+        $dateOfFiling = !empty($row['dateapplied']) && $row['dateapplied'] != '0000-00-00' && $row['dateapplied'] != 'NULL' && strtotime($row['dateapplied']) > 0 ? 
             date("F j, Y", strtotime($row['dateapplied'])) : 'No Record';
 
         // Current position
