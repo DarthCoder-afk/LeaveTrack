@@ -111,7 +111,7 @@ if ($fetchAll) {
                t.enddate,
                t.specific_dates
           FROM travelorder t
-          JOIN employee e ON t.employee_id = e.employee_id
+          JOIN employee e ON t.emp_index = e.indexno
          ORDER BY COALESCE(t.startdate,
                            STR_TO_DATE(SUBSTRING_INDEX(t.specific_dates, ',', 1), '%Y-%m-%d')
                           ) ASC
@@ -128,7 +128,7 @@ if ($fetchAll) {
                t.enddate,
                t.specific_dates
           FROM travelorder t
-          JOIN employee e ON t.employee_id = e.employee_id
+          JOIN employee e ON t.emp_index = e.indexno
          WHERE (t.startdate BETWEEN ? AND ?)
             OR (t.enddate BETWEEN ? AND ?)
             OR (t.startdate <= ? AND t.enddate >= ?)
