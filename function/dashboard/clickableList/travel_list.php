@@ -22,14 +22,19 @@ function formatDateSafe($date) {
 $currentMonth = date('m');
 $currentYear = date('Y');
 
-// Query to fetch travel orders for the current month using indexno
+// Use LEFT JOIN and fallback for deleted employees
 $query = "
-    SELECT e.indexno, e.employee_id, 
-           CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')) AS full_name, 
-           l.purpose, l.destination, l.dateapplied,
-           l.startdate, l.enddate, l.specific_dates
+    SELECT 
+        l.employee_id, 
+        COALESCE(CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')), 'Deleted Employee') AS full_name, 
+        l.purpose, 
+        l.destination, 
+        l.dateapplied,
+        l.startdate, 
+        l.enddate, 
+        l.specific_dates
     FROM travelorder l 
-    JOIN employee e ON e.indexno = l.emp_index
+    LEFT JOIN employee e ON e.indexno = l.emp_index
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
     ORDER BY l.dateapplied ASC
 ";
@@ -53,7 +58,7 @@ if (!$result) {
 }
 
 while ($row = $result->fetch_assoc()) {
-    echo "<tr data-indexno='" . htmlspecialchars($row['indexno']) . "'>";
+    echo "<tr data-employee-id='" . htmlspecialchars($row['employee_id']) . "'>";
     echo "<td>" . htmlspecialchars($row['employee_id']) . "</td>";
     echo "<td>" . htmlspecialchars($row['full_name']) . "</td>";
     echo "<td style='white-space: normal; word-wrap: break-word; word-break: break-word;'>" . htmlspecialchars($row['purpose']) . "</td>";
@@ -68,8 +73,7 @@ while ($row = $result->fetch_assoc()) {
     if (!empty($row['specific_dates'])) {
         $rawDates = preg_split('/[\n,]+/', $row['specific_dates']);
         $dateObjects = [];
-    
-        // Convert to DateTime and filter out invalid dates
+
         foreach ($rawDates as $dateStr) {
             $dateStr = trim($dateStr);
             if (!empty($dateStr)) {
@@ -79,13 +83,11 @@ while ($row = $result->fetch_assoc()) {
                 }
             }
         }
-    
-        // Sort dates
+
         usort($dateObjects, function ($a, $b) {
             return $a <=> $b;
         });
-    
-        // Output sorted dates
+
         echo "<td>";
         foreach ($dateObjects as $dateObj) {
             echo $dateObj->format("F j, Y") . "<br>";
@@ -94,7 +96,6 @@ while ($row = $result->fetch_assoc()) {
     } else {
         echo "<td>N/A</td>";
     }
-    
 
     echo "</tr>";
 }
