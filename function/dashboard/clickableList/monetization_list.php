@@ -1,5 +1,5 @@
 <?php
-include '../database/db_connect.php'; // Include database connection
+include '../database/db_connect.php';
 
 // Helper to convert a date into readable text or show "N/A"
 function toTextDate($date) {
@@ -15,13 +15,18 @@ function toTextDate($date) {
     return $ts ? date("F j, Y", $ts) : htmlspecialchars($date);
 }
 
-// Query to fetch Monetization applications with employee full name using indexno
+// Updated query: LEFT JOIN and fallback to 'Deleted Employee'
 $query = "
-    SELECT e.indexno, e.employee_id, 
-           CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')) AS full_name, 
-           l.leavetype, l.dateapplied, l.startdate, l.enddate, l.specific_dates 
+    SELECT 
+        l.employee_id, 
+        COALESCE(CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')), 'Deleted Employee') AS full_name, 
+        l.leavetype, 
+        l.dateapplied, 
+        l.startdate, 
+        l.enddate, 
+        l.specific_dates 
     FROM leaveapplication l 
-    JOIN employee e ON e.indexno = l.emp_index
+    LEFT JOIN employee e ON e.indexno = l.emp_index
     WHERE l.leavetype = 'Monetization'
     ORDER BY l.dateapplied ASC
 ";
@@ -29,22 +34,21 @@ $query = "
 $result = $conn->query($query);
 
 while ($row = $result->fetch_assoc()) {
-    echo "<tr data-indexno='" . htmlspecialchars($row['indexno']) . "'>";
+    echo "<tr data-employee-id='" . htmlspecialchars($row['employee_id']) . "'>";
 
     echo "<td>" . htmlspecialchars($row['employee_id']) . "</td>";
     echo "<td>" . htmlspecialchars($row['full_name']) . "</td>";
     echo "<td>" . htmlspecialchars($row['leavetype']) . "</td>";
 
-    // Format individual date fields
     echo "<td>" . toTextDate($row['dateapplied']) . "</td>";
     echo "<td>" . toTextDate($row['startdate']) . "</td>";
     echo "<td>" . toTextDate($row['enddate']) . "</td>";
 
-    // Format specific_dates (line by line)
+    // Format specific_dates
     if (!empty($row['specific_dates'])) {
         $rawDates = preg_split('/[\n,]+/', $row['specific_dates']);
         $dateObjects = [];
-    
+
         foreach ($rawDates as $dateStr) {
             $dateStr = trim($dateStr);
             $timestamp = strtotime($dateStr);
@@ -52,10 +56,9 @@ while ($row = $result->fetch_assoc()) {
                 $dateObjects[] = $timestamp;
             }
         }
-    
-        // Sort timestamps
+
         sort($dateObjects);
-    
+
         echo "<td>";
         foreach ($dateObjects as $ts) {
             echo date("F j, Y", $ts) . "<br>";
@@ -64,7 +67,6 @@ while ($row = $result->fetch_assoc()) {
     } else {
         echo "<td>N/A</td>";
     }
-    
 
     echo "</tr>";
 }

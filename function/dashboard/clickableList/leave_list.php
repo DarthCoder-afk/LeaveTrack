@@ -5,12 +5,18 @@ $currentMonth = date('m');
 $currentYear = date('Y');
 
 $query = "
-    SELECT e.employee_id, 
-           CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')) AS full_name, 
-           l.leavetype, l.dateapplied, l.startdate, l.enddate, l.numofdays,
-           l.date_type, l.specific_dates
+    SELECT 
+        l.employee_id, 
+        COALESCE(CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')), 'Deleted Employee') AS full_name, 
+        l.leavetype, 
+        l.dateapplied, 
+        l.startdate, 
+        l.enddate, 
+        l.numofdays,
+        l.date_type, 
+        l.specific_dates
     FROM leaveapplication l 
-    JOIN employee e ON e.indexno = l.emp_index 
+    LEFT JOIN employee e ON e.indexno = l.emp_index 
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
     ORDER BY l.dateapplied ASC
 ";
@@ -28,7 +34,7 @@ function formatDate($date) {
 
 // Format number of days (e.g., 3.5 -> "3 days and half day")
 function formatNumberOfDays($days) {
-    $num = round(floatval($days), 2); // safely round to 2 decimal places
+    $num = round(floatval($days), 2);
     $wholeDays = floor($num);
     $fraction = $num - $wholeDays;
 
@@ -41,42 +47,32 @@ function formatNumberOfDays($days) {
     }
 }
 
-
 while ($row = $result->fetch_assoc()) {
     $start = formatDate($row['startdate']);
     $end = formatDate($row['enddate']);
     $applied = formatDate($row['dateapplied']);
 
-    // Format specific dates individually
+    // Format specific dates
     $specific = 'N/A';
     if (!empty($row['specific_dates'])) {
         $specificDatesArray = array_filter(array_map('trim', preg_split('/[\n,;]+/', $row['specific_dates'])));
-    
-        // Convert to DateTime objects, filter out invalid dates
         $dateObjects = array_filter(array_map(function ($dateStr) {
             $timestamp = strtotime($dateStr);
             return $timestamp ? new DateTime($dateStr) : null;
         }, $specificDatesArray));
-    
-        // Sort chronologically
         usort($dateObjects, function ($a, $b) {
             return $a <=> $b;
         });
-    
-        // Format back to string for display
         if (count($dateObjects)) {
             $specific = implode("<br>", array_map(function ($dateObj) {
                 return $dateObj->format('F j, Y');
             }, $dateObjects));
         }
     }
-    
 
-    // Always try to use numofdays if available
     $rawDays = is_numeric($row['numofdays']) ? floatval($row['numofdays']) : (
         isset($specificDatesArray) ? count($specificDatesArray) : 0
     );
-
 
     $formattedDays = formatNumberOfDays($rawDays);
 
