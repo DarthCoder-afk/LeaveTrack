@@ -7,7 +7,7 @@ $currentYear = date('Y');
 $query = "
     SELECT 
         l.employee_id, 
-        COALESCE(CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')), 'Deleted Employee') AS full_name, 
+        CONCAT(l.emp_lname, ', ', l.emp_fname, ' ', COALESCE(l.emp_extname, ''), ' ', COALESCE(l.emp_midname, '')) AS full_name, 
         l.leavetype, 
         l.dateapplied, 
         l.startdate, 
@@ -15,8 +15,7 @@ $query = "
         l.numofdays,
         l.date_type, 
         l.specific_dates
-    FROM leaveapplication l 
-    LEFT JOIN employee e ON e.indexno = l.emp_index 
+    FROM leaveapplication l
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
     ORDER BY l.dateapplied ASC
 ";

@@ -26,7 +26,7 @@ $currentYear = date('Y');
 $query = "
     SELECT 
         l.employee_id, 
-        COALESCE(CONCAT(e.lname, ', ', e.fname, ' ', COALESCE(e.extname, ''), ' ', COALESCE(e.midname, '')), 'Deleted Employee') AS full_name, 
+        CONCAT(l.emp_lname, ', ', l.emp_fname, ' ', COALESCE(l.emp_extname, ''), ' ', COALESCE(l.emp_midname, '')) AS full_name, 
         l.purpose, 
         l.destination, 
         l.dateapplied,
@@ -38,6 +38,7 @@ $query = "
     WHERE MONTH(l.dateapplied) = ? AND YEAR(l.dateapplied) = ?
     ORDER BY l.dateapplied ASC
 ";
+
 
 $stmt = $conn->prepare($query);
 
