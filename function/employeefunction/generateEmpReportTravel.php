@@ -2,14 +2,19 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-// Check if it's an "all records" request or specific date range
-$employee_id = $_GET['employee_id'] ?? die("Error: Missing employee ID.");
-$all = isset($_GET['all']) && $_GET['all'] === 'true';
+// Check if indexno is provided (it MUST be provided)
+if (!isset($_GET['indexno'])) {
+    die("Error: Missing employee index number.");
+}
+
+$indexno = $_GET['indexno'];
+$employee_id = $_GET['employee_id'] ?? null; // Optional now, as we'll rely on indexno
 
 // Initialize date range text variable
 $dateRangeText = '';
 
 // If it's not "all", then validate start and end dates
+$all = isset($_GET['all']) && $_GET['all'] === 'true';
 if (!$all) {
     if (!isset($_GET['start']) || !isset($_GET['end'])) {
         die("Error: Missing required date parameters.");
@@ -20,12 +25,6 @@ if (!$all) {
 } else {
     // For "all" reports, we don't need specific start/end dates
     $dateRangeText = 'All Records';
-}
-
-// Helper function to validate dates
-function validateDate($date, $format = 'Y-m-d') {
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) === $date;
 }
 
 class PDF extends FPDF {
@@ -48,9 +47,9 @@ class PDF extends FPDF {
         $this->SetFillColor(220, 220, 220);
         $this->Cell(10, 10, 'ID', 1, 0, 'C', true);
         $this->Cell(50, 10, 'Full Name', 1, 0, 'C', true);
-        $this->Cell(35, 10, 'Purpose', 1, 0, 'C', true);
-        $this->Cell(40, 10, 'Destination', 1, 0, 'C', true);
-        $this->Cell(55, 10, 'Dates', 1, 1, 'C', true);
+        $this->Cell(60, 10, 'Purpose', 1, 0, 'C', true);
+        $this->Cell(35, 10, 'Date of Filing', 1, 0, 'C', true);
+        $this->Cell(35, 10, 'Travel Date', 1, 1, 'C', true);
     }
 
     public function Footer() {
@@ -122,31 +121,37 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 11);
 $lineHeight = 6;
 
-// Modify the query based on whether it's "all" or specific dates
+// CRITICAL FIX: Use indexno to join tables and filter data
 if ($all) {
-    $stmt = $conn->prepare("
-        SELECT e.employee_id,
-               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+    // FIXED QUERY: Join using indexno as the key identifier
+    $query = "
+        SELECT e.employee_id, e.indexno,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.extname, ''), ' ', IFNULL(e.midname, '')) AS fullname,
                e.lname, e.fname,
                t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
         FROM travelorder t
-        JOIN employee e ON t.employee_id = e.employee_id
-        WHERE t.employee_id = ?
+        JOIN employee e ON t.emp_index = e.indexno
+        WHERE e.indexno = ?
         ORDER BY t.dateapplied ASC
-    ");
-    $stmt->bind_param("s", $employee_id);
+    ";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $indexno);
 } else {
-    $stmt = $conn->prepare("
-        SELECT e.employee_id,
-               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+    // FIXED QUERY: Join using indexno and filter by date range
+    $query = "
+        SELECT e.employee_id, e.indexno,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.extname, ''), ' ', IFNULL(e.midname, '')) AS fullname,
                e.lname, e.fname,
                t.purpose, t.destination, t.startdate, t.enddate, t.specific_dates, t.dateapplied
         FROM travelorder t
-        JOIN employee e ON t.employee_id = e.employee_id
-        WHERE t.dateapplied BETWEEN ? AND ? AND t.employee_id = ?
+        JOIN employee e ON t.emp_index = e.indexno
+        WHERE e.indexno = ? AND t.dateapplied BETWEEN ? AND ?
         ORDER BY t.dateapplied ASC
-    ");
-    $stmt->bind_param("sss", $start, $end, $employee_id);
+    ";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("iss", $indexno, $start, $end);
 }
 
 $stmt->execute();
@@ -165,26 +170,37 @@ if ($result->num_rows === 0) {
     $fullnameForFilename = preg_replace('/[^a-zA-Z0-9]/', '_', $firstRow['lname'] . '_' . $firstRow['fname']);
     $result->data_seek(0); // Reset
 
+    // Process each row
     while ($row = $result->fetch_assoc()) {
-        $dateRange = 'N/A';
+        $travelDate = 'N/A';
+        $dateApplied = 'No Record';
 
-        if (validateDate($row['startdate']) && validateDate($row['enddate'])) {
-            $dateRange = date("F j, Y", strtotime($row['startdate'])) . " to " . date("F j, Y", strtotime($row['enddate']));
+        // Format date of filing
+        if (!empty($row['dateapplied']) && 
+            $row['dateapplied'] != '0000-00-00' && 
+            $row['dateapplied'] != 'NULL' &&  
+            strtotime($row['dateapplied']) > 0) {
+            $dateApplied = date("F j, Y", strtotime($row['dateapplied']));
+        }
+
+        // Format travel date(s)
+        if (!empty($row['startdate']) && !empty($row['enddate']) && 
+            $row['startdate'] != '0000-00-00' && $row['enddate'] != '0000-00-00' &&
+            strtotime($row['startdate']) > 0 && strtotime($row['enddate']) > 0) {
+            $travelDate = date("F j, Y", strtotime($row['startdate'])) . " to " . date("F j, Y", strtotime($row['enddate']));
         } elseif (!empty($row['specific_dates'])) {
             $dates = preg_split('/[\n,]+/', $row['specific_dates']);
             $cleanDates = [];
 
             foreach ($dates as $date) {
-                $date = trim($date);
-                if (validateDate($date)) {
-                    $cleanDates[] = strtotime($date);
-                }
+                $ts = strtotime(trim($date));
+                if ($ts && $ts > 0) $cleanDates[] = $ts;
             }
 
-            sort($cleanDates);
-            $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
-            if (!empty($formatted)) {
-                $dateRange = implode(", ", $formatted);
+            if (!empty($cleanDates)) {
+                sort($cleanDates);
+                $formatted = array_map(fn($ts) => date("F j, Y", $ts), $cleanDates);
+                $travelDate = implode(", ", $formatted);
             }
         }
 
@@ -192,10 +208,10 @@ if ($result->num_rows === 0) {
             $row['employee_id'],
             utf8_decode($row['fullname']),
             $row['purpose'],
-            $row['destination'],
-            $dateRange
+            $dateApplied,
+            $travelDate
         ];
-        $widths = [10, 50, 35, 40, 55];
+        $widths = [10, 50, 60, 35, 35];
 
         $pdf->drawMultiRow($data, $widths, $lineHeight);
     }
@@ -203,9 +219,9 @@ if ($result->num_rows === 0) {
 
 // Create filename based on whether it's "all" or date range
 if ($all) {
-    $filename = 'TRAVEL_ORDER_' . $fullnameForFilename . '_ALL_RECORDS.pdf';
+    $filename = 'TRAVEL_ORDERS_' . $fullnameForFilename . '_ALL_RECORDS.pdf';
 } else {
-    $filename = 'TRAVEL_ORDER_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
+    $filename = 'TRAVEL_ORDERS_' . $fullnameForFilename . '_' . $start . '_to_' . $end . '.pdf';
 }
 
 $pdf->Output('D', $filename);

@@ -262,14 +262,15 @@ document.getElementById("generateAllReports").addEventListener("change", functio
     }
 });
 
-// Generate report with proper validation and fixed modal behavior
+// Modified code for the Generate Report button click handler
 document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", function() {
     const empId = document.getElementById("employeeIdHidden").value;
+    const indexNo = document.getElementById("indexNoHidden").value; // Get the index number
     const isAllReports = document.getElementById("generateAllReports").checked;
     const reportType = document.getElementById("reportType").value;
     
-    if (!empId) {
-        alert("Employee ID not found.");
+    if (!indexNo) {
+        alert("Employee information not found. Missing index number.");
         return;
     }
     
@@ -284,22 +285,22 @@ document.getElementById("generateEmpLeaveReportBtn").addEventListener("click", f
             return; // Important: Return early to prevent further execution
         }
         
-        // Generate report with date range
+        // Generate report with date range - ALWAYS use indexno as the primary identifier
         let url = "";
         if (reportType === "leave") {
-            url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&start=${start}&end=${end}`;
+            url = `../function/employeefunction/generateEmpReport.php?indexno=${indexNo}&employee_id=${empId}&start=${start}&end=${end}`;
         } else if (reportType === "travel") {
-            url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&start=${start}&end=${end}`;
+            url = `../function/employeefunction/generateEmpReportTravel.php?indexno=${indexNo}&employee_id=${empId}&start=${start}&end=${end}`;
         }
         
         window.open(url, '_blank');
     } else {
-        // Generate report with all records
+        // Generate report with all records - ALWAYS use indexno as the primary identifier
         let url = "";
         if (reportType === "leave") {
-            url = `../function/employeefunction/generateEmpReport.php?employee_id=${empId}&all=true`;
+            url = `../function/employeefunction/generateEmpReport.php?indexno=${indexNo}&employee_id=${empId}&all=true`;
         } else if (reportType === "travel") {
-            url = `../function/employeefunction/generateEmpReportTravel.php?employee_id=${empId}&all=true`;
+            url = `../function/employeefunction/generateEmpReportTravel.php?indexno=${indexNo}&employee_id=${empId}&all=true`;
         }
         
         window.open(url, '_blank');

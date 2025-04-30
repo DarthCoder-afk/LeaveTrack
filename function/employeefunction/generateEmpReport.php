@@ -2,14 +2,19 @@
 require('../../libraries/fpdf.php');
 require('../../database/db_connect.php');
 
-// Check if it's an "all records" request or specific date range
-$employee_id = $_GET['employee_id'] ?? die("Error: Missing employee ID.");
-$all = isset($_GET['all']) && $_GET['all'] === 'true';
+// Check if indexno is provided (it MUST be provided)
+if (!isset($_GET['indexno'])) {
+    die("Error: Missing employee index number.");
+}
+
+$indexno = $_GET['indexno'];
+$employee_id = $_GET['employee_id'] ?? null; // Optional now, as we'll rely on indexno
 
 // Initialize date range text variable
 $dateRangeText = '';
 
 // If it's not "all", then validate start and end dates
+$all = isset($_GET['all']) && $_GET['all'] === 'true';
 if (!$all) {
     if (!isset($_GET['start']) || !isset($_GET['end'])) {
         die("Error: Missing required date parameters.");
@@ -116,31 +121,39 @@ $pdf->AddPage();
 $pdf->SetFont('Arial', '', 11);
 $lineHeight = 6;
 
-// Modify the query based on whether it's "all" or specific dates
+// CRITICAL FIX: Use indexno to join tables and filter data
+// We need to check the correct column names in both tables
+
 if ($all) {
-    $stmt = $conn->prepare("
-        SELECT e.employee_id,
-               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+    // FIXED QUERY: Join using indexno as the key identifier
+    $query = "
+        SELECT e.employee_id, e.indexno,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.extname, ''), ' ', IFNULL(e.midname, '')) AS fullname,
                e.lname, e.fname,
                l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
         FROM leaveapplication l
-        JOIN employee e ON l.employee_id = e.employee_id
-        WHERE l.employee_id = ?
+        JOIN employee e ON l.emp_index = e.indexno
+        WHERE e.indexno = ?
         ORDER BY l.dateapplied ASC
-    ");
-    $stmt->bind_param("s", $employee_id);
+    ";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("i", $indexno);
 } else {
-    $stmt = $conn->prepare("
-        SELECT e.employee_id,
-               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.midname, '')) AS fullname,
+    // FIXED QUERY: Join using indexno and filter by date range
+    $query = "
+        SELECT e.employee_id, e.indexno,
+               CONCAT(e.lname, ', ', e.fname, ' ', IFNULL(e.extname, ''), ' ', IFNULL(e.midname, '')) AS fullname,
                e.lname, e.fname,
                l.leavetype, l.startdate, l.enddate, l.specific_dates, l.dateapplied
         FROM leaveapplication l
-        JOIN employee e ON l.employee_id = e.employee_id
-        WHERE l.dateapplied BETWEEN ? AND ? AND l.employee_id = ?
+        JOIN employee e ON l.emp_index = e.indexno
+        WHERE e.indexno = ? AND l.dateapplied BETWEEN ? AND ?
         ORDER BY l.dateapplied ASC
-    ");
-    $stmt->bind_param("sss", $start, $end, $employee_id);
+    ";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("iss", $indexno, $start, $end);
 }
 
 $stmt->execute();
@@ -159,7 +172,7 @@ if ($result->num_rows === 0) {
     $fullnameForFilename = preg_replace('/[^a-zA-Z0-9]/', '_', $firstRow['lname'] . '_' . $firstRow['fname']);
     $result->data_seek(0); // Reset
 
-    // Update the date handling in generateEmpReport.php
+    // Process each row
     while ($row = $result->fetch_assoc()) {
         $dateRange = 'N/A';
         $dateApplied = 'No Record';
@@ -196,7 +209,7 @@ if ($result->num_rows === 0) {
             $row['employee_id'],
             utf8_decode($row['fullname']),
             $row['leavetype'],
-            $dateApplied,  // Use the new formatted date
+            $dateApplied,
             $dateRange
         ];
         $widths = [10, 60, 30, 35, 55];
