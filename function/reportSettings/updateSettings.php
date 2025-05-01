@@ -21,12 +21,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $logoPath = $existing['logo_path'];
     if (isset($_FILES['logo_file']) && $_FILES['logo_file']['error'] === UPLOAD_ERR_OK) {
-        $uploadDir = '../../img/';
+        // Use a simpler relative path structure
+        $uploadDir = '../img/';
+        
+        // Create directory if it doesn't exist
+        if (!is_dir($uploadDir)) {
+            mkdir($uploadDir, 0755, true);
+        }
+        
         $fileName = basename($_FILES['logo_file']['name']);
         $targetFilePath = $uploadDir . $fileName;
 
         if (move_uploaded_file($_FILES['logo_file']['tmp_name'], $targetFilePath)) {
-            $logoPath = $targetFilePath;
+            // Store the simpler relative path in database
+            $logoPath = '../img/' . $fileName;
         }
     }
 
