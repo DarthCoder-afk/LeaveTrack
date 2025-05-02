@@ -91,10 +91,11 @@ $pdf->Ln(8);
 function drawTravelHeader($pdf) {
     $pdf->SetFont('Arial','B',12);
     $pdf->Cell(15,10,'ID',1,0,'C');
-    $pdf->Cell(45,10,'Full Name',1,0,'C');
-    $pdf->Cell(40,10,'Purpose',1,0,'C');
-    $pdf->Cell(40,10,'Destination',1,0,'C');
-    $pdf->Cell(50,10,'Date',1,1,'C'); // <- Date column changed from 60 to 50
+    $pdf->Cell(40,10,'Full Name',1,0,'C');
+    $pdf->Cell(35,10,'Purpose',1,0,'C');
+    $pdf->Cell(35,10,'Destination',1,0,'C');
+    $pdf->Cell(30,10,'Date of Filing',1,0,'C'); // New column for Date Applied
+    $pdf->Cell(35,10,'Travel Date',1,1,'C'); // Renamed from "Date" to "Travel Date"
     $pdf->SetFont('Arial','',12);
 }
 
@@ -107,14 +108,13 @@ if ($fetchAll) {
                CONCAT(e.lname,', ',e.fname,' ',e.midname) AS fullname,
                t.purpose,
                t.destination,
+               t.dateapplied,
                t.startdate,
                t.enddate,
                t.specific_dates
           FROM travelorder t
           JOIN employee e ON t.emp_index = e.indexno
-         ORDER BY COALESCE(t.startdate,
-                           STR_TO_DATE(SUBSTRING_INDEX(t.specific_dates, ',', 1), '%Y-%m-%d')
-                          ) ASC
+         ORDER BY t.dateapplied DESC
     ";
     $stmt = $conn->prepare($query);
     $stmt->execute();
@@ -124,21 +124,17 @@ if ($fetchAll) {
                CONCAT(e.lname,', ',e.fname,' ',e.midname) AS fullname,
                t.purpose,
                t.destination,
+               t.dateapplied,
                t.startdate,
                t.enddate,
                t.specific_dates
           FROM travelorder t
           JOIN employee e ON t.emp_index = e.indexno
-         WHERE (t.startdate BETWEEN ? AND ?)
-            OR (t.enddate BETWEEN ? AND ?)
-            OR (t.startdate <= ? AND t.enddate >= ?)
-            OR (t.specific_dates IS NOT NULL AND t.specific_dates <> '')
-         ORDER BY COALESCE(t.startdate,
-                           STR_TO_DATE(SUBSTRING_INDEX(t.specific_dates, ',', 1), '%Y-%m-%d')
-                          ) ASC
+         WHERE t.dateapplied BETWEEN ? AND ?
+         ORDER BY t.dateapplied DESC
     ";
     $stmt = $conn->prepare($query);
-    $stmt->bind_param('ssssss', $start, $end, $start, $end, $end, $start);
+    $stmt->bind_param('ss', $start, $end);
     $stmt->execute();
 }
 
@@ -173,16 +169,22 @@ while ($row = $result->fetch_assoc()) {
     } else {
         $dateRange = 'No Record';
     }
+    
+    // Format date_applied
+    $dateApplied = !empty($row['dateapplied']) && $row['dateapplied'] != '0000-00-00' 
+                 ? date('F j, Y', strtotime($row['dateapplied'])) 
+                 : 'No Record';
 
     $x = $pdf->GetX();
     $y = $pdf->GetY();
 
-    $hId   = $pdf->GetMultiCellHeight(15, $lineHeight, $row['employee_id']);
-    $hName = $pdf->GetMultiCellHeight(45, $lineHeight, $row['fullname']);
-    $hPurp = $pdf->GetMultiCellHeight(40, $lineHeight, $row['purpose']);
-    $hDest = $pdf->GetMultiCellHeight(40, $lineHeight, $row['destination']);
-    $hDate = $pdf->GetMultiCellHeight(50, $lineHeight, $dateRange); // <- updated width here too
-    $rowH  = max($hId, $hName, $hPurp, $hDest, $hDate);
+    $hId     = $pdf->GetMultiCellHeight(15, $lineHeight, $row['employee_id']);
+    $hName   = $pdf->GetMultiCellHeight(40, $lineHeight, $row['fullname']);
+    $hPurp   = $pdf->GetMultiCellHeight(35, $lineHeight, $row['purpose']);
+    $hDest   = $pdf->GetMultiCellHeight(35, $lineHeight, $row['destination']);
+    $hDateAp = $pdf->GetMultiCellHeight(30, $lineHeight, $dateApplied);
+    $hDate   = $pdf->GetMultiCellHeight(35, $lineHeight, $dateRange);
+    $rowH    = max($hId, $hName, $hPurp, $hDest, $hDateAp, $hDate);
 
     if ($y + $rowH > $pdf->GetPageHeight() - $bottomMargin) {
         $pdf->AddPage();
@@ -190,17 +192,19 @@ while ($row = $result->fetch_assoc()) {
         $y = $pdf->GetY();
     }
 
-    $pdf->Rect($x,     $y, 15, $rowH);
-    $pdf->Rect($x+15,  $y, 45, $rowH);
-    $pdf->Rect($x+60,  $y, 40, $rowH);
-    $pdf->Rect($x+100, $y, 40, $rowH);
-    $pdf->Rect($x+140, $y, 50, $rowH);
+    $pdf->Rect($x,      $y, 15, $rowH);
+    $pdf->Rect($x+15,   $y, 40, $rowH);
+    $pdf->Rect($x+55,   $y, 35, $rowH);
+    $pdf->Rect($x+90,   $y, 35, $rowH);
+    $pdf->Rect($x+125,  $y, 30, $rowH);
+    $pdf->Rect($x+155,  $y, 35, $rowH);
 
-    $pdf->SetXY($x,     $y); $pdf->MultiCell(15, $lineHeight, $row['employee_id'], 0, 'C');
-    $pdf->SetXY($x+15,  $y); $pdf->MultiCell(45, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
-    $pdf->SetXY($x+60,  $y); $pdf->MultiCell(40, $lineHeight, $row['purpose'] ?: 'No Record', 0, 'C');
-    $pdf->SetXY($x+100, $y); $pdf->MultiCell(40, $lineHeight, $row['destination'] ?: 'No Record', 0, 'C');
-    $pdf->SetXY($x+140, $y); $pdf->MultiCell(50, $lineHeight, $dateRange, 0, 'C');
+    $pdf->SetXY($x,      $y); $pdf->MultiCell(15, $lineHeight, $row['employee_id'], 0, 'C');
+    $pdf->SetXY($x+15,   $y); $pdf->MultiCell(40, $lineHeight, utf8_decode($row['fullname']), 0, 'C');
+    $pdf->SetXY($x+55,   $y); $pdf->MultiCell(35, $lineHeight, $row['purpose'] ?: 'No Record', 0, 'C');
+    $pdf->SetXY($x+90,   $y); $pdf->MultiCell(35, $lineHeight, $row['destination'] ?: 'No Record', 0, 'C');
+    $pdf->SetXY($x+125,  $y); $pdf->MultiCell(30, $lineHeight, $dateApplied, 0, 'C');
+    $pdf->SetXY($x+155,  $y); $pdf->MultiCell(35, $lineHeight, $dateRange, 0, 'C');
 
     $pdf->SetY($y + $rowH);
 }
