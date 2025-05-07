@@ -211,11 +211,11 @@ include '../auth/auth.php'; // Ensure authentication
                                         <tr>
                                             <th>ID Number</th>
                                             <th>Full Name</th> 
-                                            <th>Leave Type</th>
                                             <th>Date of Filing</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>
                                             <th>Specific Dates</th>
+                                            <th>No. of Days</th>
                                         </tr>
                                     </thead>
                                     <tbody>
