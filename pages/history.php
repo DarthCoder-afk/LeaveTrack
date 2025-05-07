@@ -47,7 +47,7 @@ include '../auth/auth.php'; // Ensure authentication
               <div class="col-lg-12">
                 <div class="card mb-4">
                   <div class="table-responsive p-4">
-                    <table class="table align-items-center table-hover" id="dataTableHover">
+                    <table class="table align-items-center table-hover" id="dataTable2">
                       <thead class="thead-light text-center">
                         <tr>
                           <th>No.</th>

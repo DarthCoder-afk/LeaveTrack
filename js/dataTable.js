@@ -37,4 +37,8 @@ $(document).ready(function() {
       "emptyTable": "No leave applications found"
     }
   });
+
+  $('#dataTable2').DataTable({
+   
+  });
 });

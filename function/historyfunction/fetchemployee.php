@@ -12,7 +12,7 @@
                          
                 <div class="modal-body p-4" style="background: #f8f9fa;">
                     <div class="table-responsive">
-                        <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;" id="dataTable">
+                        <table class="table table-hover table-striped text-center border rounded" style="border-radius: 10px; overflow: hidden;" id="dataTable2">
                             <thead class="thead-dark">
                                 <tr>
                                 <th>ID No.</th>
